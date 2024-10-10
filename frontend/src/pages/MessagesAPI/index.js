@@ -129,6 +129,7 @@ const MessagesAPI = () => {
                   margin="dense"
                   fullWidth
                   className={classes.textField}
+                  style={{ backgroundColor: '#f0f0f0' }}
                   required
                 />
               </Grid>
@@ -142,6 +143,7 @@ const MessagesAPI = () => {
                   margin="dense"
                   fullWidth
                   className={classes.textField}
+                  style={{ backgroundColor: '#f0f0f0' }}
                   required
                 />
               </Grid>
@@ -155,6 +157,7 @@ const MessagesAPI = () => {
                   margin="dense"
                   fullWidth
                   className={classes.textField}
+                  style={{ backgroundColor: '#f0f0f0' }}
                   required
                 />
               </Grid>
@@ -209,6 +212,7 @@ const MessagesAPI = () => {
                   margin="dense"
                   fullWidth
                   className={classes.textField}
+                  style={{ backgroundColor: '#f0f0f0' }}
                   required
                 />
               </Grid>
@@ -222,17 +226,41 @@ const MessagesAPI = () => {
                   margin="dense"
                   fullWidth
                   className={classes.textField}
+                  style={{ backgroundColor: '#f0f0f0' }}
                   required
                 />
               </Grid>
               <Grid item xs={12}>
-                <input type="file" name="medias" id="medias" required onChange={(e) => setFile(e.target.files)} />
+                <input type="file" name="medias" id="medias" required onChange={(e) => setFile(e.target.files)}
+                variant="outlined"
+                component="span"
+               
+                style={{display:'none'}}
+                
+                />
+                 <label htmlFor="medias" style={{ display: 'block', cursor: 'pointer' }}>
+      <Button
+      variant="outlined"
+      style={{
+        fontWeight: 'bold',
+        backgroundColor: '#0C2454', // Cor de fundo
+        padding: '10px 20px', // Padding do botão
+        color: '#ffffff', // Cor do texto
+        border: '1px solid #ccc', // Cor da borda
+        marginTop: '16px', // Adicione margem superior
+        borderRadius: '4px', // Raio da borda
+      }}
+    >
+      {file && file.length > 0 ? file[0].name : 'Escolher arquivo'} {/* Nome do arquivo ou texto padrão */}
+    </Button>
+  </label>
               </Grid>
               <Grid item xs={12} className={classes.textRight}>
                 <Button
                   type="submit"
                   color="primary"
                   variant="contained"
+                  style={{marginTop:'0px'}}
                   className={classes.btnWrapper}
                 >
                   {isSubmitting ? (
@@ -257,13 +285,16 @@ const MessagesAPI = () => {
       // className={classes.elementMargin}
       variant="outlined"
     >
-      <Typography variant="h5">
+       <Typography variant="h3" color="primary">
+        API
+      </Typography>
+      <Typography variant="h5" color="primary">
         Documentação para envio de mensagens
       </Typography>
       <Typography variant="h6" color="primary" className={classes.elementMargin}>
         Métodos de Envio
       </Typography>
-      <Typography component="div">
+      <Typography component="div" color="primary">
         <ol>
           <li>Mensagens de Texto</li>
           <li>Mensagens de Media</li>
@@ -272,7 +303,7 @@ const MessagesAPI = () => {
       <Typography variant="h6" color="primary" className={classes.elementMargin}>
         Instruções
       </Typography>
-      <Typography className={classes.elementMargin} component="div">
+      <Typography className={classes.elementMargin} component="div" color="primary">
         <b>Observações importantes</b><br />
         <ul>
           <li>Antes de enviar mensagens, é necessário o cadastro do token vinculado à conexão que enviará as mensagens. <br />Para realizar o cadastro acesse o menu "Conexões", clique no botão editar da conexão e insira o token no devido campo.</li>
@@ -291,7 +322,7 @@ const MessagesAPI = () => {
       </Typography>
       <Grid container>
         <Grid item xs={12} sm={6}>
-          <Typography className={classes.elementMargin} component="div">
+          <Typography className={classes.elementMargin} component="div" color="primary">
             <p>Seguem abaixo a lista de informações necessárias para envio das mensagens de texto:</p>
             <b>Endpoint: </b> {getEndpoint()} <br />
             <b>Método: </b> POST <br />
@@ -300,7 +331,7 @@ const MessagesAPI = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography className={classes.elementMargin}>
+          <Typography className={classes.elementMargin} color="primary">
             <b>Teste de Envio</b>
           </Typography>
           {renderFormMessageText()}
@@ -311,24 +342,24 @@ const MessagesAPI = () => {
       </Typography>
       <Grid container>
         <Grid item xs={12} sm={6}>
-          <Typography className={classes.elementMargin} component="div">
-            <p>Seguem abaixo a lista de informações necessárias para envio das mensagens de texto:</p>
-            <b>Endpoint: </b> {getEndpoint()} <br />
-            <b>Método: </b> POST <br />
-            <b>Headers: </b> Authorization (Bearer token) e Content-Type (multipart/form-data) <br />
-            <b>FormData: </b> <br />
+          <Typography className={classes.elementMargin} component="div" color="primary">
+            <p color="primary">Seguem abaixo a lista de informações necessárias para envio das mensagens de texto:</p>
+            <b color="primary">Endpoint: </b> {getEndpoint()} <br />
+            <b color="primary">Método: </b> POST <br />
+            <b color="primary">Headers: </b> Authorization (Bearer token) e Content-Type (multipart/form-data) <br />
+            <b color="primary">FormData: </b> <br />
             <ul>
               <li>
-                <b>number: </b> 5599999999999
+                <b color="primary">number: </b> 5599999999999
               </li>
               <li>
-                <b>medias: </b> arquivo
+                <b color="primary">medias: </b> arquivo
               </li>
             </ul>
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography className={classes.elementMargin}>
+          <Typography className={classes.elementMargin} color="primary">
             <b>Teste de Envio</b>
           </Typography>
           {renderFormMessageMedia()}
