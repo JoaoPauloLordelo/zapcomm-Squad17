@@ -24,7 +24,7 @@ const messages = {
           password: "Senha",
         },
         buttons: {
-          submit: "Entrar",
+          submit: "Login",
           register: "Registre-se, agora mesmo!",
         },
       },
