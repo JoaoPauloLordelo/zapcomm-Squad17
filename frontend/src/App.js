@@ -48,10 +48,11 @@ const App = () => {
                 "&::-webkit-scrollbar-thumb": {
                     backgroundColor: mode === "light" ? "#F3F3F3" : "#333333",
                 },
+                
             },
             palette: {
                 type: mode,
-                primary: { main: mode === "light" ? "#682EE3" : "#FFFFFF" },
+                primary: { main: mode === "light" ? "#0C2454" : "#FFFFFF" },
                 textPrimary: mode === "light" ? "#682EE3" : "#FFFFFF",
                 borderPrimary: mode === "light" ? "#682EE3" : "#FFFFFF",
                 dark: { main: mode === "light" ? "#333333" : "#F3F3F3" },
@@ -80,6 +81,7 @@ const App = () => {
 				mediainput: mode === "light" ? "#ededed" : "#1c1c1c",
             },
             mode,
+            
         },
         locale
     );
