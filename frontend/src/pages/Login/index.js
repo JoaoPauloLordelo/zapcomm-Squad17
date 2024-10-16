@@ -17,6 +17,12 @@ import { AuthContext } from "../../context/Auth/AuthContext";
 import logo from "../../assets/logo.png";
 import efeito1 from "../../assets/efeito1.png";
 import efeito3 from "../../assets/efeito3.png";
+import {
+	FormControl,
+	InputLabel,
+	MenuItem,
+	Select,
+} from "@material-ui/core";
 
 const Copyright = () => {
 	return (
@@ -124,7 +130,8 @@ const useStyles = makeStyles(theme => ({
 		backgroundColor: '#0c2c54',
 		border: '0',
 		borderRadius: '8px',
-		height: '45px'
+		height: '45px',
+		marginTop: '0px'
 	
 	},
 
@@ -133,7 +140,8 @@ const useStyles = makeStyles(theme => ({
 		backgroundColor: '#0c2c54',
 		border: '0',
 		borderRadius: '8px',
-		height: '45px'
+		height: '45px',
+		marginTop: '0px'
 	},
 
 	texto01: {
@@ -149,7 +157,14 @@ const useStyles = makeStyles(theme => ({
 		marginTop: '40px',
 		paddingLeft: '0',
 
-	}
+	},
+	ilname: {
+		color:'#0c2c54', 
+		fontWeight: '600',
+		width: '50px',
+		marginLeft: '170px', 
+		marginTop: '16px'
+	},
 }));
 
 const Login = () => {
@@ -190,6 +205,7 @@ const Login = () => {
 					{i18n.t("login.title")}
 				</Typography>*/}
 				<form className={classes.form} noValidate onSubmit={handlSubmit}>
+				<InputLabel htmlFor="plan-selection" className={classes.ilname}>Email</InputLabel>
 					<TextField 
 						margin="normal"
 						id="email"
@@ -202,7 +218,7 @@ const Login = () => {
 						autoFocus
 						className={classes.inp1}
 							/><br/>
-				
+				<InputLabel htmlFor="plan-selection" className={classes.ilname}>Senha</InputLabel>
 					<TextField
 						className={classes.inp2}
 						//variant="outlined" deixa contornado essa variant
