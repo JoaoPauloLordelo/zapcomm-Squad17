@@ -297,10 +297,16 @@ const MainListItems = (props) => {
       />
 
       <ListItemLink
+        to="/paginainicio"
+        primary={i18n.t("Página de Inicio")}
+        icon={<TableChartIcon />}
+      />
+      <ListItemLink
         to="/tickets"
         primary={i18n.t("mainDrawer.listItems.tickets")}
         icon={<WhatsAppIcon />}
       />
+      
 	  
 	{showKanban && (  
 	  <ListItemLink
@@ -309,8 +315,6 @@ const MainListItems = (props) => {
         icon={<TableChartIcon />}
       />
 	  )}
-
-
       <ListItemLink
         to="/quick-messages"
         primary={i18n.t("mainDrawer.listItems.quickMessages")}
