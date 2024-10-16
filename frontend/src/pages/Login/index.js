@@ -148,7 +148,7 @@ const useStyles = makeStyles(theme => ({
 	logozp: {
 		marginTop: '40px',
 		paddingLeft: '0',
-		marginRight: '400px'
+
 	}
 }));
 
@@ -181,7 +181,7 @@ const Login = () => {
 			</div>
 			<div className={classes.elipse}></div>
 			<div className={classes.logozpcm}>
-				<img className={classes.logozp} style={{paddingLeft: '0px',}}src={logo} alt="Whats"/>
+				<img className={classes.logozp} style={{marginLeft: '238px', left:'50%', transform:'translate(-50%)'}}src={logo} alt="Whats"/>
 			</div>
 			<div className={classes.paper}>				
 				<div classname={classes.texto01}><p style={{color:'#0c2c54', margin: '0px', fontSize:'64px',}}>Entrar</p></div>
@@ -218,17 +218,21 @@ const Login = () => {
 						autoComplete="current-password"
 					/><br/>
 					
-					{/* <Grid container justify="flex-end">
-					  <Grid item xs={6} style={{ textAlign: "right" }}>
-						<Link component={RouterLink} to="/forgetpsw" variant="body2">
+					{<Grid>
+					  <Grid item>
+						<Link 
+						component={RouterLink} 
+						to="/forgetpsw" 
+						variant="body2" 
+						style={{color:'#0c2c54',fontWeight:'600' }}>
 						  Esqueceu sua senha?
 						</Link>
 					  </Grid>
-					</Grid>*/}
+					</Grid>}
 					{ <Grid container>
 						<Grid item>
 							<Link
-								style={{ paddingLeft:'250px',color:'#0c2c54',fontWeight:'600'}}
+								style={{ paddingLeft:'250px',color:'#0c2c54',fontWeight:'600', marginTop: '10px'}}
 								href="#"
 								variant="body2"
 								component={RouterLink}
