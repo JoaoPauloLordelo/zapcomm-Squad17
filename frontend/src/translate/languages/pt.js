@@ -162,7 +162,7 @@ const messages = {
           deleted: "Contato excluído com sucesso!",
 		  deletedAll: "Todos contatos excluídos com sucesso!",
         },
-		  searchPlaceholder: "Pesquisar Arquivos",
+		  searchPlaceholder: "Pesquisar...",
           confirmationModal: {
           deleteTitle: "Deletar ",
           deleteAllTitle: "Deletar Todos",
