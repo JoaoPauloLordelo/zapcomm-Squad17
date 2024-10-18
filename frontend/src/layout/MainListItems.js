@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Link as RouterLink, useHistory } from "react-router-dom";
-
+import PaginaInicio from "../pages/PaginaInicio";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -405,6 +405,7 @@ const MainListItems = (props) => {
                 primary={i18n.t("mainDrawer.listItems.prompts")}
                 icon={<AllInclusive />}
               />
+              
             )}
             <ListItemLink
               to="/connections"
@@ -420,7 +421,11 @@ const MainListItems = (props) => {
               primary={i18n.t("mainDrawer.listItems.files")}
               icon={<AttachFile />}
             />
-                  
+                  <ListItemLink
+              to="/paginainicio"
+              primary={i18n.t("mainDrawer.listItems.files")}
+              icon={<AttachFile />}
+            /> 
                 </Collapse>
               </>
             )}
@@ -438,14 +443,12 @@ const MainListItems = (props) => {
               {i18n.t("mainDrawer.listItems.support")}
             </ListSubheader>
       
-
       <ListItemLink
         to="/tickets"
         primary={i18n.t("mainDrawer.listItems.tickets")}
         icon={<WhatsAppIcon />}
       />
       
-			
 	  <ListItemLink
         to="/helps"
         primary={i18n.t("mainDrawer.listItems.helps")}
@@ -491,8 +494,6 @@ const MainListItems = (props) => {
                 >
                   <List component="div" disablePadding>
                     
-                    
-                     
               <>
               {showKanban && (  
 	  <ListItemLink
@@ -545,20 +546,13 @@ const MainListItems = (props) => {
         primary={i18n.t("mainDrawer.listItems.quickMessages")}
         icon={<FlashOnIcon />}
       />
-	  
-	  
-     
-      
+	
 
       <ListItemLink
         to="/tags"
         primary={i18n.t("mainDrawer.listItems.tags")}
         icon={<LocalOfferIcon />}
       />
-
-     
-
-      
 
       <Can
         role={user.profile}
@@ -606,7 +600,6 @@ const MainListItems = (props) => {
                 >
                   <List component="div" disablePadding>
                     
-                    
                      
               <>
                 <ListItemLink
@@ -639,22 +632,13 @@ const MainListItems = (props) => {
                 </Collapse>
               </>
             )}
-            
-
-            
-           
-           
-           
-            
+   
             <ListItemLink
               to="/financeiro"
               primary={i18n.t("mainDrawer.listItems.financeiro")}
               icon={<LocalAtmIcon />}
             />
 
-
-			
-			
             {!collapsed && <React.Fragment>
               <Divider />
               {/* 
