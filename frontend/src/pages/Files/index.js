@@ -216,27 +216,41 @@ const FileLists = () => {
                 fileListId={selectedFileList && selectedFileList.id}
             />
             <MainHeader>
-                <Title>{i18n.t("files.title")} ({files.length})</Title>
+                <Title>
+                    
+                    {i18n.t("files.title")} ({files.length})</Title>
                 <MainHeaderButtonsWrapper>
+                    
+                    {/* Input Pesquisa */}
                     <TextField
+                        style={{backgroundColor: '#D9D9D9', borderRadius: '7px', paddingLeft: '6px'}}
                         placeholder={i18n.t("contacts.searchPlaceholder")}
                         type="search"
                         value={searchParam}
                         onChange={handleSearch}
                         InputProps={{
-                            startAdornment: (
+                            sx: {
+                                '& .MuiInputBase-input::placeholder': {
+                                    color: '#0C2454', // Cor desejada
+                                },
+                            },
+                            endAdornment: (
+                                
+                                // Icone Lupa
                                 <InputAdornment position="start">
-                                    <SearchIcon style={{ color: "gray" }} />
+                                    <SearchIcon style={{ color: "#0C2454" }} />
                                 </InputAdornment>
                             ),
                         }}
                     />
+                    
+                    {/* + Arquivo */}
                     <Button
                         variant="contained"
                         color="primary"
                         onClick={handleOpenFileListModal}
                     >
-                        {i18n.t("files.buttons.add")}
+                        {`+ ${i18n.t("fileModal.buttons.fileOptions")}`}
                     </Button>
                 </MainHeaderButtonsWrapper>
             </MainHeader>
@@ -248,8 +262,16 @@ const FileLists = () => {
                 <Table size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">{i18n.t("files.table.name")}</TableCell>
-                            <TableCell align="center">
+                            
+                            {/* Nome */}
+                            <TableCell 
+                                align="center"
+                                style={{color: '#0C2454', fontSize: '17px', fontWeight: 'bold'}}>{i18n.t("files.table.name")}</TableCell>
+                            
+                            {/* Ações */}
+                            <TableCell 
+                                style={{color: '#0C2454', fontSize: '17px', fontWeight: 'bold'}}
+                                align="center">
                                 {i18n.t("files.table.actions")}
                             </TableCell>
                         </TableRow>
@@ -257,16 +279,25 @@ const FileLists = () => {
                     <TableBody>
                         <>
                             {files.map((fileList) => (
-                                <TableRow key={fileList.id}>
-                                    <TableCell align="center">
+                                <TableRow 
+                                    style={{backgroundColor: '#D9D9D9', borderRadius: '7px'}}
+                                    key={fileList.id}>
+                                    <TableCell 
+                                        style={{color: '#0C2454', fontWeight: 'bold'}}
+                                        align="center">
                                         {fileList.name}
                                     </TableCell>
-                                    <TableCell align="center">
-                                        <IconButton size="small" onClick={() => handleEditFileList(fileList)}>
+                                    <TableCell align="center"
+                                            style={{color: '#0C2454', fontSize: '17px', fontWeight: 'bold'}}>
+                                        <IconButton 
+                                            style={{color: '#0C2454'}}
+                                            size="small" 
+                                            onClick={() => handleEditFileList(fileList)}>
                                             <EditIcon />
                                         </IconButton>
 
                                         <IconButton
+                                            style={{color: '#D3343E'}}
                                             size="small"
                                             onClick={(e) => {
                                                 setConfirmModalOpen(true);

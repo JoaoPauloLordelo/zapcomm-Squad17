@@ -13,6 +13,7 @@ import group264 from "../../assets/images/Group 264.png"
 import grupofraciobarraempe from "../../assets/images/grupofraciobarraempe.png"
 import chatfoto from "../../assets/images/chatfoto.png"
 import zIndex from "@material-ui/core/styles/zIndex";
+import MainContainer from "../../components/MainContainer";
 //import efeito1 from "../../assets/efeito1.png";
 const useStyles = makeStyles(theme => ({
   /*root: {
@@ -206,6 +207,9 @@ const useStyles = makeStyles(theme => ({
   grafico3: {
     marginLeft: '30px',
   },
+  fundobranco: {
+    paddingTop: '70px'
+  }
 
   
 }));

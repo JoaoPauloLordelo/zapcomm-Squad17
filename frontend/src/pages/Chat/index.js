@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     height: `calc(100% - 48px)`,
     overflowY: "hidden",
     border: "1px solid rgba(0, 0, 0, 0.12)",
+    paddingTop: '70px'
   },
   gridContainer: {
     flex: 1,

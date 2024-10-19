@@ -162,7 +162,7 @@ const messages = {
           deleted: "Contato excluído com sucesso!",
 		  deletedAll: "Todos contatos excluídos com sucesso!",
         },
-		  searchPlaceholder: "Pesquisar...",
+		  searchPlaceholder: "Pesquisar Arquivos",
           confirmationModal: {
           deleteTitle: "Deletar ",
           deleteAllTitle: "Deletar Todos",
@@ -491,7 +491,7 @@ const messages = {
         table: {
           name: "Nome",
           contacts: "Contatos",
-          actions: "Ação",
+          actions: "Ações",
         },
         toasts: {
           deleted: "Lista excluída com sucesso!",
@@ -882,10 +882,10 @@ const messages = {
           edit: "Editar lista de arquivos",
         },
         buttons: {
-          okAdd: "Salvar",
+          okAdd: "Adicionar",
           okEdit: "Editar",
           cancel: "Cancelar",
-          fileOptions: "Adicionar arquivo",
+          fileOptions: "Arquivo",
         },
         form: {
           name: "Nome da lista de arquivos",
