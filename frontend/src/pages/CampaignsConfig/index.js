@@ -143,7 +143,7 @@ const CampaignsConfig = () => {
         <Box className={classes.tabPanelsContainer}>
           <Grid spacing={2} container>
             <Grid xs={12} item>
-              <Typography component={"h3"} style={{color:"#0C2C4C", fontWeight: "bold"}}>Intervalos</Typography>
+              <Typography component={"h3"} style={{color:"#0C2C4C", fontWeight: "bold", fontSize: "22px"}}>Intervalos</Typography>
             </Grid>
             <Grid xs={12} md={4} item>
               <Typography variant="subtitle1" style={{color: "#0C2C4C", marginBottom: "8px", fontWeight: "bold"}}>
