@@ -46,9 +46,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1, 0), // Ajusta a margem para controlar a distância
   },
   searchField: {
-    backgroundColor: '#CCCCCC',
-    borderRadius: '4px',
-    border: '1px solid #CCCCCC',
+    backgroundColor: '#DFDFDF',
+    borderRadius: '12px',
+    border: '1px solid #DFDFDF',
   },
   searchFieldWidth: {
     width: '269px',

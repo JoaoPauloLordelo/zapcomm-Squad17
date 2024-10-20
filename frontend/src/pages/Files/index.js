@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
         flex: 1,
         padding: theme.spacing(1),
         overflowY: "scroll",
+        borderRadius: "16px",
         ...theme.scrollbarStyles,
     },
 }));
@@ -200,7 +201,13 @@ const FileLists = () => {
 
     return (
         <MainContainer>
-            <ConfirmationModal
+           
+            <Paper
+                className={classes.mainPaper}
+                variant="outlined"
+                onScroll={handleScroll}
+            >
+                <ConfirmationModal
                 title={deletingFileList && `${i18n.t("files.confirmationModal.deleteTitle")}`}
                 open={confirmModalOpen}
                 onClose={setConfirmModalOpen}
@@ -229,19 +236,27 @@ const FileLists = () => {
                         value={searchParam}
                         onChange={handleSearch}
                         InputProps={{
-                            sx: {
-                                '& .MuiInputBase-input::placeholder': {
-                                    color: '#0C2454', // Cor desejada
+                            disableUnderline: true, // remove a linha
+                            style: {
+                              color: '#0C2454',// cor do texto normal
+                              fontWeight: 'bold', // texto em negrito
+                            },
+                            inputProps: {
+                              style: {
+                                '&::placeholder': {
+                                  color: '#0C2454',
+                                  fontWeight: 'bold',
+                                  Opacity: 1, // cor do placeholder
+                                
                                 },
+                              },
                             },
                             endAdornment: (
-                                
-                                // Icone Lupa
-                                <InputAdornment position="start">
-                                    <SearchIcon style={{ color: "#0C2454" }} />
-                                </InputAdornment>
+                              <InputAdornment position="end">
+                                <SearchIcon style={{ color: '#0C2454' }} />
+                              </InputAdornment>
                             ),
-                        }}
+                          }}
                     />
                     
                     {/* + Arquivo */}
@@ -254,12 +269,7 @@ const FileLists = () => {
                     </Button>
                 </MainHeaderButtonsWrapper>
             </MainHeader>
-            <Paper
-                className={classes.mainPaper}
-                variant="outlined"
-                onScroll={handleScroll}
-            >
-                <Table size="small">
+                <Table size="small" style={{ borderCollapse: 'separate', borderSpacing: '0 10px' }}>
                     <TableHead>
                         <TableRow>
                             
@@ -279,35 +289,44 @@ const FileLists = () => {
                     <TableBody>
                         <>
                             {files.map((fileList) => (
-                                <TableRow 
-                                    style={{backgroundColor: '#D9D9D9', borderRadius: '7px'}}
-                                    key={fileList.id}>
-                                    <TableCell 
-                                        style={{color: '#0C2454', fontWeight: 'bold'}}
-                                        align="center">
-                                        {fileList.name}
-                                    </TableCell>
-                                    <TableCell align="center"
-                                            style={{color: '#0C2454', fontSize: '17px', fontWeight: 'bold'}}>
-                                        <IconButton 
-                                            style={{color: '#0C2454'}}
-                                            size="small" 
-                                            onClick={() => handleEditFileList(fileList)}>
-                                            <EditIcon />
-                                        </IconButton>
-
-                                        <IconButton
-                                            style={{color: '#D3343E'}}
-                                            size="small"
-                                            onClick={(e) => {
-                                                setConfirmModalOpen(true);
-                                                setDeletingFileList(fileList);
-                                            }}
-                                        >
-                                            <DeleteOutlineIcon />
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
+                               <TableRow style={{ backgroundColor: '#D9D9D9' }} key={fileList.id}>
+                               <TableCell 
+                                   style={{
+                                       color: '#0C2454', 
+                                       fontWeight: 'bold', 
+                                       borderRadius: '7px 0 0 7px', // Aplica border-radius apenas na esquerda
+                                       overflow: 'hidden' // Para evitar que o conteúdo transborde
+                                   }}
+                                   align="center">
+                                   {fileList.name}
+                               </TableCell>
+                               <TableCell 
+                                   align="center"
+                                   style={{
+                                       color: '#0C2454', 
+                                       fontSize: '17px', 
+                                       fontWeight: 'bold', 
+                                       borderRadius: '0 7px 7px 0', // Aplica border-radius apenas na direita
+                                       overflow: 'hidden' // Para evitar que o conteúdo transborde
+                                   }}>
+                                   <IconButton 
+                                       style={{ color: '#0C2454' }} 
+                                       size="small" 
+                                       onClick={() => handleEditFileList(fileList)}>
+                                       <EditIcon />
+                                   </IconButton>
+                           
+                                   <IconButton
+                                       style={{ color: '#D3343E' }} 
+                                       size="small" 
+                                       onClick={(e) => {
+                                           setConfirmModalOpen(true);
+                                           setDeletingFileList(fileList);
+                                       }}>
+                                       <DeleteOutlineIcon />
+                                   </IconButton>
+                               </TableCell>
+                           </TableRow>
                             ))}
                             {loading && <TableRowSkeleton columns={4} />}
                         </>
