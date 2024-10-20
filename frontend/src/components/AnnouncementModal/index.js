@@ -63,6 +63,22 @@ const useStyles = makeStyles((theme) => ({
     width: 20,
     height: 20,
   },
+  traco: {
+		height: '2px',
+		width: '100%',
+		backgroundColor: '#0C2454',
+		marginBottom: '20px',
+		marginTop: '20px',
+	},
+  formulario: {
+    marginLeft: '25px',
+    marginRight: '25px',
+  },
+  botoesdeinteracao: {
+		paddingRight:'0px',
+		paddingTop: '0px',
+		paddingBottom:'16px'
+	  }
 }));
 
 const AnnouncementSchema = Yup.object().shape({
@@ -180,7 +196,7 @@ const AnnouncementModal = ({ open, onClose, announcementId, reload }) => {
         fullWidth
         scroll="paper"
       >
-        <DialogTitle id="form-dialog-title">
+        <DialogTitle id="form-dialog-title" style={{color:"#0C2454", textAlign:'center', fontSize:'50px', paddingBottom: '0', fontWeight:'bold'}}>
           {announcementId
             ? `${i18n.t("announcements.dialog.edit")}`
             : `${i18n.t("announcements.dialog.add")}`}
@@ -205,8 +221,8 @@ const AnnouncementModal = ({ open, onClose, announcementId, reload }) => {
           }}
         >
           {({ touched, errors, isSubmitting, values }) => (
-            <Form>
-              <DialogContent dividers>
+            <Form className={classes.formulario}>
+              <div className={classes.traco}></div>
                 <Grid spacing={2} container>
                   <Grid xs={12} item>
                     <Field
@@ -247,9 +263,10 @@ const AnnouncementModal = ({ open, onClose, announcementId, reload }) => {
                         id="status"
                         name="status"
                         error={touched.status && Boolean(errors.status)}
+                        style={{color:'#0C2454', fontWeight:'600'}}
                       >
-                        <MenuItem value={true}>Ativo</MenuItem>
-                        <MenuItem value={false}>Inativo</MenuItem>
+                        <MenuItem value={true} style={{color:'#0C2454'}}>Ativo</MenuItem>
+                        <MenuItem value={false} style={{color:'#0C2454'}}>Inativo</MenuItem>
                       </Field>
                     </FormControl>
                   </Grid>
@@ -268,10 +285,11 @@ const AnnouncementModal = ({ open, onClose, announcementId, reload }) => {
                         id="priority"
                         name="priority"
                         error={touched.priority && Boolean(errors.priority)}
+                        style={{color:'#0C2454', fontWeight:'600'}}
                       >
-                        <MenuItem value={1}>Alta</MenuItem>
-                        <MenuItem value={2}>Média</MenuItem>
-                        <MenuItem value={3}>Baixa</MenuItem>
+                        <MenuItem value={1} style={{color:'#0C2454'}}>Alta</MenuItem>
+                        <MenuItem value={2} style={{color:'#0C2454'}}>Média</MenuItem>
+                        <MenuItem value={3} style={{color:'#0C2454'}}>Baixa</MenuItem>
                       </Field>
                     </FormControl>
                   </Grid>
@@ -289,26 +307,27 @@ const AnnouncementModal = ({ open, onClose, announcementId, reload }) => {
                     </Grid>
                   )}
                 </Grid>
-              </DialogContent>
-              <DialogActions>
+                <div className={classes.traco}></div>
+                <DialogActions className={classes.botoesdeinteracao}>
                 {!attachment && !announcement.mediaPath && (
                   <Button
                     color="primary"
                     onClick={() => attachmentFile.current.click()}
                     disabled={isSubmitting}
-                    variant="outlined"
+                    variant="contained"
                   >
-                    {i18n.t("announcements.dialog.buttons.attach")}
+                    {i18n.t("+ Arquivos")}
                   </Button>
                 )}
-                <Button
-                  onClick={handleClose}
-                  color="secondary"
-                  disabled={isSubmitting}
-                  variant="outlined"
-                >
-                  {i18n.t("announcements.dialog.buttons.cancel")}
-                </Button>
+                
+								<Button
+									onClick={handleClose}
+									color="secondary"
+									disabled={isSubmitting}
+									variant="contained"
+								>
+									<DeleteOutlineIcon style={{color: 'white'}} />
+								</Button>
                 <Button
                   type="submit"
                   color="primary"
