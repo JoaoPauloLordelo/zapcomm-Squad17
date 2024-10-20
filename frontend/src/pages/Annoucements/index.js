@@ -227,7 +227,7 @@ const Announcements = () => {
   };
 
   return (
-    <MainContainer >
+    <MainContainer>
       <ConfirmationModal
         title={
           deletingAnnouncement &&
