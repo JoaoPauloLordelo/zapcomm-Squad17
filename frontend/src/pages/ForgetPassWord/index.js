@@ -25,12 +25,20 @@ import { toast } from 'react-toastify';
 import toastError from '../../errors/toastError';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import efeito1 from "../../assets/efeito1.png";
+import efeito3 from "../../assets/efeito3.png";
+import {
+	FormControl,
+	InputLabel,
+	MenuItem,
+	Select,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100vw",
     height: "100vh",
-    background: "black", //Cor de fundo
+    background: "white", //Cor de fundo
     backgroundRepeat: "no-repeat",
     backgroundSize: "100% 100%",
     backgroundPosition: "center",
@@ -41,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   paper: {
-    backgroundColor: "white",
+    backgroundColor:'#34D3A3',
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -58,10 +66,64 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+		color: '#0c2c54',
+		width: '320px',
+		backgroundColor: 'white',
+		borderRadius: '8px',
   },
   powered: {
     color: "white",
   },
+  elipse: {
+		width: '133px',
+		height: '133px',
+		background: 'rgba(52,211,163,1)',
+		opacity: '1',
+		position: 'absolute',
+		top: '540px',
+		left: '184px',
+		borderRadius: '50%',
+	},
+	efeito1: {
+		width: '555px',
+		height: '435px',
+		opacity: '1',
+		position: 'absolute',
+		top: '0px',
+		left: '0px',
+	},
+	efeito3: {
+		width: '378px',
+		height: '423px',
+		opacity: '1',
+		position: 'absolute',
+		right: '0px',
+		bottom: '0px',
+		margin: '0',
+		display: 'flex',
+		justifyContent: 'end',	
+	},
+  redefs: {
+    color:'#0c2c54', 
+    margin: '0px',
+    fontSize:'30px',
+    marginBottom: '20px'
+  },
+  input: {
+		width: '330px',
+		backgroundColor: '#0c2c54',
+		border: '0',
+		borderRadius: '8px',
+		height: '45px'
+	},
+  ilname: {
+		color:'#0c2c54', 
+		fontWeight: '600',
+		width: '180px',
+		marginLeft: '5px',
+    textAlign: 'left'
+
+	},
 }));
 
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
@@ -166,15 +228,18 @@ const handleSendEmail = async (values) => {
     <div className={classes.root}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className={classes.paper}>
-          <div>
-            <img
-              style={{ margin: "0 auto", height: "80px", width: "100%" }}
-              src={logo}
-              alt="Whats"
-            />
-          </div>
-          <Typography component="h1" variant="h5">
+        <div className={classes.efeito1}>
+				  <img src={efeito1} alt=""/>
+			  </div>
+			  <div className={classes.efeito3}>
+				  <img src={efeito3} alt=''/>
+			  </div>
+			  <div className={classes.elipse}></div>
+        <div>
+          <img style={{ margin: "0 auto", height: "90px", width: "100%" }} src={logo} alt="Whats"/>
+        </div>
+        <div className={classes.paper}>    
+          <Typography component="h1" variant="h5" className={classes.redefs}>
             {i18n.t("Redefinir senha")}
           </Typography>
           <Formik
@@ -202,9 +267,10 @@ const handleSendEmail = async (values) => {
               <Form className={classes.form}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
+                  <InputLabel htmlFor="plan-selection" className={classes.ilname}>Email</InputLabel>
                     <Field
                       as={TextField}
-                      variant="outlined"
+                      //variant="outlined"
                       fullWidth
                       id="email"
                       label={i18n.t("signup.form.email")}
@@ -213,14 +279,16 @@ const handleSendEmail = async (values) => {
                       helperText={touched.email && errors.email}
                       autoComplete="email"
                       required
+                      className={classes.input}
                     />
                   </Grid>
                   {showAdditionalFields && (
                     <>
                       <Grid item xs={12}>
+                      <InputLabel htmlFor="plan-selection" className={classes.ilname}>Código de Verificação</InputLabel>
                         <Field
                           as={TextField}
-                          variant="outlined"
+                          //variant="outlined"
                           fullWidth
                           id="token"
                           label="Código de Verificação"
@@ -229,12 +297,14 @@ const handleSendEmail = async (values) => {
                           helperText={touched.token && errors.token}
                           autoComplete="off"
                           required
+                          className={classes.input}
                         />
                       </Grid>
                       <Grid item xs={12}>
+                      <InputLabel htmlFor="plan-selection" className={classes.ilname}>Nova Senha</InputLabel>
                         <Field
                           as={TextField}
-                          variant="outlined"
+                          //variant="outlined"
                           fullWidth
                           type={showPassword ? "text" : "password"}
                           id="newPassword"
@@ -264,12 +334,14 @@ const handleSendEmail = async (values) => {
                               </InputAdornment>
                             ),
                           }}
+                          className={classes.input}
                         />
                       </Grid>
                       <Grid item xs={12}>
+                      <InputLabel htmlFor="plan-selection" className={classes.ilname}>Confirmar Senha</InputLabel>
                         <Field
                           as={TextField}
-                          variant="outlined"
+                          //variant="outlined"
                           fullWidth
                           type={showConfirmPassword ? "text" : "password"}
                           id="confirmPassword"
@@ -300,6 +372,7 @@ const handleSendEmail = async (values) => {
                               </InputAdornment>
                             ),
                           }}
+                          className={classes.input}
                         />
                       </Grid>
                     </>
@@ -310,7 +383,7 @@ const handleSendEmail = async (values) => {
                     type="submit"
                     fullWidth
                     variant="contained"
-                    color="primary"
+                    color=""
                     className={classes.submit}
                   >
                     Redefinir Senha
@@ -320,19 +393,20 @@ const handleSendEmail = async (values) => {
                     type="submit"
                     fullWidth
                     variant="contained"
-                    color="primary"
+                    color=""
                     className={classes.submit}
                   >
                     Enviar Email
                   </Button>
                 )}
-                <Grid container justifyContent="flex-end">
+                <Grid container justifyContent="center">
                   <Grid item>
                     <Link
                       href="#"
                       variant="body2"
                       component={RouterLink}
                       to="/signup"
+                      style={{color:'#0c2c54',fontWeight:'600', marginTop: '10px'}}
                     >
                       {i18n.t("Não tem uma conta? Cadastre-se!")}
                     </Link>

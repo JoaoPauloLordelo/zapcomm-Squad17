@@ -48,6 +48,7 @@ const App = () => {
                 "&::-webkit-scrollbar-thumb": {
                     backgroundColor: mode === "light" ? "#F3F3F3" : "#333333",
                 },
+                
             },
             palette: {
                 type: mode,
@@ -80,6 +81,7 @@ const App = () => {
 				mediainput: mode === "light" ? "#ededed" : "#1c1c1c",
             },
             mode,
+            
         },
         locale
     );

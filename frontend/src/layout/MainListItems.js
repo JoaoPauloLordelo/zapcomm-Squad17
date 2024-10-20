@@ -444,11 +444,17 @@ const MainListItems = (props) => {
             </ListSubheader>
       
       <ListItemLink
+        to="/paginainicio"
+        primary={i18n.t("Página de Inicio")}
+        icon={<TableChartIcon />}
+      />
+      <ListItemLink
         to="/tickets"
         primary={i18n.t("mainDrawer.listItems.tickets")}
         icon={<WhatsAppIcon />}
       />
       
+
 	  <ListItemLink
         to="/helps"
         primary={i18n.t("mainDrawer.listItems.helps")}
@@ -495,7 +501,9 @@ const MainListItems = (props) => {
                   <List component="div" disablePadding>
                     
               <>
-              {showKanban && (  
+
+	  
+	{showKanban && (  
 	  <ListItemLink
         to="/kanban"
         primary={i18n.t("Kanban")}
@@ -503,8 +511,14 @@ const MainListItems = (props) => {
       />
       
 	  )}
-    
-    <ListItemLink
+
+      <ListItemLink
+        to="/quick-messages"
+        primary={i18n.t("mainDrawer.listItems.quickMessages")}
+        icon={<FlashOnIcon />}
+      />
+	  
+	  <ListItemLink
         to="/todolist"
         primary={i18n.t("Tarefas")}
         icon={<BorderColorIcon />}

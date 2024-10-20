@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useReducer, useState } from "react";
+import logoOpenAI from "../../assets/logoopenai.png";
 
 import {
   Button,
@@ -42,6 +43,16 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  tableHeaderCell: {
+    color: theme.palette.primary.main,
+    paddingRight: theme.spacing(3),
+  },
+  blueLine: {
+    border: 0,
+    height: "2px",
+    backgroundColor: theme.palette.primary.main, // Azul da cor primária do tema
+    margin: theme.spacing(2, 0), // Espaçamento vertical
   },
   // Adicione um estilo para a box vermelha
   redBox: {
@@ -209,7 +220,15 @@ const Prompts = () => {
         promptId={selectedPrompt?.id}
       />
       <MainHeader>
-        <Title>{i18n.t("prompts.title")}</Title>
+        <Title>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img
+              src={logoOpenAI}
+              alt="Logo OpenAI"
+              style={{ width: "130px", marginRight: "100px" }}
+            />
+          </div>
+        </Title>
         <MainHeaderButtonsWrapper>
           <Button
             variant="contained"
@@ -220,24 +239,25 @@ const Prompts = () => {
           </Button>
         </MainHeaderButtonsWrapper>
       </MainHeader>
+      <hr className={classes.blueLine} />
       <Paper className={classes.mainPaper} variant="outlined">
         <Table size="small">
           <TableHead>
-            <TableRow>
-              <TableCell align="left">
-                {i18n.t("prompts.table.name")}
-              </TableCell>
-              <TableCell align="left">
-                {i18n.t("prompts.table.queue")}
-              </TableCell>
-              <TableCell align="left">
-                {i18n.t("prompts.table.max_tokens")}
-              </TableCell>
-              <TableCell align="center">
-                {i18n.t("prompts.table.actions")}
-              </TableCell>
-            </TableRow>
-          </TableHead>
+  <TableRow>
+    <TableCell align="left" className={classes.tableHeaderCell}>
+      {i18n.t("prompts.table.name")}
+    </TableCell>
+    <TableCell align="left" className={classes.tableHeaderCell}>
+      {i18n.t("prompts.table.queue")}
+    </TableCell>
+    <TableCell align="left" className={classes.tableHeaderCell}>
+      {i18n.t("prompts.table.max_tokens")}
+    </TableCell>
+    <TableCell align="center" className={classes.tableHeaderCell}>
+      {i18n.t("prompts.table.actions")}
+    </TableCell>
+  </TableRow>
+</TableHead>
           <TableBody>
             <>
               {prompts.map((prompt) => (
