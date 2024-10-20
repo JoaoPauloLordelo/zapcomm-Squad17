@@ -253,9 +253,9 @@ const QueueIntegration = () => {
             value={searchParam}
             onChange={handleSearch}
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon color="secondary" />
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon color="primary"  />
                 </InputAdornment>
               ),
             }}
@@ -274,18 +274,22 @@ const QueueIntegration = () => {
         variant="outlined"
         onScroll={handleScroll}
       >
-        <Table size="small">
+        <Table size="small" >
           <TableHead>
-            <TableRow>
-              <TableCell padding="checkbox"></TableCell>
-              <TableCell align="center">{i18n.t("queueIntegration.table.id")}</TableCell>
-              <TableCell align="center">{i18n.t("queueIntegration.table.name")}</TableCell>
+            
+            <TableRow >
+              
+              <TableCell padding="checkbox" align="center"  style={{ fontWeight: 'bold' , color:'#0C2454'}}>{i18n.t("queueIntegration.table.type")}</TableCell>
+              
+              <TableCell align="center"  style={{ fontWeight: 'bold' , color:'#0C2454'}}>{i18n.t("queueIntegration.table.id")}</TableCell>
+              <TableCell align="center"  style={{ fontWeight: 'bold' , color:'#0C2454' }}>{i18n.t("queueIntegration.table.name")}</TableCell>
+              <TableCell align="center"  style={{ fontWeight: 'bold' , color:'#0C2454'}}>{i18n.t("queueIntegration.table.actions")}</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody >
             <>
               {queueIntegration.map((integration) => (
-                <TableRow key={integration.id}>
+                <TableRow key={integration.id} style={{ backgroundColor: '#f0f0f0'  }}>
                   <TableCell >
                     {integration.type === "dialogflow" && (<Avatar 
                       src={dialogflow} className={classes.avatar} />)}
@@ -301,14 +305,15 @@ const QueueIntegration = () => {
                   <TableCell align="center">{integration.name}</TableCell>
                   <TableCell align="center">
                     <IconButton
-                      size="small"
+                      size="big"
                       onClick={() => handleEditIntegration(integration)}
                     >
-                      <Edit color="secondary" />
+                      <Edit color="primary" />
                     </IconButton>
 
                     <IconButton
-                      size="small"
+                      size="big"
+                      
                       onClick={(e) => {
                         setConfirmModalOpen(true);
                         setDeletingUser(integration);
