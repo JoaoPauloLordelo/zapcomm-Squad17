@@ -219,8 +219,23 @@ const SignUp = () => {
 										error={touched.name && Boolean(errors.name)}
 										helperText={touched.name && errors.name}
 										fullWidth
+										
 										id="name"
 										label="Nome da Empresa"
+										InputProps={{
+											disableUnderline: true,
+											style: {
+												color: '#FFFFFF',
+												fontWeight: 'bold',
+												opacity: 1,
+											},
+										}}
+										InputLabelProps={{
+											style: {
+												color: '#FFFFFF', // cor do label
+												
+											},
+										}}
 										className={classes.input}
 									/>
 								</Grid>
@@ -238,6 +253,20 @@ const SignUp = () => {
 										helperText={touched.email && errors.email}
 										autoComplete="email"
 										required
+										InputProps={{
+											disableUnderline: true,
+											style: {
+												color: '#FFFFFF',
+												fontWeight: 'bold',
+												opacity: 1,
+											},
+										}}
+										InputLabelProps={{
+											style: {
+												color: '#FFFFFF', // cor do label
+												
+											},
+										}}
 										className={classes.input}
 									/>
 								</Grid>
@@ -255,19 +284,36 @@ const SignUp = () => {
 									helperText={touched.phone && errors.phone}
 									autoComplete="phone"
 									required
+									
 									className={classes.input}
 								>
 									{({ field }) => (
-										<TextField
-											{...field}
-											//variant="outlined"
-											fullWidth
-											label="Telefone com (DDD)"
-											inputProps={{ maxLength: 11 }}
-											className={classes.input}
-											 // Definindo o limite de caracteres
-										/>
-									)}
+    <TextField
+        {...field}
+        fullWidth
+        label="Telefone com (DDD)"
+        inputProps={{ 
+            maxLength: 11,
+            disableUnderline: true ,
+        }}
+        InputProps={{
+            style: {
+                color: '#FFFFFF',
+                fontWeight: 'bold',
+                opacity: 1,
+				disableUnderline: true ,
+            },
+        }}
+        InputLabelProps={{
+            style: {
+                color: '#FFFFFF', // cor do label
+				disableUnderline: true ,
+                
+            },
+        }}
+        className={classes.input}
+    />
+)}
 								</Field>
 							</Grid>
 								<Grid item xs={12}>
@@ -284,6 +330,20 @@ const SignUp = () => {
 										id="password"
 										autoComplete="current-password"
 										required
+										InputProps={{
+											disableUnderline: true,
+											style: {
+												color: '#FFFFFF',
+												fontWeight: 'bold',
+												opacity: 1,
+											},
+										}}
+										InputLabelProps={{
+											style: {
+												color: '#FFFFFF', // cor do label
+												
+											},
+										}}
 										className={classes.input}
 									/>
 								</Grid>
@@ -297,6 +357,20 @@ const SignUp = () => {
 										label="Plano"
 										name="planId"
 										required
+										InputProps={{
+											disableUnderline: true,
+											style: {
+												color: '#FFFFFF',
+												fontWeight: 'bold',
+												opacity: 1,
+											},
+										}}
+										InputLabelProps={{
+											style: {
+												color: '#FFFFFF', // cor do label
+												
+											},
+										}}
 										className={classes.input}
 									>
 										{plans.map((plan, key) => (

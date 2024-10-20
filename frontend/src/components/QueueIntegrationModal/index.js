@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { toast } from "react-toastify";
-
+import DeleteIcon from '@material-ui/icons/Delete';
 import {
   Button,
   Dialog,
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     flex: 1,
   },
-
+  
   btnWrapper: {
     position: "relative",
   },
@@ -165,13 +165,20 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
 
   return (
     <div className={classes.root}>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md" scroll="paper">
-        <DialogTitle>
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md" scroll="paper" PaperProps={{
+                    style: {
+                        borderRadius: 22,
+                        height: '50vh',
+                        width: '50vw'
+                    },
+                }}>
+        <DialogTitle   style={{textAlign: 'center', color:'#0C2454'}}>
+          
           {integrationId
             ? `${i18n.t("queueIntegrationModal.title.edit")}`
             : `${i18n.t("queueIntegrationModal.title.add")}`}
         </DialogTitle>
-        <Formik
+        <Formik 
           initialValues={integration}
           enableReinitialize={true}
           validationSchema={DialogflowSchema}
@@ -180,19 +187,22 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
               handleSaveDialogflow(values);
               actions.setSubmitting(false);
             }, 400);
+           
           }}
         >
           {({ touched, errors, isSubmitting, values }) => (
-            <Form>
-              <Paper square className={classes.mainPaper} elevation={1}>
-                <DialogContent dividers>
-                  <Grid container spacing={1}>
+            <Form style={{borderRadius:'8px', padding:'10px'}}>
+              <Paper square className={classes.mainPaper} elevation={0}style={{ border:'none', boxShadow: 'none', margin:'none'  }}> 
+                <DialogContent dividers >
+                  
+                  <Grid container spacing={1} >
                     <Grid item xs={12} md={6} xl={6}>
                       <FormControl
                         variant="outlined"
                         className={classes.formControl}
                         margin="dense"
                         fullWidth
+                        
                       >
                         <InputLabel id="type-selection-input-label">
                           {i18n.t("queueIntegrationModal.form.type")}
@@ -202,12 +212,15 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
                           as={Select}
                           label={i18n.t("queueIntegrationModal.form.type")}
                           name="type"
+                          
                           labelId="profile-selection-label"
                           error={touched.type && Boolean(errors.type)}
                           helpertext={touched.type && errors.type}
                           id="type"
                           required
+                          
                         >
+                          
                           <MenuItem value="dialogflow">DialogFlow</MenuItem>
                           <MenuItem value="n8n">N8N</MenuItem>
                           <MenuItem value="webhook">WebHooks</MenuItem>
@@ -472,9 +485,10 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
                   onClick={handleClose}
                   color="secondary"
                   disabled={isSubmitting}
-                  variant="outlined"
+                  variant="contained"
                 >
-                  {i18n.t("queueIntegrationModal.buttons.cancel")}
+                  <DeleteIcon/>
+                  
                 </Button>
                 <Button
                   type="submit"
