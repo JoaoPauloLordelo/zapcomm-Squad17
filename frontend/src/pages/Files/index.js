@@ -238,16 +238,17 @@ const FileLists = () => {
                         InputProps={{
                             disableUnderline: true, // remove a linha
                             style: {
-                              color: '#0C2454',// cor do texto normal
+                              color: '#0C2454', // cor do texto normal
                               fontWeight: 'bold', // texto em negrito
                             },
                             inputProps: {
                               style: {
+                                paddingLeft: '8px', // espaçamento à esquerda
                                 '&::placeholder': {
                                   color: '#0C2454',
                                   fontWeight: 'bold',
-                                  Opacity: 1, // cor do placeholder
-                                
+                                  opacity: 1, // cor do placeholder
+                                  paddingLeft: '8px', // opcional: para adicionar espaço ao placeholder
                                 },
                               },
                             },

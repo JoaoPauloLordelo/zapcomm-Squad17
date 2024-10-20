@@ -247,23 +247,34 @@ const Users = () => {
         </Typography>
 
         <MainHeaderButtonsWrapper>
-          <TextField
+        <TextField   variant="standard"   style={{  borderRadius: '10px',backgroundColor: '#D9D9D9', padding:'3px'}}
             placeholder="Pesquisar por Usuário"
-            style={{ color: '#0C2454' }}
             type="search"
             value={searchParam}
             onChange={handleSearch}
-            variant="outlined"
-            className={`${classes.searchFieldWidth} ${classes.searchFieldHeight}`}
+            
             InputProps={{
+              disableUnderline: true, // remove a linha
+              style: {
+                color: '#0C2454', // cor do texto normal
+                fontWeight: 'bold', // texto em negrito
+              },
+              inputProps: {
+                style: {
+                  paddingLeft: '8px', // espaçamento à esquerda
+                  '&::placeholder': {
+                    color: '#0C2454',
+                    fontWeight: 'bold',
+                    opacity: 1, // cor do placeholder
+                    paddingLeft: '8px', // opcional: para adicionar espaço ao placeholder
+                  },
+                },
+              },
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton>
-                    <SearchIcon style={{ color: "#0C2454" }} />
-                  </IconButton>
+                  <SearchIcon style={{ color: '#0C2454' }} />
                 </InputAdornment>
               ),
-              classes: { root: classes.searchField },
             }}
           />
           <Button
@@ -361,7 +372,7 @@ const Users = () => {
                     <EditIcon />
                   </IconButton>
                   <IconButton onClick={() => setDeletingUser(user)}>
-                    <DeleteOutlineIcon />
+                    <DeleteOutlineIcon color="secondary" />
                   </IconButton>
                 </TableCell>
               </TableRow>
