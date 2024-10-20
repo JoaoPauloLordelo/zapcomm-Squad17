@@ -229,27 +229,19 @@ const FileLists = () => {
                         value={searchParam}
                         onChange={handleSearch}
                         InputProps={{
-                            disableUnderline: true, // remove a linha
-                            style: {
-                              color: '#0C2454',// cor do texto normal
-                              fontWeight: 'bold', // texto em negrito
-                            },
-                            inputProps: {
-                              style: {
-                                '&::placeholder': {
-                                  color: '#0C2454',
-                                  fontWeight: 'bold',
-                                  Opacity: 1, // cor do placeholder
-                                
+                            sx: {
+                                '& .MuiInputBase-input::placeholder': {
+                                    color: '#0C2454', // Cor desejada
                                 },
-                              },
                             },
                             endAdornment: (
-                              <InputAdornment position="end">
-                                <SearchIcon style={{ color: '#D9D9D9' }} />
-                              </InputAdornment>
+                                
+                                // Icone Lupa
+                                <InputAdornment position="start">
+                                    <SearchIcon style={{ color: "#0C2454" }} />
+                                </InputAdornment>
                             ),
-                          }}
+                        }}
                     />
                     
                     {/* + Arquivo */}

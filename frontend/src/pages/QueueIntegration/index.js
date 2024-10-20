@@ -5,7 +5,7 @@ import n8n from "../../assets/n8n.png";
 import dialogflow from "../../assets/dialogflow.png";
 import webhooks from "../../assets/webhook.png";
 import typebot from "../../assets/typebot.jpg";
-import AddIcon from '@material-ui/icons/Add';
+
 import { makeStyles } from "@material-ui/core/styles";
 
 import {
@@ -25,8 +25,7 @@ import {
 
 import {
   DeleteOutline,
-  Edit,
-  Opacity
+  Edit
 } from "@material-ui/icons";
 
 import SearchIcon from "@material-ui/icons/Search";
@@ -101,7 +100,6 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     width: "140px",
     height: "40px",
-    align:'center',
     borderRadius: 4
   },
 }));
@@ -242,46 +240,22 @@ const QueueIntegration = () => {
       </ConfirmationModal>
       <IntegrationModal
         open={userModalOpen}
-       
         onClose={handleCloseIntegrationModal}
         aria-labelledby="form-dialog-title"
         integrationId={selectedIntegration && selectedIntegration.id}
       />
-      
-      
-      <Paper style={{ margin: '20px', borderRadius: '16px', overflow: 'hidden', border: '1px solid #D9D9D9'}}
-        className={classes.mainPaper}
-        variant="outlined"
-        onScroll={handleScroll}
-      >
-        <MainHeader>
+      <MainHeader>
         <Title>{i18n.t("queueIntegration.title")} ({queueIntegration.length})</Title>
         <MainHeaderButtonsWrapper>
-          <TextField   variant="standard"   style={{  borderRadius: '10px',backgroundColor: '#D9D9D9', padding:'3px'}}
+          <TextField
             placeholder={i18n.t("queueIntegration.searchPlaceholder")}
             type="search"
             value={searchParam}
             onChange={handleSearch}
-            
             InputProps={{
-              disableUnderline: true, // remove a linha
-              style: {
-                color: '#0C2454',// cor do texto normal
-                fontWeight: 'bold', // texto em negrito
-              },
-              inputProps: {
-                style: {
-                  '&::placeholder': {
-                    color: '#0C2454',
-                    fontWeight: 'bold',
-                    Opacity: 1, // cor do placeholder
-                  
-                  },
-                },
-              },
-              endAdornment: (
-                <InputAdornment position="end">
-                  <SearchIcon style={{ color: '#D9D9D9' }} />
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon color="secondary" />
                 </InputAdornment>
               ),
             }}
@@ -291,49 +265,50 @@ const QueueIntegration = () => {
             color="primary"
             onClick={handleOpenUserModal}
           >
-             <AddIcon/>
             {i18n.t("queueIntegration.buttons.add")}
           </Button>
         </MainHeaderButtonsWrapper>
       </MainHeader>
-        <Table size="small" style={{ borderCollapse: 'separate', borderSpacing: '0 10px' }} >
+      <Paper
+        className={classes.mainPaper}
+        variant="outlined"
+        onScroll={handleScroll}
+      >
+        <Table size="small">
           <TableHead>
-            <TableRow >
-              <TableCell align='center' style={{color:'#0C2454', fontWeight:'bold'}}>{i18n.t("queueIntegration.table.type")}</TableCell>
-              <TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}>{i18n.t("queueIntegration.table.id")}</TableCell>
-              <TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}>{i18n.t("queueIntegration.table.name")}</TableCell>
-              <TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}>{i18n.t("queueIntegration.table.actions")}</TableCell>
-              
+            <TableRow>
+              <TableCell padding="checkbox"></TableCell>
+              <TableCell align="center">{i18n.t("queueIntegration.table.id")}</TableCell>
+              <TableCell align="center">{i18n.t("queueIntegration.table.name")}</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody style={{backgroundColor:'#D9D9D9' }}>
+          <TableBody>
             <>
               {queueIntegration.map((integration) => (
-                <TableRow key={integration.id} style={{ marginBottom: '5px', borderRadius: '16px'}} >
-                  
-                  <TableCell style={{ borderRadius: '16px 0 0 16px', overflow: 'hidden'  }}>
-                    {integration.type === "dialogflow" && (<Avatar style={{margin: 'auto' }}
+                <TableRow key={integration.id}>
+                  <TableCell >
+                    {integration.type === "dialogflow" && (<Avatar 
                       src={dialogflow} className={classes.avatar} />)}
-                    {integration.type === "n8n" && (<Avatar   style={{margin: 'auto', }}
+                    {integration.type === "n8n" && (<Avatar
                       src={n8n} className={classes.avatar} />)}
-                    {integration.type === "webhook" && (<Avatar style={{margin: 'auto'}}
+                    {integration.type === "webhook" && (<Avatar
                       src={webhooks} className={classes.avatar} />)}
-                    {integration.type === "typebot" && (<Avatar  style={{margin: 'auto'}}
+                    {integration.type === "typebot" && (<Avatar
                       src={typebot} className={classes.avatar} />)}
                   </TableCell>
-                      
-                  <TableCell align="center"style={{ borderRadius: '0', overflow: 'hidden' }}>{integration.id}</TableCell>
-                  <TableCell align="center"style={{ borderRadius: '0', overflow: 'hidden' }}>{integration.name}</TableCell>
-                  <TableCell align="center"style={{ borderRadius: '0 16px 16px 0', overflow: 'hidden' }}>
-                    <IconButton 
-                      size="big"
+
+                  <TableCell align="center">{integration.id}</TableCell>
+                  <TableCell align="center">{integration.name}</TableCell>
+                  <TableCell align="center">
+                    <IconButton
+                      size="small"
                       onClick={() => handleEditIntegration(integration)}
                     >
-                      <Edit style={{color:'#0C2454'}} />
+                      <Edit color="secondary" />
                     </IconButton>
 
                     <IconButton
-                      size="big"
+                      size="small"
                       onClick={(e) => {
                         setConfirmModalOpen(true);
                         setDeletingUser(integration);
