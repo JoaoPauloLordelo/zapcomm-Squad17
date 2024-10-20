@@ -477,7 +477,7 @@ const messages = {
           actions: "Ações",
         },
         buttons: {
-          add: "Adicionar",
+          add: "Adicionar Projeto",
         },
         searchPlaceholder: "Pesquisar...",
         confirmationModal: {
