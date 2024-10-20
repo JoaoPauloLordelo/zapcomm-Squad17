@@ -35,6 +35,7 @@ import { SocketContext } from "../../context/Socket/SocketContext";
 const useStyles = makeStyles((theme) => ({
   mainPaper: {
     flex: 1,
+    borderRadius:'16px',
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
@@ -202,6 +203,8 @@ const Prompts = () => {
     <MainContainer>
    
 
+      
+      <Paper className={classes.mainPaper} variant="outlined">
       <ConfirmationModal
         title={
           selectedPrompt &&
@@ -240,7 +243,6 @@ const Prompts = () => {
         </MainHeaderButtonsWrapper>
       </MainHeader>
       <hr className={classes.blueLine} />
-      <Paper className={classes.mainPaper} variant="outlined">
         <Table size="small">
           <TableHead>
   <TableRow>

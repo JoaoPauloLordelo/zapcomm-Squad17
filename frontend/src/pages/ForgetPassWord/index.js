@@ -279,6 +279,20 @@ const handleSendEmail = async (values) => {
                       helperText={touched.email && errors.email}
                       autoComplete="email"
                       required
+                      InputProps={{
+                        disableUnderline: true,
+                        style: {
+                          color: '#FFFFFF',
+                          fontWeight: 'bold',
+                          opacity: 1,
+                        },
+                      }}
+                      InputLabelProps={{
+                        style: {
+                          color: '#FFFFFF', // cor do label
+                          
+                        },
+                      }}
                       className={classes.input}
                     />
                   </Grid>

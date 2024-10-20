@@ -209,13 +209,32 @@ const Login = () => {
 					<TextField 
 						margin="normal"
 						id="email"
-						label={i18n.t("login.form.email")}
+						placeholder={i18n.t("login.form.email")}
 						required
 						name="email"
 						value={user.email}
 						onChange={handleChangeInput}
 						autoComplete="email"
 						autoFocus
+						InputProps={{
+							disableUnderline: true, // remove a linha
+							style: {
+							  color: '#FFFFFF',// cor do texto normal
+							  fontWeight: 'bold',
+							  opacity:1, // texto em negrito
+							},
+							inputProps: {
+							  style: {
+								'&::placeholder': {
+								  color: '#FFFFFF',
+								  fontWeight: 'bold',
+								  Opacity: 1, // cor do placeholder
+								
+								},
+							  },
+							}
+							
+						  }}
 						className={classes.inp1}
 							/><br/>
 				<InputLabel htmlFor="plan-selection" className={classes.ilname}>Senha</InputLabel>
@@ -226,12 +245,31 @@ const Login = () => {
 						required
 						fullWidth
 						name="password"
-						label={i18n.t("login.form.password")}
+						placeholder={i18n.t("login.form.password")}
 						type="password"
 						id="password"
 						value={user.password}
 						onChange={handleChangeInput}
 						autoComplete="current-password"
+						InputProps={{
+							disableUnderline: true, // remove a linha
+							style: {
+							  color: '#FFFFFF',// cor do texto normal
+							  fontWeight: 'bold',
+							  opacity: 1, // texto em negrito
+							},
+							inputProps: {
+							  style: {
+								'&::placeholder': {
+								  color: '#FFFFFF',
+								  fontWeight: 'bold',
+								  Opacity: 1, // cor do placeholder
+								
+								},
+							  },
+							}
+							
+						  }}
 					/><br/>
 					
 					{<Grid>
