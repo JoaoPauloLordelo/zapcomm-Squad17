@@ -31,6 +31,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  blueLine: {
+    border: 0,
+    height: "2px",
+    width: "100%",
+    backgroundColor: "#0C2454",
+  },
 }));
 
 export function QueueOptionStepper({ queueId, options, updateOptions }) {
@@ -327,17 +333,17 @@ export function QueueOptions({ queueId }) {
     <div className={classes.root}>
       <br />
       <Typography>
-        Opções
         <Button
           color="primary"
           size="small"
           onClick={addOption}
           startIcon={<AddIcon />}
           style={{ marginLeft: 10 }}
-          variant="outlined"
+          variant="contained"
         >
-          Adicionar
+          Opções
         </Button>
+        <hr className={classes.blueLine} />
       </Typography>
       {renderStepper()}
     </div>
