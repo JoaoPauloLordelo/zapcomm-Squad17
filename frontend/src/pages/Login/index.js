@@ -217,6 +217,20 @@ const Login = () => {
 						autoComplete="email"
 						autoFocus
 						className={classes.inp1}
+						InputProps={{
+							disableUnderline: true, // remove a linha
+							style: {
+								color: '#FFFFFF', // cor do texto normal
+								fontWeight: 'bold', // texto em negrito
+							},
+						}}
+						InputLabelProps={{
+							style: {
+								color: '#FFFFFF', // cor do label
+								
+								opacity: 1, // visibilidade total
+							},
+						}}
 							/><br/>
 				<InputLabel htmlFor="plan-selection" className={classes.ilname}>Senha</InputLabel>
 					<TextField
@@ -232,6 +246,20 @@ const Login = () => {
 						value={user.password}
 						onChange={handleChangeInput}
 						autoComplete="current-password"
+						InputProps={{
+							disableUnderline: true, // remove a linha
+							style: {
+								color: '#FFFFFF', // cor do texto normal
+								fontWeight: 'bold', // texto em negrito
+							},
+						}}
+						InputLabelProps={{
+							style: {
+								color: '#FFFFFF', // cor do label
+								
+								opacity: 1, // visibilidade total
+							},
+						}}
 					/><br/>
 					
 					{<Grid>

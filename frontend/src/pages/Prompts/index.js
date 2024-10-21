@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     padding: theme.spacing(1),
     overflowY: "scroll",
+    borderRadius: '16px',
     ...theme.scrollbarStyles,
   },
   customTableCell: {
@@ -202,6 +203,8 @@ const Prompts = () => {
     <MainContainer>
    
 
+      
+      <Paper className={classes.mainPaper} variant="outlined">
       <ConfirmationModal
         title={
           selectedPrompt &&
@@ -240,7 +243,6 @@ const Prompts = () => {
         </MainHeaderButtonsWrapper>
       </MainHeader>
       <hr className={classes.blueLine} />
-      <Paper className={classes.mainPaper} variant="outlined">
         <Table size="small">
           <TableHead>
   <TableRow>

@@ -62,6 +62,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	dialogTitle: {
 		textAlign: "center",
+		color: "#0C245",
 	},
 	dialogPaper: {
 		borderRadius: 40,
