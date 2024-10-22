@@ -58,6 +58,20 @@ const useStyles = makeStyles(theme => ({
 		margin: theme.spacing(1),
 		minWidth: 120,
 	},
+	inputField: {
+		backgroundColor: "#f0f0f0", // Mantendo o fundo cinza claro
+		"& .MuiOutlinedInput-root": {
+			"& fieldset": {
+				borderColor: "#0C2454", // Cor da borda normal
+			},
+			"&:hover fieldset": {
+				borderColor: "#1A3A7A", // Versão um pouco mais clara para hover
+			},
+			"&.Mui-focused fieldset": {
+				borderColor: "#0C2454", // Mantém a cor original quando focado
+			},
+		},
+	},
 }));
 
 const ScheduleSchema = Yup.object().shape({
@@ -218,163 +232,173 @@ const ScheduleModal = ({ open, onClose, scheduleId, contactId, cleanContact, rel
 
 	return (
 		<div className={classes.root}>
-			<ConfirmationModal
-				title={i18n.t("scheduleModal.confirmationModal.deleteTitle")}
-				open={confirmationOpen}
-				onClose={() => setConfirmationOpen(false)}
-				onConfirm={deleteMedia}
-			>
-				{i18n.t("scheduleModal.confirmationModal.deleteMessage")}
-			</ConfirmationModal>
-			<Dialog
-				open={open}
-				onClose={handleClose}
-				maxWidth="xs"
-				fullWidth
-				scroll="paper"
-			>
-				<DialogTitle id="form-dialog-title">
-					{schedule.status === 'ERRO' ? 'Erro de Envio' : `Mensagem ${capitalize(schedule.status)}`}
-				</DialogTitle>
-				<div style={{ display: "none" }}>
-					<input
-						type="file"
-						accept=".png,.jpg,.jpeg"
-						ref={attachmentFile}
-						onChange={(e) => handleAttachmentFile(e)}
-					/>
-				</div>
-				<Formik
-					initialValues={schedule}
-					enableReinitialize={true}
-					validationSchema={ScheduleSchema}
-					onSubmit={(values, actions) => {
-						setTimeout(() => {
-							handleSaveSchedule(values);
-							actions.setSubmitting(false);
-						}, 400);
-					}}
+				<ConfirmationModal
+					title={i18n.t("scheduleModal.confirmationModal.deleteTitle")}
+					open={confirmationOpen}
+					onClose={() => setConfirmationOpen(false)}
+					onConfirm={deleteMedia}
 				>
-					{({ touched, errors, isSubmitting, values, setFieldValue }) => (
-						<Form>
-							<DialogContent dividers>
-								<div className={classes.multFieldLine}>
-									<FormControl
-										variant="outlined"
-										fullWidth
-									>
-										<Autocomplete
+					{i18n.t("scheduleModal.confirmationModal.deleteMessage")}
+				</ConfirmationModal>
+				<Dialog
+					open={open}
+					onClose={handleClose}
+					maxWidth="xs"
+					fullWidth
+					scroll="paper"
+				>
+					<DialogTitle id="form-dialog-title">
+						{schedule.status === 'ERRO' ? 'Erro de Envio' : `Mensagem ${capitalize(schedule.status)}`}
+					</DialogTitle>
+					<div style={{ display: "none" }}>
+						<input
+							type="file"
+							accept=".png,.jpg,.jpeg"
+							ref={attachmentFile}
+							onChange={(e) => handleAttachmentFile(e)}
+						/>
+					</div>
+					<Formik
+						initialValues={schedule}
+						enableReinitialize={true}
+						validationSchema={ScheduleSchema}
+						onSubmit={(values, actions) => {
+							setTimeout(() => {
+								handleSaveSchedule(values);
+								actions.setSubmitting(false);
+							}, 400);
+						}}
+					>
+						{({ touched, errors, isSubmitting, values, setFieldValue }) => (
+							<Form>
+								<DialogContent dividers>
+									<div className={classes.multFieldLine}>
+										<FormControl
+											variant="outlined"
 											fullWidth
-											value={currentContact}
-											options={contacts}
-											onChange={(e, contact) => {
-												const contactId = contact ? contact.id : '';
-												setSchedule({ ...schedule, contactId });
-												setCurrentContact(contact ? contact : initialContact);
-											}}
-											getOptionLabel={(option) => option.name}
-											getOptionSelected={(option, value) => {
-												return value.id === option.id
-											}}
-											renderInput={(params) => <TextField {...params} variant="outlined" placeholder="Contato" />}
-										/>
-									</FormControl>
-								</div>
-								<br />
-								<div className={classes.multFieldLine}>
-									<Field
-										as={TextField}
-										rows={9}
-										multiline={true}
-										label={i18n.t("scheduleModal.form.body")}
-										name="body"
-										inputRef={messageInputRef}
-										error={touched.body && Boolean(errors.body)}
-										helperText={touched.body && errors.body}
-										variant="outlined"
-										margin="dense"
-										fullWidth
-									/>
-								</div>
-								<Grid item>
-									<MessageVariablesPicker
-										disabled={isSubmitting}
-										onClick={value => handleClickMsgVar(value, setFieldValue)}
-									/>
-								</Grid>
-								<br />
-								<div className={classes.multFieldLine}>
-									<Field
-										as={TextField}
-										label={i18n.t("scheduleModal.form.sendAt")}
-										type="datetime-local"
-										name="sendAt"
-										InputLabelProps={{
-											shrink: true,
-										}}
-										error={touched.sendAt && Boolean(errors.sendAt)}
-										helperText={touched.sendAt && errors.sendAt}
-										variant="outlined"
-										fullWidth
-									/>
-								</div>
-								{(schedule.mediaPath || attachment) && (
-									<Grid xs={12} item>
-										<Button startIcon={<AttachFile />}>
-											{attachment ? attachment.name : schedule.mediaName}
-										</Button>
-										<IconButton
-											onClick={() => setConfirmationOpen(true)}
-											color="secondary"
 										>
-											<DeleteOutline color="secondary" />
-										</IconButton>
+											<Autocomplete
+												fullWidth
+												value={currentContact}
+												options={contacts}
+												onChange={(e, contact) => {
+													const contactId = contact ? contact.id : '';
+													setSchedule({ ...schedule, contactId });
+													setCurrentContact(contact ? contact : initialContact);
+												}}
+												getOptionLabel={(option) => option.name}
+												getOptionSelected={(option, value) => {
+													return value.id === option.id
+												}}
+												renderInput={(params) => (
+													<TextField
+														{...params}
+														variant="outlined"
+														placeholder="Contato"
+														className={classes.inputField}
+													/>
+												)}
+											/>
+										</FormControl>
+									</div>
+									<br />
+									<div className={classes.multFieldLine}>
+										<Field
+											as={TextField}
+											rows={9}
+											multiline={true}
+											label={i18n.t("scheduleModal.form.body")}
+											name="body"
+											inputRef={messageInputRef}
+											error={touched.body && Boolean(errors.body)}
+											helperText={touched.body && errors.body}
+											variant="outlined"
+											margin="dense"
+											fullWidth
+											className={classes.inputField}
+										/>
+									</div>
+									<Grid item>
+										<MessageVariablesPicker
+											disabled={isSubmitting}
+											onClick={value => handleClickMsgVar(value, setFieldValue)}
+										/>
 									</Grid>
-								)}
-							</DialogContent>
-							<DialogActions>
-								{!attachment && !schedule.mediaPath && (
+									<br />
+									<div className={classes.multFieldLine}>
+										<Field
+											as={TextField}
+											label={i18n.t("scheduleModal.form.sendAt")}
+											type="datetime-local"
+											name="sendAt"
+											InputLabelProps={{
+												shrink: true,
+											}}
+											error={touched.sendAt && Boolean(errors.sendAt)}
+											helperText={touched.sendAt && errors.sendAt}
+											variant="outlined"
+											fullWidth
+											className={classes.inputField}
+										/>
+									</div>
+									{(schedule.mediaPath || attachment) && (
+										<Grid xs={12} item>
+											<Button startIcon={<AttachFile />}>
+												{attachment ? attachment.name : schedule.mediaName}
+											</Button>
+											<IconButton
+												onClick={() => setConfirmationOpen(true)}
+												color="secondary"
+											>
+												<DeleteOutline color="secondary" />
+											</IconButton>
+										</Grid>
+									)}
+								</DialogContent>
+								<DialogActions>
+									{!attachment && !schedule.mediaPath && (
+										<Button
+											color="primary"
+											onClick={() => attachmentFile.current.click()}
+											disabled={isSubmitting}
+											variant="outlined"
+										>
+											{i18n.t("quickMessages.buttons.attach")}
+										</Button>
+									)}
 									<Button
-										color="primary"
-										onClick={() => attachmentFile.current.click()}
+										onClick={handleClose}
+										color="secondary"
 										disabled={isSubmitting}
 										variant="outlined"
+										style={{ backgroundColor: "#D3343E", color: "#fff" }}
 									>
-										{i18n.t("quickMessages.buttons.attach")}
+										{i18n.t("scheduleModal.buttons.cancel")}
 									</Button>
-								)}
-								<Button
-									onClick={handleClose}
-									color="secondary"
-									disabled={isSubmitting}
-									variant="outlined"
-								>
-									{i18n.t("scheduleModal.buttons.cancel")}
-								</Button>
-								{(schedule.sentAt === null || schedule.sentAt === "") && (
-									<Button
-										type="submit"
-										color="primary"
-										disabled={isSubmitting}
-										variant="contained"
-										className={classes.btnWrapper}
-									>
-										{scheduleId
-											? `${i18n.t("scheduleModal.buttons.okEdit")}`
-											: `${i18n.t("scheduleModal.buttons.okAdd")}`}
-										{isSubmitting && (
-											<CircularProgress
-												size={24}
-												className={classes.buttonProgress}
-											/>
-										)}
-									</Button>
-								)}
-							</DialogActions>
-						</Form>
-					)}
-				</Formik>
-			</Dialog>
+									{(schedule.sentAt === null || schedule.sentAt === "") && (
+										<Button
+											type="submit"
+											color="primary"
+											disabled={isSubmitting}
+											variant="contained"
+											className={classes.btnWrapper}
+										>
+											{scheduleId
+												? `${i18n.t("scheduleModal.buttons.okEdit")}`
+												: `${i18n.t("scheduleModal.buttons.okAdd")}`}
+											{isSubmitting && (
+												<CircularProgress
+													size={24}
+													className={classes.buttonProgress}
+												/>
+											)}
+										</Button>
+									)}
+								</DialogActions>
+							</Form>
+						)}
+					</Formik>
+				</Dialog>
 		</div>
 	);
 };
