@@ -220,7 +220,7 @@ const SignUp = () => {
 										helperText={touched.name && errors.name}
 										fullWidth
 										id="name"
-										label="Nome da Empresa"
+										
 										className={classes.input}
 										InputProps={{
 											disableUnderline: true, // remove a linha
@@ -246,7 +246,7 @@ const SignUp = () => {
 										//variant="outlined"
 										fullWidth
 										id="email"
-										label={i18n.t("signup.form.email")}
+										
 										name="email"
 										error={touched.email && Boolean(errors.email)}
 										helperText={touched.email && errors.email}
@@ -304,7 +304,7 @@ const SignUp = () => {
 											{...field}
 											//variant="outlined"
 											fullWidth
-											label="Telefone com (DDD)"
+											
 											InputProps={{
 												disableUnderline: true, // remove a linha
 												style: {
@@ -334,7 +334,7 @@ const SignUp = () => {
 										name="password"
 										error={touched.password && Boolean(errors.password)}
 										helperText={touched.password && errors.password}
-										label={i18n.t("signup.form.password")}
+										
 										type="password"
 										id="password"
 										autoComplete="current-password"
@@ -363,7 +363,7 @@ const SignUp = () => {
 										variant="outlined"
 										fullWidth
 										id="plan-selection"
-										label="Plano"
+										
 										name="planId"
 										required
 										className={classes.input}

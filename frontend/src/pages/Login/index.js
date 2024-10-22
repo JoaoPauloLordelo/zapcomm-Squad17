@@ -209,7 +209,7 @@ const Login = () => {
 					<TextField 
 						margin="normal"
 						id="email"
-						label={i18n.t("login.form.email")}
+						
 						required
 						name="email"
 						value={user.email}
@@ -240,7 +240,7 @@ const Login = () => {
 						required
 						fullWidth
 						name="password"
-						label={i18n.t("login.form.password")}
+						
 						type="password"
 						id="password"
 						value={user.password}
