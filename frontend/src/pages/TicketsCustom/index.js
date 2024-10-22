@@ -8,41 +8,59 @@ import TicketsManager from "../../components/TicketsManagerTabs/";
 import Ticket from "../../components/Ticket/";
 import logo from "../../assets/logo.png"; //PLW DESIGN LOGO//
 import { i18n } from "../../translate/i18n";
+import Quickemessages from ".././QuickMessages/index.js";
 
 const useStyles = makeStyles(theme => ({
 	chatContainer: {
 		flex: 1,
-		// backgroundColor: "#eee",
-		padding: theme.spacing(1), //Aqui ele ajusta espaço na tela de ticket
+		backgroundColor: "#34d3a3", // Cor de fundo secundária
+		padding: theme.spacing(1),
 		height: `calc(100% - 48px)`,
 		overflowY: "hidden",
+		paddingTop: "70px",
+		width: "100%", // Ajuste para o layout ocupar 100% da largura
+		display: "flex",
+		flexDirection: "column",
 	},
-
 	chatPapper: {
-		// backgroundColor: "red",
+		backgroundColor: "#0C2454",
 		display: "flex",
 		height: "100%",
+		width: "100%",
+		border: "4px solid #0C2454",
+		font: "Inter",
+		borderradius: "8px",
 	},
 
 	contactsWrapper: {
-		display: "flex",
-		height: "100%",
-		flexDirection: "column",
-		overflowY: "hidden",
+		height: "70%", // Ajustando para que a lista de tickets ocupe 70% da tela
+		overflowY: "auto", // Para permitir rolagem caso haja muitos tickets
+		marginBottom: theme.spacing(2), // Espaço embaixo para separar do campo de respostas rápidas
 	},
 	messagesWrapper: {
 		display: "flex",
 		height: "100%",
 		flexDirection: "column",
+		overflowY: "hidden",
 	},
+
 	welcomeMsg: {
-		backgroundColor: theme.palette.boxticket, //DARK MODE PLW DESIGN//
+		backgroundColor: theme.palette.boxticket,
 		display: "flex",
-		justifyContent: "space-evenly",
+		justifyContent: "center",
 		alignItems: "center",
 		height: "100%",
 		textAlign: "center",
 	},
+	quickMessages: {
+        padding: theme.spacing(2),
+        backgroundColor: "#ffff", // Destaque leve no fundo
+        width: "100%",
+        height: "100%", // Preenche completamente o contêiner
+		textAlign: "left"
+		},
+	
+
 }));
 
 const TicketsCustom = () => {
@@ -50,31 +68,29 @@ const TicketsCustom = () => {
 	const { ticketId } = useParams();
 
 	return (
-		<div className={classes.chatContainer}>
-			<div className={classes.chatPapper}>
-				<Grid container spacing={0}>
-					<Grid item xs={4} className={classes.contactsWrapper}>
-						<TicketsManager />
+							<Grid container spacing={0}>
+						<Grid item xs={12} className={classes.contactsWrapper}>
+							<TicketsManager />
+						</Grid>
+						<Grid item xs={12} className={classes.messagesWrapper}>
+							{ticketId ? (
+								<>
+									<Ticket />
+								</>
+							) : (
+								<Paper square variant="outlined" className={classes.welcomeMsg}>
+									{/* PLW DESIGN LOGO */}
+									
+									<div className={classes.quickMessages}>
+										<Quickemessages />
+										<div className={classes.traco}>
+									</div>
+									</div>
+								</Paper>
+							)}
+						</Grid>
 					</Grid>
-					<Grid item xs={8} className={classes.messagesWrapper}>
-						{ticketId ? (
-							<>
-								<Ticket />
-							</>
-						) : (
-							<Paper square variant="outlined" className={classes.welcomeMsg}>
-							{/* PLW DESIGN LOGO */}
-							<div>
-							<center><img style={{ margin: "0 auto", width: "70%" }} src={logo} alt="logologin" /></center>
-							</div>
-							{/* PLW DESIGN LOGO */}
-							{/*<span>{i18n.t("chat.noTicketMessage")}</span>*/}
-							</Paper>
-						)}
-					</Grid>
-				</Grid>
-			</div>
-		</div>
+
 	);
 };
 
