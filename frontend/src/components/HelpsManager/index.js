@@ -207,25 +207,7 @@ export function HelpsManagerGrid (props) {
                 </TableHead>
                 <TableBody>
                 {records.map((row) => (
-                    <TableRow key={row.id}
-                    InputProps={{
-                        disableUnderline: true, // remove a linha
-                        style: {
-                          color: '#0C2454', // cor do texto normal
-                          fontWeight: 'bold', // texto em negrito
-                        },
-                        inputProps: {
-                          style: {
-                            paddingLeft: '8px', // espaçamento à esquerda
-                            '&::placeholder': {
-                              color: '#0C2454',
-                              fontWeight: 'bold',
-                              opacity: 1, // cor do placeholder
-                              paddingLeft: '8px', // opcional: para adicionar espaço ao placeholder
-                            },
-                          },
-                        },
-                      }}>
+                    <TableRow key={row.id}g>
                         <TableCell align="center" className={classes.tableRowCell}>{row.title || '-'}</TableCell>
                         <TableCell align="center" className={classes.tableRowCell}>{row.description || '-'}</TableCell>
                         <TableCell align="center" className={classes.tableRowCell}>{row.video || '-'}</TableCell>
