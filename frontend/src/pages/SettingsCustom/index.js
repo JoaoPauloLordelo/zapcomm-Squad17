@@ -167,7 +167,6 @@ const SettingsCustom = () => {
           <Tab label="Opções" value={"options"} />
           {schedulesEnabled && <Tab label="Horários" value={"schedules"} />}
           {isSuper() ? <Tab label="Empresas" value={"companies"} /> : null}
-          {isSuper() ? <Tab label="Planos" value={"plans"} /> : null}
           {isSuper() ? <Tab label="Ajuda" value={"helps"} /> : null}
         </Tabs>
         <Paper className={classes.paper} elevation={0}>
