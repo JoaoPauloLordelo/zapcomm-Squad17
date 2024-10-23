@@ -98,8 +98,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1), // Adiciona padding baseado no espaçamento do tema
     overflowY: "scroll", // Permite rolagem vertical
     ...theme.scrollbarStyles, // Aplica estilos de scrollbar definidos no tema
+    borderRadius: "16px",
   },
   calendar: {
+    marginTop: "30px", // Adiciona margem superior
     // Estilo para o rótulo da barra de ferramentas
     "& .rbc-toolbar-label": {
       fontWeight: "bold",
@@ -152,7 +154,7 @@ const useStyles = makeStyles((theme) => ({
       borderTopRightRadius: "16px",
     },
     
-    // Estilos para os eventos no calendário
+    // Estilos para a lista de eventos(Agendamentos)
     "& .rbc-event": {
       backgroundColor: "#D9D9D9",
       borderRadius: "16px",
@@ -347,7 +349,7 @@ const Schedules = () => {
           <Title>{i18n.t("schedules.title")} ({schedules.length})</Title>
           <div>
             <TextField
-              placeholder={i18n.t("contacts.searchPlaceholder")}
+              placeholder="Pesquisar"
               type="search"
               value={searchParam}
               onChange={handleSearch}
