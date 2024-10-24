@@ -94,10 +94,95 @@ const reducer = (state, action) => {
 
 const useStyles = makeStyles((theme) => ({
   mainPaper: {
-    flex: 1,
-    padding: theme.spacing(1),
-    overflowY: "scroll",
-    ...theme.scrollbarStyles,
+    flex: 1, // Faz o elemento crescer para preencher o espaço disponível
+    padding: theme.spacing(1), // Adiciona padding baseado no espaçamento do tema
+    overflowY: "scroll", // Permite rolagem vertical
+    ...theme.scrollbarStyles, // Aplica estilos de scrollbar definidos no tema
+    borderRadius: "16px",
+  },
+  calendar: {
+    marginTop: "30px", // Adiciona margem superior
+    // Estilo para o rótulo da barra de ferramentas
+    "& .rbc-toolbar-label": {
+      fontWeight: "bold",
+      color: "#0C2454",
+      textTransform: "capitalize",
+    },
+    
+    // Estilos para botões ativos e focados
+    "& .rbc-active, & .rbc-btn-group button.rbc-active, & .rbc-toolbar button:focus, & .rbc-toolbar button.rbc-active:focus": { 
+      backgroundColor: "#0C2454 !important",
+      color: "white !important",
+      fontWeight: "bold",
+    },
+    
+    // Estilo padrão para botões na barra de ferramentas
+    "& .rbc-btn-group button": {
+      fontWeight: "bold",
+      border: "none",
+      color: "#0C2454",
+    },
+    
+    // Arredondamento dos cantos superiores da visão mensal
+    "& .rbc-month-view": {
+      borderTopLeftRadius: "16px",
+      borderTopRightRadius: "16px",
+    },
+    
+    // Estilos para os cabeçalhos do calendário
+    "& .rbc-header": {
+      padding: "10px 5px",
+      fontWeight: "bold",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      textAlign: "center",
+    },
+    
+    // Ajuste da altura da linha do texto no cabeçalho
+    "& .rbc-header span": {
+      lineHeight: 1,
+    },
+    
+    // Arredondamento do canto superior esquerdo do primeiro cabeçalho
+    "& .rbc-header:first-child": {
+      borderTopLeftRadius: "16px",
+    },
+    
+    // Arredondamento do canto superior direito do último cabeçalho
+    "& .rbc-header:last-child": {
+      borderTopRightRadius: "16px",
+    },
+    
+    // Estilos para a lista de eventos(Agendamentos)
+    "& .rbc-event": {
+      backgroundColor: "#D9D9D9",
+      borderRadius: "16px",
+      color: "#0C2454",
+      border: "none",
+      padding: "4px 8px",
+      marginBottom: "8px",
+    },
+    
+    // Ajuste da margem direita para eventos na visualização de dia
+    "& .rbc-day-slot .rbc-events-container": {
+      marginRight: "10px",
+    },
+    
+    // Tamanho da fonte para o conteúdo dos eventos
+    "& .rbc-event-content": {
+      fontSize: "14px",
+    },
+    
+    // Ajustes específicos para a visualização de semana
+    "& .rbc-time-header-content .rbc-header": {
+      height: "100%",
+    },
+    
+    // Garante que os cabeçalhos ocupem toda a altura em diferentes visualizações
+    "& .rbc-time-header-cell, & .rbc-time-header-cell-single-day": {
+      height: "100%",
+    },
   },
 }));
 
@@ -259,38 +344,49 @@ const Schedules = () => {
         contactId={contactId}
         cleanContact={cleanContact}
       />
-      <MainHeader>
-        <Title>{i18n.t("schedules.title")} ({schedules.length})</Title>
-        <MainHeaderButtonsWrapper>
-          <TextField
-            placeholder={i18n.t("contacts.searchPlaceholder")}
-            type="search"
-            value={searchParam}
-            onChange={handleSearch}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon style={{ color: "gray" }} />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleOpenScheduleModal}
-          >
-            {i18n.t("schedules.buttons.add")}
-          </Button>
-        </MainHeaderButtonsWrapper>
-      </MainHeader>
       <Paper className={classes.mainPaper} variant="outlined" onScroll={handleScroll}>
+        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "10px"}}>
+          <Title>{i18n.t("schedules.title")} ({schedules.length})</Title>
+          <div>
+            <TextField
+              placeholder="Pesquisar"
+              type="search"
+              value={searchParam}
+              onChange={handleSearch}
+              InputProps={{
+                style: {
+                  backgroundColor: "#D9D9D9",
+                  borderRadius: "16px",
+                  padding: "4px",
+                  marginRight: "10px",
+                },
+                disableUnderline: true,
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon style={{ color: "#0C2454" }} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleOpenScheduleModal}
+              >
+              {i18n.t("schedules.buttons.add")}
+            </Button>
+          </div>
+        </div>
         <Calendar
+          className={classes.calendar}
           messages={defaultMessages}
           formats={{
-          agendaDateFormat: "DD/MM ddd",
-          weekdayFormat: "dddd"
-      }}
+            agendaDateFormat: "DD/MM ddd",
+            weekdayFormat: (date) => {
+              const weekdays = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
+              return weekdays[date.getDay()];
+            },
+          }}
           localizer={localizer}
           events={schedules.map((schedule) => ({
             title: (
@@ -299,12 +395,14 @@ const Schedules = () => {
                 <DeleteOutlineIcon
                   onClick={() => handleDeleteSchedule(schedule.id)}
                   className="delete-icon"
+                  style={{ color: "#D3343E", cursor: "pointer" }}
                 />
                 <EditIcon
                   onClick={() => {
                     handleEditSchedule(schedule);
                     setScheduleModalOpen(true);
                   }}
+                  style={{ color: "#0C2454", cursor: "pointer" }}
                   className="edit-icon"
                 />
               </div>
