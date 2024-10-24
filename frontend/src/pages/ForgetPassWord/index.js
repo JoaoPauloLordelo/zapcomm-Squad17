@@ -241,6 +241,7 @@ const handleSendEmail = async (values) => {
         <div className={classes.paper}>    
           <Typography component="h1" variant="h5" className={classes.redefs}>
             {i18n.t("Redefinir senha")}
+            
           </Typography>
           <Formik
             initialValues={{
@@ -273,12 +274,26 @@ const handleSendEmail = async (values) => {
                       //variant="outlined"
                       fullWidth
                       id="email"
-                      label={i18n.t("signup.form.email")}
+                      
                       name="email"
                       error={touched.email && Boolean(errors.email)}
                       helperText={touched.email && errors.email}
                       autoComplete="email"
                       required
+                      InputProps={{
+                        disableUnderline: true, // remove a linha
+                        style: {
+                          color: '#FFFFFF', // cor do texto normal
+                          fontWeight: 'bold', // texto em negrito
+                        },
+                      }}
+                      InputLabelProps={{
+                        style: {
+                          color: '#FFFFFF', // cor do label
+                          
+                          opacity: 1, // visibilidade total
+                        },
+                      }}
                       className={classes.input}
                     />
                   </Grid>
@@ -291,13 +306,28 @@ const handleSendEmail = async (values) => {
                           //variant="outlined"
                           fullWidth
                           id="token"
-                          label="Código de Verificação"
+                          
                           name="token"
                           error={touched.token && Boolean(errors.token)}
                           helperText={touched.token && errors.token}
                           autoComplete="off"
                           required
+                          InputProps={{
+                            disableUnderline: true, // remove a linha
+                            style: {
+                              color: '#FFFFFF', // cor do texto normal
+                              fontWeight: 'bold', // texto em negrito
+                            },
+                          }}
+                          InputLabelProps={{
+                            style: {
+                              color: '#FFFFFF', // cor do label
+                              
+                              opacity: 1, // visibilidade total
+                            },
+                          }}
                           className={classes.input}
+                          
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -308,7 +338,7 @@ const handleSendEmail = async (values) => {
                           fullWidth
                           type={showPassword ? "text" : "password"}
                           id="newPassword"
-                          label="Nova senha"
+                         
                           name="newPassword"
                           error={
                             touched.newPassword &&
@@ -320,19 +350,30 @@ const handleSendEmail = async (values) => {
                           autoComplete="off"
                           required
                           InputProps={{
+                            disableUnderline: true, // remove a linha
+                            style: {
+                              color: '#FFFFFF', // cor do texto normal
+                              fontWeight: 'bold', // texto em negrito
+                            },
                             endAdornment: (
                               <InputAdornment position="end">
-                                <IconButton
-                                  onClick={togglePasswordVisibility}
-                                >
-                                  {showPassword ? (
-                                    <VisibilityIcon />
-                                  ) : (
-                                    <VisibilityOffIcon />
-                                  )}
+                                <IconButton onClick={togglePasswordVisibility} style={{ color: '#FFFFFF' }}>
+                                  {showPassword ? <VisibilityIcon style={{ color: '#FFFFFF' }} /> : <VisibilityOffIcon style={{ color: '#FFFFFF' }} />}
                                 </IconButton>
                               </InputAdornment>
                             ),
+                          }}
+                          InputLabelProps={{
+                            style: {
+                              color: '#FFFFFF', // cor do label
+                              opacity: 1, // visibilidade total
+                            },
+                          }}
+                         
+                          inputProps={{
+                            style: {
+                              color: '#FFFFFF', // cor do placeholder
+                            },
                           }}
                           className={classes.input}
                         />
@@ -345,7 +386,7 @@ const handleSendEmail = async (values) => {
                           fullWidth
                           type={showConfirmPassword ? "text" : "password"}
                           id="confirmPassword"
-                          label="Confirme a senha"
+                          
                           name="confirmPassword"
                           error={
                             touched.confirmPassword &&
@@ -358,19 +399,30 @@ const handleSendEmail = async (values) => {
                           autoComplete="off"
                           required
                           InputProps={{
+                            disableUnderline: true, // remove a linha
+                            style: {
+                              color: '#FFFFFF', // cor do texto normal
+                              fontWeight: 'bold', // texto em negrito
+                            },
                             endAdornment: (
                               <InputAdornment position="end">
-                                <IconButton
-                                  onClick={toggleConfirmPasswordVisibility}
-                                >
-                                  {showConfirmPassword ? (
-                                    <VisibilityIcon />
-                                  ) : (
-                                    <VisibilityOffIcon />
-                                  )}
+                                <IconButton onClick={togglePasswordVisibility} style={{ color: '#FFFFFF' }}>
+                                  {showPassword ? <VisibilityIcon style={{ color: '#FFFFFF' }} /> : <VisibilityOffIcon style={{ color: '#FFFFFF' }} />}
                                 </IconButton>
                               </InputAdornment>
                             ),
+                          }}
+                          InputLabelProps={{
+                            style: {
+                              color: '#FFFFFF', // cor do label
+                              opacity: 1, // visibilidade total
+                            },
+                          }}
+                          
+                          inputProps={{
+                            style: {
+                              color: '#FFFFFF', // cor do placeholder
+                            },
                           }}
                           className={classes.input}
                         />
