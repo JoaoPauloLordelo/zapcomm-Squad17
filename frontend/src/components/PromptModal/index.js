@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-
+import DeleteIcon from '@material-ui/icons/Delete';
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { toast } from "react-toastify";
-
 import { makeStyles } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
@@ -54,6 +53,27 @@ const useStyles = makeStyles(theme => ({
         width: 20,
         height: 20,
     },
+    roundedButton: {
+        borderRadius: 12,
+    },
+    dropdownIcon: {
+        color: "#FFFFFF",
+    },
+    textField: {
+        backgroundColor: '#cccccc',
+        "& .MuiInputBase-input": {
+            color: '#808080',
+        },
+        "& .MuiInputBase-input:focus": {
+            color: '#0C2454',
+        },
+        "& .MuiInputLabel-root": {
+            color: '#808080',
+        },
+        "& .MuiInputLabel-root.Mui-focused": {
+            color: '#0C2454',
+        },
+    },
 }));
 
 const PromptSchema = Yup.object().shape({
@@ -77,6 +97,19 @@ const PromptModal = ({ open, onClose, promptId }) => {
     };
 
     const initialState = {
+        name: "",
+        prompt: "",
+        voice: "texto",
+        voiceKey: "",
+        voiceRegion: "",
+        maxTokens: 100,
+        temperature: 1,
+        apiKey: "",
+        queueId: null,
+        maxMessages: 10
+    };
+
+    const voiceKey = {
         name: "",
         prompt: "",
         voice: "texto",
@@ -148,8 +181,13 @@ const PromptModal = ({ open, onClose, promptId }) => {
                 maxWidth="md"
                 scroll="paper"
                 fullWidth
+                PaperProps={{
+                    style: {
+                        borderRadius: 20,
+                    },
+                }}
             >
-                <DialogTitle id="form-dialog-title">
+                <DialogTitle id="form-dialog-title" style={{ color: '#0C2454' }}>
                     {promptId
                         ? `${i18n.t("promptModal.title.edit")}`
                         : `${i18n.t("promptModal.title.add")}`}
@@ -166,196 +204,270 @@ const PromptModal = ({ open, onClose, promptId }) => {
                 >
                     {({ touched, errors, isSubmitting, values }) => (
                         <Form style={{ width: "100%" }}>
-                            <DialogContent dividers>
+                        <DialogContent dividers>
+                            <Field
+                                as={TextField}
+                                label={i18n.t("promptModal.form.name")}
+                                name="name"
+                                error={touched.name && Boolean(errors.name)}
+                                helperText={touched.name && errors.name}
+                                variant="outlined"
+                                margin="dense"
+                                fullWidth
+                                style={{ backgroundColor: '#cccccc' }}
+                                InputProps={{
+                                    style: { color: '#FFFFFF' },
+                                }}
+                                className={classes.textField}
+                            />
+                            <FormControl fullWidth margin="dense" variant="outlined">
                                 <Field
                                     as={TextField}
-                                    label={i18n.t("promptModal.form.name")}
-                                    name="name"
-                                    error={touched.name && Boolean(errors.name)}
-                                    helperText={touched.name && errors.name}
+                                    label={i18n.t("promptModal.form.apikey")}
+                                    name="apiKey"
+                                    type={showApiKey ? 'text' : 'password'}
+                                    error={touched.apiKey && Boolean(errors.apiKey)}
+                                    helperText={touched.apiKey && errors.apiKey}
                                     variant="outlined"
                                     margin="dense"
                                     fullWidth
+                                    style={{ backgroundColor: '#cccccc' }}
+                                    className={classes.textField}
+                                    InputProps={{
+                                        style: { color: '#FFFFFF' },
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton onClick={handleToggleApiKey}>
+                                                    {showApiKey ? <VisibilityOff /> : <Visibility />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
-                                <FormControl fullWidth margin="dense" variant="outlined">
-                                    <Field
-                                        as={TextField}
-                                        label={i18n.t("promptModal.form.apikey")}
-                                        name="apiKey"
-                                        type={showApiKey ? 'text' : 'password'}
-                                        error={touched.apiKey && Boolean(errors.apiKey)}
-                                        helperText={touched.apiKey && errors.apiKey}
-                                        variant="outlined"
-                                        margin="dense"
-                                        fullWidth
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton onClick={handleToggleApiKey}>
-                                                        {showApiKey ? <VisibilityOff /> : <Visibility />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            ),
+                            </FormControl>
+                            <Field
+                                as={TextField}
+                                label={i18n.t("promptModal.form.prompt")}
+                                name="prompt"
+                                error={touched.prompt && Boolean(errors.prompt)}
+                                helperText={touched.prompt && errors.prompt}
+                                variant="outlined"
+                                margin="dense"
+                                fullWidth
+                                style={{ backgroundColor: '#cccccc' }}
+                                rows={2}
+                                multiline={true}
+                                InputProps={{
+                                    className: classes.roundedInput,
+                                    style: { color: '#FFFFFF' , height:'60.75px' },
+                                }}
+                                className={classes.textField}
+                            />
+                            <QueueSelectSingle />
+                            <div className={classes.multFieldLine}>
+                            <FormControl fullWidth margin="dense" variant="outlined">
+                                <InputLabel style={{ color: '#CCCCCC', marginTop: '10px' }}>{i18n.t("promptModal.form.voice")}</InputLabel>
+                                    <Select
+                                        style={{ backgroundColor: '#0C2454', color: '#FFFFFF', height: '60.75px' }}
+                                        id="type-select"
+                                        labelWidth={60}
+                                        name="voice"
+                                        value={selectedVoice}
+                                        onChange={handleChangeVoice}
+                                        multiple={false}
+                                        classes={{
+                                            icon: classes.dropdownIcon,
                                         }}
-                                    />
+                                    >
+                                        <MenuItem key={"texto"} value={"texto"}>
+                                            Texto
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-FranciscaNeural"} value={"pt-BR-FranciscaNeural"}>
+                                            Francisa
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-AntonioNeural"} value={"pt-BR-AntonioNeural"}>
+                                            Antônio
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-BrendaNeural"} value={"pt-BR-BrendaNeural"}>
+                                            Brenda
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-DonatoNeural"} value={"pt-BR-DonatoNeural"}>
+                                            Donato
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-ElzaNeural"} value={"pt-BR-ElzaNeural"}>
+                                            Elza
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-FabioNeural"} value={"pt-BR-FabioNeural"}>
+                                            Fábio
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-GiovannaNeural"} value={"pt-BR-GiovannaNeural"}>
+                                            Giovanna
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-HumbertoNeural"} value={"pt-BR-HumbertoNeural"}>
+                                            Humberto
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-JulioNeural"} value={"pt-BR-JulioNeural"}>
+                                            Julio
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-LeilaNeural"} value={"pt-BR-LeilaNeural"}>
+                                            Leila
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-LeticiaNeural"} value={"pt-BR-LeticiaNeural"}>
+                                            Letícia
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-ManuelaNeural"} value={"pt-BR-ManuelaNeural"}>
+                                            Manuela
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-NicolauNeural"} value={"pt-BR-NicolauNeural"}>
+                                            Nicolau
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-ValerioNeural"} value={"pt-BR-ValerioNeural"}>
+                                            Valério
+                                        </MenuItem>
+                                        <MenuItem key={"pt-BR-YaraNeural"} value={"pt-BR-YaraNeural"}>
+                                            Yara
+                                        </MenuItem>
+                                    </Select>
                                 </FormControl>
                                 <Field
                                     as={TextField}
-                                    label={i18n.t("promptModal.form.prompt")}
-                                    name="prompt"
-                                    error={touched.prompt && Boolean(errors.prompt)}
-                                    helperText={touched.prompt && errors.prompt}
+                                    label={i18n.t("promptModal.form.voiceKey")}
+                                    name="voiceKey"
+                                    error={touched.voiceKey && Boolean(errors.voiceKey)}
+                                    helperText={touched.voiceKey && errors.voiceKey}
                                     variant="outlined"
                                     margin="dense"
                                     fullWidth
-                                    rows={10}
-                                    multiline={true}
+                                    style={{ backgroundColor: '#0C2454' , borderRadius: '6px' , height:'60.75px' }}
+                                    InputLabelProps={{
+                                        style: {
+                                            color: '#CCCCCC',
+                                            top: '10px',
+                                        },
+                                    }}
+                                    InputProps={{
+                                        className: classes.roundedInput,
+                                        style: { color: '#FFFFFF' , height:'60.75px' },
+                                    }}
                                 />
-                                <QueueSelectSingle />
-                                <div className={classes.multFieldLine}>
-                                    <FormControl fullWidth margin="dense" variant="outlined">
-                                    <InputLabel>{i18n.t("promptModal.form.voice")}</InputLabel>
-                                        <Select
-                                            id="type-select"
-                                            labelWidth={60}
-                                            name="voice"
-                                            value={selectedVoice}
-                                            onChange={handleChangeVoice}
-                                            multiple={false}
-                                        >
-                                            <MenuItem key={"texto"} value={"texto"}>
-                                                Texto
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-FranciscaNeural"} value={"pt-BR-FranciscaNeural"}>
-                                                Francisa
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-AntonioNeural"} value={"pt-BR-AntonioNeural"}>
-                                                Antônio
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-BrendaNeural"} value={"pt-BR-BrendaNeural"}>
-                                                Brenda
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-DonatoNeural"} value={"pt-BR-DonatoNeural"}>
-                                                Donato
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-ElzaNeural"} value={"pt-BR-ElzaNeural"}>
-                                                Elza
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-FabioNeural"} value={"pt-BR-FabioNeural"}>
-                                                Fábio
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-GiovannaNeural"} value={"pt-BR-GiovannaNeural"}>
-                                                Giovanna
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-HumbertoNeural"} value={"pt-BR-HumbertoNeural"}>
-                                                Humberto
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-JulioNeural"} value={"pt-BR-JulioNeural"}>
-                                                Julio
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-LeilaNeural"} value={"pt-BR-LeilaNeural"}>
-                                                Leila
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-LeticiaNeural"} value={"pt-BR-LeticiaNeural"}>
-                                                Letícia
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-ManuelaNeural"} value={"pt-BR-ManuelaNeural"}>
-                                                Manuela
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-NicolauNeural"} value={"pt-BR-NicolauNeural"}>
-                                                Nicolau
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-ValerioNeural"} value={"pt-BR-ValerioNeural"}>
-                                                Valério
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-YaraNeural"} value={"pt-BR-YaraNeural"}>
-                                                Yara
-                                            </MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    <Field
-                                        as={TextField}
-                                        label={i18n.t("promptModal.form.voiceKey")}
-                                        name="voiceKey"
-                                        error={touched.voiceKey && Boolean(errors.voiceKey)}
-                                        helperText={touched.voiceKey && errors.voiceKey}
-                                        variant="outlined"
-                                        margin="dense"
-                                        fullWidth
-                                    />
-                                    <Field
-                                        as={TextField}
-                                        label={i18n.t("promptModal.form.voiceRegion")}
-                                        name="voiceRegion"
-                                        error={touched.voiceRegion && Boolean(errors.voiceRegion)}
-                                        helperText={touched.voiceRegion && errors.voiceRegion}
-                                        variant="outlined"
-                                        margin="dense"
-                                        fullWidth
-                                    />
-                                </div>
-                                
-                                <div className={classes.multFieldLine}>
-                                    <Field
-                                        as={TextField}
-                                        label={i18n.t("promptModal.form.temperature")}
-                                        name="temperature"
-                                        error={touched.temperature && Boolean(errors.temperature)}
-                                        helperText={touched.temperature && errors.temperature}
-                                        variant="outlined"
-                                        margin="dense"
-                                        fullWidth
-                                    />
-                                    <Field
-                                        as={TextField}
-                                        label={i18n.t("promptModal.form.max_tokens")}
-                                        name="maxTokens"
-                                        error={touched.maxTokens && Boolean(errors.maxTokens)}
-                                        helperText={touched.maxTokens && errors.maxTokens}
-                                        variant="outlined"
-                                        margin="dense"
-                                        fullWidth
-                                    />
-                                    <Field
-                                        as={TextField}
-                                        label={i18n.t("promptModal.form.max_messages")}
-                                        name="maxMessages"
-                                        error={touched.maxMessages && Boolean(errors.maxMessages)}
-                                        helperText={touched.maxMessages && errors.maxMessages}
-                                        variant="outlined"
-                                        margin="dense"
-                                        fullWidth
-                                    />
-                                </div>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button
-                                    onClick={handleClose}
-                                    color="secondary"
-                                    disabled={isSubmitting}
+                                <Field
+                                    as={TextField}
+                                    label={i18n.t("promptModal.form.voiceRegion")}
+                                    name="voiceRegion"
+                                    error={touched.voiceRegion && Boolean(errors.voiceRegion)}
+                                    helperText={touched.voiceRegion && errors.voiceRegion}
                                     variant="outlined"
-                                >
-                                    {i18n.t("promptModal.buttons.cancel")}
-                                </Button>
-                                <Button
-                                    type="submit"
-                                    color="primary"
-                                    disabled={isSubmitting}
-                                    variant="contained"
-                                    className={classes.btnWrapper}
-                                >
-                                    {promptId
-                                        ? `${i18n.t("promptModal.buttons.okEdit")}`
-                                        : `${i18n.t("promptModal.buttons.okAdd")}`}
-                                    {isSubmitting && (
-                                        <CircularProgress
-                                            size={24}
-                                            className={classes.buttonProgress}
-                                        />
-                                    )}
-                                </Button>
-                            </DialogActions>
-                        </Form>
+                                    margin="dense"
+                                    fullWidth
+                                    style={{ backgroundColor: '#0C2454' , borderRadius: '6px' , height:'60.75px' }}
+                                    InputLabelProps={{
+                                        style: {
+                                            color: '#CCCCCC',
+                                            top: '10px',
+                                        },
+                                    }}
+                                    InputProps={{
+                                        className: classes.roundedInput,
+                                        style: { color: '#FFFFFF' , height:'60.75px' },
+                                    }}
+                                />
+                            </div>
+                    
+                            <div className={classes.multFieldLine}>
+                                <Field
+                                    as={TextField}
+                                    label={i18n.t("promptModal.form.temperature")}
+                                    name="temperature"
+                                    error={touched.temperature && Boolean(errors.temperature)}
+                                    helperText={touched.temperature && errors.temperature}
+                                    variant="outlined"
+                                    margin="dense"
+                                    fullWidth
+                                    style={{ backgroundColor: '#0C2454' , borderRadius: '6px' , height:'60.75px' }}
+                                    InputLabelProps={{
+                                        style: {
+                                            color: '#CCCCCC',
+                                            top: '10px',
+                                        },
+                                    }}
+                                    InputProps={{
+                                        className: classes.roundedInput,
+                                        style: { color: '#FFFFFF' , height:'60.75px' },
+                                    }}
+                                />
+                                <Field
+                                    as={TextField}
+                                    label={i18n.t("promptModal.form.max_tokens")}
+                                    name="maxTokens"
+                                    error={touched.maxTokens && Boolean(errors.maxTokens)}
+                                    helperText={touched.maxTokens && errors.maxTokens}
+                                    variant="outlined"
+                                    margin="dense"
+                                    fullWidth
+                                    style={{ backgroundColor: '#0C2454' , borderRadius: '6px' , height:'60.75px' }}
+                                    InputLabelProps={{
+                                        style: {
+                                            color: '#CCCCCC',
+                                            top: '10px',
+                                        },
+                                    }}
+                                    InputProps={{
+                                        className: classes.roundedInput,
+                                        style: { color: '#FFFFFF' , height:'60.75px' },
+                                    }}
+                                />
+                                <Field
+                                    as={TextField}
+                                    label={i18n.t("promptModal.form.max_messages")}
+                                    name="maxMessages"
+                                    error={touched.maxMessages && Boolean(errors.maxMessages)}
+                                    helperText={touched.maxMessages && errors.maxMessages}
+                                    variant="outlined"
+                                    margin="dense"
+                                    fullWidth
+                                    style={{ backgroundColor: '#0C2454' , borderRadius: '6px' , height:'60.75px' }}
+                                    InputLabelProps={{
+                                        style: {
+                                            color: '#CCCCCC',
+                                            top: '10px',
+                                        },
+                                    }}
+                                    InputProps={{
+                                        className: classes.roundedInput,
+                                        style: { color: '#FFFFFF' , height:'60.75px' },
+                                    }}
+                                />
+                            </div>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button
+                                onClick={handleClose}
+                                color="secondary"
+                                disabled={isSubmitting}
+                                variant="contained"
+                            >
+                                <DeleteIcon style={{ marginRight: '5px', marginLeft: '5px' }} /> {/* Adiciona o ícone */}
+                            </Button>
+                            <Button
+                                style={{ backgroundColor: '#0C2454' }}
+                                type="submit"
+                                color="primary"
+                                disabled={isSubmitting}
+                                variant="contained"
+                                className={classes.btnWrapper}
+                            >
+                                {promptId
+                                    ? `${i18n.t("promptModal.buttons.okEdit")}`
+                                    : `${i18n.t("promptModal.buttons.okAdd")}`}
+                                {isSubmitting && (
+                                    <CircularProgress
+                                        size={24}
+                                        className={classes.buttonProgress}
+                                    />
+                                )}
+                            </Button>
+                        </DialogActions>
+                    </Form>
                     )}
                 </Formik>
             </Dialog>

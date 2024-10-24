@@ -15,7 +15,8 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    margin: '2rem'
+    margin: '2rem',
+    paddingTop: '70px'
   },
   inputContainer: {
     display: 'flex',

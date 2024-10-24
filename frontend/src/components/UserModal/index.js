@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react"; 
 
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { makeStyles } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
+import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -28,6 +29,12 @@ import { Can } from "../Can";
 import useWhatsApps from "../../hooks/useWhatsApps";
 
 const useStyles = makeStyles(theme => ({
+	blueline: {
+		borderBottom: "2px solid #0C2454",
+		width: "90%",
+		margin: "0 auto",
+		marginBottom: theme.spacing(),
+	},
 	root: {
 		display: "flex",
 		flexWrap: "wrap",
@@ -38,11 +45,9 @@ const useStyles = makeStyles(theme => ({
 			marginRight: theme.spacing(1),
 		},
 	},
-
 	btnWrapper: {
 		position: "relative",
 	},
-
 	buttonProgress: {
 		color: green[500],
 		position: "absolute",
@@ -54,6 +59,67 @@ const useStyles = makeStyles(theme => ({
 	formControl: {
 		margin: theme.spacing(1),
 		minWidth: 120,
+	},
+	dialogTitle: {
+		textAlign: "center",
+		color: "#0C245",
+	},
+	dialogPaper: {
+		borderRadius: 40,
+	},
+	textField: {
+		'& .MuiOutlinedInput-root': {
+			'& fieldset': {
+				borderColor: '#0C2454',
+			},
+			'&:hover fieldset': {
+				borderColor: '#0C2454',
+			},
+			'&.Mui-focused fieldset': {
+				borderColor: '#0C2454',
+			},
+		},
+	},
+	selectField: {
+		'& .MuiOutlinedInput-root': {
+			'& fieldset': {
+				borderColor: '#0C2454',
+			},
+			'&:hover fieldset': {
+				borderColor: '#0C2454',
+			},
+			'&.Mui-focused fieldset': {
+				borderColor: '#0C2454',
+			},
+		},
+	},
+	buttonRed: {
+		backgroundColor: '#f44336', // Vermelho
+		color: '#fff',
+		borderRadius: '8px',
+		padding: '8px 15px',
+		textTransform: 'none', // Não transforma o texto para caixa alta
+		'&:hover': {
+			backgroundColor: '#c62828', // Vermelho escuro ao passar o mouse
+		},
+		transition: 'background-color 0.3s ease',
+	},
+	buttonBlue: {
+		backgroundColor: '#0C2454', // Azul
+		color: '#fff',
+		borderRadius: '8px',
+		padding: '8px 15px',
+		textTransform: 'none', // Não transforma o texto para caixa alta
+		'&:hover': {
+			backgroundColor: '#0A1A3E', // Azul escuro ao passar o mouse
+		},
+		transition: 'background-color 0.3s ease',
+	},
+	buttonsContainer: {
+		display: 'flex',
+		marginRight: theme.spacing(2), // Um pouco de margem à direita
+		marginTop: theme.spacing(0,5),
+		marginLeft: theme.spacing(4), // Um pouco de margem à esquerda
 	},
 }));
 
@@ -131,12 +197,20 @@ const UserModal = ({ open, onClose, userId }) => {
 				maxWidth="xs"
 				fullWidth
 				scroll="paper"
+				PaperProps={{
+					classes: {
+						root: classes.dialogPaper,
+					},
+				}}
 			>
-				<DialogTitle id="form-dialog-title">
+				<DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
 					{userId
-						? `${i18n.t("userModal.title.edit")}`
-						: `${i18n.t("userModal.title.add")}`}
+						? <strong>{i18n.t("userModal.title.edit")}</strong>
+						: <strong>{i18n.t("userModal.title.add")}</strong>}
 				</DialogTitle>
+				
+				<div className={classes.blueline}></div>
+				
 				<Formik
 					initialValues={user}
 					enableReinitialize={true}
@@ -150,7 +224,10 @@ const UserModal = ({ open, onClose, userId }) => {
 				>
 					{({ touched, errors, isSubmitting }) => (
 						<Form>
-							<DialogContent dividers>
+							<DialogContent >
+
+							<div style={{ marginTop: '-20px' }}>
+
 								<div className={classes.multFieldLine}>
 									<Field
 										as={TextField}
@@ -162,6 +239,7 @@ const UserModal = ({ open, onClose, userId }) => {
 										variant="outlined"
 										margin="dense"
 										fullWidth
+										className={classes.textField}
 									/>
 									<Field
 										as={TextField}
@@ -173,6 +251,7 @@ const UserModal = ({ open, onClose, userId }) => {
 										variant="outlined"
 										margin="dense"
 										fullWidth
+										className={classes.textField}
 									/>
 								</div>
 								<div className={classes.multFieldLine}>
@@ -185,10 +264,11 @@ const UserModal = ({ open, onClose, userId }) => {
 										variant="outlined"
 										margin="dense"
 										fullWidth
+										className={classes.textField}
 									/>
 									<FormControl
 										variant="outlined"
-										className={classes.formControl}
+										className={`${classes.formControl} ${classes.selectField}`}
 										margin="dense"
 									>
 										<Can
@@ -211,7 +291,7 @@ const UserModal = ({ open, onClose, userId }) => {
 														<MenuItem value="admin">Admin</MenuItem>
 														<MenuItem value="user">User</MenuItem>
 													</Field>
-												</>
+													</>
 											)}
 										/>
 									</FormControl>
@@ -226,36 +306,39 @@ const UserModal = ({ open, onClose, userId }) => {
 										/>
 									)}
 								/>
-								<Can
-									role={loggedInUser.profile}
-									perform="user-modal:editProfile"
-									yes={() => (
-										<FormControl variant="outlined" margin="dense" className={classes.maxWidth} fullWidth>
-											<InputLabel>
-												{i18n.t("userModal.form.whatsapp")}
-											</InputLabel>
-											<Field
-												as={Select}
-												value={whatsappId}
-												onChange={(e) => setWhatsappId(e.target.value)}
-												label={i18n.t("userModal.form.whatsapp")}
-
-											>
-												<MenuItem value={''}>&nbsp;</MenuItem>
-												{whatsApps.map((whatsapp) => (
-													<MenuItem key={whatsapp.id} value={whatsapp.id}>{whatsapp.name}</MenuItem>
-												))}
-											</Field>
-										</FormControl>
-									)}
-								/>
-								
-								
-								
-								<div className={classes.divider}>
-									<span className={classes.dividerText}>Liberações</span>
+									<Can
+										role={loggedInUser.profile}
+										perform="user-modal:editProfile"
+										yes={() => (!loading &&
+											<div className={classes.textField}>
+												<FormControl
+													variant="outlined"
+													className={`${classes.maxWidth} ${classes.selectField}`}
+													margin="dense"
+													fullWidth
+												>
+													<>
+														<InputLabel id="profile-selection-input-label">
+															{i18n.t("userModal.form.whatsapp")}
+														</InputLabel>
+	
+														<Field
+															as={Select}
+															value={whatsappId}
+															onChange={(e) => setWhatsappId(e.target.value)}
+															label={i18n.t("userModal.form.whatsapp")}
+														>
+															<MenuItem value={''}>&nbsp;</MenuItem>
+															{whatsApps.map((whatsapp) => (
+																<MenuItem key={whatsapp.id} value={whatsapp.id}>{whatsapp.name}</MenuItem>
+															))}
+														</Field>
+													</>
+												</FormControl>
+											</div>
+										)}
+									/>
 								</div>
-								
 								<Can
 									role={loggedInUser.profile}
 									perform="user-modal:editProfile"
@@ -263,7 +346,7 @@ const UserModal = ({ open, onClose, userId }) => {
 										<div className={classes.textField}>
 											<FormControl
 												variant="outlined"
-												className={classes.maxWidth}
+												className={`${classes.maxWidth} ${classes.selectField}`}
 												margin="dense"
 												fullWidth
 											>
@@ -286,38 +369,33 @@ const UserModal = ({ open, onClose, userId }) => {
 												</>
 											</FormControl>
 										</div>
-
 									)}
 								/>
-								
 							</DialogContent>
-							<DialogActions>
-								<Button
-									onClick={handleClose}
-									color="secondary"
-									disabled={isSubmitting}
-									variant="outlined"
-								>
-									{i18n.t("userModal.buttons.cancel")}
-								</Button>
-								<Button
-									type="submit"
-									color="primary"
-									disabled={isSubmitting}
-									variant="contained"
-									className={classes.btnWrapper}
-								>
-									{userId
-										? `${i18n.t("userModal.buttons.okEdit")}`
-										: `${i18n.t("userModal.buttons.okAdd")}`}
-									{isSubmitting && (
-										<CircularProgress
-											size={24}
-											className={classes.buttonProgress}
-										/>
-									)}
-								</Button>
-							</DialogActions>
+							<div className={classes.blueline}></div> {/* Nova linha azul */}
+   
+							<DialogActions className={classes.buttonsContainer}>
+    <Button
+        onClick={handleClose}
+        className={classes.buttonRed}
+        disabled={isSubmitting}
+    >
+        <DeleteIcon style={{ marginRight: '5px', marginLeft: '5px' }} /> {/* Adiciona o ícone */}
+    </Button>
+    <Button
+        type="submit"
+        disabled={isSubmitting}
+        className={classes.buttonBlue}
+    >
+        {userId
+            ? i18n.t("userModal.buttons.okEdit")
+            : i18n.t("userModal.buttons.okAdd")}
+        {isSubmitting && (
+            <CircularProgress size={24} className={classes.buttonProgress} />
+        )}
+    </Button>
+</DialogActions>
+
 						</Form>
 					)}
 				</Formik>

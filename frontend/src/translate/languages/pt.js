@@ -162,7 +162,7 @@ const messages = {
           deleted: "Contato excluído com sucesso!",
 		  deletedAll: "Todos contatos excluídos com sucesso!",
         },
-		  searchPlaceholder: "Pesquisar...",
+		  searchPlaceholder: "Pesquisar Arquivos",
           confirmationModal: {
           deleteTitle: "Deletar ",
           deleteAllTitle: "Deletar Todos",
@@ -438,7 +438,12 @@ const messages = {
         listItems: {
           dashboard: "Dashboard",
           connections: "Conexões",
-          tickets: "Atendimentos",
+          tickets: "Chamados",
+          externs:  "Externo",
+          interns:  "Interno",
+          support:   "Suporte",
+          contactList: "Lista de Contatos",
+          management: "Gerenciamento",
           quickMessages: "Respostas Rápidas",
           contacts: "Contatos",
           queues: "Filas & Chatbot",
@@ -491,7 +496,7 @@ const messages = {
         table: {
           name: "Nome",
           contacts: "Contatos",
-          actions: "Ação",
+          actions: "Ações",
         },
         toasts: {
           deleted: "Lista excluída com sucesso!",
@@ -882,10 +887,10 @@ const messages = {
           edit: "Editar lista de arquivos",
         },
         buttons: {
-          okAdd: "Salvar",
+          okAdd: "Adicionar",
           okEdit: "Editar",
           cancel: "Cancelar",
-          fileOptions: "Adicionar arquivo",
+          fileOptions: "Arquivo",
         },
         form: {
           name: "Nome da lista de arquivos",

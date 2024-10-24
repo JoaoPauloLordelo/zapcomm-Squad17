@@ -6,7 +6,7 @@ import Board from 'react-trello';
 import { toast } from "react-toastify";
 import { i18n } from "../../translate/i18n";
 import { useHistory } from 'react-router-dom';
-
+import MainContainer from "../../components/MainContainer";
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -175,13 +175,13 @@ const Kanban = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <MainContainer>
       <Board 
 		data={file} 
 		onCardMoveAcrossLanes={handleCardMove}
 		style={{backgroundColor: 'rgba(252, 252, 252, 0.03)'}}
     />
-    </div>
+    </MainContainer>
   );
 };
 

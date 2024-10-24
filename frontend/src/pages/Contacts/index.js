@@ -35,8 +35,12 @@ import { AuthContext } from "../../context/Auth/AuthContext";
 import { Can } from "../../components/Can";
 import NewTicketModal from "../../components/NewTicketModal";
 import { SocketContext } from "../../context/Socket/SocketContext";
-
+import Announcements from "../Annoucements/index"
 import {CSVLink} from "react-csv";
+import Plus from "../../assets/plus.png"
+import Importa from "../../assets/importa.png"
+import Exporta from "../../assets/export.png"
+import QueueIntegration from "../QueueIntegration";
 
 const reducer = (state, action) => {
   if (action.type === "LOAD_CONTACTS") {
@@ -89,6 +93,20 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     ...theme.scrollbarStyles,
   },
+  contatos: {
+    padding: "16px"
+  },
+  traco: {
+    height: '2px',
+    width: '1175px',
+    backgroundColor: '#0C2454',
+    marginLeft: '0px',
+    marginBottom: '20px',
+  },
+  icones: {
+    paddingBottom: '3px',
+    marginRight: '10px'
+  }
 }));
 
 const Contacts = () => {
@@ -251,22 +269,28 @@ const Contacts = () => {
             ? `${i18n.t("contacts.confirmationModal.deleteTitle")} ${
                 deletingContact.name
               }?`
-            : `${i18n.t("contacts.confirmationModal.importTitlte")}`
-        }
+            : `${i18n.t("Importar Contato")}`
+         }
         open={confirmOpen}
         onClose={setConfirmOpen}
         onConfirm={(e) =>
           deletingContact
             ? handleDeleteContact(deletingContact.id)
             : handleimportContact()
-        }
-      >
+        }>
         {deletingContact
           ? `${i18n.t("contacts.confirmationModal.deleteMessage")}`
           : `${i18n.t("contacts.confirmationModal.importMessage")}`}
       </ConfirmationModal>
-      <MainHeader>
-        <Title>{i18n.t("contacts.title")}</Title>
+      
+      <Paper
+        className={classes.mainPaper}
+        variant="outlined"
+        onScroll={handleScroll}
+      >
+       <div className={classes.contatos}>  
+        <MainHeader>
+        <Title  style={{color:'#0C2454', fontWeight:"bold"}}>{i18n.t("contacts.title")}</Title>
         <MainHeaderButtonsWrapper>
           <TextField
             placeholder={i18n.t("contacts.searchPlaceholder")}
@@ -274,68 +298,91 @@ const Contacts = () => {
             value={searchParam}
             onChange={handleSearch}
             InputProps={{
+              disableUnderline: true, // remove a linha
+              style: {
+                color: '#0C2454',// cor do texto normal
+                fontWeight: 'bold', // texto em negrito
+                backgroundColor: "#D9D9D9",
+                borderRadius: '8px',
+                height: "36.5px",
+              },
+              inputProps: {
+                style: {
+                  paddingLeft: '8px',
+                  '&::placeholder': {
+                    color: '#0C2454',
+                    fontWeight: 'bold',
+                    Opacity: 1, // cor do placeholder
+                    paddingLeft: "10px"
+                  
+                  },
+                },
+              },
+              endAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon style={{ color: '#0C2454' }} />
+                </InputAdornment>
+              ),
+            }}
+            /*InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
                   <SearchIcon style={{ color: "gray" }} />
                 </InputAdornment>
               ),
-            }}
+            }}*/
           />
           <Button
             variant="contained"
             color="primary"
             onClick={(e) => setConfirmOpen(true)}
           >
-            {i18n.t("contacts.buttons.import")}
+            <img src={Importa} className={classes.icones}/> Contato
           </Button>
           <Button
             variant="contained"
             color="primary"
             onClick={handleOpenContactModal}
           >
-            {i18n.t("contacts.buttons.add")}
+            <img src={Plus} className={classes.icones}/> Contato
           </Button>
 
          <CSVLink style={{ textDecoration:'none'}} separator=";" filename={'contatos.csv'} data={contacts.map((contact) => ({ name: contact.name, number: contact.number, email: contact.email }))}>
           <Button	variant="contained" color="primary"> 
-          EXPORTAR CONTATOS 
+          <img src={Exporta} className={classes.icones}/>Contato
           </Button>
           </CSVLink>		  
 
         </MainHeaderButtonsWrapper>
       </MainHeader>
-      <Paper
-        className={classes.mainPaper}
-        variant="outlined"
-        onScroll={handleScroll}
-      >
-        <Table size="small">
+      <div className={classes.traco}></div>
+        <Table size="small" style={{ borderCollapse: 'separate', borderSpacing: '0 20px' }}>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox" />
-              <TableCell>{i18n.t("contacts.table.name")}</TableCell>
-              <TableCell align="center">
+              <TableCell padding="checkbox" style={{color:'#0C2454', fontWeight:"bold"}}/>
+              <TableCell style={{color:'#0C2454', fontWeight:"bold"}}>{i18n.t("contacts.table.name")}</TableCell>
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold"}}>
                 {i18n.t("contacts.table.whatsapp")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold"}}>
                 {i18n.t("contacts.table.email")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold"}}> 
                 {i18n.t("contacts.table.actions")}
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody style={{backgroundColor: "#D9D9D9"}}>
             <>
               {contacts.map((contact) => (
-                <TableRow key={contact.id}>
-                  <TableCell style={{ paddingRight: 0 }}>
+                <TableRow key={contact.id} style={{marginBottom: "5px", borderRadius:'16px'}}>
+                  <TableCell style={{ borderRadius: '8px 0 0 8px', overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>
                     {<Avatar src={contact.profilePicUrl} />}
                   </TableCell>
                   <TableCell>{contact.name}</TableCell>
-                  <TableCell align="center">{contact.number}</TableCell>
-                  <TableCell align="center">{contact.email}</TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center"style={{ overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>{contact.number}</TableCell>
+                  <TableCell align="center"style={{ overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>{contact.email}</TableCell>
+                  <TableCell align="center"style={{ borderRadius: '0 8px 8px 0',overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>
                     <IconButton
                       size="small"
                       onClick={() => {
@@ -373,6 +420,8 @@ const Contacts = () => {
             </>
           </TableBody>
         </Table>
+        </div>
+        <Announcements></Announcements>
       </Paper>
     </MainContainer>
   );

@@ -92,6 +92,64 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
+    margin: "20px auto", 
+  },
+  titles: {
+    color: '#0C2C4C',
+    fontSize: '18px',
+    padding: "10px 6px",
+    fontWeight: 'bold', 
+  },
+  tableRow: {
+    backgroundColor: "#D9D9D9",
+    borderRadius: "16px",
+    "& > *": {
+      borderBottom: "unset",
+    },
+    "& td:first-child": {
+      borderTopLeftRadius: "16px",
+      borderBottomLeftRadius: "16px",
+    },
+    "& td:last-child": {
+      borderTopRightRadius: "16px",
+      borderBottomRightRadius: "16px",
+    },
+    height: "50px", 
+    padding: "8px 6px", 
+  },
+  tableCell: {
+    padding: "6px 4px", 
+    fontSize: "16px",
+    color: "#0C2C4C", 
+    fontWeight: 'bold',
+  },
+  iconButton: {
+    color: "inherit", 
+  },
+  deleteButton: {
+    color: "#FF0000", 
+  },
+  addButton: {
+    height: '100%', 
+    fontSize: '0.9rem',
+    padding: '6px 10px',
+    backgroundColor: '#0C2C4C',
+    color: '#fff',
+  },
+  searchInput: {
+    color: '#0C2C4C',
+    backgroundColor: '#D9D9D9', 
+    borderRadius: '4px',
+    '& .MuiInputBase-input::placeholder': {
+      color: '#0C2C4C',
+      opacity: 0.7,
+    },
+    '& .MuiInputBase-input': {
+      padding: '10px 14px',
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      border: 'none',
+    },
   },
 }));
 
@@ -265,35 +323,44 @@ const Campaigns = () => {
         aria-labelledby="form-dialog-title"
         campaignId={selectedCampaign && selectedCampaign.id}
       />
-      <MainHeader>
-        <Grid style={{ width: "99.6%" }} container>
+      <Paper
+        className={classes.mainPaper}
+        variant="outlined"
+        onScroll={handleScroll}
+        style={{
+          borderRadius: "16px",
+        }}
+      >
+        <Grid style={{ width: "100%" }} container>
           <Grid xs={12} sm={8} item>
-            <Title>{i18n.t("campaigns.title")}</Title>
+            <Title style={{ fontSize: '24px', fontWeight: 'bold' }}>{i18n.t("campaigns.title")}</Title>
           </Grid>
           <Grid xs={12} sm={4} item>
-            <Grid spacing={2} container>
-              <Grid xs={6} sm={6} item>
+            <Grid spacing={2} container style={{ height: '100%' }}>
+              <Grid xs={6} item style={{ display: 'flex' }}>
                 <TextField
                   fullWidth
                   placeholder={i18n.t("campaigns.searchPlaceholder")}
                   type="search"
                   value={searchParam}
                   onChange={handleSearch}
+                  variant="outlined"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <SearchIcon style={{ color: "gray" }} />
+                        <SearchIcon style={{ color: "#0C2C4C" }} />
                       </InputAdornment>
                     ),
+                    className: classes.searchInput,
                   }}
                 />
               </Grid>
-              <Grid xs={6} sm={6} item>
+              <Grid xs={6} item style={{ display: 'flex' }}>
                 <Button
                   fullWidth
                   variant="contained"
                   onClick={handleOpenCampaignModal}
-                  color="primary"
+                  className={classes.addButton}
                 >
                   {i18n.t("campaigns.buttons.add")}
                 </Button>
@@ -301,37 +368,35 @@ const Campaigns = () => {
             </Grid>
           </Grid>
         </Grid>
-      </MainHeader>
-      <Paper
-        className={classes.mainPaper}
-        variant="outlined"
-        onScroll={handleScroll}
-      >
-        <Table size="small">
+        <Table size="small" style={{ 
+          minWidth: '1200px', 
+          borderCollapse: 'separate', 
+          borderSpacing: '0 16px'  
+        }}>
           <TableHead>
             <TableRow>
-              <TableCell align="center">
+              <TableCell align="center" className={classes.titles}>
                 {i18n.t("campaigns.table.name")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" className={classes.titles}>
                 {i18n.t("campaigns.table.status")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" className={classes.titles}>
                 {i18n.t("campaigns.table.contactList")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" className={classes.titles}>
                 {i18n.t("campaigns.table.whatsapp")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" className={classes.titles}>
                 {i18n.t("campaigns.table.scheduledAt")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" className={classes.titles}>
                 {i18n.t("campaigns.table.completedAt")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" className={classes.titles}>
                 {i18n.t("campaigns.table.confirmation")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" className={classes.titles}>
                 {i18n.t("campaigns.table.actions")}
               </TableCell>
             </TableRow>
@@ -339,40 +404,41 @@ const Campaigns = () => {
           <TableBody>
             <>
               {campaigns.map((campaign) => (
-                <TableRow key={campaign.id}>
-                  <TableCell align="center">{campaign.name}</TableCell>
-                  <TableCell align="center">
+                <TableRow key={campaign.id} className={classes.tableRow}>
+                  <TableCell align="center" className={classes.tableCell}>{campaign.name}</TableCell>
+                  <TableCell align="center" className={classes.tableCell}>
                     {formatStatus(campaign.status)}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" className={classes.tableCell}>
                     {campaign.contactListId
                       ? campaign.contactList.name
                       : "Não definida"}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" className={classes.tableCell}>
                     {campaign.whatsappId
                       ? campaign.whatsapp.name
                       : "Não definido"}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" className={classes.tableCell}>
                     {campaign.scheduledAt
                       ? datetimeToClient(campaign.scheduledAt)
                       : "Sem agendamento"}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" className={classes.tableCell}>
                     {campaign.completedAt
                       ? datetimeToClient(campaign.completedAt)
                       : "Não concluída"}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" className={classes.tableCell}>
                     {campaign.confirmation ? "Habilitada" : "Desabilitada"}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" className={classes.tableCell}>
                     {campaign.status === "EM_ANDAMENTO" && (
                       <IconButton
                         onClick={() => cancelCampaign(campaign)}
                         title="Parar Campanha"
                         size="small"
+                        className={classes.iconButton}
                       >
                         <PauseCircleOutlineIcon />
                       </IconButton>
@@ -382,6 +448,7 @@ const Campaigns = () => {
                         onClick={() => restartCampaign(campaign)}
                         title="Parar Campanha"
                         size="small"
+                        className={classes.iconButton}
                       >
                         <PlayCircleOutlineIcon />
                       </IconButton>
@@ -391,12 +458,14 @@ const Campaigns = () => {
                         history.push(`/campaign/${campaign.id}/report`)
                       }
                       size="small"
+                      className={classes.iconButton}
                     >
                       <DescriptionIcon />
                     </IconButton>
                     <IconButton
                       size="small"
                       onClick={() => handleEditCampaign(campaign)}
+                      className={classes.iconButton}
                     >
                       <EditIcon />
                     </IconButton>
@@ -407,6 +476,7 @@ const Campaigns = () => {
                         setConfirmModalOpen(true);
                         setDeletingCampaign(campaign);
                       }}
+                      className={classes.deleteButton}
                     >
                       <DeleteOutlineIcon />
                     </IconButton>
