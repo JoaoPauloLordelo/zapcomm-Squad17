@@ -54,6 +54,19 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     //
   },
+  traco: {
+    height: '2px',
+    width: '100%',
+    backgroundColor: '#0C2454',
+    marginLeft: '10px',
+    marginBottom: '20px',
+  },
+  titulo:{
+    fontSize:"25px",
+    marginLeft:"20px",
+    marginTop:"15px",
+    color:"#0c2c54",
+    fontWeight: "600"  }
 }));
 
 const SettingsCustom = () => {
@@ -153,9 +166,11 @@ const SettingsCustom = () => {
   return (
     <MainContainer className={classes.root}>
       <MainHeader>
-        <Title>{i18n.t("settings.title")}</Title>
+        
       </MainHeader>
       <Paper className={classes.mainPaper} elevation={1}>
+      <div className={classes.titulo}>Configurações</div>
+      <div className={classes.traco}></div>
         <Tabs
           value={tab}
           indicatorColor="primary"
