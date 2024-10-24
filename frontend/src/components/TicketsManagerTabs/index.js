@@ -252,17 +252,11 @@ const TicketsManagerTabs = () => {
             label={i18n.t("tickets.tabs.closed.title")}
             classes={{ root: classes.tab }}
           />
-          <Tab
-            value={"search"}
-            icon={<SearchIcon />}
-            label={i18n.t("tickets.tabs.search.title")}
-            classes={{ root: classes.tab }}
-          />
+        
         </Tabs>
       </Paper>
       <Paper square elevation={0} className={classes.ticketOptionsBox}>
-        {tab === "search" ? (
-          <div className={classes.serachInputWrapper}>
+      <div className={classes.serachInputWrapper} style={{width:"500px"}} >
             <SearchIcon className={classes.searchIcon} />
             <InputBase
               className={classes.searchInput}
@@ -271,17 +265,15 @@ const TicketsManagerTabs = () => {
               type="search"
               onChange={handleSearch}
             />
-          </div>
-        ) : (
-          <>
-            <Button
+          </div> 
+          <Button style={{marginRight:"15px"}}
               variant="outlined"
               color="primary"
               onClick={() => setNewTicketModalOpen(true)}
             >
               {i18n.t("ticketsManager.buttons.newTicket")}
             </Button>
-            <Can
+            <Can 
               role={user.profile}
               perform="tickets-manager:showall"
               yes={() => (
@@ -289,7 +281,7 @@ const TicketsManagerTabs = () => {
                   label={i18n.t("tickets.buttons.showAll")}
                   labelPlacement="start"
                   control={
-                    <Switch
+                    <Switch style={{marginRight:"-15px"}}
                       size="small"
                       checked={showAllTickets}
                       onChange={() =>
@@ -300,10 +292,10 @@ const TicketsManagerTabs = () => {
                     />
                   }
                 />
-              )}
-            />
-          </>
-        )}
+              )}>
+
+              </Can>
+       
         <TicketsQueueSelect
           style={{ marginLeft: 6 }}
           selectedQueueIds={selectedQueueIds}
@@ -311,6 +303,10 @@ const TicketsManagerTabs = () => {
           onChange={(values) => setSelectedQueueIds(values)}
         />
       </Paper>
+      <TagsFilter onFiltered={handleSelectedTags} />
+        {profile === "admin" && (
+          <UsersFilter onFiltered={handleSelectedUsers} />
+        )}
       <TabPanel value={tab} name="open" className={classes.ticketsWrapper}>
         <Tabs
           value={tabOpen}
@@ -331,6 +327,7 @@ const TicketsManagerTabs = () => {
             }
             value={"open"}
           />
+          
           <Tab
             label={
               <Badge
@@ -351,27 +348,37 @@ const TicketsManagerTabs = () => {
             selectedQueueIds={selectedQueueIds}
             updateCount={(val) => setOpenCount(val)}
             style={applyPanelStyle("open")}
+            searchParam={searchParam}
+          tags={selectedTags}
+          users={selectedUsers}
           />
           <TicketsList
             status="pending"
             selectedQueueIds={selectedQueueIds}
             updateCount={(val) => setPendingCount(val)}
             style={applyPanelStyle("pending")}
+            searchParam={searchParam}
+          tags={selectedTags}
+          users={selectedUsers}
           />
+
         </Paper>
       </TabPanel>
+  
       <TabPanel value={tab} name="closed" className={classes.ticketsWrapper}>
+      
         <TicketsList
           status="closed"
           showAll={true}
           selectedQueueIds={selectedQueueIds}
+          searchParam={searchParam}
+          tags={selectedTags}
+          users={selectedUsers}
         />
+    
       </TabPanel>
       <TabPanel value={tab} name="search" className={classes.ticketsWrapper}>
-        <TagsFilter onFiltered={handleSelectedTags} />
-        {profile === "admin" && (
-          <UsersFilter onFiltered={handleSelectedUsers} />
-        )}
+       
         <TicketsList
           searchParam={searchParam}
           showAll={true}

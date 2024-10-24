@@ -93,6 +93,14 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     ...theme.scrollbarStyles,
   },
+  traco: {
+    height: '2px',
+    width: '104%',
+    backgroundColor: '#0C2454',
+    marginLeft: '-50px',
+    marginBottom: '20px',
+    
+    },
 }));
 
 const Quickemessages = () => {
@@ -243,9 +251,29 @@ const Quickemessages = () => {
                   value={searchParam}
                   onChange={handleSearch}
                   InputProps={{
-                    startAdornment: (
+                    disableUnderline: true, // remove a linha
+                    style: {
+                      color: '#0C2454',// cor do texto normal
+                      fontWeight: 'bold', // texto em negrito
+                      backgroundColor: "#D9D9D9",
+                      borderRadius: '8px',
+                      height: "36.5px",
+                    },
+                    inputProps: {
+                      style: {
+                        paddingLeft: '8px',
+                        '&::placeholder': {
+                          color: '#0C2454',
+                          fontWeight: 'bold',
+                          Opacity: 1, // cor do placeholder
+                          paddingLeft: "10px"
+
+                        },
+                      },
+                    },
+                  endAdornment: (
                       <InputAdornment position="start">
-                        <SearchIcon style={{ color: "gray" }} />
+                        <SearchIcon style={{ color: '#0C2454' }} />
                       </InputAdornment>
                     ),
                   }}
@@ -265,6 +293,7 @@ const Quickemessages = () => {
           </Grid>
         </Grid>
       </MainHeader>
+      <div className={classes.traco}></div>
       <Paper
         className={classes.mainPaper}
         variant="outlined"
