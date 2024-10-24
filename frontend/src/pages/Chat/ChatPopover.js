@@ -228,7 +228,7 @@ export default function ChatPopover() {
         variant="contained"
         color={invisible ? "default" : "inherit"}
         onClick={handleClick}
-        style={{ color: "white" }}
+        style={{ color: "#34D3A3" }}
       >
         <Badge color="secondary" variant="dot" invisible={invisible}>
           <ForumIcon />

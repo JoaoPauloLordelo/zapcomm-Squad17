@@ -222,6 +222,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
   },
+  fundo: {
+    paddingTop: '70px',
+  }
 }));
 
 const Dashboard = () => {
@@ -403,7 +406,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
+    <div className={classes.fundo}>
       <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3} justifyContent="flex-end">
 		
