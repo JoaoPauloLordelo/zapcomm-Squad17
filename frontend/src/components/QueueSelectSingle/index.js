@@ -40,10 +40,10 @@ const QueueSelectSingle = () => {
                 fullWidth
             >
                 <div>
-                    <Typography>
+                    <Typography style={{ color: '#0C2454' , fontWeight: 'Bold' }}>
                         {i18n.t("queueSelect.inputLabel")}
                     </Typography>
-                    <Field
+                    <Field style={{ backgroundColor: '#cccccc' }}
                         as={Select}
                         label={i18n.t("queueSelect.inputLabel")}
                         name="queueId"

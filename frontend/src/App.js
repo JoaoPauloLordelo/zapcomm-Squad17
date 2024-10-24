@@ -38,7 +38,7 @@ const App = () => {
                 },
                 "&::-webkit-scrollbar-thumb": {
                     boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.3)',
-                    backgroundColor: "#682EE3",
+                    backgroundColor: "#0C2454",
                 },
             },
             scrollbarStylesSoft: {
@@ -48,12 +48,13 @@ const App = () => {
                 "&::-webkit-scrollbar-thumb": {
                     backgroundColor: mode === "light" ? "#F3F3F3" : "#333333",
                 },
+                
             },
             palette: {
                 type: mode,
                 primary: { main: mode === "light" ? "#0C2454" : "#FFFFFF" },
                 textPrimary: mode === "light" ? "#682EE3" : "#FFFFFF",
-                borderPrimary: mode === "light" ? "#682EE3" : "#FFFFFF",
+                borderPrimary: mode === "light" ? "#0C2454" : "#FFFFFF",
                 dark: { main: mode === "light" ? "#333333" : "#F3F3F3" },
                 light: { main: mode === "light" ? "#F3F3F3" : "#333333" },
                 tabHeaderBackground: mode === "light" ? "#EEE" : "#666",
@@ -80,6 +81,7 @@ const App = () => {
 				mediainput: mode === "light" ? "#ededed" : "#1c1c1c",
             },
             mode,
+            
         },
         locale
     );

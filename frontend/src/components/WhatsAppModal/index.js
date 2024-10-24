@@ -27,8 +27,24 @@ import api from "../../services/api";
 import { i18n } from "../../translate/i18n";
 import toastError from "../../errors/toastError";
 import QueueSelect from "../QueueSelect";
+import thrash from "../../assets/thrashcan2.jpg";
 
 const useStyles = makeStyles((theme) => ({
+
+  botao1: {
+    position:"relative",
+    top:"450px",
+    left:"140px",
+  },
+
+  queues1:  {
+    backgroundColor: "red",
+    "& .MuiInputBase-root": {
+      backgroundColor: "red", // Isso estiliza o fundo da parte de seleção
+    }
+  },
+
+
   root: {
     display: "flex",
     flexWrap: "wrap",
@@ -38,11 +54,15 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     "& > *:not(:last-child)": {
       marginRight: theme.spacing(1),
+      
     },
   },
 
   btnWrapper: {
     position: "relative",
+    top: "895px",
+    left: "265px"
+    
   },
 
   buttonProgress: {
@@ -53,6 +73,26 @@ const useStyles = makeStyles((theme) => ({
     marginTop: -12,
     marginLeft: -12,
   },
+
+  container1: {
+    width: "850.43px",
+    height: "1000px",
+    backgroundColor: "#D9D9D9",
+    borderRadius: "16px",
+    position: "relative",
+    left: "15px",
+    top: "50px",
+    zIndex: "0",
+  },
+
+  line: {
+    height: "2px",
+    width: "850px",
+    backgroundColor: "black", 
+    position: "relative",
+    top: "10px", 
+    left:"50px",
+  }
 }));
 
 const SessionSchema = Yup.object().shape({
@@ -166,6 +206,9 @@ const whatsappData = {
   };
 
   return (
+
+
+    
     <div className={classes.root}>
       <Dialog
         open={open}
@@ -174,11 +217,20 @@ const whatsappData = {
         fullWidth
         scroll="paper"
       >
-        <DialogTitle>
+        <DialogTitle style={{position:"relative",
+          left:"30px",
+          top:"30px",
+        }}>
           {whatsAppId
             ? i18n.t("whatsappModal.title.edit")
             : i18n.t("whatsappModal.title.add")}
         </DialogTitle>
+        <div>
+          <div className={classes.line}></div>
+        </div>
+        <div>
+          
+        </div>
         <Formik
           initialValues={whatsApp}
           enableReinitialize={true}
@@ -193,7 +245,7 @@ const whatsappData = {
           {({ values, touched, errors, isSubmitting }) => (
             <Form>
               <DialogContent dividers>
-                <div className={classes.multFieldLine}>
+                <div className={classes.container1}>
                   <Grid spacing={2} container>
                     <Grid item>
                       <Field
@@ -202,10 +254,16 @@ const whatsappData = {
                         autoFocus
                         name="name"
                         error={touched.name && Boolean(errors.name)}
-                        helperText={touched.name && errors.name}
                         variant="outlined"
                         margin="dense"
                         className={classes.textField}
+                        style={{position:"relative",
+                          left:"50px",      
+                          backgroundColor:"#F5F5F5",
+                          color:"#0C2454",
+                          borderRadius:"10px",
+                          width:"80%",
+                                         }}
                       />
                     </Grid>
                     <Grid style={{ paddingTop: 15 }} item>
@@ -213,24 +271,28 @@ const whatsappData = {
                         control={
                           <Field
                             as={Switch}
-                            color="primary"
+                            color="#0C2454"
                             name="isDefault"
                             checked={values.isDefault}
                           />
                         }
                         label={i18n.t("whatsappModal.form.default")}
+                        style={{color: "#0C2454",
+                          position: "relative",
+                          left: "50px",
+                          
+                        }}
                       />
                     </Grid>
                   </Grid>
-                </div>
-                <div>
+                  <div>
                   <Field
                     as={TextField}
                     label={i18n.t("queueModal.form.greetingMessage")}
                     type="greetingMessage"
                     multiline
                     rows={4}
-                    fullWidth
+                    
                     name="greetingMessage"
                     error={
                       touched.greetingMessage && Boolean(errors.greetingMessage)
@@ -240,7 +302,49 @@ const whatsappData = {
                     }
                     variant="outlined"
                     margin="dense"
+                    style={{backgroundColor:"#F5F5F5",
+                      width:"40%",
+                      position:"relative",
+                      left:"40px",
+                      borderRadius:"10px",
+                    }}
                   />
+                  <Button
+                  onClick={handleClose}
+                  color="secondary"
+                  disabled={isSubmitting}
+                  
+                  style={{width:"20.86px,",
+                    height:"35.86px"
+                  }}
+                  className={classes.botao1}
+                >
+                  <div><img src={thrash} style={{transform:"scale(0.5)",
+                    borderRadius:"10px"
+                  }}className={classes.botao1}></img></div>
+                </Button>
+                <Button
+                  type="submit"
+                  color="primary"
+                  disabled={isSubmitting}
+                  variant="contained"
+                  className={classes.btnWrapper}
+                  style={{backgroundColor:"#0C2454",
+                    color:"white",
+                    position:"relative",
+                    bottom:"5px",
+                  }}
+                >
+                  {whatsAppId
+                    ? i18n.t("whatsappModal.buttons.okEdit")
+                    : i18n.t("whatsappModal.buttons.okAdd")}
+                  {isSubmitting && (
+                    <CircularProgress
+                      size={24}
+                      className={classes.buttonProgress}
+                    />
+                  )}
+                </Button>
                 </div>
                 <div>
                   <Field
@@ -260,6 +364,12 @@ const whatsappData = {
                     }
                     variant="outlined"
                     margin="dense"
+                    style={{width:"40%",
+                      position:"relative",
+                      backgroundColor:"#F5F5F5",
+                      left:"40px",
+                      borderRadius:"10px",
+                    }}
                   />
                 </div>
                 <div>
@@ -280,6 +390,12 @@ const whatsappData = {
                     }
                     variant="outlined"
                     margin="dense"
+                    style={{width:"40%",
+                      position:"relative",
+                      backgroundColor:"#F5F5F5",
+                      left:"400px",
+                      bottom:"218.5px",
+                      borderRadius:"10px",}}
                   />
                 </div>
                 <div>
@@ -297,6 +413,12 @@ const whatsappData = {
                     helperText={touched.ratingMessage && errors.ratingMessage}
                     variant="outlined"
                     margin="dense"
+                    style={{width:"40%",
+                      position:"relative",
+                      backgroundColor:"#F5F5F5",
+                      left:"400px",
+                      bottom:"218.5px",
+                      borderRadius:"10px",}}
                   />
                 </div>
                 <div>
@@ -304,20 +426,28 @@ const whatsappData = {
                     as={TextField}
                     label={i18n.t("queueModal.form.token")}
                     type="token"
-                    fullWidth
+                    
                     name="token"
                     variant="outlined"
                     margin="dense"
+                    style={{width:"82.5%",
+                      position:"relative",
+                      backgroundColor:"#F5F5F5",
+                      bottom:"218.5px",
+                      left:"40px",
+                      borderRadius:"10px",}}
                   />
                 </div>
-                <QueueSelect
-                  selectedQueueIds={selectedQueueIds}
-                  onChange={(selectedIds) => handleChangeQueue(selectedIds)}
-                />
                 <FormControl
                   margin="dense"
                   variant="outlined"
-                  fullWidth
+                  style={{width:"82.5%",
+                    position:"relative",
+                    backgroundColor:"#F5F5F5",
+                    borderRadius:"10px",
+                    left:"40px",
+                    bottom:"220px",}}
+
                 >
                   <InputLabel>
                     {i18n.t("whatsappModal.form.prompt")}
@@ -352,7 +482,30 @@ const whatsappData = {
                     ))}
                   </Select>
                 </FormControl>
-                <div>
+                {/* botao problematico */}
+                <QueueSelect
+                  selectedQueueIds={selectedQueueIds}
+                  onChange={(selectedIds) => handleChangeQueue(selectedIds)}
+                  style={{backgroundColor:"#F5F5F5",
+                    width:"82.5%",
+                    left:"40px",
+                    borderRadius:"10px",
+                    bottom:"222.5px",
+                  }}
+                  
+                />  
+                
+                </div>
+                
+               
+
+                
+                
+                <div style={{position:"relative",
+                  bottom:"500px",
+                  width:"75%",
+                  left:"60px",
+                }}>
                   <h3>{i18n.t("whatsappModal.form.queueRedirection")}</h3>
                   <p>{i18n.t("whatsappModal.form.queueRedirectionDesc")}</p>
 				<Grid container spacing={2}>
@@ -368,7 +521,16 @@ const whatsappData = {
                       variant="outlined"
                       margin="dense"
                       className={classes.textField}
-                      InputLabelProps={{ shrink: values.timeToTransfer ? true : false }}
+                      InputLabelProps={{ shrink: values.timeToTransfer ? true : false,
+                        style: { color: "white" },  // Cor do rótulo (label)
+                       }}
+                       InputProps={{
+                        style: { color: "white" },  // Cor do texto dentro do campo
+                      }}
+                      style={{color:"white",
+                        backgroundColor:"#0C2454",
+                        borderRadius:"10px",
+                      }}
                     />
 
                   </Grid>
@@ -397,6 +559,10 @@ const whatsappData = {
                         margin="dense"
                         error={touched.expiresTicket && Boolean(errors.expiresTicket)}
                         helperText={touched.expiresTicket && errors.expiresTicket}
+                        style={{backgroundColor:"#F5F5F5",
+                          borderRadius:"10px",
+                        }
+                      }
                       />
                     </Grid>
                   </Grid>
@@ -413,36 +579,17 @@ const whatsappData = {
                       helperText={touched.expiresInactiveMessage && errors.expiresInactiveMessage}
                       variant="outlined"
                       margin="dense"
+                      style={{backgroundColor:"#F5F5F5",
+                        borderRadius:"10px",
+                      }
+                    }
                     />
                   </div>
                 </div>
               </DialogContent>
               <DialogActions>
-                <Button
-                  onClick={handleClose}
-                  color="secondary"
-                  disabled={isSubmitting}
-                  variant="outlined"
-                >
-                  {i18n.t("whatsappModal.buttons.cancel")}
-                </Button>
-                <Button
-                  type="submit"
-                  color="primary"
-                  disabled={isSubmitting}
-                  variant="contained"
-                  className={classes.btnWrapper}
-                >
-                  {whatsAppId
-                    ? i18n.t("whatsappModal.buttons.okEdit")
-                    : i18n.t("whatsappModal.buttons.okAdd")}
-                  {isSubmitting && (
-                    <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                  )}
-                </Button>
+                
+                
               </DialogActions>
             </Form>
           )}

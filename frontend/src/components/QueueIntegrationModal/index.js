@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { toast } from "react-toastify";
-
+import DeleteIcon from '@material-ui/icons/Delete';
 import {
   Button,
   Dialog,
@@ -32,10 +32,16 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
+    
     gap: 4
+  },
+  roundedDialog: {
+    borderRadius: '20px', // Ajuste o valor conforme necessário
+    overflow: 'hidden', // Para garantir que o conteúdo não ultrapasse as bordas
   },
   textField: {
     marginRight: theme.spacing(1),
+    color: '#0C2454',
     flex: 1,
   },
 
@@ -44,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   buttonProgress: {
-    color: green[500],
+    color: '#0C2454',
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -56,7 +62,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     marginLeft: 12,
   },
+  dialogPaper: {
+    borderRadius: '16px', // Ajuste o valor para o arredondamento desejado
+  },
   colorAdorment: {
+    
     width: 20,
     height: 20,
   },
@@ -165,13 +175,14 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
 
   return (
     <div className={classes.root}>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md" scroll="paper">
-        <DialogTitle>
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md" scroll="paper"  classes={{ paper: classes.roundedDialog }}>
+        <DialogTitle style={{color: '#0C2454'}}>
+          
           {integrationId
             ? `${i18n.t("queueIntegrationModal.title.edit")}`
             : `${i18n.t("queueIntegrationModal.title.add")}`}
         </DialogTitle>
-        <Formik
+        <Formik 
           initialValues={integration}
           enableReinitialize={true}
           validationSchema={DialogflowSchema}
@@ -183,8 +194,8 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
           }}
         >
           {({ touched, errors, isSubmitting, values }) => (
-            <Form>
-              <Paper square className={classes.mainPaper} elevation={1}>
+            <Form >
+              <Paper square className={classes.mainPaper} elevation={1} >
                 <DialogContent dividers>
                   <Grid container spacing={1}>
                     <Grid item xs={12} md={6} xl={6}>
@@ -193,12 +204,13 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
                         className={classes.formControl}
                         margin="dense"
                         fullWidth
+                        
                       >
                         <InputLabel id="type-selection-input-label">
                           {i18n.t("queueIntegrationModal.form.type")}
                         </InputLabel>
 
-                        <Field
+                        <Field 
                           as={Select}
                           label={i18n.t("queueIntegrationModal.form.type")}
                           name="type"
@@ -218,7 +230,7 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
                     {values.type === "dialogflow" && (
                       <>
                         <Grid item xs={12} md={6} xl={6} >
-                          <Field
+                          <Field 
                             as={TextField}
                             label={i18n.t("queueIntegrationModal.form.name")}
                             autoFocus
@@ -242,7 +254,7 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
                               {i18n.t("queueIntegrationModal.form.language")}
                             </InputLabel>
 
-                            <Field
+                            <Field 
                               as={Select}
                               label={i18n.t("queueIntegrationModal.form.language")}
                               name="language"
@@ -260,7 +272,7 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
                           </FormControl>
                         </Grid>
                         <Grid item xs={12} md={6} xl={6} >
-                          <Field
+                          <Field 
                             as={TextField}
                             label={i18n.t("queueIntegrationModal.form.projectName")}
                             name="projectName"
@@ -272,7 +284,7 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
                           />
                         </Grid>
                         <Grid item xs={12} md={12} xl={12} >
-                          <Field
+                          <Field 
                             as={TextField}
                             label={i18n.t("queueIntegrationModal.form.jsonContent")}
                             type="jsonContent"
@@ -294,7 +306,7 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
                     {(values.type === "n8n" || values.type === "webhook") && (
                       <>
                         <Grid item xs={12} md={6} xl={6} >
-                          <Field
+                          <Field 
                             as={TextField}
                             label={i18n.t("queueIntegrationModal.form.name")}
                             autoFocus
@@ -309,7 +321,7 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
                           />
                         </Grid>
                         <Grid item xs={12} md={12} xl={12} >
-                          <Field
+                          <Field 
                             as={TextField}
                             label={i18n.t("queueIntegrationModal.form.urlN8N")}
                             name="urlN8N"
@@ -327,7 +339,7 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
                     {(values.type === "typebot") && (
                       <>
                         <Grid item xs={12} md={6} xl={6} >
-                          <Field
+                          <Field 
                             as={TextField}
                             label={i18n.t("queueIntegrationModal.form.name")}
                             autoFocus
@@ -472,9 +484,10 @@ const QueueIntegration = ({ open, onClose, integrationId }) => {
                   onClick={handleClose}
                   color="secondary"
                   disabled={isSubmitting}
-                  variant="outlined"
+                  variant="contained"
                 >
-                  {i18n.t("queueIntegrationModal.buttons.cancel")}
+                  <DeleteIcon style={{ marginRight: '5px', marginLeft: '5px' }} /> {/* Adiciona o ícone */}
+                  
                 </Button>
                 <Button
                   type="submit"

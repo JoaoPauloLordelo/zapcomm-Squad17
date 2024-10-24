@@ -32,7 +32,7 @@ import { Grid } from "@material-ui/core";
 import { isArray } from "lodash";
 import { SocketContext } from "../../context/Socket/SocketContext";
 import { AuthContext } from "../../context/Auth/AuthContext";
-
+import Plus from "../../assets/plus.png"
 const reducer = (state, action) => {
   if (action.type === "LOAD_ANNOUNCEMENTS") {
     const announcements = action.payload;
@@ -89,6 +89,17 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     ...theme.scrollbarStyles,
   },
+  traco: {
+    height: '2px',
+    width: '1175px',
+    backgroundColor: '#0C2454',
+    marginLeft: '0px',
+    marginBottom: '20px',
+  },
+  icones: {
+    paddingBottom: '3px',
+    marginRight: '10px'
+  }
 }));
 
 const Announcements = () => {
@@ -227,7 +238,7 @@ const Announcements = () => {
   };
 
   return (
-    <MainContainer >
+    <MainContainer>
       <ConfirmationModal
         title={
           deletingAnnouncement &&
@@ -241,6 +252,8 @@ const Announcements = () => {
         {i18n.t("announcements.confirmationModal.deleteMessage")}
       </ConfirmationModal>
       <AnnouncementModal
+        
+        
         resetPagination={() => {
           setPageNumber(1);
           fetchAnnouncements();
@@ -250,7 +263,9 @@ const Announcements = () => {
         aria-labelledby="form-dialog-title"
         announcementId={selectedAnnouncement && selectedAnnouncement.id}
       />
-      <MainHeader>
+
+        <MainHeader>
+        
         <Grid style={{ width: "99.6%" }} container>
           <Grid xs={12} sm={8} item>
             <Title>{i18n.t("announcements.title")} ({announcements.length})</Title>
@@ -265,12 +280,40 @@ const Announcements = () => {
                   value={searchParam}
                   onChange={handleSearch}
                   InputProps={{
+                    disableUnderline: true, // remove a linha
+                    style: {
+                      color: '#0C2454',// cor do texto normal
+                      fontWeight: 'bold', // texto em negrito
+                      backgroundColor: "#D9D9D9",
+                      borderRadius: '8px',
+                      height: "36.5px",
+                    },
+                    inputProps: {
+                      style: {
+                        paddingLeft: '8px',
+                        '&::placeholder': {
+                          color: '#0C2454',
+                          fontWeight: 'bold',
+                          Opacity: 1, // cor do placeholder
+                          paddingLeft: "10px"
+                        
+                        },
+                      },
+                    },
+                    endAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon style={{ color: '#0C2454' }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  
+                  /*InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
                         <SearchIcon style={{ color: "gray" }} />
                       </InputAdornment>
                     ),
-                  }}
+                  }}*/
                 />
               </Grid>
               <Grid xs={6} sm={6} item>
@@ -280,58 +323,54 @@ const Announcements = () => {
                   onClick={handleOpenAnnouncementModal}
                   color="primary"
                 >
-                  {i18n.t("announcements.buttons.add")}
+                  <img src={Plus} className={classes.icones}/> Informativo
                 </Button>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </MainHeader>
-      <Paper
-        className={classes.mainPaper}
-        variant="outlined"
-        onScroll={handleScroll}
-      >
-        <Table size="small">
+      <div className={classes.traco}></div> 
+        <Table size="small" style={{ borderCollapse: 'separate', borderSpacing: '0 20px' }}>
           <TableHead>
-            <TableRow>
-              <TableCell align="center">
+            <TableRow >
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"1500"}}>
                 {i18n.t("announcements.table.title")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold"}}>
                 {i18n.t("announcements.table.priority")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold"}}>
                 {i18n.t("announcements.table.mediaName")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold"}}>
                 {i18n.t("announcements.table.status")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold"}}>
                 {i18n.t("announcements.table.actions")}
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody style={{backgroundColor: "#D9D9D9",borderRadius: '18px', color:'#0C2454'}}>
             <>
               {announcements.map((announcement) => (
-                <TableRow key={announcement.id}>
-                  <TableCell align="center">{announcement.title}</TableCell>
-                  <TableCell align="center">
+                <TableRow key={announcement.id} style={{borderRadius:'8px'}}>
+                  <TableCell align="center" style={{borderRadius: '8px 0 0 8px',color:'#0C2454', fontWeight:"bold", overflow:'hidden'}}>{announcement.title}</TableCell>
+                  <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold", overflow:'hidden'}}>
                     {translatePriority(announcement.priority)}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold", overflow:'hidden'}}>
                     {announcement.mediaName ?? i18n.t("quickMessages.noAttachment")}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold", overflow:'hidden'}}>
                     {announcement.status ? i18n.t("announcements.active") : i18n.t("announcements.inactive")}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" style={{color:'#0C2454', borderRadius: '0 8px 8px 0', fontWeight:"bold", overflow:'hidden'}}>
                     <IconButton
                       size="small"
                       onClick={() => handleEditAnnouncement(announcement)}
                     >
-                      <EditIcon />
+                      <EditIcon style={{color:"#0C2454"}} />
                     </IconButton>
 
                     <IconButton
@@ -341,7 +380,7 @@ const Announcements = () => {
                         setDeletingAnnouncement(announcement);
                       }}
                     >
-                      <DeleteOutlineIcon />
+                      <DeleteOutlineIcon style={{color:"red"}}/>
                     </IconButton>
                   </TableCell>
                 </TableRow>
@@ -350,7 +389,7 @@ const Announcements = () => {
             </>
           </TableBody>
         </Table>
-      </Paper>
+     
     </MainContainer >
   )
 };

@@ -41,6 +41,9 @@ import { useDate } from "../hooks/useDate";
 import ColorModeContext from "../layout/themeContext";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
+import Elipse3 from "../assets/Ellipse3.png"
+import Elipse4 from "../assets/Ellipse4.png"
+import Elipse5 from "../assets/Ellipse5.png"
 
 const drawerWidth = 240;
 
@@ -49,26 +52,27 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     height: "100vh",
     [theme.breakpoints.down("sm")]: {
-      height: "calc(100vh - 56px)",
+      height: "calc(100vh - 10px)",
     },
-    backgroundColor: theme.palette.fancyBackground,
+    backgroundColor: theme.palette.fancyBackground,// Cor do fundo da página a ser alterada(parte mais escura do fundo)
     '& .MuiButton-outlinedPrimary': {
       color: theme.mode === 'light' ? '#FFF' : '#FFF',
 	  //backgroundColor: theme.mode === 'light' ? '#682ee2' : '#682ee2',
-	backgroundColor: theme.mode === 'light' ? theme.palette.primary.main : '#1c1c1c',
+	  backgroundColor: theme.mode === 'light' ? theme.palette.primary.main : '#1c1c1c',
       //border: theme.mode === 'light' ? '1px solid rgba(0 124 102)' : '1px solid rgba(255, 255, 255, 0.5)',
     },
     '& .MuiTab-textColorPrimary.Mui-selected': {
-      color: theme.mode === 'light' ? 'Primary' : '#FFF',
+      color: theme.mode === 'red' ? 'red' : '#red',
     }
   },
   avatar: {
     width: "100%",
   },
-  toolbar: {
+  toolbar: { //barra de cima(nav/header)
     paddingRight: 24, // keep right padding when drawer closed
     color: theme.palette.dark.main,
-    background: theme.palette.barraSuperior,
+    background: 'white',
+    height: '100px'
   },
   toolbarIcon: {
     display: "flex",
@@ -77,14 +81,15 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 8px",
     minHeight: "48px",
     [theme.breakpoints.down("sm")]: {
-      height: "48px"
-    }
+      height: "48px",
+    },
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+    boxShadow:'0',
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
+    
     }),
   },
   appBarShift: {
@@ -99,12 +104,12 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   menuButton: {
-    marginRight: 36,
+    marginLeft: 50,
   },
   menuButtonHidden: {
     display: "none",
   },
-  title: {
+  title: { //texto que ja foi apagado
     flexGrow: 1,
     fontSize: 14,
     color: "white",
@@ -161,9 +166,9 @@ const useStyles = makeStyles((theme) => ({
     ...theme.scrollbarStyles,
   },
   NotificationsPopOver: {
-    // color: theme.barraSuperior.secondary.main,
+    color: 'red',
   },
-  logo: {
+  logo: { //alterar a logo
     width: "80%",
     height: "auto",
     maxWidth: 180,
@@ -364,9 +369,11 @@ const LoggedInLayout = ({ children, themeToggle }) => {
       <AppBar
         position="absolute"
         className={clsx(classes.appBar, drawerOpen && classes.appBarShift)}
-        color="primary"
-      >
-        <Toolbar variant="dense" className={classes.toolbar}>
+        color="white"
+        style={{boxShadow:'none'}}//drop shadow desativado
+        >
+         
+          <Toolbar variant="dense" className={classes.toolbar}>
           <IconButton
             edge="start"
             variant="contained"
@@ -379,48 +386,50 @@ const LoggedInLayout = ({ children, themeToggle }) => {
           >
             <MenuIcon />
           </IconButton>
-
+            <div><img src={Elipse3} style={{marginBottom: '28px', marginLeft:'90px'}}/></div>
+            <div><img src={Elipse4} style={{ marginLeft:'90px', marginRight: '100px'}}/></div>
+            <div><img src={Elipse5} style={{marginTop: '26px', position:'relative', marginLeft:'200px'}}/></div>
           <Typography
             component="h2"
             variant="h6"
-            color="inherit"
+            color="red"
             noWrap
             className={classes.title}
           >
             {/* {greaterThenSm && user?.profile === "admin" && getDateAndDifDays(user?.company?.dueDate).difData < 7 ? ( */}
             {greaterThenSm && user?.profile === "admin" && user?.company?.dueDate ? (
               <>
-                Olá <b>{user.name}</b>, Bem vindo a <b>{user?.company?.name}</b>! (Ativo até {dateToClient(user?.company?.dueDate)})
               </>
             ) : (
               <>
-                Olá  <b>{user.name}</b>, Bem vindo a <b>{user?.company?.name}</b>!
               </>
             )}
           </Typography>
-
-          <IconButton edge="start" onClick={toggleColorMode}>
-            {theme.mode === 'dark' ? <Brightness7Icon style={{ color: "white" }} /> : <Brightness4Icon style={{ color: "white" }} />}
+          
+          <IconButton edge="start" onClick={toggleColorMode}> 
+            {theme.mode === 'dark' ? <Brightness7Icon style={{ color: "34D3A3" }} /> : <Brightness4Icon style={{ color: "34D3A3" }} />}
           </IconButton>
 
           <NotificationsVolume
             setVolume={setVolume}
             volume={volume}
+            color='#34D3A3'
+            
           />
 
           <IconButton
             onClick={handleRefreshPage}
             aria-label={i18n.t("mainDrawer.appBar.refresh")}
-            color="inherit"
+            color="34D3A3"
           >
-            <CachedIcon style={{ color: "white" }} />
+            <CachedIcon style={{ color: "#34D3A3" }} />
           </IconButton>
 
-          {user.id && <NotificationsPopOver volume={volume} />}
+          {user.id && <NotificationsPopOver volume={volume} style={{ color: "#34D3A3" }}/>}
 
-          <AnnouncementsPopover />
+          <AnnouncementsPopover style={{ color: "#34D3A3" }} />
 
-          <ChatPopover />
+          <ChatPopover  style={{ color: "#34D3A3" }}/>
 
           <div>
             <IconButton
@@ -429,7 +438,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
               aria-haspopup="true"
               onClick={handleMenu}
               variant="contained"
-              style={{ color: "white" }}
+              style={{ color: "#34D3A3" }}
             >
               <AccountCircle />
             </IconButton>

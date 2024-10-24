@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 
+import DeleteIcon from '@material-ui/icons/Delete';
+
 import * as Yup from "yup";
 import {
     Formik,
@@ -46,10 +48,13 @@ const useStyles = makeStyles(theme => ({
         "& > *:not(:last-child)": {
             marginRight: theme.spacing(1),
         },
+        
     },
     textField: {
         marginRight: theme.spacing(1),
         flex: 1,
+        border: '2px solid #0C2454', // Cor e espessura da borda
+        borderRadius: '8px', // Bordas arredondadas
     },
 
     extraAttr: {
@@ -61,7 +66,13 @@ const useStyles = makeStyles(theme => ({
     btnWrapper: {
         position: "relative",
     },
-
+    multFieldLine: {
+        display: 'flex',
+        flexDirection: 'column',
+        marginBottom: '16px',
+         // Ajuste conforme necessário
+    },
+    
     buttonProgress: {
         color: green[500],
         position: "absolute",
@@ -70,14 +81,21 @@ const useStyles = makeStyles(theme => ({
         marginTop: -12,
         marginLeft: -12,
     },
+    
+    focused: {},
+    error: {},
     formControl: {
         margin: theme.spacing(1),
         minWidth: 2000,
+        
     },
+    
     colorAdorment: {
         width: 20,
         height: 20,
     },
+
+    
 }));
 
 const FileListSchema = Yup.object().shape({
@@ -177,8 +195,18 @@ const FilesModal = ({ open, onClose, fileListId, reload }) => {
                 onClose={handleClose}
                 maxWidth="md"
                 fullWidth
-                scroll="paper">
-                <DialogTitle id="form-dialog-title">
+                scroll="paper"
+                PaperProps={{
+                    style: {
+                        borderRadius: 22,
+                    },
+                }}>
+
+                {/* Titulo do popup */}
+                <DialogTitle 
+                    id="form-dialog-title"
+                    style={{color: '#0C2454', textAlign:'center'}}>
+                    
                     {(fileListId ? `${i18n.t("fileModal.title.edit")}` : `${i18n.t("fileModal.title.add")}`)}
                 </DialogTitle>
                 <Formik
@@ -196,26 +224,53 @@ const FilesModal = ({ open, onClose, fileListId, reload }) => {
                         <Form>
                             <DialogContent dividers>
                                 <div className={classes.multFieldLine}>
-                                    <Field
-                                        as={TextField}
-                                        label={i18n.t("fileModal.form.name")}
-                                        name="name"
-                                        error={touched.name && Boolean(errors.name)}
-                                        helperText={touched.name && errors.name}
-                                        variant="outlined"
-                                        margin="dense"
-                                        fullWidth
+                                
+                                {/* Primeiro Input */}
+                                <Field
+    as={TextField}
+    label={i18n.t("fileModal.form.name")}
+    name="name"
+    placeholder="Insira um nome"
+    error={touched.name && Boolean(errors.name)}
+    helperText={touched.name && errors.name}
+    variant="outlined"
+    margin="dense"
+    fullWidth
+    InputProps={{
+        // style: {
+        //     border: '1px solid #0C2454', // Borda padrão
+        // },
+    }}
+    InputLabelProps={{
+        style: {
+            color: '#0C2454', // Cor do label
+        },
+    }}
+    inputProps={{
+        style: {
+            padding: '10px', // Ajuste o padding se necessário
+        },
+    }}
                                     />
+                                   
                                 </div>
                                 <br />
                                 <div className={classes.multFieldLine}>
+                                    
+                                    {/* Segundo Input */}
                                     <Field
                                         as={TextField}
                                         label={i18n.t("fileModal.form.message")}
                                         type="message"
+                                        placeholder="Detalhes"
                                         multiline
                                         minRows={5}
                                         fullWidth
+                                        InputLabelProps={{
+                                            style: {
+                                                color: '#0C2454', // Cor do label
+                                            },
+                                        }}
                                         name="message"
                                         error={
                                             touched.message && Boolean(errors.message)
@@ -228,7 +283,7 @@ const FilesModal = ({ open, onClose, fileListId, reload }) => {
                                     />
                                 </div>
                                 <Typography
-                                    style={{ marginBottom: 8, marginTop: 12 }}
+                                    style={{ marginBottom: 8, marginTop: 12, fontWeight: 'bold', color: '#0C2454' }}
                                     variant="subtitle1"
                                 >
                                     {i18n.t("fileModal.form.fileOptions")}
@@ -246,9 +301,13 @@ const FilesModal = ({ open, onClose, fileListId, reload }) => {
                                                     >
                                                         <Grid container  spacing={0}>
                                                             <Grid xs={6} md={10} item> 
+                                                                
+                                                                {/* Terceiro Input */}
                                                                 <Field
+                                                                
                                                                     as={TextField}
-                                                                    label={i18n.t("fileModal.form.extraName")}
+                                                                    // label={i18n.t("fileModal.form.extraName")}
+                                                                    placeholder="Mensagem para enviar com o arquivo"
                                                                     name={`options[${index}].name`}
                                                                     variant="outlined"
                                                                     margin="dense"
@@ -258,7 +317,7 @@ const FilesModal = ({ open, onClose, fileListId, reload }) => {
                                                                     className={classes.textField}
                                                                 />
                                                             </Grid>     
-                                                            <Grid xs={2} md={2} item style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                                            <Grid xs={2} md={2} item style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
                                                                 <input
                                                                     type="file"
                                                                     onChange={(e) => {
@@ -278,11 +337,18 @@ const FilesModal = ({ open, onClose, fileListId, reload }) => {
                                                                     id={`file-upload-${index}`}
                                                                 />
                                                                 <label htmlFor={`file-upload-${index}`}>
-                                                                    <IconButton component="span">
+                                                                    
+                                                                    {/* Icone de anexar arquivo */}
+                                                                    <IconButton 
+                                                                        style={{color: '#0C2454'}}
+                                                                        component="span">
                                                                         <AttachFileIcon />
                                                                     </IconButton>
                                                                 </label>
+                                                                
+                                                                {/* Icone de lixeira */}
                                                                 <IconButton
+                                                                    style={{color: '#D3343E'}}
                                                                     size="small"
                                                                     onClick={() => remove(index)}
                                                                 >
@@ -298,7 +364,7 @@ const FilesModal = ({ open, onClose, fileListId, reload }) => {
                                                 ))}
                                             <div className={classes.extraAttr}>
                                                 <Button
-                                                    style={{ flex: 1, marginTop: 8 }}
+                                                    style={{ flex: 1, marginTop: 8, color: '#fff', backgroundColor: '#0C2454' }}
                                                     variant="outlined"
                                                     color="primary"
                                                     onClick={() => {push({ name: "", path: ""});
@@ -313,13 +379,17 @@ const FilesModal = ({ open, onClose, fileListId, reload }) => {
                                 </FieldArray>
                             </DialogContent>
                             <DialogActions>
+                                
+                                {/* Icone de deletar lista de arquivos */}
                                 <Button
+                                    style={{backgroundColor: '#D3343E'}}
                                     onClick={handleClose}
                                     color="secondary"
                                     disabled={isSubmitting}
                                     variant="outlined"
                                 >
-                                    {i18n.t("fileModal.buttons.cancel")}
+                                    <DeleteIcon style={{ marginRight: '8px', marginLeft: '8px', width: '24px', height: '24px', color: '#fff'}} /> {/* Adiciona o ícone */}
+                                    
                                 </Button>
                                 <Button
                                     type="submit"

@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   tableContainer: {
     width: "100%",
     overflowX: "scroll",
+    backgroundColor: "#D9D9D9",
     ...theme.scrollbarStyles,
   },
   textfield: {
@@ -205,11 +206,25 @@ export function CompanyForm(props) {
                   label="Nome"
                   name="name"
                   variant="outlined"
+                  
                   className={classes.fullWidth}
                   margin="dense"
+                  style={{
+                    backgroundColor: '#f0f0f0', // Fundo cinza
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  InputProps={{
+                    placeholder: 'Nome',
+                    style: { color: '#0C2454' },
+                    inputProps: {
+                      style: { color: '#0C2454' },
+                    },
+                  }}
                 />
               </Grid>
-              <Grid xs={12} sm={6} md={2} item>
+              <Grid xs={12} sm={6} md={4} item>
                 <Field
                   as={TextField}
                   label="E-mail"
@@ -218,9 +233,22 @@ export function CompanyForm(props) {
                   className={classes.fullWidth}
                   margin="dense"
                   required
+                  style={{
+                    backgroundColor: '#f0f0f0', // Fundo cinza
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  InputProps={{
+                    placeholder: 'E-mail',
+                    style: { color: '#0C2454' },
+                    inputProps: {
+                      style: { color: '#0C2454' },
+                    },
+                  }}
                 />
               </Grid>
-              <Grid xs={12} sm={6} md={2} item>
+              <Grid xs={12} sm={6} md={4} item>
                 <Field
                   as={TextField}
                   label="Telefone"
@@ -228,11 +256,24 @@ export function CompanyForm(props) {
                   variant="outlined"
                   className={classes.fullWidth}
                   margin="dense"
+                  style={{
+                    backgroundColor: '#f0f0f0', // Fundo cinza
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  InputProps={{
+                    placeholder: 'telefone',
+                    style: { color: '#0C2454' },
+                    inputProps: {
+                      style: { color: '#0C2454' },
+                    },
+                  }}
                 />
               </Grid>
-              <Grid xs={12} sm={6} md={2} item>
-                <FormControl margin="dense" variant="outlined" fullWidth>
-                  <InputLabel htmlFor="plan-selection">Plano</InputLabel>
+              <Grid xs={12} sm={3} md={2} item   >
+                <FormControl margin="dense" variant="outlined" fullWidth style={{ marginLeft: '-164px' }}>
+                  <InputLabel htmlFor="plan-selection" style={{color:'white'}}>Plano</InputLabel>
                   <Field
                     as={Select}
                     id="plan-selection"
@@ -241,18 +282,33 @@ export function CompanyForm(props) {
                     name="planId"
                     margin="dense"
                     required
+                    style={{
+                      color: 'white', // Cor do texto
+                      height: '56px', // Aumenta a altura
+                      backgroundColor: '#0C2454', // Fundo azul
+                    }}
+                    inputProps={{
+                      style: {
+                        padding: '10px', // Aumenta o padding interno
+                        height: '56px', // Define altura do input
+                        
+                        color: 'white', // Cor do texto
+                      },
+                    }}
+                    
                   >
                     {plans.map((plan, key) => (
-                      <MenuItem key={key} value={plan.id}>
+                      <MenuItem key={key} value={plan.id } 
+                      >
                         {plan.name}
                       </MenuItem>
                     ))}
                   </Field>
                 </FormControl>
               </Grid>
-              <Grid xs={12} sm={6} md={2} item>
-                <FormControl margin="dense" variant="outlined" fullWidth>
-                  <InputLabel htmlFor="status-selection">Status</InputLabel>
+              <Grid xs={12} sm={3} md={2} item  >
+                <FormControl margin="dense" variant="outlined" fullWidth style={{ marginLeft: '-132px' }}>
+                  <InputLabel htmlFor="status-selection" style={{color:'white'}}>Status</InputLabel>
                   <Field
                     as={Select}
                     id="status-selection"
@@ -260,15 +316,28 @@ export function CompanyForm(props) {
                     labelId="status-selection-label"
                     name="status"
                     margin="dense"
+                    style={{
+                      color: 'white', // Cor do texto
+                      height: '56px', // Aumenta a altura
+                      backgroundColor: '#0C2454', // Fundo azul
+                    }}
+                    inputProps={{
+                      style: {
+                        padding: '10px', // Aumenta o padding interno
+                        height: '56px', // Define altura do input
+                        
+                        color: 'white', // Cor do texto
+                      },
+                    }}
                   >
                     <MenuItem value={true}>Sim</MenuItem>
                     <MenuItem value={false}>Não</MenuItem>
                   </Field>
                 </FormControl>
               </Grid>
-              <Grid xs={12} sm={6} md={2} item>
-                <FormControl margin="dense" variant="outlined" fullWidth>
-                  <InputLabel htmlFor="status-selection">Campanhas</InputLabel>
+              <Grid xs={12} sm={3} md={2} item >
+                <FormControl margin="dense" variant="outlined" fullWidth style={{ marginLeft: '-96px' }}>
+                  <InputLabel htmlFor="status-selection" style={{color:'white'}}>Campanhas</InputLabel>
                   <Field
                     as={Select}
                     id="campaigns-selection"
@@ -276,31 +345,66 @@ export function CompanyForm(props) {
                     labelId="campaigns-selection-label"
                     name="campaignsEnabled"
                     margin="dense"
+                    style={{
+                      color: 'white', // Cor do texto
+                      height: '56px', // Aumenta a altura
+                      backgroundColor: '#0C2454', // Fundo azul
+                    }}
+                    inputProps={{
+                      style: {
+                        padding: '10px', // Aumenta o padding interno
+                        height: '56px', // Define altura do input
+                        
+                        color: 'white', // Cor do texto
+                      },
+                    }}
                   >
                     <MenuItem value={true}>Habilitadas</MenuItem>
                     <MenuItem value={false}>Desabilitadas</MenuItem>
                   </Field>
                 </FormControl>
               </Grid>
-              <Grid xs={12} sm={6} md={2} item>
-                <FormControl variant="outlined" fullWidth>
+              <Grid xs={12} sm={3} md={2} item >
+                <FormControl variant="outlined" fullWidth style={{ marginLeft: '-72px' }}>
                   <Field
                     as={TextField}
                     label="Data de Vencimento"
                     type="date"
                     name="dueDate"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
+                   
                     variant="outlined"
                     fullWidth
                     margin="dense"
+                    InputLabelProps={{
+                      
+                      style: { color: '#FFFFFF' }, // Cor do label
+                      fontWeight: 'bold', // Deixa a label em negrito
+                      fontSize: '16px', // Aumenta o tamanho da fonte da label
+                      marginBottom: '5px',
+                    }}
+                    InputProps={{
+                      style: {
+                        padding: '10px', // Aumenta o padding interno
+                        height: '56px', // Define altura do input
+                        color: '#FFFFFF', // Cor do texto
+                      },
+                      // Para ajustar o tamanho do campo de seleção
+                      inputProps: {
+                        style: {
+                          height: '56px', // Define altura do input
+                          color: '#FFFFFF'
+                        },
+                      },
+                    }}
+                    style={{
+                      backgroundColor: '#0C2454', // Fundo cinza
+                    }}
                   />
                 </FormControl>
               </Grid>
-              <Grid xs={12} sm={6} md={2} item>
-                <FormControl margin="dense" variant="outlined" fullWidth>
-                  <InputLabel htmlFor="recorrencia-selection">
+              <Grid xs={12} sm={3} md={2} item  >
+                <FormControl margin="dense" variant="outlined" fullWidth  style={{ marginLeft: '-46px' }}>
+                  <InputLabel htmlFor="recorrencia-selection" style={{color:'white'}}>
                     Recorrência
                   </InputLabel>
                   <Field
@@ -310,6 +414,19 @@ export function CompanyForm(props) {
                     id="recurrence"
                     name="recurrence"
                     margin="dense"
+                    style={{
+                      color: 'white', // Cor do texto
+                      height: '56px', // Aumenta a altura
+                      backgroundColor: '#0C2454', // Fundo azul
+                    }}
+                    inputProps={{
+                      style: {
+                        padding: '10px', // Aumenta o padding interno
+                        height: '56px', // Define altura do input
+                        
+                        color: 'white', // Cor do texto
+                      },
+                    }}
                   >
                     <MenuItem value="MENSAL">Mensal</MenuItem>
                     {/*<MenuItem value="BIMESTRAL">Bimestral</MenuItem>*/}
@@ -448,35 +565,51 @@ export function CompaniesManagerGrid(props) {
       >
         <TableHead>
           <TableRow>
-            <TableCell align="center" style={{ width: "1%" }}>
-              #
-            </TableCell>
-            <TableCell align="left">Nome</TableCell>
-            <TableCell align="left">E-mail</TableCell>
-            <TableCell align="left">Telefone</TableCell>
-            <TableCell align="left">Plano</TableCell>
-            <TableCell align="left">Campanhas</TableCell>
-            <TableCell align="left">Status</TableCell>
-            <TableCell align="left">Criada Em</TableCell>
-            <TableCell align="left">Vencimento</TableCell>
+          <TableCell align="center" style={{ width: "1%", border: '1px solid #0C2454', color: '#0C2454' ,  textAlign: 'center', backgroundColor: '#FFFFFF'}}>
+      #
+    </TableCell>
+    <TableCell align="left" style={{ border: '1px solid #0C2454', color: '#0C2454' , textAlign: 'center' ,backgroundColor: '#FFFFFF'}}>
+      Nome
+    </TableCell>
+    <TableCell align="left" style={{ border: '1px solid #0C2454', color: '#0C2454' , textAlign: 'center',backgroundColor: '#FFFFFF'}}>
+      E-mail
+    </TableCell>
+    <TableCell align="left" style={{ border: '1px solid #0C2454', color: '#0C2454' , textAlign: 'center',backgroundColor: '#FFFFFF'}}>
+      Telefone
+    </TableCell>
+    <TableCell align="left" style={{ border: '1px solid #0C2454', color: '#0C2454', textAlign: 'center' ,backgroundColor: '#FFFFFF'}}>
+      Plano
+    </TableCell>
+    <TableCell align="left" style={{ border: '1px solid #0C2454', color: '#0C2454', textAlign: 'center' ,backgroundColor: '#FFFFFF'}}>
+      Campanhas
+    </TableCell>
+    <TableCell align="left" style={{ border: '1px solid #0C2454', color: '#0C2454' ,  textAlign: 'center',backgroundColor: '#FFFFFF'}}>
+      Status
+    </TableCell>
+    <TableCell align="left" style={{ border: '1px solid #0C2454', color: '#0C2454' ,  textAlign: 'center' ,backgroundColor: '#FFFFFF'}}>
+      Criada Em
+    </TableCell>
+    <TableCell align="left" style={{ border: '1px solid #0C2454', color: '#0C2454' , textAlign: 'center',backgroundColor: '#FFFFFF'}}>
+      Vencimento
+    </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {records.map((row, key) => (
             <TableRow style={rowStyle(row)} key={key}>
-              <TableCell align="center" style={{ width: "1%" }}>
-                <IconButton onClick={() => onSelect(row)} aria-label="delete">
+              <TableCell align="center" style={{ width: "1%", backgroundColor: '#D9D9D9' }}>
+                <IconButton onClick={() => onSelect(row)} aria-label="delete" style={{color: '#0C2454'}}>
                   <EditIcon />
                 </IconButton>
               </TableCell>
-              <TableCell align="left">{row.name || "-"}</TableCell>
-              <TableCell align="left">{row.email || "-"}</TableCell>
-              <TableCell align="left">{row.phone || "-"}</TableCell>
-              <TableCell align="left">{renderPlan(row)}</TableCell>
-              <TableCell align="left">{renderCampaignsStatus(row)}</TableCell>
-              <TableCell align="left">{renderStatus(row)}</TableCell>
-              <TableCell align="left">{dateToClient(row.createdAt)}</TableCell>
-              <TableCell align="left">
+              <TableCell align="left" style={{backgroundColor: '#D9D9D9', textAlign: 'center'}}>{row.name || "-"}</TableCell>
+              <TableCell align="left" style={{backgroundColor: '#D9D9D9', textAlign: 'center'}}>{row.email || "-"}</TableCell>
+              <TableCell align="left" style={{backgroundColor: '#D9D9D9', textAlign: 'center'}}>{row.phone || "-"}</TableCell>
+              <TableCell align="left" style={{backgroundColor: '#D9D9D9', textAlign: 'center'}}>{renderPlan(row)}</TableCell>
+              <TableCell align="left" style={{backgroundColor: '#D9D9D9', textAlign: 'center'}}>{renderCampaignsStatus(row)}</TableCell>
+              <TableCell align="left" style={{backgroundColor: '#D9D9D9', textAlign: 'center'}}>{renderStatus(row)}</TableCell>
+              <TableCell align="left" style={{backgroundColor: '#D9D9D9', textAlign: 'center'}}>{dateToClient(row.createdAt)}</TableCell>
+              <TableCell align="left" style={{backgroundColor: '#D9D9D9', textAlign: 'center'}}>
                 {dateToClient(row.dueDate)}
                 <br />
                 <span>{row.recurrence}</span>

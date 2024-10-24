@@ -50,6 +50,20 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginRight: theme.spacing(1),
     flex: 1,
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'rgba(0, 0, 0, 0.23)', // Cor padrão da borda
+      },
+      '&:hover fieldset': {
+        borderColor: 'rgba(0, 0, 0, 0.23)', // Cor da borda ao passar o mouse
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: theme.palette.primary.main, // Cor da borda quando focado
+      },
+    },
+    '& .MuiInputBase-input': {
+      backgroundColor: '#D9D9D9',
+    },
   },
 
   extraAttr: {
@@ -69,6 +83,40 @@ const useStyles = makeStyles((theme) => ({
     left: "50%",
     marginTop: -12,
     marginLeft: -12,
+  },
+
+  select: {
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#808080', 
+      },
+      '&:hover fieldset': {
+        borderColor: '#808080', 
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#0C2454', 
+      },
+    },
+    '& .MuiSelect-select': {
+      backgroundColor: '#D9D9D9',
+      color: '#808080',
+    },
+    '& .MuiSelect-select:focus': {
+      backgroundColor: '#D9D9D9',
+      color: '#0C2454',
+    },
+    '& .MuiInputLabel-root': {
+      color: '#808080',
+    },
+    '& .MuiInputLabel-root.Mui-focused': {
+      color: '#0C2454',
+    },
+  },
+
+  messageField: {
+    '& .MuiInputBase-root': {
+      backgroundColor: '#D9D9D9',
+    },
   },
 }));
 
@@ -173,7 +221,7 @@ const CampaignModal = ({
         .catch((error) => {
           console.error("Error retrieving tags:", error);
         });
-        
+
       if (!campaignId) return;
 
       api.get(`/campaigns/${campaignId}`).then(({ data }) => {
@@ -285,6 +333,7 @@ const CampaignModal = ({
         variant="outlined"
         helperText="Utilize variáveis como {nome}, {numero}, {email} ou defina variáveis personalziadas."
         disabled={!campaignEditable && campaign.status !== "CANCELADA"}
+        className={classes.messageField}
       />
     );
   };
@@ -302,6 +351,7 @@ const CampaignModal = ({
         multiline={true}
         variant="outlined"
         disabled={!campaignEditable && campaign.status !== "CANCELADA"}
+        className={classes.messageField}
       />
     );
   };
@@ -415,6 +465,7 @@ const CampaignModal = ({
                           touched.confirmation && Boolean(errors.confirmation)
                         }
                         disabled={!campaignEditable}
+                        className={classes.select}
                       >
                         <MenuItem value={false}>Desabilitada</MenuItem>
                         <MenuItem value={true}>Habilitada</MenuItem>
@@ -444,6 +495,7 @@ const CampaignModal = ({
                           touched.contactListId && Boolean(errors.contactListId)
                         }
                         disabled={!campaignEditable}
+                        className={classes.select}
                       >
                         <MenuItem value="">Nenhuma</MenuItem>
                         {contactLists &&
@@ -477,6 +529,7 @@ const CampaignModal = ({
                         name="tagListId"
                         error={touched.tagListId && Boolean(errors.tagListId)}
                         disabled={!campaignEditable}
+                        className={classes.select}
                       >
                         <MenuItem value="">Nenhuma</MenuItem>
                         {Array.isArray(tagLists) &&
@@ -507,6 +560,7 @@ const CampaignModal = ({
                         name="whatsappId"
                         error={touched.whatsappId && Boolean(errors.whatsappId)}
                         disabled={!campaignEditable}
+                        className={classes.select}
                       >
                         <MenuItem value="">Nenhuma</MenuItem>
                         {whatsapps &&
@@ -537,7 +591,7 @@ const CampaignModal = ({
                     />
                   </Grid>
                   <Grid xs={12} md={4} item>
-                  <FormControl
+                    <FormControl
                       variant="outlined"
                       margin="dense"
                       className={classes.FormControl}
@@ -552,6 +606,7 @@ const CampaignModal = ({
                         placeholder={i18n.t("campaigns.dialog.form.fileList")}
                         labelId="fileListId-selection-label"
                         value={values.fileListId || ""}
+                        className={classes.select}
                       >
                         <MenuItem value={""} >{"Nenhum"}</MenuItem>
                         {file.map(f => (
@@ -573,13 +628,30 @@ const CampaignModal = ({
                       centered
                       style={{
                         borderRadius: 2,
+                        backgroundColor: "rgb(217, 217, 217)",
+                        color: "#0C2C4C"
                       }}
                     >
-                      <Tab label="Msg. 1" index={0} />
-                      <Tab label="Msg. 2" index={1} />
-                      <Tab label="Msg. 3" index={2} />
-                      <Tab label="Msg. 4" index={3} />
-                      <Tab label="Msg. 5" index={4} />
+                      <Tab label="Msg. 1" index={0} style={{
+                        color: "#0C2C4C",
+                        fontWeight: 'bold'
+                      }} />
+                      <Tab label="Msg. 2" index={1} style={{
+                        color: "#0C2C4C",
+                        fontWeight: 'bold'
+                      }} />
+                      <Tab label="Msg. 3" index={2} style={{
+                        color: "#0C2C4C",
+                        fontWeight: 'bold'
+                      }} />
+                      <Tab label="Msg. 4" index={3} style={{
+                        color: "#0C2C4C",
+                        fontWeight: 'bold'
+                      }} />
+                      <Tab label="Msg. 5" index={4} style={{
+                        color: "#0C2C4C",
+                        fontWeight: 'bold'
+                      }} />
                     </Tabs>
                     <Box style={{ paddingTop: 20, border: "none" }}>
                       {messageTab === 0 && (
@@ -737,6 +809,7 @@ const CampaignModal = ({
                   color="secondary"
                   disabled={isSubmitting}
                   variant="outlined"
+                  style={{ backgroundColor: "#D3343E", color: "white" }}
                 >
                   {i18n.t("campaigns.dialog.buttons.close")}
                 </Button>

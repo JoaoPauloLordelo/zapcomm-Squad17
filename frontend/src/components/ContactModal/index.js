@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 	root: {
 		display: "flex",
 		flexWrap: "wrap",
+		width:'500px'
 	},
 	textField: {
 		marginRight: theme.spacing(1),
@@ -50,6 +51,23 @@ const useStyles = makeStyles(theme => ({
 		marginTop: -12,
 		marginLeft: -12,
 	},
+	traco: {
+		height: '2px',
+		width: '100%',
+		backgroundColor: '#0C2454',
+		marginBottom: '20px',
+		marginTop: '20px',
+	  },
+	  formulario: {
+		marginLeft: '25px',
+		marginRight: '25px',
+	  },
+	  botoesdeinteracao: {
+		paddingRight:'0px',
+		paddingTop: '0px',
+		paddingBottom:'16px'
+	  }
+
 }));
 
 const ContactSchema = Yup.object().shape({
@@ -129,7 +147,7 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 	return (
 		<div className={classes.root}>
 			<Dialog open={open} onClose={handleClose} maxWidth="lg" scroll="paper">
-				<DialogTitle id="form-dialog-title">
+				<DialogTitle id="form-dialog-title" style={{color:"#0C2454", textAlign:'center', fontSize:'50px', paddingBottom: '0', fontWeight:'bold'}}>
 					{contactId
 						? `${i18n.t("contactModal.title.edit")}`
 						: `${i18n.t("contactModal.title.add")}`}
@@ -146,10 +164,10 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 					}}
 				>
 					{({ values, errors, touched, isSubmitting }) => (
-						<Form>
-							<DialogContent dividers>
-								<Typography variant="subtitle1" gutterBottom>
-									{i18n.t("contactModal.form.mainInfo")}
+						<Form className={classes.formulario}>
+							<div className={classes.traco}></div>
+								<Typography variant="subtitle1" gutterBottom style={{color: '#0C2454', fontWeight:'bold'}}>
+									{("Dados")}
 								</Typography>
 								<Field
 									as={TextField}
@@ -185,14 +203,14 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 										variant="outlined"
 									/>
 								</div>
-								<Typography
-									style={{ marginBottom: 8, marginTop: 12 }}
+								<Typography //Conexao Origem
+									style={{ marginBottom: 8, marginTop: 12, color: '#0C2454', fontWeight:'bold'}}
 									variant="subtitle1"
 								>
 									{i18n.t("contactModal.form.whatsapp")} {contact?.whatsapp ? contact?.whatsapp.name : ""}
 								</Typography>
-								<Typography
-									style={{ marginBottom: 8, marginTop: 12 }}
+								<Typography //Informações Adicionais
+									style={{ marginBottom: 8, marginTop: 12, color: '#0C2454', fontWeight:'bold'}}
 									variant="subtitle1"
 								>
 									{i18n.t("contactModal.form.extraInfo")}
@@ -227,15 +245,17 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 														<IconButton
 															size="small"
 															onClick={() => remove(index)}
+															
 														>
-															<DeleteOutlineIcon />
+															<DeleteOutlineIcon style={{color: 'red'}} />
 														</IconButton>
 													</div>
 												))}
+											
 											<div className={classes.extraAttr}>
 												<Button
-													style={{ flex: 1, marginTop: 8 }}
-													variant="outlined"
+													style={{ flex: 1, marginTop: 8,backdroundColor:"red"}}
+													variant="contained"
 													color="primary"
 													onClick={() => push({ name: "", value: "" })}
 												>
@@ -244,16 +264,17 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 											</div>
 										</>
 									)}
+									
 								</FieldArray>
-							</DialogContent>
-							<DialogActions>
+							<div className={classes.traco}></div>
+							<DialogActions className={classes.botoesdeinteracao}>
 								<Button
 									onClick={handleClose}
 									color="secondary"
 									disabled={isSubmitting}
-									variant="outlined"
+									variant="contained"
 								>
-									{i18n.t("contactModal.buttons.cancel")}
+									<DeleteOutlineIcon style={{color: 'white'}} />
 								</Button>
 								<Button
 									type="submit"

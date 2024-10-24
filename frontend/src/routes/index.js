@@ -37,7 +37,7 @@ import Files from "../pages/Files/";
 import Prompts from "../pages/Prompts";
 import QueueIntegration from "../pages/QueueIntegration";
 import ForgetPassword from "../pages/ForgetPassWord/"; // Reset PassWd
-
+import PaginaInicio from "../pages/PaginaInicio";
 const Routes = () => {
   const [showCampaigns, setShowCampaigns] = useState(false);
 
@@ -60,6 +60,7 @@ const Routes = () => {
             <WhatsAppsProvider>
               <LoggedInLayout>
                 <Route exact path="/" component={Dashboard} isPrivate />
+                
                 <Route
                   exact
                   path="/tickets/:ticketId?"
@@ -167,6 +168,12 @@ const Routes = () => {
                       path="/campaigns-config"
                       component={CampaignsConfig}
                       isPrivate
+                    />
+                    <Route
+                    exact
+                    path="/paginainicio"
+                    component={PaginaInicio}
+                    isPrivate
                     />
                   </>
                 )}
