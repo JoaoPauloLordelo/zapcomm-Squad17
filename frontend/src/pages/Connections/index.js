@@ -25,6 +25,9 @@ import {
 	SignalCellular4Bar,
 	CropFree,
 	DeleteOutline,
+	ArrowLeft,
+	Height,
+	Transform,
 } from "@material-ui/icons";
 
 import MainContainer from "../../components/MainContainer";
@@ -43,25 +46,76 @@ import toastError from "../../errors/toastError";
 
 import { AuthContext } from "../../context/Auth/AuthContext";
 import { Can } from "../../components/Can";
-
+import Logo from "../../assets/logo.png"
+import add from "../../assets/add.png"
+import pencil from "../../assets/pencil.png"
+import thrashcan from "../../assets/thrashcan.png"
+import qr from "../../assets/qr.png"
 const useStyles = makeStyles(theme => ({
+
+	mais: {
+		transform: 'scale(0.5)'
+
+	},
+
+	line: {
+		width:'1050px',
+		height:'2px',
+		backgroundColor:'black',
+		position:'relative',
+		left:'95px',
+
+
+	},
+
+	botao: {position: 'relative',
+		left: '950px',
+		top: '98px',
+		backgroundColor: '#0C2454',
+	},	width: '203.25px',
+		Height: '39px',
+		borderRadius: '6px',
+
+	titulo: {position:'relative',
+		left:'5px',
+		color:'black',
+		
+
+
+
+	},
+
+
+	contentWrapper: {
+		backgroundColor: "green",
+	},
+// table
 	mainPaper: {
 		flex: 1,
-		padding: theme.spacing(1),
+		padding: theme.spacing(5),
 		overflowY: "scroll",
 		...theme.scrollbarStyles,
+		backgroundColor: "#FFFFFF", 
+		borderRadius: "16px",	
+
 	},
 	customTableCell: {
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "center",
+		padding: "0px",
+		borderSpacing: '50 100px'
+
+	
 	},
+	// fundo
 	tooltip: {
-		backgroundColor: "#f5f5f9",
+		backgroundColor: "#FFFFFF",
 		color: "rgba(0, 0, 0, 0.87)",
 		fontSize: theme.typography.pxToRem(14),
 		border: "1px solid #dadde9",
 		maxWidth: 450,
+
 	},
 	tooltipPopper: {
 		textAlign: "center",
@@ -69,6 +123,7 @@ const useStyles = makeStyles(theme => ({
 	buttonProgress: {
 		color: green[500],
 	},
+
 }));
 
 const CustomToolTip = ({ title, content, children }) => {
@@ -205,10 +260,18 @@ const Connections = () => {
 					<Button
 						size="small"
 						variant="contained"
-						color="primary"
+						color="realprimary"
 						onClick={() => handleOpenQrModal(whatsApp)}
+						style={{backgroundColor:"#0C2454",
+							color:"white",
+							transform:"scale(0.70)"
+						}}
 					>
-						{i18n.t("connections.buttons.qrcode")}
+						<div><img src={qr} style={{transform:"scale(0.80)",
+							position:"relative",
+							top:"5px",
+
+						}}></img></div>
 					</Button>
 				)}
 				{whatsApp.status === "DISCONNECTED" && (
@@ -216,8 +279,11 @@ const Connections = () => {
 						<Button
 							size="small"
 							variant="outlined"
-							color="primary"
+							color="realprimary"
 							onClick={() => handleStartWhatsAppSession(whatsApp.id)}
+							style={{backgroundColor:"#0C2454",
+								color:"white",
+							}}
 						>
 							{i18n.t("connections.buttons.tryAgain")}
 						</Button>{" "}
@@ -226,8 +292,13 @@ const Connections = () => {
 							variant="outlined"
 							color="secondary"
 							onClick={() => handleRequestNewQrCode(whatsApp.id)}
+							style={{backgroundColor:"#0C2454",
+								transform:"scale(0.75)",
+							}}
 						>
-							{i18n.t("connections.buttons.newQr")}
+							<img src={qr} style={{backgroundColor:"#0C2454",
+								transform:"scale(0.8)"
+							}}></img> 
 						</Button>
 					</>
 				)}
@@ -300,6 +371,10 @@ const Connections = () => {
 				open={confirmModalOpen}
 				onClose={setConfirmModalOpen}
 				onConfirm={handleSubmitConfirmationModal}
+				style={{backgroundColor:"green"}
+				}
+				
+			
 			>
 				{confirmModalInfo.message}
 			</ConfirmationModal>
@@ -307,6 +382,7 @@ const Connections = () => {
 				open={qrModalOpen}
 				onClose={handleCloseQrModal}
 				whatsAppId={!whatsAppModalOpen && selectedWhatsApp?.id}
+
 			/>
 			<WhatsAppModal
 				open={whatsAppModalOpen}
@@ -314,13 +390,18 @@ const Connections = () => {
 				whatsAppId={!qrModalOpen && selectedWhatsApp?.id}
 			/>
 			<MainHeader>
-				<Title>{i18n.t("connections.title")}</Title>
-				<MainHeaderButtonsWrapper>
-					<Can
+				<MainHeaderButtonsWrapper
+				
+				>
+					
+				</MainHeaderButtonsWrapper>
+			</MainHeader>
+			<Paper className={classes.mainPaper} variant="outlined">
+			<Can 
 						role={user.profile}
 						perform="connections-page:addConnection"
 						yes={() => (
-							<Button
+							<Button className={classes.botao}
 								variant="contained"
 								color="primary"
 								onClick={handleOpenWhatsAppModal}
@@ -328,17 +409,35 @@ const Connections = () => {
 								{i18n.t("connections.buttons.add")}
 							</Button>
 						)}
+						
 					/>
-				</MainHeaderButtonsWrapper>
-			</MainHeader>
-			<Paper className={classes.mainPaper} variant="outlined">
-				<Table size="small">
+				<div style={{position:'relative',
+					left:'93px',
+					width:'1000px',
+					color:'black',
+				}}>
+					{/* título */}
+					<Title className={classes.titulo} style={{
+						color: "#000000",}}
+						>{i18n.t("connections.title")}</Title>
+				</div>
+				<div className={classes.line}></div>
+				<Table size="small"
+				style={{position:'relative',
+					top:'100px',
+					borderCollapse: "separate",
+					borderSpacing: "0 10px",
+				}}>
 					<TableHead>
 						<TableRow>
-							<TableCell align="center">
+							<TableCell align="center" style={{position:"relative",
+							left:"100px",
+							}} >
 								{i18n.t("connections.table.name")}
 							</TableCell>
-							<TableCell align="center">
+							<TableCell align="center" style={{position:"relative",
+								left:"100px",
+							}} >
 								{i18n.t("connections.table.status")}
 							</TableCell>
 							<Can
@@ -374,9 +473,25 @@ const Connections = () => {
 							<>
 								{whatsApps?.length > 0 &&
 									whatsApps.map(whatsApp => (
-										<TableRow key={whatsApp.id}>
-											<TableCell align="center">{whatsApp.name}</TableCell>
-											<TableCell align="center">
+										<TableRow key={whatsApp.id}
+										style={{backgroundColor:"#D9D9D9",
+											borderRadius: "00px",
+										}}>
+											<TableCell align="center" style={{
+												width: "5%",
+												 borderTopLeftRadius: '16px',  // Borda superior esquerda
+												 borderBottomLeftRadius: '16px',  // Borda inferior esquerda
+												 border: "none",
+												 position: "relative",
+												 left: "100px",
+
+											}}>{whatsApp.name}</TableCell>
+											<TableCell align="center"
+											style={{width: '5%',
+												position: "relative",
+												left: "100px",
+
+											}}>
 												{renderStatusToolTips(whatsApp)}
 											</TableCell>
 											<Can
@@ -389,7 +504,7 @@ const Connections = () => {
 												)}
 											/>
 											<TableCell align="center">
-												{format(parseISO(whatsApp.updatedAt), "dd/MM/yy HH:mm")}
+												<strong>{format(parseISO(whatsApp.updatedAt), "dd/MM/yy HH:mm")}</strong>
 											</TableCell>
 											<TableCell align="center">
 												{whatsApp.isDefault && (
@@ -402,12 +517,16 @@ const Connections = () => {
 												role={user.profile}
 												perform="connections-page:editOrDeleteConnection"
 												yes={() => (
-													<TableCell align="center">
+													<TableCell align="center" style={{borderTopRightRadius:"16px",
+														borderBottomRightRadius:"16px",
+														border: "none",
+
+													}}>
 														<IconButton
 															size="small"
 															onClick={() => handleEditWhatsApp(whatsApp)}
 														>
-															<Edit />
+														<div><img src={pencil} style={{transform: "scale(0.5)"}}></img></div>
 														</IconButton>
 
 														<IconButton
@@ -416,7 +535,7 @@ const Connections = () => {
 																handleOpenConfirmationModal("delete", whatsApp.id);
 															}}
 														>
-															<DeleteOutline />
+															<div><img src={thrashcan} style={{transform:"scale(0.45)"}}></img></div>
 														</IconButton>
 													</TableCell>
 												)}
