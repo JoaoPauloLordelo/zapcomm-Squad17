@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
+    borderRadius: "16px"
   },
   textRight: {
     textAlign: "right",
@@ -43,6 +44,21 @@ const useStyles = makeStyles((theme) => ({
   tabPanelsContainer: {
     padding: theme.spacing(2),
   },
+  select: {
+    backgroundColor: '#cccccc',
+    '& .MuiSelect-select': {
+      color: '#808080',
+    },
+    '& .MuiSelect-select:focus': {
+      color: '#0C2454',
+    },
+    '& .MuiInputLabel-root': {
+      color: '#808080',
+    },
+    '& .MuiInputLabel-root.Mui-focused': {
+      color: '#0C2454',
+    },
+  }
 }));
 
 const initialSettings = {
@@ -122,35 +138,28 @@ const CampaignsConfig = () => {
       >
         {i18n.t("campaigns.confirmationModal.deleteMessage")}
       </ConfirmationModal>
-      <MainHeader>
-        <Grid style={{ width: "99.6%" }} container>
-          <Grid xs={12} item>
-            <Title>{i18n.t("campaignsConfig.title")}</Title>
-          </Grid>
-        </Grid>
-      </MainHeader>
-      <Paper className={classes.mainPaper} variant="outlined">
+      <Paper className={classes.mainPaper} variant="outlined" style={{borderRadius: "16px"}}>
+        <h1 style={{color:'#0C2C4C'}}>Configurações de campanha</h1>
         <Box className={classes.tabPanelsContainer}>
           <Grid spacing={2} container>
             <Grid xs={12} item>
-              <Typography component={"h3"}>Intervalos</Typography>
+              <Typography component={"h3"} style={{color:"#0C2C4C", fontWeight: "bold", fontSize: "22px"}}>Intervalos</Typography>
             </Grid>
             <Grid xs={12} md={4} item>
+              <Typography variant="subtitle1" style={{color: "#0C2C4C", marginBottom: "8px", fontWeight: "bold"}}>
+                Intervalo Randômico de Disparo
+              </Typography>
               <FormControl
                 variant="outlined"
                 className={classes.formControl}
                 fullWidth
               >
-                <InputLabel id="messageInterval-label">
-                  Intervalo Randômico de Disparo
-                </InputLabel>
                 <Select
                   name="messageInterval"
                   id="messageInterval"
-                  labelId="messageInterval-label"
-                  label="Intervalo Randômico de Disparo"
                   value={settings.messageInterval}
                   onChange={(e) => handleOnChangeSettings(e)}
+                  className={classes.select}
                 >
                   <MenuItem value={0}>Sem Intervalo</MenuItem>
                   <MenuItem value={5}>5 segundos</MenuItem>
@@ -161,21 +170,20 @@ const CampaignsConfig = () => {
               </FormControl>
             </Grid>
             <Grid xs={12} md={4} item>
+              <Typography variant="subtitle1" style={{color: "#0C2C4C", marginBottom: "8px", fontWeight: "bold"}}>
+                Intervalo Maior Após
+              </Typography>
               <FormControl
                 variant="outlined"
                 className={classes.formControl}
                 fullWidth
               >
-                <InputLabel id="longerIntervalAfter-label">
-                  Intervalo Maior Após
-                </InputLabel>
                 <Select
                   name="longerIntervalAfter"
                   id="longerIntervalAfter"
-                  labelId="longerIntervalAfter-label"
-                  label="Intervalo Maior Após"
                   value={settings.longerIntervalAfter}
                   onChange={(e) => handleOnChangeSettings(e)}
+                  className={classes.select}
                 >
                   <MenuItem value={0}>Não definido</MenuItem>
                   <MenuItem value={1}>1 segundo</MenuItem>
@@ -193,21 +201,20 @@ const CampaignsConfig = () => {
               </FormControl>
             </Grid>
             <Grid xs={12} md={4} item>
+              <Typography variant="subtitle1" style={{color: "#0C2C4C", marginBottom: "8px", fontWeight: "bold"}}>
+                Intervalo de Disparo Maior
+              </Typography>
               <FormControl
                 variant="outlined"
                 className={classes.formControl}
                 fullWidth
               >
-                <InputLabel id="greaterInterval-label">
-                  Intervalo de Disparo Maior
-                </InputLabel>
                 <Select
                   name="greaterInterval"
                   id="greaterInterval"
-                  labelId="greaterInterval-label"
-                  label="Intervalo de Disparo Maior"
                   value={settings.greaterInterval}
                   onChange={(e) => handleOnChangeSettings(e)}
+                  className={classes.select}
                 >
                   <MenuItem value={0}>Sem Intervalo</MenuItem>
                   <MenuItem value={1}>1 segundo</MenuItem>
@@ -227,15 +234,22 @@ const CampaignsConfig = () => {
             <Grid xs={12} className={classes.textRight} item>
               <Button
                 onClick={() => setShowVariablesForm(!showVariablesForm)}
-                color="primary"
-                style={{ marginRight: 10 }}
+                style={{
+                  marginRight: 10,
+                  backgroundColor: 'white',
+                  color: '#0C2C4C',
+                  border: '1px solid #0C2C4C',
+                }}
               >
                 Adicionar Variável
               </Button>
               <Button
                 onClick={saveSettings}
-                color="primary"
-                variant="contained"
+                style={{
+                  backgroundColor: '#0C2C4C',
+                  color: '#fff',
+                  
+                }}
               >
                 Salvar Configurações
               </Button>
@@ -243,30 +257,34 @@ const CampaignsConfig = () => {
             {showVariablesForm && (
               <>
                 <Grid xs={12} md={6} item>
+                  <Typography variant="subtitle1" style={{color: "#0C2C4C", marginBottom: "8px", fontWeight: "bold"}}>
+                    Atalho
+                  </Typography>
                   <TextField
-                    label="Atalho"
                     variant="outlined"
                     value={variable.key}
                     name="key"
                     onChange={handleOnChangeVariable}
-                    fullWidth
+                    style={{backgroundColor: "rgb(217, 217, 217)", width: "80%"}}
                   />
                 </Grid>
                 <Grid xs={12} md={6} item>
+                  <Typography variant="subtitle1" style={{color: "#0C2C4C", marginBottom: "8px", fontWeight: "bold"}}>
+                    Conteúdo
+                  </Typography>
                   <TextField
-                    label="Conteúdo"
                     variant="outlined"
                     value={variable.value}
                     name="value"
                     onChange={handleOnChangeVariable}
-                    fullWidth
+                    style={{backgroundColor: "rgb(217, 217, 217)", width: "80%"}}
                   />
                 </Grid>
                 <Grid xs={12} className={classes.textRight} item>
                   <Button
                     onClick={() => setShowVariablesForm(!showVariablesForm)}
                     color="primary"
-                    style={{ marginRight: 10 }}
+                    style={{ marginRight: 10 , backgroundColor: '#D3343E', color: '#fff'}}
                   >
                     Fechar
                   </Button>

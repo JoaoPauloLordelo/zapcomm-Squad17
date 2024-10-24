@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: "none !important",
     },
     icons: {
-        color: "#fff",
+        color: "#34D3A3",
     },
     customBadge: {
         backgroundColor: "#f44336",
@@ -63,7 +63,7 @@ const NotificationsVolume = ({ volume, setVolume }) => {
                 // color="inherit"
                 // color="secondary"
             >
-                <VolumeUpIcon color="inherit" />
+                <VolumeUpIcon color="#34D3A3" />
             </IconButton>
             <Popover
                 disableScrollLock

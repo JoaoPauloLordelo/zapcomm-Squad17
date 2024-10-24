@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
         flex: 1,
         padding: theme.spacing(1),
         overflowY: "scroll",
+        borderRadius: "16px",
         ...theme.scrollbarStyles,
     },
 }));
@@ -200,7 +201,13 @@ const FileLists = () => {
 
     return (
         <MainContainer>
-            <ConfirmationModal
+           
+            <Paper
+                className={classes.mainPaper}
+                variant="outlined"
+                onScroll={handleScroll}
+            >
+                <ConfirmationModal
                 title={deletingFileList && `${i18n.t("files.confirmationModal.deleteTitle")}`}
                 open={confirmModalOpen}
                 onClose={setConfirmModalOpen}
@@ -216,40 +223,66 @@ const FileLists = () => {
                 fileListId={selectedFileList && selectedFileList.id}
             />
             <MainHeader>
-                <Title>{i18n.t("files.title")} ({files.length})</Title>
+                <Title>
+                    
+                    {i18n.t("files.title")} ({files.length})</Title>
                 <MainHeaderButtonsWrapper>
+                    
+                    {/* Input Pesquisa */}
                     <TextField
+                        style={{backgroundColor: '#D9D9D9', borderRadius: '7px', paddingLeft: '6px'}}
                         placeholder={i18n.t("contacts.searchPlaceholder")}
                         type="search"
                         value={searchParam}
                         onChange={handleSearch}
                         InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon style={{ color: "gray" }} />
-                                </InputAdornment>
+                            disableUnderline: true, // remove a linha
+                            style: {
+                              color: '#0C2454', // cor do texto normal
+                              fontWeight: 'bold', // texto em negrito
+                            },
+                            inputProps: {
+                              style: {
+                                paddingLeft: '8px', // espaçamento à esquerda
+                                '&::placeholder': {
+                                  color: '#0C2454',
+                                  fontWeight: 'bold',
+                                  opacity: 1, // cor do placeholder
+                                  paddingLeft: '8px', // opcional: para adicionar espaço ao placeholder
+                                },
+                              },
+                            },
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <SearchIcon style={{ color: '#0C2454' }} />
+                              </InputAdornment>
                             ),
-                        }}
+                          }}
                     />
+                    
+                    {/* + Arquivo */}
                     <Button
                         variant="contained"
                         color="primary"
                         onClick={handleOpenFileListModal}
                     >
-                        {i18n.t("files.buttons.add")}
+                        {`+ ${i18n.t("fileModal.buttons.fileOptions")}`}
                     </Button>
                 </MainHeaderButtonsWrapper>
             </MainHeader>
-            <Paper
-                className={classes.mainPaper}
-                variant="outlined"
-                onScroll={handleScroll}
-            >
-                <Table size="small">
+                <Table size="small" style={{ borderCollapse: 'separate', borderSpacing: '0 10px' }}>
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">{i18n.t("files.table.name")}</TableCell>
-                            <TableCell align="center">
+                            
+                            {/* Nome */}
+                            <TableCell 
+                                align="center"
+                                style={{color: '#0C2454', fontSize: '17px', fontWeight: 'bold'}}>{i18n.t("files.table.name")}</TableCell>
+                            
+                            {/* Ações */}
+                            <TableCell 
+                                style={{color: '#0C2454', fontSize: '17px', fontWeight: 'bold'}}
+                                align="center">
                                 {i18n.t("files.table.actions")}
                             </TableCell>
                         </TableRow>
@@ -257,26 +290,44 @@ const FileLists = () => {
                     <TableBody>
                         <>
                             {files.map((fileList) => (
-                                <TableRow key={fileList.id}>
-                                    <TableCell align="center">
-                                        {fileList.name}
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        <IconButton size="small" onClick={() => handleEditFileList(fileList)}>
-                                            <EditIcon />
-                                        </IconButton>
-
-                                        <IconButton
-                                            size="small"
-                                            onClick={(e) => {
-                                                setConfirmModalOpen(true);
-                                                setDeletingFileList(fileList);
-                                            }}
-                                        >
-                                            <DeleteOutlineIcon />
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
+                               <TableRow style={{ backgroundColor: '#D9D9D9' }} key={fileList.id}>
+                               <TableCell 
+                                   style={{
+                                       color: '#0C2454', 
+                                       fontWeight: 'bold', 
+                                       borderRadius: '7px 0 0 7px', // Aplica border-radius apenas na esquerda
+                                       overflow: 'hidden' // Para evitar que o conteúdo transborde
+                                   }}
+                                   align="center">
+                                   {fileList.name}
+                               </TableCell>
+                               <TableCell 
+                                   align="center"
+                                   style={{
+                                       color: '#0C2454', 
+                                       fontSize: '17px', 
+                                       fontWeight: 'bold', 
+                                       borderRadius: '0 7px 7px 0', // Aplica border-radius apenas na direita
+                                       overflow: 'hidden' // Para evitar que o conteúdo transborde
+                                   }}>
+                                   <IconButton 
+                                       style={{ color: '#0C2454' }} 
+                                       size="small" 
+                                       onClick={() => handleEditFileList(fileList)}>
+                                       <EditIcon />
+                                   </IconButton>
+                           
+                                   <IconButton
+                                       style={{ color: '#D3343E' }} 
+                                       size="small" 
+                                       onClick={(e) => {
+                                           setConfirmModalOpen(true);
+                                           setDeletingFileList(fileList);
+                                       }}>
+                                       <DeleteOutlineIcon />
+                                   </IconButton>
+                               </TableCell>
+                           </TableRow>
                             ))}
                             {loading && <TableRowSkeleton columns={4} />}
                         </>

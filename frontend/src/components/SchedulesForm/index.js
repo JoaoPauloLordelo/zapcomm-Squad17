@@ -27,6 +27,15 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "right",
     padding: theme.spacing(1),
   },
+  customBorder: {
+    borderColor: "#0C2454 !important", // Define a cor da borda
+  },
+  blueLine: {
+    border: 0,
+    height: "2px",
+    width: "100%",
+    backgroundColor: "#0C2454",
+  },
 }));
 
 function SchedulesForm(props) {
@@ -73,55 +82,81 @@ function SchedulesForm(props) {
               <Grid spacing={4} container>
                 {values.schedules.map((item, index) => {
                   return (
-                      <Container>
-                          <FastField
-                            as={TextField}
-                            label="Dia da Semana"
-                            name={`schedules[${index}].weekday`}
-                            disabled
+                    <Container key={index}>
+                      <FastField
+                        as={TextField}
+                        label="Dia da Semana"
+                        name={`schedules[${index}].weekday`}
+                        disabled
+                        variant="outlined"
+                        style={{ marginRight: "3.2%", width: "30%" }}
+                        margin="dense"
+                        InputLabelProps={{
+                          style: { color: "#34D3A3" }, // Cor do rótulo
+                        }}
+                        InputProps={{
+                          style: {
+                            color: "#0C2454", // Cor do texto
+                          },
+                          classes: { notchedOutline: classes.customBorder }, // Aplica a classe de borda personalizada
+                        }}
+                      />
+                      <FastField
+                        name={`schedules[${index}].startTime`}
+                      >
+                        {({ field }) => (
+                          <NumberFormat
+                            label="Hora de Inicial"
+                            {...field}
                             variant="outlined"
-                            style={{ marginRight: "3.2%", width: "30%" }}
                             margin="dense"
+                            customInput={TextField}
+                            format="##:##"
+                            style={{ marginRight: "3.2%", width: "30%" }}
+                            InputLabelProps={{
+                              style: { color: "#34D3A3" }, // Cor do rótulo
+                            }}
+                            InputProps={{
+                              style: {
+                                color: "#0C2454", // Cor do texto
+                              },
+                              classes: { notchedOutline: classes.customBorder }, // Aplica a classe de borda personalizada
+                            }}
                           />
-                          <FastField
-                            name={`schedules[${index}].startTime`}
-                            >
-                            {({ field }) => (
-                              <NumberFormat
-                                label="Hora de Inicial"
-                                {...field}
-                                variant="outlined"
-                                margin="dense"
-                                customInput={TextField}
-                                format="##:##"
-                                style={{ marginRight: "3.2%", width: "30%" }}
-                              />
-                            )}
-                          </FastField>
-                          <FastField
-                            name={`schedules[${index}].endTime`}
-                            >
-                            {({ field }) => (
-                              <NumberFormat
-                                label="Hora de Final"
-                                {...field}
-                                variant="outlined"
-                                margin="dense"
-                                customInput={TextField}
-                                format="##:##"
-                                style={{ marginRight: "3.2%", width: "30%" }}
-                              />
-                            )}
-                          </FastField>
-
-                      </Container>
-
+                        )}
+                      </FastField>
+                      <FastField
+                        name={`schedules[${index}].endTime`}
+                      >
+                        {({ field }) => (
+                          <NumberFormat
+                            label="Hora de Final"
+                            {...field}
+                            variant="outlined"
+                            margin="dense"
+                            customInput={TextField}
+                            format="##:##"
+                            style={{ marginRight: "3.2%", width: "30%" }}
+                            InputLabelProps={{
+                              style: { color: "#34D3A3" }, // Cor do rótulo
+                            }}
+                            InputProps={{
+                              style: {
+                                color: "#0C2454", // Cor do texto
+                              },
+                              classes: { notchedOutline: classes.customBorder }, // Aplica a classe de borda personalizada
+                            }}
+                          />
+                        )}
+                      </FastField>
+                    </Container>
                   );
                 })}
               </Grid>
             )}
           ></FieldArray>
           <div style={{ textAlign: "center", marginTop: "2%" }} className={classes.buttonContainer}>
+          <hr className={classes.blueLine} />
             <ButtonWithSpinner
               loading={loading}
               type="submit"

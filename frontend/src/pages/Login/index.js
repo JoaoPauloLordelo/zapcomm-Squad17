@@ -15,7 +15,14 @@ import { i18n } from "../../translate/i18n";
 import { nomeEmpresa } from "../../../package.json";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import logo from "../../assets/logo.png";
-
+import efeito1 from "../../assets/efeito1.png";
+import efeito3 from "../../assets/efeito3.png";
+import {
+	FormControl,
+	InputLabel,
+	MenuItem,
+	Select,
+} from "@material-ui/core";
 
 const Copyright = () => {
 	return (
@@ -31,28 +38,43 @@ const Copyright = () => {
  };
 
 const useStyles = makeStyles(theme => ({
+	body: {
+		margin: '0',
+	},
 	root: {
 		width: "100vw",
 		height: "100vh",
 		//background: "linear-gradient(to right, #682EE3 , #682EE3 , #682EE3)",
 		//backgroundImage: "url(https://i.imgur.com/CGby9tN.png)",
-		backgroundColor: theme.palette.primary.main,
-		backgroundRepeat: "no-repeat",
-		backgroundSize: "100% 100%",
-		backgroundPosition: "center",
+		backgroundColor: 'white',
+		//backgroundPosition: "center",
 		display: "flex",
-		flexDirection: "column",
-		alignItems: "center",
-		justifyContent: "center",
-		textAlign: "center",
+		//flexDirection: "column",
+		margin: '0',
+		backgroundSize: '50% 50%',
+
+		
+
 	},
 	paper: {
-		backgroundColor: theme.palette.login,
+		/*backgroundColor: 'red',
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
 		padding: "55px 30px",
-		borderRadius: "12.5px",
+		borderRadius: "12.5px",*/
+		backgroundColor:'#34D3A3',
+		width: '670px',
+		height: '583px',
+		borderRadius: '20px',
+		display: 'flex',
+		flexDirection: 'column',
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		justifyContent: "center",
+		textAlign: "center",
 	},
 	avatar: {
 		margin: theme.spacing(1),  
@@ -64,10 +86,85 @@ const useStyles = makeStyles(theme => ({
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
+		color: '#0c2c54',
+		width: '320px',
+		backgroundColor: 'white',
+		borderRadius: '8px',
 	},
 	powered: {
 		color: "white"
-	}
+	},
+	elipse: {
+		width: '133px',
+		height: '133px',
+		background: 'rgba(52,211,163,1)',
+		opacity: '1',
+		position: 'absolute',
+		top: '540px',
+		left: '184px',
+		borderRadius: '50%',
+	},
+	efeito1: {
+		width: '555px',
+		height: '435px',
+		opacity: '1',
+		position: 'absolute',
+		top: '0px',
+		left: '0px',
+	},
+	efeito3: {
+		width: '378px',
+		height: '423px',
+		opacity: '1',
+		position: 'absolute',
+		right: '0px',
+		bottom: '0px',
+		margin: '0',
+		display: 'flex',
+		justifyContent: 'end',
+		
+		
+	},
+	inp1: {
+		width: '330px',
+		backgroundColor: '#0c2c54',
+		border: '0',
+		borderRadius: '8px',
+		height: '45px',
+		marginTop: '0px'
+	
+	},
+
+	inp2: {
+		width: '330px',
+		backgroundColor: '#0c2c54',
+		border: '0',
+		borderRadius: '8px',
+		height: '45px',
+		marginTop: '0px'
+	},
+
+	texto01: {
+		color: '#0c2c54',
+		fontSize: '0px',
+		margin: '0',
+	},
+	txt02: {
+		color: '#0c2c54',
+		fontSize: '0px',
+	},
+	logozp: {
+		marginTop: '40px',
+		paddingLeft: '0',
+
+	},
+	ilname: {
+		color:'#0c2c54', 
+		fontWeight: '600',
+		width: '50px',
+		marginLeft: '170px', 
+		marginTop: '16px'
+	},
 }));
 
 const Login = () => {
@@ -89,63 +186,97 @@ const Login = () => {
 	
 	return (
 		<div className={classes.root}>
-		<Container component="main" maxWidth="xs">
+		<Container style={{padding:'0'}}component="main" maxWidth="xs">
 			<CssBaseline/>
-			<div className={classes.paper}>
-				<div>
-					<img style={{ margin: "0 auto", width: "70%" }} src={logo} alt="Whats" />
-				</div>
+			<div className={classes.efeito1}>
+				<img src={efeito1} alt=""/>
+			</div>
+			<div className={classes.efeito3}>
+				<img src={efeito3} alt=''/>
+			</div>
+			<div className={classes.elipse}></div>
+			<div className={classes.logozpcm}>
+				<img className={classes.logozp} style={{marginLeft: '238px', left:'50%', transform:'translate(-50%)'}}src={logo} alt="Whats"/>
+			</div>
+			<div className={classes.paper}>				
+				<div classname={classes.texto01}><p style={{color:'#0c2c54', margin: '0px', fontSize:'64px',}}>Entrar</p></div>
+				<div classname={classes.txt02} style={{marginTop: '10px', fontFamily: 'Roboto', fontSize: '16px',fontWeight:'500', color:'white'}}>Cadastre-se no Zapcomm</div>
 				{/*<Typography component="h1" variant="h5">
 					{i18n.t("login.title")}
 				</Typography>*/}
 				<form className={classes.form} noValidate onSubmit={handlSubmit}>
-					<TextField
-						variant="outlined"
+				<InputLabel htmlFor="plan-selection" className={classes.ilname}>Email</InputLabel>
+					<TextField 
 						margin="normal"
-						required
-						fullWidth
 						id="email"
-						label={i18n.t("login.form.email")}
+						
+						required
 						name="email"
 						value={user.email}
 						onChange={handleChangeInput}
 						autoComplete="email"
 						autoFocus
-					/>
+						className={classes.inp1}
+						InputProps={{
+							disableUnderline: true, // remove a linha
+							style: {
+								color: '#FFFFFF', // cor do texto normal
+								fontWeight: 'bold', // texto em negrito
+							},
+						}}
+						InputLabelProps={{
+							style: {
+								color: '#FFFFFF', // cor do label
+								
+								opacity: 1, // visibilidade total
+							},
+						}}
+							/><br/>
+				<InputLabel htmlFor="plan-selection" className={classes.ilname}>Senha</InputLabel>
 					<TextField
-						variant="outlined"
+						className={classes.inp2}
+						//variant="outlined" deixa contornado essa variant
 						margin="normal"
 						required
 						fullWidth
 						name="password"
-						label={i18n.t("login.form.password")}
+						
 						type="password"
 						id="password"
 						value={user.password}
 						onChange={handleChangeInput}
 						autoComplete="current-password"
-					/>
+						InputProps={{
+							disableUnderline: true, // remove a linha
+							style: {
+								color: '#FFFFFF', // cor do texto normal
+								fontWeight: 'bold', // texto em negrito
+							},
+						}}
+						InputLabelProps={{
+							style: {
+								color: '#FFFFFF', // cor do label
+								
+								opacity: 1, // visibilidade total
+							},
+						}}
+					/><br/>
 					
-					{/* <Grid container justify="flex-end">
-					  <Grid item xs={6} style={{ textAlign: "right" }}>
-						<Link component={RouterLink} to="/forgetpsw" variant="body2">
+					{<Grid>
+					  <Grid item>
+						<Link 
+						component={RouterLink} 
+						to="/forgetpsw" 
+						variant="body2" 
+						style={{color:'#0c2c54',fontWeight:'600' }}>
 						  Esqueceu sua senha?
 						</Link>
 					  </Grid>
-					</Grid>*/}
-					
-					<Button
-						type="submit"
-						fullWidth
-						variant="contained"
-						color="primary"
-						className={classes.submit}
-					>
-						{i18n.t("login.buttons.submit")}
-					</Button>
+					</Grid>}
 					{ <Grid container>
 						<Grid item>
 							<Link
+								style={{ paddingLeft:'250px',color:'#0c2c54',fontWeight:'600', marginTop: '10px'}}
 								href="#"
 								variant="body2"
 								component={RouterLink}
@@ -155,6 +286,16 @@ const Login = () => {
 							</Link>
 						</Grid>
 					</Grid> }
+					<Button
+						type="submit"
+						fullWidth
+						variant="contained"
+						color=""
+						className={classes.submit}
+					>
+						{i18n.t("login.buttons.submit")}
+					</Button>
+					
 				</form>
 			
 			</div>

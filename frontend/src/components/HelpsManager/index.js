@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     mainPaper: {
 		width: '100%',
 		flex: 1,
-		padding: theme.spacing(2)
+		padding: theme.spacing(2),
     },
 	fullWidth: {
 		width: '100%'
@@ -55,7 +55,19 @@ const useStyles = makeStyles(theme => ({
     buttonContainer: {
         textAlign: 'right',
 		padding: theme.spacing(1)
-	}
+	},
+    tableHeadCell: {
+        color: '#0C2454',
+        fontWeight: 'bold'
+    },
+    tableRowCell: {
+        backgroundColor: '#BCBCBC',
+        color: '#0C2454',
+        fontWeight: 'bold'
+    },
+    tableRow: {
+        marginBottom: '100px'
+    }
 }));
 
 export function HelpManagerForm (props) {
@@ -88,14 +100,24 @@ export function HelpManagerForm (props) {
                 <Form className={classes.fullWidth}>
                     <Grid spacing={2} justifyContent="flex-end" container>
                         <Grid xs={12} sm={6} md={3} item>
-                            <Field
-                                as={TextField}
-                                label="Título"
-                                name="title"
-                                variant="outlined"
-                                className={classes.fullWidth}
-                                margin="dense"
+                        <Field
+                            as={TextField}
+                            label="Título"
+                            name="title"
+                            variant="outlined"
+                            className={classes.fullWidth}
+                            margin="dense"
+                            InputProps={{
+                                disableUnderline: true, // remove a linha
+                                style: {
+                                backgroundColor: '#CCCCCC', // cor de fundo
+                                color: '#0C2454', // cor do texto normal
+                                paddingLeft: '8px', // espaçamento à esquerda
+                                },
+                            }}
                             />
+
+
                         </Grid>
                         <Grid xs={12} sm={6} md={3} item>
                             <Field
@@ -105,6 +127,14 @@ export function HelpManagerForm (props) {
                                 variant="outlined"
                                 className={classes.fullWidth}
                                 margin="dense"
+                                InputProps={{
+                                    disableUnderline: true, // remove a linha
+                                    style: {
+                                    backgroundColor: '#CCCCCC', // cor de fundo
+                                    color: '#0C2454', // cor do texto normal
+                                    paddingLeft: '8px', // espaçamento à esquerda
+                                    },
+                                }}
                             />
                         </Grid>
                         <Grid xs={12} sm={12} md={6} item>
@@ -115,13 +145,32 @@ export function HelpManagerForm (props) {
                                 variant="outlined"
                                 className={classes.fullWidth}
                                 margin="dense"
+                                InputProps={{
+                                    disableUnderline: true, // remove a linha
+                                    style: {
+                                    backgroundColor: '#CCCCCC', // cor de fundo
+                                    color: '#0C2454', // cor do texto normal
+                                    paddingLeft: '8px', // espaçamento à esquerda
+                                    },
+                                }}
                             />
                         </Grid>
                         <Grid sm={3} md={1} item>
-                            <ButtonWithSpinner className={classes.fullWidth} loading={loading} onClick={() => onCancel()} variant="contained">
+                            <ButtonWithSpinner
+                                className={classes.fullWidth}
+                                loading={loading}
+                                onClick={() => onCancel()}
+                                variant="contained"
+                                style={{
+                                color: '#0C2454', // Cor do texto
+                                backgroundColor: '#CCCCCC', // Cor de fundo
+                                }}
+                            >
                                 Limpar
                             </ButtonWithSpinner>
                         </Grid>
+
+
                         { record.id !== undefined ? (
                             <Grid sm={3} md={1} item>
                                 <ButtonWithSpinner className={classes.fullWidth} loading={loading} onClick={() => onDelete(record)} variant="contained" color="secondary">
@@ -146,27 +195,27 @@ export function HelpsManagerGrid (props) {
     const classes = useStyles()
 
     return (
-        <Paper className={classes.tableContainer}>
+        <Paper className={classes.tableContainer} style={{borderRadius: '12px'}}>
             <Table className={classes.fullWidth} size="small" aria-label="a dense table">
                 <TableHead>
-                <TableRow>
-                    <TableCell align="center" style={{width: '1%'}}>#</TableCell>
-                    <TableCell align="left">Título</TableCell>
-                    <TableCell align="left">Descrição</TableCell>
-                    <TableCell align="left">Vídeo</TableCell>
+                <TableRow className={classes.TableCell} style={{color: '#0C2454'}}>                   
+                    <TableCell align="center" className={classes.tableHeadCell}>Título</TableCell>
+                    <TableCell align="center" className={classes.tableHeadCell}>Descrição</TableCell>
+                    <TableCell align="center" className={classes.tableHeadCell}>Vídeo</TableCell>
                 </TableRow>
+
                 </TableHead>
                 <TableBody>
                 {records.map((row) => (
-                    <TableRow key={row.id}>
+                    <TableRow key={row.id}g>
+                        <TableCell align="center" className={classes.tableRowCell}>{row.title || '-'}</TableCell>
+                        <TableCell align="center" className={classes.tableRowCell}>{row.description || '-'}</TableCell>
+                        <TableCell align="center" className={classes.tableRowCell}>{row.video || '-'}</TableCell>
                         <TableCell align="center" style={{width: '1%'}}>
                             <IconButton onClick={() => onSelect(row)} aria-label="delete">
-                                <EditIcon />
+                                <EditIcon style={{color: '#0C2454'}}/>
                             </IconButton>
                         </TableCell>
-                        <TableCell align="left">{row.title || '-'}</TableCell>
-                        <TableCell align="left">{row.description || '-'}</TableCell>
-                        <TableCell align="left">{row.video || '-'}</TableCell>
                     </TableRow>
                 ))}
                 </TableBody>
