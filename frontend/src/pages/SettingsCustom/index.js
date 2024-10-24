@@ -67,8 +67,20 @@ const useStyles = makeStyles((theme) => ({
   },
   textfield: {
     width: "100%",
-    
   },
+  traco: {
+    height: '2px',
+    width: '100%',
+    backgroundColor: '#0C2454',
+    marginLeft: '10px',
+    marginBottom: '20px',
+  },
+  titulo:{
+    fontSize:"25px",
+    marginLeft:"20px",
+    marginTop:"15px",
+    color:"#0c2c54",
+    fontWeight: "600"  }
 }));
 
 const SettingsCustom = () => {
@@ -168,9 +180,11 @@ const SettingsCustom = () => {
   return (
     <MainContainer className={classes.root}>
       <MainHeader>
-        <Title>{i18n.t("settings.title")}</Title>
+        
       </MainHeader>
       <Paper className={classes.mainPaper} elevation={1}>
+      <div className={classes.titulo}>Configurações</div>
+      <div className={classes.traco}></div>
         <Tabs
           value={tab}
           indicatorColor="primary"
@@ -181,10 +195,12 @@ const SettingsCustom = () => {
           classes={{ root: classes.root }}
           style={{ display: 'flex', width: '100%' }} // Mantém o display flex
         >
+
           <Tab label="Opções" value={"options"} classes={{ root: classes.tab }} />
   
   {isSuper() ? <Tab label="Empresas" value={"companies"} classes={{ root: classes.tab }} /> : null}
   {isSuper() ? <Tab label="Ajuda" value={"helps"} classes={{ root: classes.tab }} style={{ flexGrow: 1 }}/> : null}
+
         </Tabs>
         <Paper className={classes.paper} elevation={0}>
           
