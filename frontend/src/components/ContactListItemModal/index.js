@@ -14,7 +14,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import { i18n } from "../../translate/i18n";
 
 import api from "../../services/api";
@@ -50,6 +50,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: -12,
     marginLeft: -12,
   },
+  traco: {
+		height: '2px',
+		width: '100%',
+		backgroundColor: '#0C2454',
+		marginBottom: '20px',
+		marginTop: '20px',
+	  },
+	  formulario: {
+		marginLeft: '25px',
+		marginRight: '25px',
+	  },
 }));
 
 const ContactSchema = Yup.object().shape({
@@ -147,7 +158,7 @@ const ContactListItemModal = ({
   return (
     <div className={classes.root}>
       <Dialog open={open} onClose={handleClose} maxWidth="lg" scroll="paper">
-        <DialogTitle id="form-dialog-title">
+        <DialogTitle id="form-dialog-title" style={{textAlign: 'center', color:'#0C2454', paddingBottom:'0px'}}>
           {contactId
             ? `${i18n.t("contactModal.title.edit")}`
             : `${i18n.t("contactModal.title.add")}`}
@@ -164,9 +175,9 @@ const ContactListItemModal = ({
           }}
         >
           {({ values, errors, touched, isSubmitting }) => (
-            <Form>
-              <DialogContent dividers>
-                <Typography variant="subtitle1" gutterBottom>
+            <Form className={classes.formulario}>
+              <div className={classes.traco}></div>
+                <Typography variant="subtitle1" gutterBottom style={{color: '#0C2454'}}>
                   {i18n.t("contactModal.form.mainInfo")}
                 </Typography>
                 <Field
@@ -203,15 +214,15 @@ const ContactListItemModal = ({
                     variant="outlined"
                   />
                 </div>
-              </DialogContent>
+                <div className={classes.traco}></div>
               <DialogActions>
                 <Button
                   onClick={handleClose}
                   color="secondary"
                   disabled={isSubmitting}
-                  variant="outlined"
+                  variant="contained"
                 >
-                  {i18n.t("contactModal.buttons.cancel")}
+                 <DeleteOutlineIcon style={{color:'white'}}/>
                 </Button>
                 <Button
                   type="submit"
