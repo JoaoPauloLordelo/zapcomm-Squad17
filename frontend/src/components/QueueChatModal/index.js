@@ -14,31 +14,40 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#0C2454",
   },
   greetingMessage: {
-    backgroundColor: "#0C2454", // Cor de fundo para a mensagem
+    backgroundColor: "#0C2454",
     borderRadius: "10px",
     padding: theme.spacing(1),
-    margin: theme.spacing(1, 1, 0, 1), // Espaçamento (cima, direita, baixo, esquerda)
+    margin: theme.spacing(1, 1, 0, 1),
     color: "#fff",
     fontSize: "16px",
     fontWeight: "bold",
-    display: "inline-block", // Para ajustar o tamanho ao conteúdo
-    alignSelf: "flex-end", // Para alinhar à direita
+    display: "inline-block",
+    alignSelf: "flex-end",
     wordWrap: "break-word",
-    maxWidth: "70%", // Limita a largura da mensagem
+    maxWidth: "70%",
+  },
+  outOfHoursMessage: {
+    backgroundColor: "#0C2454",
+    borderRadius: "10px",
+    padding: theme.spacing(1),
+    margin: theme.spacing(1, 1, 0, 1),
+    color: "#fff",
+    fontSize: "16px",
+    fontWeight: "bold",
+    display: "inline-block",
+    alignSelf: "flex-end",
+    wordWrap: "break-word",
+    maxWidth: "70%",
   },
   contentWrapper: {
     display: "flex",
     flexDirection: "column",
-    height: "100%", // O conteúdo vai ocupar toda a altura
-    justifyContent: "space-between", // Deixa o conteúdo no meio e o input na base
-  },
-  bottomSection: {
-    marginTop: theme.spacing(2), // Espaçamento acima do input
-    paddingBottom: theme.spacing(1), // Espaçamento na base
+    justifyContent: "space-between",
+    height: "100%", // Garante que o conteúdo ocupe toda a altura do modal
   },
 }));
 
-const QueueChatModal = ({ open, onClose, greetingMessage }) => {
+const QueueChatModal = ({ open, onClose, greetingMessage, outOfHoursMessage }) => {
   const classes = useStyles();
 
   const handleClose = () => {
@@ -48,49 +57,55 @@ const QueueChatModal = ({ open, onClose, greetingMessage }) => {
   return (
     <div className={classes.root}>
       <Dialog
-        maxWidth="424px" // Define a largura do modal
+        maxWidth="424px"
         fullWidth={true}
         open={open}
         onClose={handleClose}
         scroll="paper"
         BackdropProps={{
-          style: { backgroundColor: 'transparent' }, // Altera a cor do fundo para transparente
+          style: { backgroundColor: 'transparent' },
         }}
         PaperProps={{
           style: {
             borderRadius: 20,
             maxWidth: "370px",
-            height: "450px", // Define a altura do modal
-            position: 'absolute', // Necessário para usar top e left
-            top: '20%', // Deslocamento do topo
-            left: '68%', // Deslocamento da esquerda
+            height: "450px",
+            position: 'absolute',
+            top: '30%',
+            left: '68%',
           },
         }}
       >
         <DialogTitle style={{ color: '#0C2454', textAlign: 'center' }}>
-          ChatBot
+          Mensagens
           <hr className={classes.blueLine} />
         </DialogTitle>
         <DialogContent dividers className={classes.contentWrapper}>
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            {/* Exibir a mensagem de saudação como mensagem de chat */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+            {greetingMessage && (
+              <div style={{ marginBottom: '8px', color: '#5E605F', fontWeight: 'bold' }}>
+                Mensagem de saudação:
+              </div>
+            )}
             {greetingMessage && (
               <div className={classes.greetingMessage}>
                 {greetingMessage}
               </div>
             )}
+            {outOfHoursMessage && (
+              <div style={{ marginBottom: '8px', color: '#5E605F', fontWeight: 'bold', paddingTop: '10px' }}>
+                Mensagem de fora do expediente:
+              </div>
+            )}
+            {outOfHoursMessage && (
+              <div className={classes.outOfHoursMessage}>
+                {outOfHoursMessage}
+              </div>
+            )}
           </div>
 
-          {/* Input e hr na base */}
-          <div className={classes.bottomSection}>
-            <hr className={classes.blueLine} />
-            <TextField
-              label="Insira sua mensagem" // Texto do input
-              fullWidth
-              variant="outlined"
-              margin="dense"
-            />
-          </div>
+          {/* O <hr> sempre ficará na base */}
+          <hr className={classes.blueLine} />
         </DialogContent>
       </Dialog>
     </div>

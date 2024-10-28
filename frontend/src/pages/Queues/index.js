@@ -199,7 +199,10 @@ const Queues = () => {
         open={chatModalOpen}
         onClose={handleCloseChatModal}
         greetingMessage={selectedQueue?.greetingMessage} // Passando o greetingMessage
+        outOfHoursMessage={selectedQueue?.outOfHoursMessage} // Passando a outOfHoursMessage
       />
+      
+      <Paper className={classes.mainPaper} variant="outlined" style={{borderRadius: 28}}>
       <MainHeader>
         <Typography variant="h6" style={{ fontWeight: 'bold', color: '#0C2454' }}>
           Filas & Chatbot
@@ -215,7 +218,6 @@ const Queues = () => {
         </MainHeaderButtonsWrapper>
       </MainHeader>
       <hr className={classes.blueLine} />
-      <Paper className={classes.mainPaper} variant="outlined">
         <Table size="small" style={{ width: '650px' }}>
           <TableBody>
             <>
