@@ -184,6 +184,12 @@ const useStyles = makeStyles((theme) => ({
       height: "100%",
     },
   },
+  traco: {
+    height: '2px',
+    width: '1175px',
+    backgroundColor: '#0C2454',
+    marginLeft: '0px',
+  },
 }));
 
 const Schedules = () => {
@@ -377,6 +383,7 @@ const Schedules = () => {
             </Button>
           </div>
         </div>
+        <div className={classes.traco}></div>
         <Calendar
           className={classes.calendar}
           messages={defaultMessages}

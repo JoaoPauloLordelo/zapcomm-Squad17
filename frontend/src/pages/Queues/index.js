@@ -200,6 +200,7 @@ const Queues = () => {
         onClose={handleCloseChatModal}
         greetingMessage={selectedQueue?.greetingMessage} // Passando o greetingMessage
       />
+      <Paper className={classes.mainPaper} variant="outlined">
       <MainHeader>
         <Typography variant="h6" style={{ fontWeight: 'bold', color: '#0C2454' }}>
           Filas & Chatbot
@@ -215,7 +216,6 @@ const Queues = () => {
         </MainHeaderButtonsWrapper>
       </MainHeader>
       <hr className={classes.blueLine} />
-      <Paper className={classes.mainPaper} variant="outlined">
         <Table size="small" style={{ width: '650px' }}>
           <TableBody>
             <>

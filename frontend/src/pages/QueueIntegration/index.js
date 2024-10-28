@@ -104,6 +104,13 @@ const useStyles = makeStyles((theme) => ({
     align:'center',
     borderRadius: 4
   },
+  traco: {
+    height: '2px',
+    width: '1175px',
+    backgroundColor: '#0C2454',
+    marginLeft: '0px',
+    marginBottom: '20px',
+  },
 }));
 
 const QueueIntegration = () => {
@@ -297,6 +304,7 @@ const QueueIntegration = () => {
           </Button>
         </MainHeaderButtonsWrapper>
       </MainHeader>
+      <div className={classes.traco}></div>
         <Table size="small" style={{ borderCollapse: 'separate', borderSpacing: '0 10px' }} >
           <TableHead>
             <TableRow >
