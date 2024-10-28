@@ -89,6 +89,12 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "16px",
         ...theme.scrollbarStyles,
     },
+    traco: {
+        height: '2px',
+        width: '100%',
+        backgroundColor: '#0C2454',
+        marginLeft: '0px',
+      },
 }));
 
 const FileLists = () => {
@@ -230,7 +236,7 @@ const FileLists = () => {
                     
                     {/* Input Pesquisa */}
                     <TextField
-                        style={{backgroundColor: '#D9D9D9', borderRadius: '7px', paddingLeft: '6px'}}
+                        style={{backgroundColor: '#D9D9D9', borderRadius: '7px', paddingLeft: '6px', height:'36.5px'}}
                         placeholder={i18n.t("contacts.searchPlaceholder")}
                         type="search"
                         value={searchParam}
@@ -270,6 +276,7 @@ const FileLists = () => {
                     </Button>
                 </MainHeaderButtonsWrapper>
             </MainHeader>
+            <div className={classes.traco}></div>
                 <Table size="small" style={{ borderCollapse: 'separate', borderSpacing: '0 10px' }}>
                     <TableHead>
                         <TableRow>

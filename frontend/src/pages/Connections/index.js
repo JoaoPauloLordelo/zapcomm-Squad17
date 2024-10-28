@@ -58,15 +58,12 @@ const useStyles = makeStyles(theme => ({
 
 	},
 
-	line: {
-		width:'1050px',
-		height:'2px',
-		backgroundColor:'black',
-		position:'relative',
-		left:'95px',
-
-
-	},
+	traco: {
+		height: '2px',
+		width: '1175px',
+		backgroundColor: '#0C2454',
+		marginLeft: '0px',
+	  },
 
 	botao: {position: 'relative',
 		left: '950px',
@@ -92,7 +89,7 @@ const useStyles = makeStyles(theme => ({
 // table
 	mainPaper: {
 		flex: 1,
-		padding: theme.spacing(5),
+		padding:'8px',
 		overflowY: "scroll",
 		...theme.scrollbarStyles,
 		backgroundColor: "#FFFFFF", 
@@ -411,17 +408,11 @@ const Connections = () => {
 						)}
 						
 					/>
-				<div style={{position:'relative',
-					left:'93px',
-					width:'1000px',
-					color:'black',
-				}}>
 					{/* título */}
 					<Title className={classes.titulo} style={{
 						color: "#000000",}}
 						>{i18n.t("connections.title")}</Title>
-				</div>
-				<div className={classes.line}></div>
+				<div className={classes.traco}></div>
 				<Table size="small"
 				style={{position:'relative',
 					top:'100px',
