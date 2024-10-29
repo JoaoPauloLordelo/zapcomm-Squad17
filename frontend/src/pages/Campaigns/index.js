@@ -151,6 +151,14 @@ const useStyles = makeStyles((theme) => ({
       border: 'none',
     },
   },
+  traco: {
+    height: '2px',
+    width: '99%',
+    backgroundColor: '#0C2454',
+    marginLeft: '0px',
+    marginBottom: '20px',
+    marginTop: '10px'
+  },
 }));
 
 const Campaigns = () => {
@@ -368,6 +376,7 @@ const Campaigns = () => {
             </Grid>
           </Grid>
         </Grid>
+        <div className={classes.traco}></div>
         <Table size="small" style={{ 
           minWidth: '1200px', 
           borderCollapse: 'separate', 

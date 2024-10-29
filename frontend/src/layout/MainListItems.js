@@ -325,7 +325,27 @@ const MainListItems = (props) => {
             <ForumIcon />
           </Badge>
         }
+        
       />
+            <ListItemLink
+        to="/tickets"
+        primary={i18n.t("mainDrawer.listItems.tickets")}
+        icon={<WhatsAppIcon />}
+      />
+      <ListItemLink
+              to="/connections"
+              primary={i18n.t("mainDrawer.listItems.connections")}
+              icon={
+                <Badge badgeContent={connectionWarning ? "!" : 0} color="error">
+                  <SyncAltIcon />
+                </Badge>
+              }
+            />
+            <ListItemLink
+              to="/files"
+              primary={i18n.t("mainDrawer.listItems.files")}
+              icon={<AttachFile />}
+            />
             
        {showCampaigns && (
               <>
@@ -377,78 +397,9 @@ const MainListItems = (props) => {
               </>
             )}
            
-            {showCampaigns && (
-              <>
-                <ListItem
-                  button
-                  onClick={() => setOpenExternSubmenu((prev) => !prev)}
-                >
-                  <ListItemIcon>
-                    <MemoryIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={i18n.t("mainDrawer.listItems.externs")}
-                  />
-                  {openExternSubmenu ? (
-                    <ExpandLessIcon />
-                  ) : (
-                    <ExpandMoreIcon />
-                  )}
-                </ListItem>
-                <Collapse
-                  style={{ paddingLeft: 15 }}
-                  in={openExternSubmenu}
-                  timeout="auto"
-                  unmountOnExit
-                >
-            <ListItemLink
-              to="/connections"
-              primary={i18n.t("mainDrawer.listItems.connections")}
-              icon={
-                <Badge badgeContent={connectionWarning ? "!" : 0} color="error">
-                  <SyncAltIcon />
-                </Badge>
-              }
-            />
-            <ListItemLink
-              to="/files"
-              primary={i18n.t("mainDrawer.listItems.files")}
-              icon={<AttachFile />}
-            />
-                </Collapse>
-              </>
-            )}
+    
              <Divider />
-            <ListSubheader
-              hidden={collapsed}
-              style={{
-                position: "relative",
-                fontSize: "17px",
-                textAlign: "left",
-                paddingLeft: 20
-              }}
-              inset
-              color="inherit">
-              {i18n.t("mainDrawer.listItems.support")}
-            </ListSubheader>
-      <ListItemLink
-        to="/tickets"
-        primary={i18n.t("mainDrawer.listItems.tickets")}
-        icon={<WhatsAppIcon />}
-      />
-      <ListItemLink
-        to="/settings"
-        primary={i18n.t("mainDrawer.listItems.settings")}
-        icon={<SettingsOutlinedIcon  />}
-      />      
-
-	  <ListItemLink
-        to="/helps"
-        primary={i18n.t("mainDrawer.listItems.helps")}
-        icon={<HelpOutlineIcon />}
-      />
-	
-     <Divider />
+           
             <ListSubheader
               hidden={collapsed}
               style={{
@@ -498,12 +449,6 @@ const MainListItems = (props) => {
       />
       
 	  )}
-
-      <ListItemLink
-        to="/quick-messages"
-        primary={i18n.t("mainDrawer.listItems.quickMessages")}
-        icon={<FlashOnIcon />}
-      />
 	  
 	  <ListItemLink
         to="/todolist"
@@ -623,7 +568,32 @@ const MainListItems = (props) => {
                 </Collapse>
               </>
             )}
+              <Divider />
+             <ListSubheader
+              hidden={collapsed}
+              style={{
+                position: "relative",
+                fontSize: "17px",
+                textAlign: "left",
+                paddingLeft: 20
+              }}
+              inset
+              color="inherit">
+              {i18n.t("mainDrawer.listItems.support")}
+            </ListSubheader>
+      <ListItemLink
+        to="/settings"
+        primary={i18n.t("mainDrawer.listItems.settings")}
+        icon={<SettingsOutlinedIcon  />}
+      />      
 
+	  <ListItemLink
+        to="/helps"
+        primary={i18n.t("mainDrawer.listItems.helps")}
+        icon={<HelpOutlineIcon />}
+      />
+	
+     <Divider />
             {!collapsed && <React.Fragment>
               <Divider />
               {/* 
@@ -642,6 +612,7 @@ const MainListItems = (props) => {
           </>
         )}
       />
+      
     </div>
   );
 };

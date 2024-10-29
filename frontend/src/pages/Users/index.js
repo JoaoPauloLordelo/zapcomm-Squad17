@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
+    backgroundColor: 'red'
   },
   blueLine: {
     border: 0,
@@ -60,6 +61,14 @@ const useStyles = makeStyles((theme) => ({
   },
   titleMargin: {
     marginBottom: '20px', // Define a margem inferior para afastar o título da linha azul
+  },
+  mainPaper: {
+    flex: 1,
+    padding: theme.spacing(1),
+    overflowY: "scroll",
+    ...theme.scrollbarStyles,
+    backgroundColor:'white',
+    borderRadius:'8px'
   },
 }));
 
@@ -231,6 +240,8 @@ const Users = () => {
         aria-labelledby="form-dialog-title"
         userId={selectedUser && selectedUser.id}
       />
+      
+      <div className={classes.mainPaper}>
       <MainHeader>
         <Typography
           variant="h6"
@@ -291,6 +302,7 @@ const Users = () => {
       <hr className={classes.blueLine} style={{ marginTop: '-10px' }} /> 
 
       <Paper style={{ border: '4px solid #34D3A3', borderRadius: '25px', overflow: 'hidden', marginTop: '25px' }}>
+        
         <Table size="small">
           <TableHead>
             <TableRow>
@@ -390,6 +402,7 @@ const Users = () => {
           </TableBody>
         </Table>
       </Paper>
+      </div>
     </MainContainer>
   );
 };

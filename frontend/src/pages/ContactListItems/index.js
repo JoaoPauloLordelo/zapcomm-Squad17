@@ -96,6 +96,13 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     ...theme.scrollbarStyles,
   },
+  traco: {
+    height: '2px',
+    width: '99%',
+    backgroundColor: '#0C2454',
+    marginLeft: '0px',
+    marginBottom: '20px',
+  },
 }));
 
 const ContactListItems = () => {
@@ -282,7 +289,13 @@ const ContactListItems = () => {
           </>
         )}
       </ConfirmationModal>
-      <MainHeader>
+
+      <Paper
+        className={classes.mainPaper}
+        variant="outlined"
+        onScroll={handleScroll}
+      >
+              <MainHeader>
         <Grid style={{ width: "99.6%" }} container>
           <Grid xs={12} sm={5} item>
             <Title>{contactList.name}</Title>
@@ -290,19 +303,38 @@ const ContactListItems = () => {
           <Grid xs={12} sm={7} item>
             <Grid spacing={2} container>
               <Grid xs={12} sm={6} item>
-                <TextField
-                  fullWidth
-                  placeholder={i18n.t("contactListItems.searchPlaceholder")}
-                  type="search"
-                  value={searchParam}
-                  onChange={handleSearch}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon style={{ color: "gray" }} />
-                      </InputAdornment>
-                    ),
-                  }}
+              <TextField
+            placeholder='Pesquisar Contatos'
+            type="search"
+            value={searchParam}
+            onChange={handleSearch}
+            InputProps={{
+              disableUnderline: true, // remove a linha
+              style: {
+                color: '#0C2454',// cor do texto normal
+                fontWeight: 'bold', // texto em negrito
+                backgroundColor: "#D9D9D9",
+                borderRadius: '8px',
+                height: "36.5px",
+              },
+              inputProps: {
+                style: {
+                  paddingLeft: '8px',
+                  '&::placeholder': {
+                    color: '#0C2454',
+                    fontWeight: 'bold',
+                    Opacity: 1, // cor do placeholder
+                    paddingLeft: "10px"
+                  
+                  },
+                },
+              },
+              endAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon style={{ color: '#0C2454' }} />
+                </InputAdornment>
+              ),
+            }}
                 />
               </Grid>
               <Grid xs={4} sm={2} item>
@@ -342,11 +374,7 @@ const ContactListItems = () => {
           </Grid>
         </Grid>
       </MainHeader>
-      <Paper
-        className={classes.mainPaper}
-        variant="outlined"
-        onScroll={handleScroll}
-      >
+      <div className={classes.traco}></div>
         <>
           <input
             style={{ display: "none" }}
@@ -404,7 +432,7 @@ const ContactListItems = () => {
                     <IconButton
                       size="small"
                       onClick={() => hadleEditContact(contact.id)}
-                    >
+                    style={{color:'#0C2454'}}>
                       <EditIcon />
                     </IconButton>
                     <Can
@@ -417,7 +445,7 @@ const ContactListItems = () => {
                             setConfirmOpen(true);
                             setDeletingContact(contact);
                           }}
-                        >
+                          style={{color:'red'}}>
                           <DeleteOutlineIcon />
                         </IconButton>
                       )}
