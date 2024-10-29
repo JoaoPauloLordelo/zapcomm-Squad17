@@ -53,8 +53,26 @@ import Filters from "./Filters";
 import { isEmpty } from "lodash";
 import moment from "moment";
 import { ChartsDate } from "./ChartsDate";
+import {
+  AreaChart,
+  Area,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer
+} from "recharts";
+import MainContainer from "../../components/MainContainer";
 
 const useStyles = makeStyles((theme) => ({
+  mainPaper: {
+    flex: 1,
+    padding: theme.spacing(1),
+    overflowY: "scroll",
+    overflowX: "hidden",
+    borderRadius: '16px',
+    ...theme.scrollbarStyles,
+  },
   container: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.padding,
@@ -224,7 +242,13 @@ const useStyles = makeStyles((theme) => ({
   },
   fundo: {
     paddingTop: '70px',
-  }
+  },
+  blueLine: {
+    border: 0,
+    height: "2px",
+    backgroundColor: theme.palette.primary.main,
+    margin: theme.spacing(2, 0),
+  },
 }));
 
 const Dashboard = () => {
@@ -237,6 +261,21 @@ const Dashboard = () => {
   const [dateTo, setDateTo] = useState(moment().format("YYYY-MM-DD"));
   const [loading, setLoading] = useState(false);
   const { find } = useDashboard();
+
+  const simulatedData = [
+    { name: 'Jan', value: 30 },
+    { name: 'Feb', value: 45 },
+    { name: 'Mar', value: 28 },
+    { name: 'Apr', value: 60 },
+    { name: 'May', value: 50 },
+    { name: 'Jun', value: 75 },
+    { name: 'Jul', value: 90 },
+    { name: 'Aug', value: 85 },
+    { name: 'Sep', value: 65 },
+    { name: 'Oct', value: 50 },
+    { name: 'Nov', value: 70 },
+    { name: 'Dec', value: 95 }
+  ];
 
   let newDate = new Date();
   let date = newDate.getDate();
@@ -349,7 +388,7 @@ const Dashboard = () => {
     return count;
   };
   
-    function renderFilters() {
+  function renderFilters() {
     if (filterType === 1) {
       return (
         <>
@@ -361,11 +400,13 @@ const Dashboard = () => {
               onChange={(e) => setDateFrom(e.target.value)}
               className={classes.fullWidth}
               InputLabelProps={{
+                backgroundColorolor: '#0C2454',
                 shrink: true,
               }}
+              style={{ width: '50%' }} // Ajuste o tamanho aqui
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={4} style={{ marginLeft: '-90px' }}> {/* Ajuste a margem aqui */}
             <TextField
               label="Data Final"
               type="date"
@@ -375,6 +416,7 @@ const Dashboard = () => {
               InputLabelProps={{
                 shrink: true,
               }}
+              style={{ width: '50%' }} // Ajuste o tamanho aqui
             />
           </Grid>
         </>
@@ -382,13 +424,14 @@ const Dashboard = () => {
     } else {
       return (
         <Grid item xs={12} sm={6} md={4}>
-          <FormControl className={classes.selectContainer}>
+          <FormControl className={classes.selectContainer} style={{ width: '80%' }}> {/* Ajuste o tamanho aqui */}
             <InputLabel id="period-selector-label">Período</InputLabel>
             <Select
               labelId="period-selector-label"
               id="period-selector"
               value={period}
               onChange={(e) => handleChangePeriod(e.target.value)}
+              style={{ color: '#0C2454' }} // Define a cor do texto aqui
             >
               <MenuItem value={0}>Nenhum selecionado</MenuItem>
               <MenuItem value={3}>Últimos 3 dias</MenuItem>
@@ -404,335 +447,377 @@ const Dashboard = () => {
       );
     }
   }
-
+  
   return (
-    <div className={classes.fundo}>
-      <Container maxWidth="lg" className={classes.container}>
-        <Grid container spacing={3} justifyContent="flex-end">
-		
-
-          {/* EM ATENDIMENTO */}
-          <Grid item xs={12} sm={6} md={4}>
-            <Paper
-              className={classes.card1}
-              style={{ overflow: "hidden" }}
-              elevation={4}
-            >
-              <Grid container spacing={3}>
-                <Grid item xs={8}>
-                  <Typography
-                    component="h3"
-                    variant="h6"
-                    paragraph
-                  >
-                    Em Conversa
-                  </Typography>
-                  <Grid item>
-                    <Typography
-                      component="h1"
-                      variant="h4"
-                    >
-                      {counters.supportHappening}
-                    </Typography>
+    <MainContainer>
+      <Paper className={classes.mainPaper} variant="outlined">
+        <Typography variant="h6" style={{ fontWeight: 'bold', color: '#0C2454', paddingTop: '20px', paddingLeft: '20px' }}>
+          Dashboard
+        </Typography>
+        <hr className={classes.blueLine} />
+  
+        {/* Campos de Filtro por Data ou Período */}
+        <Grid container spacing={3} style={{ paddingLeft: '25px' }}>
+          {renderFilters()}
+        </Grid>
+    
+          <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3} justifyContent="flex-start">
+              {/* EM ATENDIMENTO */}
+              <Grid item xs={12} sm={6} md={3}>
+                <Paper
+                  className={classes.card1}
+                  elevation={4}
+                  style={{
+                    overflow: "hidden",
+                    backgroundColor: "white",
+                    borderRadius: '10px',
+                    width: 225,
+                    height: 100,
+                    padding: '3px 10px'
+                  }}
+                >
+                  <Grid container spacing={1}>
+                    <Grid item xs={8} style={{ display: 'flex', alignItems: 'center' }}>
+                      {/* Círculo - Alinhado com "Em Conversa" */}
+                      <div style={{
+                        width: '15px', // ajuste o tamanho conforme necessário
+                        height: '15px', // ajuste o tamanho conforme necessário
+                        borderRadius: '50%',
+                        backgroundColor: '#4557A1',
+                        marginRight: '10px' // espaço entre o círculo e o texto
+                      }} />
+                      {/* "Em Conversa" - Alinhado com a bolinha */}
+                      <Typography component="h3" variant="h6" style={{ color: "#0C2454", fontSize: 12, margin: 0}}>
+                        Em Conversa <br/>
+                        <span style={{ color: "#C3C3C3" }}>Chamados</span>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={4} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                      {/* Combinando o número de pessoas com a palavra "pessoas" em uma única linha */}
+                      <Typography component="h1" variant="h4" style={{ color: "#0C2454", fontSize: 12, marginRight: '5px', display: 'flex', alignItems: 'center' }}>
+                        {counters.supportHappening}
+                      </Typography>
+                      <Typography component="h1" variant="h4" style={{ color: "#0C2454", fontSize: 12 }}>
+                        pessoas
+                      </Typography>
+                      <CallIcon style={{ fontSize: 40, color: "#FFFFFF", marginLeft: '5px' }} />
+                    </Grid>
+                    <ResponsiveContainer width="100%" height={70} style={{ margin: '0' }}>
+                      <AreaChart data={simulatedData}>
+                        <defs>
+                          <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+                            <stop offset="95%" stopColor="#fff" stopOpacity={0}/>
+                          </linearGradient>
+                        </defs>
+                        <Tooltip />
+                        <Area type="monotone" dataKey="value" stroke="#4557A1" fillOpacity={1} fill="url(#colorValue)" />
+                      </AreaChart>
+                    </ResponsiveContainer>
                   </Grid>
-                </Grid>
-                <Grid item xs={2}>
-                  <CallIcon
-                    style={{
-                      fontSize: 100,
-                      color: "#FFFFFF",
-                    }}
-                  />
-                </Grid>
+                </Paper>
               </Grid>
-            </Paper>
-          </Grid>
 
           {/* AGUARDANDO */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={3}>
             <Paper
               className={classes.card2}
-              style={{ overflow: "hidden" }}
               elevation={6}
+              style={{
+                overflow: "hidden",
+                backgroundColor: "white",
+                borderRadius: '10px',
+                width: 225,
+                height: 100,
+                padding: '3px 10px'
+              }}
             >
-              <Grid container spacing={3}>
-                <Grid item xs={8}>
-                  <Typography
-                    component="h3"
-                    variant="h6"
-                    paragraph
-                  >
-                    Aguardando
+              <Grid container spacing={1}>
+                <Grid item xs={8} style={{ display: 'flex', alignItems: 'center' }}>
+                  {/* Círculo - Alinhado com "Aguardando" */}
+                  <div style={{
+                    width: '15px',
+                    height: '15px',
+                    borderRadius: '50%',
+                    backgroundColor: '#07BEAA',
+                    marginRight: '10px'
+                  }} />
+                  {/* "Aguardando" - Alinhado com a bolinha */}
+                  <Typography component="h3" variant="h6" style={{ color: "#0C2454", fontSize: 12, margin: 0 }}>
+                    Aguardando <br />
+                    <span style={{ color: "#C3C3C3" }}>Chamados</span>
                   </Typography>
-                  <Grid item>
-                    <Typography
-                      component="h1"
-                      variant="h4"
-                    >
-                      {counters.supportPending}
-                    </Typography>
-                  </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                  <HourglassEmptyIcon
-                    style={{
-                      fontSize: 100,
-                      color: "#FFFFFF",
-                    }}
-                  />
+                <Grid item xs={4} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                  {/* Número de suporte pendente e "pessoas" em uma única linha */}
+                  <Typography component="h1" variant="h4" style={{ color: "#0C2454", fontSize: 12, marginRight: '5px', display: 'flex', alignItems: 'center' }}>
+                    {counters.supportPending}
+                  </Typography>
+                  <Typography component="h1" variant="h4" style={{ color: "#0C2454", fontSize: 12 }}>
+                    pessoas
+                  </Typography>
+                  <HourglassEmptyIcon style={{ fontSize: 40, color: "#FFFFFF", marginLeft: '5px' }} />
                 </Grid>
+                <ResponsiveContainer width="100%" height={70} style={{ margin: '0' }}>
+                  <AreaChart data={simulatedData}>
+                    <defs>
+                      <linearGradient id="colorAguardando" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#07BEAA" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#fff" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <Tooltip />
+                    <Area type="monotone" dataKey="value" stroke="#07BEAA" fillOpacity={1} fill="url(#colorAguardando)" />
+                  </AreaChart>
+                </ResponsiveContainer>
               </Grid>
             </Paper>
           </Grid>
 
-          {/* ATENDENTES ATIVOS */}
-			  {/*<Grid item xs={12} sm={6} md={4}>
-            <Paper
-              className={classes.card6}
-              style={{ overflow: "hidden" }}
-              elevation={6}
-            >
-              <Grid container spacing={3}>
-                <Grid item xs={8}>
-                  <Typography
-                    component="h3"
-                    variant="h6"
-                    paragraph
-                  >
-                    Conversas Ativas
-                  </Typography>
-                  <Grid item>
-                    <Typography
-                      component="h1"
-                      variant="h4"
-                    >
-                      {GetUsers()}
-                      <span
-                        style={{ color: "#805753" }}
-                      >
-                        /{attendants.length}
-                      </span>
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid item xs={4}>
-                  <RecordVoiceOverIcon
-                    style={{
-                      fontSize: 100,
-                      color: "#805753",
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </Paper>
-</Grid>*/}
-
           {/* FINALIZADOS */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={3}>
             <Paper
               className={classes.card3}
-              style={{ overflow: "hidden" }}
               elevation={6}
+              style={{
+                overflow: "hidden",
+                backgroundColor: "white",
+                borderRadius: '10px',
+                width: 225,
+                height: 100,
+                padding: '3px 10px'
+              }}
             >
-              <Grid container spacing={3}>
-                <Grid item xs={8}>
-                  <Typography
-                    component="h3"
-                    variant="h6"
-                    paragraph
-                  >
-                    Finalizados
+              <Grid container spacing={1}>
+                <Grid item xs={8} style={{ display: 'flex', alignItems: 'center' }}>
+                  {/* Círculo - Alinhado com "Finalizados" */}
+                  <div style={{
+                    width: '15px',
+                    height: '15px',
+                    borderRadius: '50%',
+                    backgroundColor: '#1786C4',
+                    marginRight: '10px'
+                  }} />
+                  {/* "Finalizados" - Alinhado com a bolinha */}
+                  <Typography component="h3" variant="h6" style={{ color: "#0C2454", fontSize: 12, margin: 0 }}>
+                    Finalizados <br />
+                    <span style={{ color: "#C3C3C3" }}>Chamados</span>
                   </Typography>
-                  <Grid item>
-                    <Typography
-                      component="h1"
-                      variant="h4"
-                    >
-                      {counters.supportFinished}
-                    </Typography>
-                  </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                  <CheckCircleIcon
-                    style={{
-                      fontSize: 100,
-                      color: "#FFFFFF",
-                    }}
-                  />
+                <Grid item xs={4} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                  {/* Número de suporte finalizado e "pessoas" em uma única linha */}
+                  <Typography component="h1" variant="h4" style={{ color: "#0C2454", fontSize: 12, marginRight: '5px', display: 'flex', alignItems: 'center' }}>
+                    {counters.supportFinished}
+                  </Typography>
+                  <Typography component="h1" variant="h4" style={{ color: "#0C2454", fontSize: 12 }}>
+                    pessoas
+                  </Typography>
+                  <CheckCircleIcon style={{ fontSize: 40, color: "#FFFFFF", marginLeft: '5px' }} />
                 </Grid>
+                <ResponsiveContainer width="100%" height={70} style={{ margin: '0' }}>
+                  <AreaChart data={simulatedData}>
+                    <defs>
+                      <linearGradient id="colorFinalizados" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#1786C4" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#fff" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <Tooltip />
+                    <Area type="monotone" dataKey="value" stroke="#1786C4" fillOpacity={1} fill="url(#colorFinalizados)" />
+                  </AreaChart>
+                </ResponsiveContainer>
               </Grid>
             </Paper>
           </Grid>
 
           {/* NOVOS CONTATOS */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={3}>
             <Paper
               className={classes.card4}
-              style={{ overflow: "hidden" }}
               elevation={6}
+              style={{
+                overflow: "hidden",
+                backgroundColor: "white",
+                borderRadius: '10px',
+                width: 225,
+                height: 100,
+                padding: '3px 10px'
+              }}
             >
-              <Grid container spacing={3}>
-                <Grid item xs={8}>
-                  <Typography
-                    component="h3"
-                    variant="h6"
-                    paragraph
-                  >
-                    Novos Contatos
+              <Grid container spacing={1}>
+                <Grid item xs={8} style={{ display: 'flex', alignItems: 'center' }}>
+                  {/* Círculo - Alinhado com "Novos Contatos" */}
+                  <div style={{
+                    width: '15px',
+                    height: '15px',
+                    borderRadius: '50%',
+                    backgroundColor: '#0C1E43',
+                    marginRight: '10px'
+                  }} />
+                  {/* "Novos Contatos" - Alinhado com a bolinha */}
+                  <Typography component="h3" variant="h6" style={{ color: "#0C2454", fontSize: 12, margin: 0 }}>
+                    Novos Contatos <br />
+                    <span style={{ color: "#C3C3C3" }}>Chamados</span>
                   </Typography>
-                  <Grid item>
-                    <Typography
-                      component="h1"
-                      variant="h4"
-                    >
-                      {GetContacts(true)}
-                    </Typography>
-                  </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                  <GroupAddIcon
-                    style={{
-                      fontSize: 100,
-                      color: "#FFFFFF",
-                    }}
-                  />
+                <Grid item xs={4} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                  {/* Número de novos contatos e "pessoas" em uma única linha */}
+                  <Typography component="h1" variant="h4" style={{ color: "#0C2454", fontSize: 12, marginRight: '5px', display: 'flex', alignItems: 'center' }}>
+                    {GetContacts(true)}
+                  </Typography>
+                  <Typography component="h1" variant="h4" style={{ color: "#0C2454", fontSize: 12 }}>
+                    pessoas
+                  </Typography>
+                  <GroupAddIcon style={{ fontSize: 40, color: "#FFFFFF", marginLeft: '5px' }} />
                 </Grid>
+                <ResponsiveContainer width="100%" height={70} style={{ margin: '0' }}>
+                  <AreaChart data={simulatedData}>
+                    <defs>
+                      <linearGradient id="colorNovosContatos" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#0C1E43" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#fff" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <Tooltip />
+                    <Area type="monotone" dataKey="value" stroke="#0C1E43" fillOpacity={1} fill="url(#colorNovosContatos)" />
+                  </AreaChart>
+                </ResponsiveContainer>
               </Grid>
             </Paper>
           </Grid>
 
-          
-          {/* T.M. DE ATENDIMENTO */}
-          <Grid item xs={12} sm={6} md={4}>
-            <Paper
-              className={classes.card8}
-              style={{ overflow: "hidden" }}
-              elevation={6}
-            >
-              <Grid container spacing={3}>
-                <Grid item xs={8}>
-                  <Typography
-                    component="h3"
-                    variant="h6"
-                    paragraph
-                  >
-                    T.M. de Conversa
-                  </Typography>
-                  <Grid item>
-                    <Typography
-                      component="h1"
-                      variant="h4"
-                    >
-                      {formatTime(counters.avgSupportTime)}
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid item xs={4}>
-                  <AccessAlarmIcon
-                    style={{
-                      fontSize: 100,
-                      color: "#FFFFFF",
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
 
-          {/* T.M. DE ESPERA */}
-          <Grid item xs={12} sm={6} md={4}>
-            <Paper
-              className={classes.card9}
-              style={{ overflow: "hidden" }}
-              elevation={6}
-            >
-              <Grid container spacing={3}>
-                <Grid item xs={8}>
-                  <Typography
-                    component="h3"
-                    variant="h6"
-                    paragraph
-                  >
-                    T.M. de Espera
-                  </Typography>
-                  <Grid item>
-                    <Typography
-                      component="h1"
-                      variant="h4"
-                    >
-                      {formatTime(counters.avgWaitTime)}
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid item xs={4}>
-                  <TimerIcon
-                    style={{
-                      fontSize: 100,
-                      color: "#FFFFFF",
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-		  
-		  {/* FILTROS */}
-          <Grid item xs={12} sm={6} md={4}>
-            <FormControl className={classes.selectContainer}>
-              <InputLabel id="period-selector-label">Tipo de Filtro</InputLabel>
-              <Select
-                labelId="period-selector-label"
-                value={filterType}
-                onChange={(e) => handleChangeFilterType(e.target.value)}
+
+            {/* T.M. DE ATENDIMENTO */}
+            <Grid item xs={12} sm={6} md={4}>
+              <Paper
+                className={classes.card8}
+                style={{ overflow: "hidden" }}
+                elevation={6}
               >
-                <MenuItem value={1}>Filtro por Data</MenuItem>
-                <MenuItem value={2}>Filtro por Período</MenuItem>
-              </Select>
-              <FormHelperText>Selecione o período desejado</FormHelperText>
-            </FormControl>
-          </Grid>
+                <Grid container spacing={3}>
+                  <Grid item xs={8}>
+                    <Typography
+                      component="h3"
+                      variant="h6"
+                      paragraph
+                    >
+                      T.M. de Conversa
+                    </Typography>
+                    <Grid item>
+                      <Typography
+                        component="h1"
+                        variant="h4"
+                      >
+                        {formatTime(counters.avgSupportTime)}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <AccessAlarmIcon
+                      style={{
+                        fontSize: 100,
+                        color: "#FFFFFF",
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
 
-          {renderFilters()}
+            {/* T.M. DE ESPERA */}
+            <Grid item xs={12} sm={6} md={4}>
+              <Paper
+                className={classes.card9}
+                style={{ overflow: "hidden" }}
+                elevation={6}
+              >
+                <Grid container spacing={3}>
+                  <Grid item xs={8}>
+                    <Typography
+                      component="h3"
+                      variant="h6"
+                      paragraph
+                    >
+                      T.M. de Espera
+                    </Typography>
+                    <Grid item>
+                      <Typography
+                        component="h1"
+                        variant="h4"
+                      >
+                        {formatTime(counters.avgWaitTime)}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <TimerIcon
+                      style={{
+                        fontSize: 100,
+                        color: "#FFFFFF",
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+        
+        {/* FILTROS */}
+            <Grid item xs={12} sm={6} md={4}>
+              <FormControl className={classes.selectContainer}>
+                <InputLabel id="period-selector-label">Tipo de Filtro</InputLabel>
+                <Select
+                  labelId="period-selector-label"
+                  value={filterType}
+                  onChange={(e) => handleChangeFilterType(e.target.value)}
+                >
+                  <MenuItem value={1}>Filtro por Data</MenuItem>
+                  <MenuItem value={2}>Filtro por Período</MenuItem>
+                </Select>
+                <FormHelperText>Selecione o período desejado</FormHelperText>
+              </FormControl>
+            </Grid>
 
-          {/* BOTAO FILTRAR */}
-          <Grid item xs={12} className={classes.alignRight}>
-            <ButtonWithSpinner
-              loading={loading}
-              onClick={() => fetchData()}
-              variant="contained"
-              color="primary"
-            >
-              Filtrar
-            </ButtonWithSpinner>
-          </Grid>
-
-          {/* USUARIOS ONLINE */}
-          <Grid item xs={12}>
-            {attendants.length ? (
-              <TableAttendantsStatus
-                attendants={attendants}
+            {/* BOTAO FILTRAR */}
+            <Grid item xs={12} className={classes.alignRight}>
+              <ButtonWithSpinner
                 loading={loading}
-              />
-            ) : null}
-          </Grid>
+                onClick={() => fetchData()}
+                variant="contained"
+                color="primary"
+              >
+                Filtrar
+              </ButtonWithSpinner>
+            </Grid>
 
-          {/* TOTAL DE ATENDIMENTOS POR USUARIO */}
-          <Grid item xs={12}>
-            <Paper className={classes.fixedHeightPaper2}>
-              <ChatsUser />
-            </Paper>
-          </Grid>
+            {/* USUARIOS ONLINE */}
+            <Grid item xs={12}>
+              {attendants.length ? (
+                <TableAttendantsStatus
+                  attendants={attendants}
+                  loading={loading}
+                />
+              ) : null}
+            </Grid>
 
-          {/* TOTAL DE ATENDIMENTOS */}
-          <Grid item xs={12}>
-            <Paper className={classes.fixedHeightPaper2}>
-              <ChartsDate />
-            </Paper>
-          </Grid>
+            {/* TOTAL DE ATENDIMENTOS POR USUARIO */}
+            <Grid item xs={12}>
+              <Paper className={classes.fixedHeightPaper2}>
+                <ChatsUser />
+              </Paper>
+            </Grid>
 
-        </Grid>
-      </Container >
-    </div >
+            {/* TOTAL DE ATENDIMENTOS */}
+            <Grid item xs={12}>
+              <Paper className={classes.fixedHeightPaper2}>
+                <ChartsDate />
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container >
+      </Paper>
+    </MainContainer>
   );
 };
 
