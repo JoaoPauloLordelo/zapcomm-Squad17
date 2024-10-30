@@ -9,14 +9,32 @@ import toastError from "../../errors/toastError";
 import api from "../../services/api";
 import { i18n } from "../../translate/i18n";
 
-const useStyles = makeStyles(theme => ({
-
+const useStyles = makeStyles((theme) => ({
   chips: {
     display: "flex",
     flexWrap: "wrap",
   },
   chip: {
     margin: 2,
+  },
+  darkBlueBorder: {
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "darkblue", // Define a cor da borda
+      },
+      "&:hover fieldset": {
+        borderColor: "darkblue", // Cor da borda ao passar o mouse
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "darkblue", // Cor da borda quando focado
+      },
+    },
+  },
+  label: {
+    backgroundColor: "white", // Fundo branco para o rótulo
+    padding: "0 5px",          // Espaçamento ao redor do texto
+    transform: "translate(14px, -10px) scale(1)", // Posiciona o rótulo sobre a borda
+    zIndex: 1,                 // Garante que o rótulo fique acima da borda
   },
 }));
 
@@ -44,7 +62,7 @@ const QueueSelect = ({
     }
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     onChange(e.target.value);
   };
 
@@ -54,10 +72,13 @@ const QueueSelect = ({
         fullWidth 
         margin="dense" 
         variant="outlined" 
-        className={className}   // Aplica className recebido via props
-        style={style}           // Aplica style recebido via props
+        className={`${className} ${classes.darkBlueBorder}`} // Aplica className e a borda azul escuro
+        style={style} // Aplica style recebido via props
       >
-        <InputLabel shrink={selectedQueueIds ? true : false}>
+        <InputLabel
+          shrink={selectedQueueIds ? true : false}
+          className={classes.label} // Aplica o estilo personalizado do rótulo
+        >
           {title}
         </InputLabel>
         <Select
@@ -77,12 +98,12 @@ const QueueSelect = ({
             },
             getContentAnchorEl: null,
           }}
-          renderValue={selected => {
+          renderValue={(selected) => {
             return (
               <div className={classes.chips}>
                 {selected?.length > 0 && multiple ? (
-                  selected.map(id => {
-                    const queue = queues.find(q => q.id === id);
+                  selected.map((id) => {
+                    const queue = queues.find((q) => q.id === id);
                     return queue ? (
                       <Chip
                         key={id}
@@ -97,8 +118,8 @@ const QueueSelect = ({
                   <Chip
                     key={selected}
                     variant="outlined"
-                    style={{ backgroundColor: queues.find(q => q.id === selected)?.color }}
-                    label={queues.find(q => q.id === selected)?.name}
+                    style={{ backgroundColor: queues.find((q) => q.id === selected)?.color }}
+                    label={queues.find((q) => q.id === selected)?.name}
                     className={classes.chip}
                   />
                 )}
@@ -107,7 +128,7 @@ const QueueSelect = ({
           }}
         >
           {!multiple && <MenuItem value={null}>Nenhum</MenuItem>}
-          {queues.map(queue => (
+          {queues.map((queue) => (
             <MenuItem key={queue.id} value={queue.id}>
               {queue.name}
             </MenuItem>

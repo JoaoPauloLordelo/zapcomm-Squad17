@@ -1,5 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 
+
+
+
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -11,6 +14,9 @@ import TextField from "@material-ui/core/TextField";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
+
+
+
 
 import SpeedIcon from "@material-ui/icons/Speed";
 import GroupIcon from "@material-ui/icons/Group";
@@ -29,18 +35,33 @@ import MessageIcon from '@material-ui/icons/Message';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import TimerIcon from '@material-ui/icons/Timer';
 
+
+
+
 import { makeStyles } from "@material-ui/core/styles";
 import { grey, blue } from "@material-ui/core/colors";
 import { toast } from "react-toastify";
 
+
+
+
 import Chart from "./Chart";
 import ButtonWithSpinner from "../../components/ButtonWithSpinner";
+
+
+
 
 import CardCounter from "../../components/Dashboard/CardCounter";
 import TableAttendantsStatus from "../../components/Dashboard/TableAttendantsStatus";
 import { isArray } from "lodash";
 
+
+
+
 import { AuthContext } from "../../context/Auth/AuthContext";
+
+
+
 
 import useDashboard from "../../hooks/useDashboard";
 import useTickets from "../../hooks/useTickets";
@@ -48,6 +69,9 @@ import useUsers from "../../hooks/useUsers";
 import useContacts from "../../hooks/useContacts";
 import useMessages from "../../hooks/useMessages";
 import { ChatsUser } from "./ChartsUser"
+
+
+
 
 import Filters from "./Filters";
 import { isEmpty } from "lodash";
@@ -251,6 +275,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+
 const Dashboard = () => {
   const classes = useStyles();
   const [counters, setCounters] = useState({});
@@ -277,21 +304,34 @@ const Dashboard = () => {
     { name: 'Dec', value: 95 }
   ];
 
+
   let newDate = new Date();
   let date = newDate.getDate();
   let month = newDate.getMonth() + 1;
   let year = newDate.getFullYear();
   let now = `${year}-${month < 10 ? `0${month}` : `${month}`}-${date < 10 ? `0${date}` : `${date}`}`;
 
+
+
+
   const [showFilter, setShowFilter] = useState(false);
   const [queueTicket, setQueueTicket] = useState(false);
+
+
+
 
   const { user } = useContext(AuthContext);
   var userQueueIds = [];
 
+
+
+
   if (user.queues && user.queues.length > 0) {
     userQueueIds = user.queues.map((q) => q.id);
   }
+
+
+
 
   useEffect(() => {
     async function firstLoad() {
@@ -302,10 +342,13 @@ const Dashboard = () => {
     }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+ 
     async function handleChangePeriod(value) {
     setPeriod(value);
   }
+
+
+
 
   async function handleChangeFilterType(value) {
     setFilterType(value);
@@ -317,16 +360,28 @@ const Dashboard = () => {
     }
   }
 
+
+
+
   async function fetchData() {
     setLoading(true);
 
+
+
+
     let params = {};
+
+
+
 
     if (period > 0) {
       params = {
         days: period,
       };
     }
+
+
+
 
     if (!isEmpty(dateFrom) && moment(dateFrom).isValid()) {
       params = {
@@ -335,6 +390,9 @@ const Dashboard = () => {
       };
     }
 
+
+
+
     if (!isEmpty(dateTo) && moment(dateTo).isValid()) {
       params = {
         ...params,
@@ -342,13 +400,22 @@ const Dashboard = () => {
       };
     }
 
+
+
+
     if (Object.keys(params).length === 0) {
       toast.error("Parametrize o filtro");
       setLoading(false);
       return;
     }
 
+
+
+
     const data = await find(params);
+
+
+
 
     setCounters(data.counters);
     if (isArray(data.attendants)) {
@@ -357,8 +424,14 @@ const Dashboard = () => {
       setAttendants([]);
     }
 
+
+
+
     setLoading(false);
   }
+
+
+
 
   function formatTime(minutes) {
     return moment()
@@ -366,6 +439,9 @@ const Dashboard = () => {
       .add(minutes, "minutes")
       .format("HH[h] mm[m]");
   }
+
+
+
 
   const GetUsers = () => {
     let count;
@@ -378,7 +454,7 @@ const Dashboard = () => {
     count = userOnline === 0 ? 0 : userOnline;
     return count;
   };
-  
+ 
     const GetContacts = (all) => {
     let props = {};
     if (all) {
@@ -387,7 +463,6 @@ const Dashboard = () => {
     const { count } = useContacts(props);
     return count;
   };
-  
   function renderFilters() {
     if (filterType === 1) {
       return (
@@ -447,7 +522,6 @@ const Dashboard = () => {
       );
     }
   }
-  
   return (
     <MainContainer>
       <Paper className={classes.mainPaper} variant="outlined">
@@ -455,12 +529,10 @@ const Dashboard = () => {
           Dashboard
         </Typography>
         <hr className={classes.blueLine} />
-  
         {/* Campos de Filtro por Data ou Período */}
         <Grid container spacing={3} style={{ paddingLeft: '25px' }}>
           {renderFilters()}
         </Grid>
-    
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3} justifyContent="flex-start">
               {/* EM ATENDIMENTO */}
@@ -548,6 +620,7 @@ const Dashboard = () => {
                     Aguardando <br />
                     <span style={{ color: "#C3C3C3" }}>Chamados</span>
                   </Typography>
+
                 </Grid>
                 <Grid item xs={4} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
                   {/* Número de suporte pendente e "pessoas" em uma única linha */}
@@ -574,6 +647,7 @@ const Dashboard = () => {
               </Grid>
             </Paper>
           </Grid>
+
 
           {/* FINALIZADOS */}
           <Grid item xs={12} sm={6} md={3}>
@@ -630,6 +704,9 @@ const Dashboard = () => {
               </Grid>
             </Paper>
           </Grid>
+
+
+
 
           {/* NOVOS CONTATOS */}
           <Grid item xs={12} sm={6} md={3}>
@@ -726,6 +803,7 @@ const Dashboard = () => {
               </Paper>
             </Grid>
 
+
             {/* T.M. DE ESPERA */}
             <Grid item xs={12} sm={6} md={4}>
               <Paper
@@ -762,7 +840,7 @@ const Dashboard = () => {
                 </Grid>
               </Paper>
             </Grid>
-        
+
         {/* FILTROS */}
             <Grid item xs={12} sm={6} md={4}>
               <FormControl className={classes.selectContainer}>
@@ -791,6 +869,22 @@ const Dashboard = () => {
               </ButtonWithSpinner>
             </Grid>
 
+            {/* TOTAL DE ATENDIMENTOS POR USUARIO */}
+            <Grid item xs={12}>
+              <Paper className={classes.fixedHeightPaper2}>
+                <ChatsUser />
+              </Paper>
+            </Grid>
+
+
+            {/* TOTAL DE ATENDIMENTOS */}
+            <Grid item xs={12}>
+              <Paper className={classes.fixedHeightPaper2}>
+                <ChartsDate />
+              </Paper>
+            </Grid>
+
+
             {/* USUARIOS ONLINE */}
             <Grid item xs={12}>
               {attendants.length ? (
@@ -801,19 +895,8 @@ const Dashboard = () => {
               ) : null}
             </Grid>
 
-            {/* TOTAL DE ATENDIMENTOS POR USUARIO */}
-            <Grid item xs={12}>
-              <Paper className={classes.fixedHeightPaper2}>
-                <ChatsUser />
-              </Paper>
-            </Grid>
 
-            {/* TOTAL DE ATENDIMENTOS */}
-            <Grid item xs={12}>
-              <Paper className={classes.fixedHeightPaper2}>
-                <ChartsDate />
-              </Paper>
-            </Grid>
+
           </Grid>
         </Container >
       </Paper>
@@ -821,4 +904,10 @@ const Dashboard = () => {
   );
 };
 
+
+
+
 export default Dashboard;
+
+
+
