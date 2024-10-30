@@ -21,6 +21,8 @@ import {
 } from "@material-ui/icons";
 
 
+
+
 import MainContainer from "../../components/MainContainer";
 import MainHeader from "../../components/MainHeader";
 import MainHeaderButtonsWrapper from "../../components/MainHeaderButtonsWrapper";
@@ -34,14 +36,9 @@ import toastError from "../../errors/toastError";
 import { SocketContext } from "../../context/Socket/SocketContext";
 
 
+
+
 const useStyles = makeStyles((theme) => ({
-  mainPaper: {
-    flex: 1,
-    padding: theme.spacing(1),
-    overflowY: "scroll",
-    ...theme.scrollbarStyles,
-    backgroundColor: 'red'
-  },
   blueLine: {
     border: 0,
     height: "2px", // Mantém a altura original
@@ -70,9 +67,13 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     ...theme.scrollbarStyles,
     backgroundColor:'white',
-    borderRadius:'8px'
+    borderRadius:'8px',
+    overflow: 'hidden',
+    overflowY: 'auto',
   },
 }));
+
+
 
 
 const reducer = (state, action) => {
@@ -80,6 +81,8 @@ const reducer = (state, action) => {
     case "LOAD_USERS":
       const users = action.payload;
       const newUsers = [];
+
+
 
 
       users.forEach((user) => {
@@ -92,12 +95,18 @@ const reducer = (state, action) => {
       });
 
 
+
+
       return [...state, ...newUsers];
+
+
 
 
     case "UPDATE_USERS":
       const user = action.payload;
       const userIndex = state.findIndex((u) => u.id === user.id);
+
+
 
 
       if (userIndex !== -1) {
@@ -108,9 +117,13 @@ const reducer = (state, action) => {
       }
 
 
+
+
     case "DELETE_USER":
       const userId = action.payload;
       const deleteUserIndex = state.findIndex((u) => u.id === userId);
+
+
 
 
       if (deleteUserIndex !== -1) {
@@ -119,8 +132,12 @@ const reducer = (state, action) => {
       return [...state];
 
 
+
+
     case "RESET":
       return [];
+
+
 
 
     default:
@@ -129,8 +146,12 @@ const reducer = (state, action) => {
 };
 
 
+
+
 const Users = () => {
   const classes = useStyles();
+
+
 
 
   const [loading, setLoading] = useState(false);
@@ -144,13 +165,19 @@ const Users = () => {
   const [users, dispatch] = useReducer(reducer, []);
 
 
+
+
   const socketManager = useContext(SocketContext);
+
+
 
 
   useEffect(() => {
     dispatch({ type: "RESET" });
     setPageNumber(1);
   }, [searchParam]);
+
+
 
 
   useEffect(() => {
@@ -174,9 +201,13 @@ const Users = () => {
   }, [searchParam, pageNumber]);
 
 
+
+
   useEffect(() => {
     const companyId = localStorage.getItem("companyId");
     const socket = socketManager.getSocket(companyId);
+
+
 
 
     socket.on(`company-${companyId}-user`, (data) => {
@@ -185,10 +216,14 @@ const Users = () => {
       }
 
 
+
+
       if (data.action === "delete") {
         dispatch({ type: "DELETE_USER", payload: +data.userId });
       }
     });
+
+
 
 
     return () => {
@@ -197,10 +232,14 @@ const Users = () => {
   }, [socketManager]);
 
 
+
+
   const handleOpenUserModal = () => {
     setSelectedUser(null);
     setUserModalOpen(true);
   };
+
+
 
 
   const handleCloseUserModal = () => {
@@ -209,15 +248,21 @@ const Users = () => {
   };
 
 
+
+
   const handleSearch = (event) => {
     setSearchParam(event.target.value.toLowerCase());
   };
+
+
 
 
   const handleEditUser = (user) => {
     setSelectedUser(user);
     setUserModalOpen(true);
   };
+
+
 
 
   const handleDeleteUser = async (userId) => {
@@ -233,9 +278,13 @@ const Users = () => {
   };
 
 
+
+
   const loadMore = () => {
     setPageNumber((prevState) => prevState + 1);
   };
+
+
 
 
   const handleScroll = (e) => {
@@ -245,6 +294,8 @@ const Users = () => {
       loadMore();
     }
   };
+
+
 
 
   return (
@@ -279,11 +330,13 @@ const Users = () => {
             color: '#0C2454',
             width: '113.02px',
             height: '35.18px',
-            marginTop: '41px', // Aumente o valor conforme necessário
+            marginTop: '20px', // Aumente o valor conforme necessário
                       }}
         >
           Usuários
         </Typography>
+
+
 
 
         <MainHeaderButtonsWrapper>
@@ -329,7 +382,11 @@ const Users = () => {
       </MainHeader>
 
 
+
+
       <hr className={classes.blueLine} style={{ marginTop: '-10px' }} />
+
+
 
 
       <Paper style={{ border: '4px solid #34D3A3', borderRadius: '25px', overflow: 'hidden', marginTop: '25px' }}>
@@ -439,7 +496,19 @@ const Users = () => {
 };
 
 
+
+
 export default Users;
+
+
+
+
+
+
+
+
+
+
 
 
 
