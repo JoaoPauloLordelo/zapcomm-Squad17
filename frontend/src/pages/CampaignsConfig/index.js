@@ -64,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
     width: '99%',
     backgroundColor: '#0C2454',
     marginLeft: '0px',
-    marginBottom: '20px',
   },
 }));
 
@@ -146,7 +145,11 @@ const CampaignsConfig = () => {
         {i18n.t("campaigns.confirmationModal.deleteMessage")}
       </ConfirmationModal>
       <Paper className={classes.mainPaper} variant="outlined" style={{borderRadius: "16px"}}>
-        <h1 style={{color:'#0C2C4C'}}>Configurações de campanha</h1>
+      <Grid style={{ width: "100%" }} container>
+          <Grid xs={12} sm={8} item>
+            <Title style={{ fontSize: '24px', fontWeight: 'bold' }}>Configurações de Campanha</Title>
+          </Grid>
+      </Grid>
         <div className={classes.traco}></div>
         <Box className={classes.tabPanelsContainer}>
           <Grid spacing={2} container>

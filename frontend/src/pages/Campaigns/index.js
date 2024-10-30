@@ -96,30 +96,26 @@ const useStyles = makeStyles((theme) => ({
   },
   titles: {
     color: '#0C2C4C',
-    fontSize: '18px',
-    padding: "10px 6px",
     fontWeight: 'bold', 
   },
   tableRow: {
     backgroundColor: "#D9D9D9",
-    borderRadius: "16px",
+    borderRadius: "8px",
     "& > *": {
       borderBottom: "unset",
     },
     "& td:first-child": {
-      borderTopLeftRadius: "16px",
-      borderBottomLeftRadius: "16px",
+      borderTopLeftRadius: "8px",
+      borderBottomLeftRadius: "8px",
     },
     "& td:last-child": {
-      borderTopRightRadius: "16px",
-      borderBottomRightRadius: "16px",
+      borderTopRightRadius: "8px",
+      borderBottomRightRadius: "8px",
     },
     height: "50px", 
     padding: "8px 6px", 
   },
   tableCell: {
-    padding: "6px 4px", 
-    fontSize: "16px",
     color: "#0C2C4C", 
     fontWeight: 'bold',
   },
@@ -153,10 +149,9 @@ const useStyles = makeStyles((theme) => ({
   },
   traco: {
     height: '2px',
-    width: '99%',
+    width: '100%%',
     backgroundColor: '#0C2454',
     marginLeft: '0px',
-    marginBottom: '20px',
     marginTop: '10px'
   },
 }));

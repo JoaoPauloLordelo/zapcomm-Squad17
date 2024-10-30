@@ -60,26 +60,15 @@ const useStyles = makeStyles(theme => ({
 
 	traco: {
 		height: '2px',
-		width: '1175px',
+		width: '100%',
 		backgroundColor: '#0C2454',
 		marginLeft: '0px',
 	  },
 
-	botao: {position: 'relative',
-		left: '950px',
-		top: '98px',
-		backgroundColor: '#0C2454',
-	},	width: '203.25px',
-		Height: '39px',
-		borderRadius: '6px',
-
-	titulo: {position:'relative',
+	titulo: {
+		position:'relative',
 		left:'5px',
 		color:'black',
-		
-
-
-
 	},
 
 
@@ -94,7 +83,7 @@ const useStyles = makeStyles(theme => ({
 		...theme.scrollbarStyles,
 		backgroundColor: "#FFFFFF", 
 		borderRadius: "16px",	
-
+		
 	},
 	customTableCell: {
 		display: "flex",
@@ -386,71 +375,66 @@ const Connections = () => {
 				onClose={handleCloseWhatsAppModal}
 				whatsAppId={!qrModalOpen && selectedWhatsApp?.id}
 			/>
-			<MainHeader>
-				<MainHeaderButtonsWrapper
-				
-				>
-					
-				</MainHeaderButtonsWrapper>
-			</MainHeader>
+			
 			<Paper className={classes.mainPaper} variant="outlined">
-			<Can 
-						role={user.profile}
-						perform="connections-page:addConnection"
-						yes={() => (
-							<Button className={classes.botao}
-								variant="contained"
-								color="primary"
-								onClick={handleOpenWhatsAppModal}
-							>
-								{i18n.t("connections.buttons.add")}
-							</Button>
-						)}
+			<MainHeader>
+				<Title className={classes.titulo} style={{
+						color: "#000000",}}
+						>{i18n.t("connections.title")}
+					</Title>
+					<MainHeaderButtonsWrapper>
+					
+					<Can 
+				role={user.profile}
+				perform="connections-page:addConnection"
+				yes={() => (
+					<Button className={classes.botao}
+							variant="contained"
+							color="primary"
+							onClick={handleOpenWhatsAppModal}
+						>
+							{i18n.t("connections.buttons.add")}
+						</Button>
+					)}
 						
 					/>
-					{/* título */}
-					<Title className={classes.titulo} style={{
-						color: "#000000",}}
-						>{i18n.t("connections.title")}</Title>
+				</MainHeaderButtonsWrapper>
+			</MainHeader>
+					
 				<div className={classes.traco}></div>
 				<Table size="small"
-				style={{position:'relative',
-					top:'100px',
+				style={{
 					borderCollapse: "separate",
 					borderSpacing: "0 10px",
 				}}>
 					<TableHead>
 						<TableRow>
-							<TableCell align="center" style={{position:"relative",
-							left:"100px",
-							}} >
+							<TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}>
 								{i18n.t("connections.table.name")}
 							</TableCell>
-							<TableCell align="center" style={{position:"relative",
-								left:"100px",
-							}} >
+							<TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}> 
 								{i18n.t("connections.table.status")}
 							</TableCell>
 							<Can
 								role={user.profile}
 								perform="connections-page:actionButtons"
 								yes={() => (
-									<TableCell align="center">
+									<TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}>
 										{i18n.t("connections.table.session")}
 									</TableCell>
 								)}
 							/>
-							<TableCell align="center">
+							<TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}> 
 								{i18n.t("connections.table.lastUpdate")}
 							</TableCell>
-							<TableCell align="center">
+							<TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}>
 								{i18n.t("connections.table.default")}
 							</TableCell>
 							<Can
 								role={user.profile}
 								perform="connections-page:editOrDeleteConnection"
 								yes={() => (
-									<TableCell align="center">
+									<TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}>
 										{i18n.t("connections.table.actions")}
 									</TableCell>
 								)}
@@ -473,8 +457,6 @@ const Connections = () => {
 												 borderTopLeftRadius: '16px',  // Borda superior esquerda
 												 borderBottomLeftRadius: '16px',  // Borda inferior esquerda
 												 border: "none",
-												 position: "relative",
-												 left: "100px",
 
 											}}>{whatsApp.name}</TableCell>
 											<TableCell align="center"
