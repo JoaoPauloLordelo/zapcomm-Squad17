@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
+    borderRadius:'16px',
   },
   traco: {
     height: '2px',

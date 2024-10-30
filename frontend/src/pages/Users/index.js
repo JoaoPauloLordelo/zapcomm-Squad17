@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     ...theme.scrollbarStyles,
     backgroundColor:'white',
-    borderRadius:'8px'
+    borderRadius:'16px'
   },
 }));
 

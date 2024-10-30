@@ -82,7 +82,7 @@ const useStyles = makeStyles(theme => ({
 		overflowY: "scroll",
 		...theme.scrollbarStyles,
 		backgroundColor: "#FFFFFF", 
-		borderRadius: "16px",	
+		borderRadius: "16px",
 		
 	},
 	customTableCell: {
