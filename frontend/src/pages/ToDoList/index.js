@@ -16,13 +16,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import MainContainer from '../../components/MainContainer';
 
-
-
-
-
-
-
-
 const useStyles = makeStyles({
   root: {
     display: 'flex',
@@ -331,6 +324,7 @@ const ToDoList = () => {
 
   return (
     <MainContainer>
+
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <div className={classes.titleContainer}>
@@ -509,6 +503,7 @@ const ToDoList = () => {
       </Paper>
     </div>
     </MainContainer>
+
   );
 };
 

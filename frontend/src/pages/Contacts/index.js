@@ -101,7 +101,6 @@ const useStyles = makeStyles((theme) => ({
     width: '1175px',
     backgroundColor: '#0C2454',
     marginLeft: '0px',
-    marginBottom: '20px',
   },
   icones: {
     paddingBottom: '3px',

@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       height: "calc(100vh - 10px)",
     },
-    backgroundColor: theme.palette.fancyBackground,// Cor do fundo da página a ser alterada(parte mais escura do fundo)
+    backgroundColor:"#34D3A3",// Cor do fundo da página a ser alterada(parte mais escura do fundo)
     '& .MuiButton-outlinedPrimary': {
       color: theme.mode === 'light' ? '#FFF' : '#FFF',
 	  //backgroundColor: theme.mode === 'light' ? '#682ee2' : '#682ee2',

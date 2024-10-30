@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import logoOpenAI from "../../assets/logoopenai.png";
-
 import {
   Button,
   IconButton,
@@ -10,11 +9,9 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Typography // Importar Typography do Material-UI
+  Typography
 } from "@material-ui/core";
-
 import { makeStyles } from "@material-ui/core/styles";
-
 import MainContainer from "../../components/MainContainer";
 import MainHeader from "../../components/MainHeader";
 import MainHeaderButtonsWrapper from "../../components/MainHeaderButtonsWrapper";
@@ -52,14 +49,13 @@ const useStyles = makeStyles((theme) => ({
   blueLine: {
     border: 0,
     height: "2px",
-    backgroundColor: theme.palette.primary.main, // Azul da cor primária do tema
-    margin: theme.spacing(2, 0), // Espaçamento vertical
+    backgroundColor: theme.palette.primary.main,
+    margin: theme.spacing(2, 0),
   },
-  // Adicione um estilo para a box vermelha
   redBox: {
-    backgroundColor: "#ffcccc", // Definindo a cor de fundo vermelha
-    padding: theme.spacing(2), // Adicionando um espaçamento interno
-    marginBottom: theme.spacing(2), // Adicionando margem inferior para separar do conteúdo abaixo
+    backgroundColor: "#ffcccc",
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -94,11 +90,7 @@ const reducer = (state, action) => {
 
   if (action.type === "DELETE_PROMPT") {
     const promptId = action.payload;
-    const promptIndex = state.findIndex((p) => p.id === promptId);
-    if (promptIndex !== -1) {
-      state.splice(promptIndex, 1);
-    }
-    return [...state];
+    return state.filter((p) => p.id !== promptId); // Filtra a lista e retorna nova sem o prompt deletado
   }
 
   if (action.type === "RESET") {
@@ -108,10 +100,8 @@ const reducer = (state, action) => {
 
 const Prompts = () => {
   const classes = useStyles();
-
   const [prompts, dispatch] = useReducer(reducer, []);
   const [loading, setLoading] = useState(false);
-
   const [promptModalOpen, setPromptModalOpen] = useState(false);
   const [selectedPrompt, setSelectedPrompt] = useState(null);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -119,7 +109,6 @@ const Prompts = () => {
   const { getPlanCompany } = usePlans();
   const history = useHistory();
   const companyId = user.companyId;
-
   const socketManager = useContext(SocketContext);
 
   useEffect(() => {
@@ -142,7 +131,6 @@ const Prompts = () => {
       try {
         const { data } = await api.get("/prompt");
         dispatch({ type: "LOAD_PROMPTS", payload: data.prompts });
-
         setLoading(false);
       } catch (err) {
         toastError(err);
@@ -190,76 +178,89 @@ const Prompts = () => {
   };
 
   const handleDeletePrompt = async (promptId) => {
+    console.log("Iniciando exclusão de prompt:", promptId); 
     try {
       const { data } = await api.delete(`/prompt/${promptId}`);
+      console.log("Resposta da API:", data); // Para verificar a resposta
       toast.info(i18n.t(data.message));
+      dispatch({ type: "DELETE_PROMPT", payload: promptId });
     } catch (err) {
       toastError(err);
+      console.log("Erro ao deletar:", err); // Para identificar possíveis erros
     }
     setSelectedPrompt(null);
   };
 
+  useEffect(() => {
+    if (!confirmModalOpen) {
+      (async () => {
+        try {
+          const { data } = await api.get("/prompt");
+          dispatch({ type: "LOAD_PROMPTS", payload: data.prompts });
+        } catch (err) {
+          toastError(err);
+        }
+      })();
+    }
+  }, [confirmModalOpen]);
+
   return (
     <MainContainer>
-   
-
-      
       <Paper className={classes.mainPaper} variant="outlined">
-      <ConfirmationModal
-        title={
-          selectedPrompt &&
-          `${i18n.t("prompts.confirmationModal.deleteTitle")} ${selectedPrompt.name
-          }?`
-        }
-        open={confirmModalOpen}
-        onClose={handleCloseConfirmationModal}
-        onConfirm={() => handleDeletePrompt(selectedPrompt.id)}
-      >
-        {i18n.t("prompts.confirmationModal.deleteMessage")}
-      </ConfirmationModal>
-      <PromptModal
-        open={promptModalOpen}
-        onClose={handleClosePromptModal}
-        promptId={selectedPrompt?.id}
-      />
-      <MainHeader>
-        <Title>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <img
-              src={logoOpenAI}
-              alt="Logo OpenAI"
-              style={{ width: "130px", marginRight: "100px" }}
-            />
-          </div>
-        </Title>
-        <MainHeaderButtonsWrapper>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleOpenPromptModal}
-          >
-            {i18n.t("prompts.buttons.add")}
-          </Button>
-        </MainHeaderButtonsWrapper>
-      </MainHeader>
-      <hr className={classes.blueLine} />
+        <ConfirmationModal
+          title={
+            selectedPrompt &&
+            `${i18n.t("prompts.confirmationModal.deleteTitle")} ${selectedPrompt.name}?`
+          }
+          open={confirmModalOpen}
+          onClose={handleCloseConfirmationModal}
+          onConfirm={() => handleDeletePrompt(selectedPrompt.id)}
+        >
+          {i18n.t("prompts.confirmationModal.deleteMessage")}
+        </ConfirmationModal>
+        <PromptModal
+          open={promptModalOpen}
+          onClose={handleClosePromptModal}
+          promptId={selectedPrompt?.id}
+        />
+        <MainHeader>
+          <Title>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img
+                src={logoOpenAI}
+                alt="Logo OpenAI"
+                style={{ width: "130px", marginRight: "100px" }}
+              />
+            </div>
+          </Title>
+          <MainHeaderButtonsWrapper>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleOpenPromptModal}
+            >
+              {i18n.t("prompts.buttons.add")}
+            </Button>
+          </MainHeaderButtonsWrapper>
+        </MainHeader>
+        <hr className={classes.blueLine} />
         <Table size="small">
           <TableHead>
-  <TableRow>
-    <TableCell align="left" className={classes.tableHeaderCell}>
-      {i18n.t("prompts.table.name")}
-    </TableCell>
-    <TableCell align="left" className={classes.tableHeaderCell}>
-      {i18n.t("prompts.table.queue")}
-    </TableCell>
-    <TableCell align="left" className={classes.tableHeaderCell}>
-      {i18n.t("prompts.table.max_tokens")}
-    </TableCell>
-    <TableCell align="center" className={classes.tableHeaderCell}>
-      {i18n.t("prompts.table.actions")}
-    </TableCell>
-  </TableRow>
-</TableHead>
+            <TableRow>
+              <TableCell align="left" className={classes.tableHeaderCell}>
+                {i18n.t("prompts.table.name")}
+              </TableCell>
+              <TableCell align="left" className={classes.tableHeaderCell}>
+                {i18n.t("prompts.table.queue")}
+              </TableCell>
+              <TableCell align="left" className={classes.tableHeaderCell}>
+                {i18n.t("prompts.table.max_tokens")}
+              </TableCell>
+              <TableCell align="center" className={classes.tableHeaderCell}>
+                {i18n.t("prompts.table.actions")}
+              </TableCell>
+            </TableRow>
+          </TableHead>
           <TableBody>
             <>
               {prompts.map((prompt) => (
@@ -274,7 +275,6 @@ const Prompts = () => {
                     >
                       <Edit />
                     </IconButton>
-
                     <IconButton
                       size="small"
                       onClick={() => {

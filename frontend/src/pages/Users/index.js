@@ -70,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius:'8px',
     overflow: 'hidden',
     overflowY: 'auto',
+
   },
 }));
 
@@ -319,7 +320,7 @@ const Users = () => {
         aria-labelledby="form-dialog-title"
         userId={selectedUser && selectedUser.id}
       />
-     
+
       <div className={classes.mainPaper}>
       <MainHeader>
         <Typography
@@ -390,7 +391,7 @@ const Users = () => {
 
 
       <Paper style={{ border: '4px solid #34D3A3', borderRadius: '25px', overflow: 'hidden', marginTop: '25px' }}>
-       
+
         <Table size="small">
           <TableHead>
             <TableRow>

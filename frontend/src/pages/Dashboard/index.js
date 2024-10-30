@@ -88,9 +88,6 @@ import {
 } from "recharts";
 import MainContainer from "../../components/MainContainer";
 
-
-
-
 const useStyles = makeStyles((theme) => ({
   mainPaper: {
     flex: 1,
@@ -292,9 +289,6 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const { find } = useDashboard();
 
-
-
-
   const simulatedData = [
     { name: 'Jan', value: 30 },
     { name: 'Feb', value: 45 },
@@ -309,8 +303,6 @@ const Dashboard = () => {
     { name: 'Nov', value: 70 },
     { name: 'Dec', value: 95 }
   ];
-
-
 
 
   let newDate = new Date();
@@ -471,7 +463,6 @@ const Dashboard = () => {
     const { count } = useContacts(props);
     return count;
   };
- 
   function renderFilters() {
     if (filterType === 1) {
       return (
@@ -531,7 +522,6 @@ const Dashboard = () => {
       );
     }
   }
- 
   return (
     <MainContainer>
       <Paper className={classes.mainPaper} variant="outlined">
@@ -539,12 +529,10 @@ const Dashboard = () => {
           Dashboard
         </Typography>
         <hr className={classes.blueLine} />
- 
         {/* Campos de Filtro por Data ou Período */}
         <Grid container spacing={3} style={{ paddingLeft: '25px' }}>
           {renderFilters()}
         </Grid>
-   
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3} justifyContent="flex-start">
               {/* EM ATENDIMENTO */}
@@ -603,9 +591,6 @@ const Dashboard = () => {
                 </Paper>
               </Grid>
 
-
-
-
           {/* AGUARDANDO */}
           <Grid item xs={12} sm={6} md={3}>
             <Paper
@@ -635,6 +620,7 @@ const Dashboard = () => {
                     Aguardando <br />
                     <span style={{ color: "#C3C3C3" }}>Chamados</span>
                   </Typography>
+
                 </Grid>
                 <Grid item xs={4} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
                   {/* Número de suporte pendente e "pessoas" em uma única linha */}
@@ -661,8 +647,6 @@ const Dashboard = () => {
               </Grid>
             </Paper>
           </Grid>
-
-
 
 
           {/* FINALIZADOS */}
@@ -782,15 +766,6 @@ const Dashboard = () => {
 
 
 
-
-
-
-
-
-
-
-
-
             {/* T.M. DE ATENDIMENTO */}
             <Grid item xs={12} sm={6} md={4}>
               <Paper
@@ -829,8 +804,6 @@ const Dashboard = () => {
             </Grid>
 
 
-
-
             {/* T.M. DE ESPERA */}
             <Grid item xs={12} sm={6} md={4}>
               <Paper
@@ -867,7 +840,7 @@ const Dashboard = () => {
                 </Grid>
               </Paper>
             </Grid>
-       
+
         {/* FILTROS */}
             <Grid item xs={12} sm={6} md={4}>
               <FormControl className={classes.selectContainer}>
@@ -884,9 +857,6 @@ const Dashboard = () => {
               </FormControl>
             </Grid>
 
-
-
-
             {/* BOTAO FILTRAR */}
             <Grid item xs={12} className={classes.alignRight}>
               <ButtonWithSpinner
@@ -899,10 +869,6 @@ const Dashboard = () => {
               </ButtonWithSpinner>
             </Grid>
 
-
-
-
-         
             {/* TOTAL DE ATENDIMENTOS POR USUARIO */}
             <Grid item xs={12}>
               <Paper className={classes.fixedHeightPaper2}>
@@ -911,16 +877,12 @@ const Dashboard = () => {
             </Grid>
 
 
-
-
             {/* TOTAL DE ATENDIMENTOS */}
             <Grid item xs={12}>
               <Paper className={classes.fixedHeightPaper2}>
                 <ChartsDate />
               </Paper>
             </Grid>
-
-
 
 
             {/* USUARIOS ONLINE */}
@@ -932,11 +894,6 @@ const Dashboard = () => {
                 />
               ) : null}
             </Grid>
-
-
-
-
-
 
 
 
