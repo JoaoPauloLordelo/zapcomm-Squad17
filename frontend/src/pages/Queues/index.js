@@ -207,6 +207,7 @@ const Queues = () => {
       />
       <Paper className={classes.mainPaper} variant="outlined">
       <div className={classes.filaschatbot}>
+
       <MainHeader>
         <Title style={{ fontWeight: 'bold', color: '#0C2454' }}>
           Filas & Chatbot
