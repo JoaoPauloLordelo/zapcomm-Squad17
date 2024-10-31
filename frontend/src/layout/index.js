@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     padding: "0 8px",
-    minHeight: "48px",
+    height: "100px",
     [theme.breakpoints.down("sm")]: {
       height: "48px",
     },
@@ -159,22 +159,24 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column"
   },
+  //muda o menu
   containerWithScroll: {
     flex: 1,
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
+    backgroundColor:'white'
   },
   NotificationsPopOver: {
     color: 'red',
   },
   logo: { //alterar a logo
-    width: "80%",
+    width: "100%",
     height: "auto",
     maxWidth: 180,
     [theme.breakpoints.down("sm")]: {
       width: "auto",
-      height: "80%",
+      height: "100%",
       maxWidth: 180,
     },
     logo: theme.logo

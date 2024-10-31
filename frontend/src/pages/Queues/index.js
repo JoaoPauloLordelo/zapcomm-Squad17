@@ -24,13 +24,15 @@ import QueueChatModal from "../../components/QueueChatModal"; // Importando o mo
 import { toast } from "react-toastify";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import { SocketContext } from "../../context/Socket/SocketContext";
-
+import Title from "../../components/Title";
 const useStyles = makeStyles((theme) => ({
   mainPaper: {
     flex: 1,
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
+    borderRadius:'16px',
+
   },
   customTableCell: {
     display: "flex",
@@ -43,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     margin: theme.spacing(2, 0),
   },
+  filaschatbot: {
+    padding:'16px'
+  }
 }));
 
 const reducer = (state, action) => {
@@ -199,14 +204,14 @@ const Queues = () => {
         open={chatModalOpen}
         onClose={handleCloseChatModal}
         greetingMessage={selectedQueue?.greetingMessage} // Passando o greetingMessage
-        outOfHoursMessage={selectedQueue?.outOfHoursMessage} // Passando a outOfHoursMessage
-      /> 
-      <Paper className={classes.mainPaper} variant="outlined" style={{borderRadius: 28}}>
+      />
+      <Paper className={classes.mainPaper} variant="outlined">
+      <div className={classes.filaschatbot}>
 
       <MainHeader>
-        <Typography variant="h6" style={{ fontWeight: 'bold', color: '#0C2454' }}>
+        <Title style={{ fontWeight: 'bold', color: '#0C2454' }}>
           Filas & Chatbot
-        </Typography>
+        </Title>
         <MainHeaderButtonsWrapper>
           <Button
             variant="contained"
@@ -304,6 +309,7 @@ const Queues = () => {
             </>
           </TableBody>
         </Table>
+        </div>
       </Paper>
     </MainContainer>
   );

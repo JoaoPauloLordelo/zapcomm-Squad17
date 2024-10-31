@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
+    borderRadius:'16px',
   },
   traco: {
     height: '2px',
@@ -93,6 +94,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#0C2454',
     marginLeft: '0px',
   },
+  listacont: {
+    padding: '16px'
+  }
 }));
 
 const ContactLists = () => {
@@ -229,6 +233,7 @@ const ContactLists = () => {
         variant="outlined"
         onScroll={handleScroll}
       >
+        <div className={classes.listacont}>
               <MainHeader>
         <Grid style={{ width: "99.6%" }} container>
           <Grid xs={12} sm={8} item>
@@ -348,6 +353,7 @@ const ContactLists = () => {
             </>
           </TableBody>
         </Table>
+        </div>
       </Paper>
     </MainContainer>
   );

@@ -49,14 +49,17 @@ const useStyles = makeStyles((theme) => ({
   blueLine: {
     border: 0,
     height: "2px",
-    backgroundColor: theme.palette.primary.main,
-    margin: theme.spacing(2, 0),
+    backgroundColor: theme.palette.primary.main, // Azul da cor primária do tema
+
   },
   redBox: {
     backgroundColor: "#ffcccc",
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  openai2: {
+    padding:'16px'
+  }
 }));
 
 const reducer = (state, action) => {
@@ -207,71 +210,75 @@ const Prompts = () => {
   return (
     <MainContainer>
       <Paper className={classes.mainPaper} variant="outlined">
-        <ConfirmationModal
-          title={
-            selectedPrompt &&
-            `${i18n.t("prompts.confirmationModal.deleteTitle")} ${selectedPrompt.name}?`
-          }
-          open={confirmModalOpen}
-          onClose={handleCloseConfirmationModal}
-          onConfirm={() => handleDeletePrompt(selectedPrompt.id)}
-        >
-          {i18n.t("prompts.confirmationModal.deleteMessage")}
-        </ConfirmationModal>
-        <PromptModal
-          open={promptModalOpen}
-          onClose={handleClosePromptModal}
-          promptId={selectedPrompt?.id}
-        />
-        <MainHeader>
-          <Title>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <img
-                src={logoOpenAI}
-                alt="Logo OpenAI"
-                style={{ width: "130px", marginRight: "100px" }}
-              />
-            </div>
-          </Title>
-          <MainHeaderButtonsWrapper>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleOpenPromptModal}
-            >
-              {i18n.t("prompts.buttons.add")}
-            </Button>
-          </MainHeaderButtonsWrapper>
-        </MainHeader>
-        <hr className={classes.blueLine} />
-        <Table size="small">
+      <div classname={classes.openai2} style={{padding:'16px'}}>
+      <ConfirmationModal
+        title={
+          selectedPrompt &&
+          `${i18n.t("prompts.confirmationModal.deleteTitle")} ${selectedPrompt.name
+          }?`
+        }
+        open={confirmModalOpen}
+        onClose={handleCloseConfirmationModal}
+        onConfirm={() => handleDeletePrompt(selectedPrompt.id)}
+      >
+        {i18n.t("prompts.confirmationModal.deleteMessage")}
+      </ConfirmationModal>
+      <PromptModal
+        open={promptModalOpen}
+        onClose={handleClosePromptModal}
+        promptId={selectedPrompt?.id}
+      />
+      <MainHeader>
+        <Title>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img
+              src={logoOpenAI}
+              alt="Logo OpenAI"
+              style={{ width: "130px", marginRight: "100px" }}
+            />
+          </div>
+        </Title>
+        <MainHeaderButtonsWrapper>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpenPromptModal}
+          >
+            {i18n.t("prompts.buttons.add")}
+          </Button>
+        </MainHeaderButtonsWrapper>
+      </MainHeader>
+      <hr className={classes.blueLine} />
+        <Table size="small" style={{ borderCollapse: 'separate', borderSpacing: '0 20px' }}>
           <TableHead>
-            <TableRow>
-              <TableCell align="left" className={classes.tableHeaderCell}>
-                {i18n.t("prompts.table.name")}
-              </TableCell>
-              <TableCell align="left" className={classes.tableHeaderCell}>
-                {i18n.t("prompts.table.queue")}
-              </TableCell>
-              <TableCell align="left" className={classes.tableHeaderCell}>
-                {i18n.t("prompts.table.max_tokens")}
-              </TableCell>
-              <TableCell align="center" className={classes.tableHeaderCell}>
-                {i18n.t("prompts.table.actions")}
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
+  <TableRow>
+    <TableCell align="left" className={classes.tableHeaderCell}>
+      {i18n.t("prompts.table.name")}
+    </TableCell>
+    <TableCell align="left" className={classes.tableHeaderCell}>
+      {i18n.t("prompts.table.queue")}
+    </TableCell>
+    <TableCell align="left" className={classes.tableHeaderCell}>
+      {i18n.t("prompts.table.max_tokens")}
+    </TableCell>
+    <TableCell align="center" className={classes.tableHeaderCell}>
+      {i18n.t("prompts.table.actions")}
+    </TableCell>
+  </TableRow>
+</TableHead>
+          <TableBody style={{backgroundColor: "#D9D9D9"}}>
+
             <>
               {prompts.map((prompt) => (
                 <TableRow key={prompt.id}>
-                  <TableCell align="left">{prompt.name}</TableCell>
-                  <TableCell align="left">{prompt.queue.name}</TableCell>
-                  <TableCell align="left">{prompt.maxTokens}</TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left" style={{ borderRadius: '8px 0 0 8px', overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>{prompt.name}</TableCell>
+                  <TableCell align="left" style={{ overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>{prompt.queue.name}</TableCell>
+                  <TableCell align="left" style={{ overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>{prompt.maxTokens}</TableCell>
+                  <TableCell align="center" style={{ borderRadius: '0 8px 8px 0',overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>
                     <IconButton
                       size="small"
                       onClick={() => handleEditPrompt(prompt)}
+                      style={{color:'#0C2454'}}
                     >
                       <Edit />
                     </IconButton>
@@ -281,6 +288,7 @@ const Prompts = () => {
                         setSelectedPrompt(prompt);
                         setConfirmModalOpen(true);
                       }}
+                      style={{color:'red'}}
                     >
                       <DeleteOutline />
                     </IconButton>
@@ -291,6 +299,7 @@ const Prompts = () => {
             </>
           </TableBody>
         </Table>
+        </div>
       </Paper>
     </MainContainer>
   );

@@ -14,15 +14,22 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
-import MainContainer from '../../components/MainContainer';
+import Paper from "@material-ui/core/Paper";
+import Title from "../../components/Title";
 
 const useStyles = makeStyles({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '4rem 2rem 2rem 2rem', // Increased top margin
-    height: '100%', // Adicione esta linha
-    overflow: 'hidden',
+    padding:'16px'
+  },
+  mainPaper: {
+    marginTop:'80px',
+    width:'1500px',
+    height:'700px',
+    borderRadius:'16px',
+    marginLeft: '63px'
+
   },
   titleContainer: {
     display: 'flex',
@@ -47,12 +54,11 @@ const useStyles = makeStyles({
     overflowY: 'auto',
   },
   searchField: {
-    backgroundColor: '#CCCCCC',
+    backgroundColor: '#D9D9D9',
     borderRadius: '4px',
     height: '40px',
     width: '250px',
     border: '2px solid #A0A0A0',
-    marginTop: '15px',
     marginLeft: '20px',
     '& .MuiOutlinedInput-root': {
       '& input': {
@@ -77,9 +83,9 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
   input: {
-    backgroundColor: '#CCCCCC',
-    borderRadius: '4px',
-    border: '2px solid #A0A0A0',
+    backgroundColor: '#D9D9D9',
+    borderRadius: '8px',
+    border: '0',
     flexGrow: 1,
     marginRight: '0.5rem',
     padding: '10px',
@@ -161,9 +167,7 @@ const useStyles = makeStyles({
   status: {
     color: '#4CAF50',
   },
-  date: {
-    color: '#757575',
-  }
+
 });
 
 
@@ -323,186 +327,145 @@ const ToDoList = () => {
 
 
   return (
-    <MainContainer>
-
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
+    <Paper
+      className={classes.mainPaper}
+      variant="outlined"
+    >
+      <div className={classes.root}>
         <div className={classes.titleContainer}>
-          <Typography variant="h6" className={classes.title}>
+          <Title>
             Tarefas
-          </Typography>
+          </Title>{/*colocar o tiltle*/}
           <TextField
             placeholder="Pesquisar..."
+            type="search"
             value={searchParam}
             onChange={handleSearch}
-            variant="outlined"
-            className={classes.searchField}
             InputProps={{
+              disableUnderline: true, // remove a linha
+              style: {
+                color: '#0C2454',// cor do texto normal
+                fontWeight: 'bold', // texto em negrito
+                backgroundColor: "#D9D9D9",
+                borderRadius: '8px',
+                height: "36.5px",
+              },
+              inputProps: {
+                style: {
+                  paddingLeft: '8px',
+                  '&::placeholder': {
+                    color: '#0C2454',
+                    fontWeight: 'bold',
+                    Opacity: 1, // cor do placeholder
+                    paddingLeft: "10px"
+                  
+                  },
+                },
+              },
               endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton>
-                    <SearchIcon style={{ color: "#0C2454" }} />
-                  </IconButton>
+                <InputAdornment position="start">
+                  <SearchIcon style={{ color: '#0C2454' }} />
                 </InputAdornment>
               ),
-            }}
-          />
+            }}
+        />
         </div>
-
-
-
-
-
-
-
 
         <div className={classes.blueLine} />
 
+        <div className={classes.contentContainer}>
+          <div className={classes.inputContainer}>
+            <input
+              placeholder="Nova tarefa"
+              className={classes.input}
+              value={task}
+              onChange={handleTaskChange}
+            />
+            <Button
+              onClick={handleDeleteTask}
+              className={classes.buttonRed}
+            >
+              <DeleteIcon style={{ marginRight: '5px', marginLeft: '5px' }} />
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAddTask}
+              className={classes.button}
+            >
+              {editIndex >= 0 ? 'Salvar' : 'Adicionar'}
+            </Button>
+          </div>
+          <div className={classes.listContainer}>
+            <List>
+              {tasks.map((task, index) => (
+                <ListItem key={index} className={classes.listItem}>
+                  <Checkbox
+                    edge="start"
+                    checked={checked.indexOf(index) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                    onClick={() => handleToggle(index)}
+                    style={{
+                      color: "#0C2454",  // Cor do ícone quando marcado
+                      backgroundColor: "#FFFFFF",  // Fundo branco
+                      width: '20px',  // Ajuste da largura
+                      height: '20px',  // Ajuste da altura
+                      padding: '0px',  // Remove o padding extra
+                      borderRadius: '4px',  // Bordas arredondadas
+                      marginLeft: '10px',  // Move um pouco para a direita
+                    }}
+                  />
+
+                  <div className={classes.infoContainer}>
+                    <Typography variant="body2" className={classes.taskText} style={{ color: '#0C2454', fontWeight: 'bold' }}>
+                      {task.text}
+                    </Typography>
 
 
+                    <Typography
+                      variant="body2"
+                      style={{
+                        marginLeft: "100px",
+                        marginRight: '10px',
+                        fontWeight: 'bold',  // Negrito
+                        color: '#0C2454',    // Azul
+                      }}
+                    >
+                      Criado por:
+                    </Typography>
 
 
+                    <Avatar className={classes.avatar}>
+                      U
+                    </Avatar>
 
-
-
-        <div className={classes.inputContainer}>
-          <input
-            placeholder="Nova tarefa"
-            className={classes.input}
-            value={task}
-            onChange={handleTaskChange}
-          />
-          <Button
-            onClick={handleDeleteTask}
-            className={classes.buttonRed}
-          >
-            <DeleteIcon style={{ marginRight: '5px', marginLeft: '5px' }} />
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleAddTask}
-            className={classes.button}
-          >
-            {editIndex >= 0 ? 'Salvar' : 'Adicionar'}
-          </Button>
-        </div>
-
-
-
-
-
-
-
-
-        <div className={classes.listContainer}>
-          <List>
-            {tasks.map((task, index) => (
-              <ListItem key={task.createdAt} className={classes.listItem}>
-                <Checkbox
-                  edge="start"
-                  checked={checked.indexOf(index) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                  onClick={() => handleToggle(index)}
-                  style={{
-                    color: "#0C2454",
-                    backgroundColor: "#FFFFFF",
-                    width: '20px',
-                    height: '20px',
-                    padding: '0px',
-                    borderRadius: '4px',
-                    marginLeft: '10px',
-                  }}
-                />
-                <div className={classes.infoContainer}>
-                  <Typography
-                    variant="body2"
-                    className={classes.taskText}
-                  >
-                    {formatTaskText(task.text)}
-                  </Typography>
-
-
-
-
-
-
-
-
-                  <div className={classes.avatarContainer}>
-                  <Typography
-                                  variant="body2"
-                                  style={{
-                                    fontWeight: 'bold',
-                                    color: '#0C2454',
-                                    marginRight: '8px',
-                                    marginLeft: '-200px',
-                                  }}
-                                >
-                                  Criado por:
-                                </Typography>
-                    <Avatar className={classes.avatar}>U</Avatar>
-                  </div>
-
-
-
-
-
-
-
-
-                  <div className={classes.dateContainer}>
                     <Typography variant="body2" className={classes.date}>
-                    <span style={{
-                                    fontWeight: 'bold',
-                                    color: '#0C2454',
-                                    marginRight: '4px',
-                                    marginLeft: '-146px',
-                                  }}>
-                                    Criada em:
-                                  </span>
+                      <span style={{ fontWeight: 'bold', color: '#0C2454' }}>Criada em:</span>
                       <span style={{ color: '#0C2454' }}> {new Date(task.createdAt).toLocaleDateString()}</span>
                     </Typography>
-                  </div>
 
-
-
-
-
-
-
-
-                  <div className={classes.statusContainer}>
-                    <Typography variant="body2" className={classes.date}>
-                    <span style={{ fontWeight: 'bold', color: '#0C2454', marginLeft: '-60px' }}>Status:</span>
-                      <span style={{ color: '#0C2454' }}> {task.status}</span>
+                    <Typography variant="body2" className={classes.status}>
+                      <span style={{ fontWeight: 'bold', color: '#0C2454' }}>Status:</span>
+                      <span style={{ color: '#0C2454', marginLeft: '4px' }}>{task.status}</span>
                     </Typography>
+
                   </div>
-                </div>
-
-
-
-
-
-
-
-
-                <ListItemSecondaryAction>
-                  <IconButton onClick={() => setEditIndex(index)}>
-                    <EditIcon style={{ color: "#0C2454" }} />
-                  </IconButton>
-                  <IconButton onClick={() => handleDeleteTask(index)}>
-                    <DeleteIcon style={{ color: "#0C2454" }} />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List>
+                  <ListItemSecondaryAction>
+                    <IconButton onClick={() => setEditIndex(index)}>
+                      <EditIcon style={{ color: "#0C2454" }} />
+                    </IconButton>
+                    <IconButton onClick={() => handleDeleteTask(index)}>
+                      <DeleteIcon style={{ color: "#0C2454" }} />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
+            </List>
+          </div>
         </div>
-      </Paper>
-    </div>
-    </MainContainer>
+      </div>
+    </Paper>
 
   );
 };

@@ -58,33 +58,22 @@ const useStyles = makeStyles(theme => ({
 
 	},
 
-	line: {
-		width:'1050px',
-		height:'2px',
-		backgroundColor:'black',
-		position:'relative',
-		left:'95px',
-
-
-	},
-
-	botao: {position: 'relative',
-		left: '950px',
-		top: '98px',
+	traco: {
+		height: '2px',
+		width: '100%',
 		backgroundColor: '#0C2454',
-	},	width: '203.25px',
-		Height: '39px',
-		borderRadius: '6px',
+		marginLeft: '0px',
+	  },
 
-	titulo: {position:'relative',
+	titulo: {
+		position:'relative',
 		left:'5px',
 		color:'black',
-		
-
-
-
 	},
-
+	conexoes: {
+		padding:'16px'
+		
+	},
 
 	contentWrapper: {
 		backgroundColor: "green",
@@ -92,12 +81,11 @@ const useStyles = makeStyles(theme => ({
 // table
 	mainPaper: {
 		flex: 1,
-		padding: theme.spacing(5),
+		padding:'8px',
 		overflowY: "scroll",
 		...theme.scrollbarStyles,
 		backgroundColor: "#FFFFFF", 
-		borderRadius: "16px",	
-
+		borderRadius: "16px",
 	},
 	customTableCell: {
 		display: "flex",
@@ -123,6 +111,7 @@ const useStyles = makeStyles(theme => ({
 	buttonProgress: {
 		color: green[500],
 	},
+	
 
 }));
 
@@ -389,77 +378,67 @@ const Connections = () => {
 				onClose={handleCloseWhatsAppModal}
 				whatsAppId={!qrModalOpen && selectedWhatsApp?.id}
 			/>
-			<MainHeader>
-				<MainHeaderButtonsWrapper
-				
-				>
-					
-				</MainHeaderButtonsWrapper>
-			</MainHeader>
+			
 			<Paper className={classes.mainPaper} variant="outlined">
-			<Can 
-						role={user.profile}
-						perform="connections-page:addConnection"
-						yes={() => (
-							<Button className={classes.botao}
-								variant="contained"
-								color="primary"
-								onClick={handleOpenWhatsAppModal}
-							>
-								{i18n.t("connections.buttons.add")}
-							</Button>
-						)}
+			<div className={classes.conexoes}>
+			<MainHeader >
+				<Title className={classes.titulo} style={{
+						color: "#000000",}}
+						>{i18n.t("connections.title")}
+					</Title>
+					<MainHeaderButtonsWrapper>
+					
+					<Can 
+				role={user.profile}
+				perform="connections-page:addConnection"
+				yes={() => (
+					<Button className={classes.botao}
+							variant="contained"
+							color="primary"
+							onClick={handleOpenWhatsAppModal}
+						>
+							{i18n.t("connections.buttons.add")}
+						</Button>
+					)}
 						
 					/>
-				<div style={{position:'relative',
-					left:'93px',
-					width:'1000px',
-					color:'black',
-				}}>
-					{/* título */}
-					<Title className={classes.titulo} style={{
-						color: "#000000",}}
-						>{i18n.t("connections.title")}</Title>
-				</div>
-				<div className={classes.line}></div>
+				</MainHeaderButtonsWrapper>
+			</MainHeader>
+					
+				<div className={classes.traco}></div>
 				<Table size="small"
-				style={{position:'relative',
-					top:'100px',
+				style={{
 					borderCollapse: "separate",
 					borderSpacing: "0 10px",
 				}}>
 					<TableHead>
 						<TableRow>
-							<TableCell align="center" style={{position:"relative",
-							left:"100px",
-							}} >
+							<TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}>
 								{i18n.t("connections.table.name")}
 							</TableCell>
-							<TableCell align="center" style={{position:"relative",
-								left:"100px",
-							}} >
+							<TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}> 
 								{i18n.t("connections.table.status")}
 							</TableCell>
 							<Can
 								role={user.profile}
 								perform="connections-page:actionButtons"
 								yes={() => (
-									<TableCell align="center">
+									<TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}>
 										{i18n.t("connections.table.session")}
 									</TableCell>
 								)}
 							/>
-							<TableCell align="center">
+							<TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}> 
 								{i18n.t("connections.table.lastUpdate")}
 							</TableCell>
-							<TableCell align="center">
+							<TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}>
 								{i18n.t("connections.table.default")}
 							</TableCell>
 							<Can
 								role={user.profile}
 								perform="connections-page:editOrDeleteConnection"
 								yes={() => (
-									<TableCell align="center">
+									<TableCell align="center" style={{color:'#0C2454', fontWeight:'bold'}}>
 										{i18n.t("connections.table.actions")}
 									</TableCell>
 								)}
@@ -482,14 +461,12 @@ const Connections = () => {
 												 borderTopLeftRadius: '16px',  // Borda superior esquerda
 												 borderBottomLeftRadius: '16px',  // Borda inferior esquerda
 												 border: "none",
-												 position: "relative",
-												 left: "100px",
 
 											}}>{whatsApp.name}</TableCell>
 											<TableCell align="center"
 											style={{width: '5%',
 												position: "relative",
-												left: "100px",
+												left: "0px",
 
 											}}>
 												{renderStatusToolTips(whatsApp)}
@@ -546,6 +523,7 @@ const Connections = () => {
 						)}
 					</TableBody>
 				</Table>
+				</div>
 			</Paper>
 		</MainContainer>
 	);
