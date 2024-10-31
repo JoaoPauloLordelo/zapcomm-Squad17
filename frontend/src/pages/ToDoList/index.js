@@ -14,7 +14,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
-import Paper from "@material-ui/core/Paper";
 import Title from "../../components/Title";
 
 const useStyles = makeStyles({
