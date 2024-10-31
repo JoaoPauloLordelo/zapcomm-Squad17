@@ -15,6 +15,7 @@ import chatfoto from "../../assets/images/chatfoto.png"
 import zIndex from "@material-ui/core/styles/zIndex";
 import MainContainer from "../../components/MainContainer";
 //import efeito1 from "../../assets/efeito1.png";
+import Paper from "@material-ui/core/Paper";
 const useStyles = makeStyles(theme => ({
   /*root: {
     display: "flex",
@@ -244,7 +245,13 @@ const PaginaInicio = () => {
   const [file, setFile] = useState({
     lanes: []
   });
-
+  /*const handleScroll = (e) => {
+    if (!hasMore || loading) return;
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    if (scrollHeight - (scrollTop + 100) < clientHeight) {
+      loadMore();
+    }
+  };*/
 
   const [tickets, setTickets] = useState([]);
   const { user } = useContext(AuthContext);
@@ -365,6 +372,11 @@ const PaginaInicio = () => {
   };
 
   return (
+    <Paper
+        className={classes.mainPaper}
+        variant="outlined"
+        //onScroll={handleScroll}
+      >
     <div className={classes.fundobranco}>
     <div className={classes.efeitovc}></div>
     <div className={classes.blocodecima}>
@@ -413,7 +425,9 @@ const PaginaInicio = () => {
         </div>
     </div>
 </div>    
+</Paper>
   );
+
 };
 
 

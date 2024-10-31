@@ -14,28 +14,33 @@ import TicketsManager from "../../components/TicketsManagerTabs/";
 import Ticket from "../../components/Ticket/";
 import logo from "../../assets/logo.png"; //PLW DESIGN LOGO//
 import { i18n } from "../../translate/i18n";
+
 import { Title } from "@material-ui/icons";
+
 
 
 
 const useStyles = makeStyles(theme => ({
 	chatContainer: {
 		flex: 1,
-		// backgroundColor: "#eee",
-		padding: theme.spacing(1), //Aqui ele ajusta espaço na tela de ticket
+		backgroundColor: "#34d3a3", // Cor de fundo secundária
+		padding: theme.spacing(1),
 		height: `calc(100% - 48px)`,
+
 		overflowY: "auto",
 		margin: 'auto',
 		paddingTop: '70px',
 		width: '80%',
-	},
 
+	},
 	chatPapper: {
-		// backgroundColor: "red",
+		backgroundColor: "#0C2454",
 		display: "flex",
 		height: "100%",
+
 		overflow: 'auto'
 		
+
 	},
 	searchIcon: {
 		color: "grey",
@@ -50,10 +55,12 @@ const useStyles = makeStyles(theme => ({
 		margin: theme.spacing(2, 0), // Espaçamento vertical
 	  },
 	contactsWrapper: {
+
 		display: "flex",
 		height: "100%",
 		flexDirection: "column",
 		overflowY: "auto",
+
 	},
 	searchInput: {
 		width: '500px', // Ajuste o valor conforme necessário
@@ -80,15 +87,26 @@ const useStyles = makeStyles(theme => ({
 		display: "flex",
 		height: "100%",
 		flexDirection: "column",
+		overflowY: "hidden",
 	},
+
 	welcomeMsg: {
-		backgroundColor: theme.palette.boxticket, //DARK MODE PLW DESIGN//
+		backgroundColor: theme.palette.boxticket,
 		display: "flex",
-		justifyContent: "space-evenly",
+		justifyContent: "center",
 		alignItems: "center",
 		height: "100%",
 		textAlign: "center",
 	},
+	quickMessages: {
+        padding: theme.spacing(2),
+        backgroundColor: "#ffff", // Destaque leve no fundo
+        width: "100%",
+        height: "100%", // Preenche completamente o contêiner
+		textAlign: "left"
+		},
+	
+
 }));
 
 
@@ -97,6 +115,7 @@ const TicketsCustom = () => {
 	const { ticketId } = useParams();
 
 	return (
+
 		<div className={classes.chatContainer}>
 		  <Paper className={classes.chatPaper} elevation={3} style={{ padding: '8px' }}>
 			<div className={classes.headerContainer}>
@@ -132,6 +151,7 @@ const TicketsCustom = () => {
 		  </Paper>
 		</div>
 	  );
+
 };
 
 export default TicketsCustom;

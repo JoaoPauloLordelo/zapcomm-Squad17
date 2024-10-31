@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useContext } from "react"; 
+import React, { useState, useEffect, useReducer, useContext } from "react";
 import { toast } from "react-toastify";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -20,6 +20,9 @@ import {
   Edit as EditIcon,
 } from "@material-ui/icons";
 
+
+
+
 import MainContainer from "../../components/MainContainer";
 import MainHeader from "../../components/MainHeader";
 import MainHeaderButtonsWrapper from "../../components/MainHeaderButtonsWrapper";
@@ -32,13 +35,10 @@ import ConfirmationModal from "../../components/ConfirmationModal";
 import toastError from "../../errors/toastError";
 import { SocketContext } from "../../context/Socket/SocketContext";
 
+
+
+
 const useStyles = makeStyles((theme) => ({
-  mainPaper: {
-    flex: 1,
-    padding: theme.spacing(1),
-    overflowY: "scroll",
-    ...theme.scrollbarStyles,
-  },
   blueLine: {
     border: 0,
     height: "2px", // Mantém a altura original
@@ -61,13 +61,30 @@ const useStyles = makeStyles((theme) => ({
   titleMargin: {
     marginBottom: '20px', // Define a margem inferior para afastar o título da linha azul
   },
+  mainPaper: {
+    flex: 1,
+    padding: theme.spacing(1),
+    overflowY: "scroll",
+    ...theme.scrollbarStyles,
+    backgroundColor:'white',
+    borderRadius:'8px',
+    overflow: 'hidden',
+    overflowY: 'auto',
+
+  },
 }));
+
+
+
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "LOAD_USERS":
       const users = action.payload;
       const newUsers = [];
+
+
+
 
       users.forEach((user) => {
         const userIndex = state.findIndex((u) => u.id === user.id);
@@ -78,11 +95,20 @@ const reducer = (state, action) => {
         }
       });
 
+
+
+
       return [...state, ...newUsers];
+
+
+
 
     case "UPDATE_USERS":
       const user = action.payload;
       const userIndex = state.findIndex((u) => u.id === user.id);
+
+
+
 
       if (userIndex !== -1) {
         state[userIndex] = user;
@@ -91,25 +117,43 @@ const reducer = (state, action) => {
         return [user, ...state];
       }
 
+
+
+
     case "DELETE_USER":
       const userId = action.payload;
       const deleteUserIndex = state.findIndex((u) => u.id === userId);
+
+
+
 
       if (deleteUserIndex !== -1) {
         state.splice(deleteUserIndex, 1);
       }
       return [...state];
 
+
+
+
     case "RESET":
       return [];
+
+
+
 
     default:
       return state;
   }
 };
 
+
+
+
 const Users = () => {
   const classes = useStyles();
+
+
+
 
   const [loading, setLoading] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
@@ -121,12 +165,21 @@ const Users = () => {
   const [searchParam, setSearchParam] = useState("");
   const [users, dispatch] = useReducer(reducer, []);
 
+
+
+
   const socketManager = useContext(SocketContext);
+
+
+
 
   useEffect(() => {
     dispatch({ type: "RESET" });
     setPageNumber(1);
   }, [searchParam]);
+
+
+
 
   useEffect(() => {
     setLoading(true);
@@ -148,59 +201,92 @@ const Users = () => {
     return () => clearTimeout(delayDebounceFn);
   }, [searchParam, pageNumber]);
 
+
+
+
   useEffect(() => {
     const companyId = localStorage.getItem("companyId");
     const socket = socketManager.getSocket(companyId);
+
+
+
 
     socket.on(`company-${companyId}-user`, (data) => {
       if (data.action === "update" || data.action === "create") {
         dispatch({ type: "UPDATE_USERS", payload: data.user });
       }
 
+
+
+
       if (data.action === "delete") {
         dispatch({ type: "DELETE_USER", payload: +data.userId });
       }
     });
+
+
+
 
     return () => {
       socket.disconnect();
     };
   }, [socketManager]);
 
+
+
+
   const handleOpenUserModal = () => {
     setSelectedUser(null);
     setUserModalOpen(true);
   };
+
+
+
 
   const handleCloseUserModal = () => {
     setSelectedUser(null);
     setUserModalOpen(false);
   };
 
+
+
+
   const handleSearch = (event) => {
     setSearchParam(event.target.value.toLowerCase());
   };
+
+
+
 
   const handleEditUser = (user) => {
     setSelectedUser(user);
     setUserModalOpen(true);
   };
 
+
+
+
   const handleDeleteUser = async (userId) => {
     try {
       await api.delete(`/users/${userId}`);
       toast.success(i18n.t("users.toasts.deleted"));
+      dispatch({ type: "DELETE_USER", payload: userId }); // Adicione esta linha para atualizar o estado local
     } catch (err) {
       toastError(err);
     }
     setDeletingUser(null);
-    setSearchParam("");
-    setPageNumber(1);
+    setConfirmModalOpen(false); // Feche o modal de confirmação após a exclusão
   };
+
+
+
 
   const loadMore = () => {
     setPageNumber((prevState) => prevState + 1);
   };
+
+
+
 
   const handleScroll = (e) => {
     if (!hasMore || loading) return;
@@ -209,6 +295,9 @@ const Users = () => {
       loadMore();
     }
   };
+
+
+
 
   return (
     <MainContainer>
@@ -220,7 +309,7 @@ const Users = () => {
           }?`
         }
         open={confirmModalOpen}
-        onClose={setConfirmModalOpen}
+        onClose={() => setConfirmModalOpen(false)} // Atualize para fechar o modal
         onConfirm={() => handleDeleteUser(deletingUser.id)}
       >
         {i18n.t("users.confirmationModal.deleteMessage")}
@@ -231,6 +320,8 @@ const Users = () => {
         aria-labelledby="form-dialog-title"
         userId={selectedUser && selectedUser.id}
       />
+
+      <div className={classes.mainPaper}>
       <MainHeader>
         <Typography
           variant="h6"
@@ -240,11 +331,14 @@ const Users = () => {
             color: '#0C2454',
             width: '113.02px',
             height: '35.18px',
-            marginTop: '41px', // Aumente o valor conforme necessário
+            marginTop: '20px', // Aumente o valor conforme necessário
                       }}
         >
           Usuários
         </Typography>
+
+
+
 
         <MainHeaderButtonsWrapper>
         <TextField   variant="standard"   style={{  borderRadius: '10px',backgroundColor: '#D9D9D9', padding:'3px'}}
@@ -252,7 +346,7 @@ const Users = () => {
             type="search"
             value={searchParam}
             onChange={handleSearch}
-            
+           
             InputProps={{
               disableUnderline: true, // remove a linha
               style: {
@@ -288,9 +382,16 @@ const Users = () => {
         </MainHeaderButtonsWrapper>
       </MainHeader>
 
-      <hr className={classes.blueLine} style={{ marginTop: '-10px' }} /> 
+
+
+
+      <hr className={classes.blueLine} style={{ marginTop: '-10px' }} />
+
+
+
 
       <Paper style={{ border: '4px solid #34D3A3', borderRadius: '25px', overflow: 'hidden', marginTop: '25px' }}>
+
         <Table size="small">
           <TableHead>
             <TableRow>
@@ -371,7 +472,7 @@ const Users = () => {
                   <IconButton onClick={() => handleEditUser(user)}>
                     <EditIcon />
                   </IconButton>
-                  <IconButton onClick={() => setDeletingUser(user)}>
+                  <IconButton onClick={() => { setDeletingUser(user); setConfirmModalOpen(true); }}>
                     <DeleteOutlineIcon color="secondary" />
                   </IconButton>
                 </TableCell>
@@ -390,8 +491,27 @@ const Users = () => {
           </TableBody>
         </Table>
       </Paper>
+      </div>
     </MainContainer>
   );
 };
 
+
+
+
 export default Users;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

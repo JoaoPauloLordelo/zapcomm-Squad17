@@ -13,7 +13,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import { i18n } from "../../translate/i18n";
 
 import api from "../../services/api";
@@ -47,6 +47,18 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
+  traco: {
+    height: '2px',
+    width: '100%',
+    backgroundColor: '#0C2454',
+    marginLeft: '0px',
+    marginBottom: '10px',
+    marginTop:'10px'
+  },
+  formulario: {
+		marginLeft: '25px',
+		marginRight: '25px',
+	  },
 }));
 
 const ContactListSchema = Yup.object().shape({
@@ -100,9 +112,9 @@ const ContactListModal = ({ open, onClose, contactListId }) => {
     }
     handleClose();
   };
-
+  //EDITAR POPUP's
   return (
-    <div className={classes.root}>
+    <div className={classes.root}> 
       <Dialog
         open={open}
         onClose={handleClose}
@@ -110,10 +122,10 @@ const ContactListModal = ({ open, onClose, contactListId }) => {
         fullWidth
         scroll="paper"
       >
-        <DialogTitle id="form-dialog-title">
+        <DialogTitle id="form-dialog-title" style={{textAlign: 'center', color: '#0C2454', paddingBottom: '0px'}}>
           {contactListId
-            ? `${i18n.t("contactLists.dialog.edit")}`
-            : `${i18n.t("contactLists.dialog.add")}`}
+            ? `${'Editar Lista'}`
+            : `${'Adicionar Lista'}`}
         </DialogTitle>
         <Formik
           initialValues={contactList}
@@ -125,10 +137,10 @@ const ContactListModal = ({ open, onClose, contactListId }) => {
               actions.setSubmitting(false);
             }, 400);
           }}
-        >
+         >
           {({ touched, errors, isSubmitting }) => (
-            <Form>
-              <DialogContent dividers>
+            <Form className={classes.formulario}>
+              <div className={classes.traco}></div>
                 <div className={classes.multFieldLine}>
                   <Field
                     as={TextField}
@@ -140,17 +152,17 @@ const ContactListModal = ({ open, onClose, contactListId }) => {
                     variant="outlined"
                     margin="dense"
                     fullWidth
-                  />
+                   style={{paddingBottom:'10px', paddingTop:'10px'}}/>
                 </div>
-              </DialogContent>
+                <div className={classes.traco}></div>
               <DialogActions>
                 <Button
                   onClick={handleClose}
                   color="secondary"
                   disabled={isSubmitting}
-                  variant="outlined"
+                  variant="contained"
                 >
-                  {i18n.t("contactLists.dialog.cancel")}
+                  <DeleteOutlineIcon style={{color: 'white'}} />
                 </Button>
                 <Button
                   type="submit"

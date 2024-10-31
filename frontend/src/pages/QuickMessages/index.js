@@ -100,6 +100,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.primary.main, // Azul da cor primária do tema
 		margin: theme.spacing(2, 0), // Espaçamento vertical
 	  },
+
 }));
 
 const Quickemessages = () => {
@@ -256,6 +257,7 @@ const Quickemessages = () => {
                   InputProps={{
                     disableUnderline: true, // remove a linha
                     style: {
+
                       backgroundColor: '#D3d3d3',
                       borderRadius: '8px',
                       color: '#0C2454', // cor do texto normal
@@ -275,6 +277,7 @@ const Quickemessages = () => {
                     },
                     endAdornment: (
                       <InputAdornment position="end">
+
                         <SearchIcon style={{ color: '#0C2454' }} />
                       </InputAdornment>
                     ),
@@ -295,6 +298,7 @@ const Quickemessages = () => {
           </Grid>
         </Grid>
       </MainHeader>
+      <div className={classes.traco}></div>
       <Paper
         className={classes.mainPaper}
         style={{border:'none'}}
