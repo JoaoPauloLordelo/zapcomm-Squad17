@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -13,12 +14,18 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
-import Paper from "@material-ui/core/Paper";
+import MainContainer from '../../components/MainContainer';
+
+
+
+
 const useStyles = makeStyles({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '2rem',
+    margin: '4rem 2rem 2rem 2rem', // Increased top margin
+    height: '100%', // Adicione esta linha
+    overflow: 'hidden',
   },
   titleContainer: {
     display: 'flex',
@@ -26,9 +33,21 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
   title: {
-    marginTop: '30px',
+    marginTop: '20px',
     fontWeight: 'bold',
     color: '#0C2454',
+  },
+  paper: {
+    width: '1190px',
+    flexGrow: 1, // Altere esta linha
+    borderRadius: '21px',
+    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+    maxHeight: '80vh',
+    overflow: 'hidden',
+    overflowY: 'auto',
   },
   searchField: {
     backgroundColor: '#CCCCCC',
@@ -97,41 +116,61 @@ const useStyles = makeStyles({
   },
   listItem: {
     height: '60px',
-    backgroundColor: '#E0E0E0', // Fundo cinza claro
+    backgroundColor: '#E0E0E0',
     borderRadius: '8px',
     marginBottom: '8px',
     padding: '0 16px',
     display: 'flex',
     alignItems: 'center',
   },
-  listItemText: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flex: 1,
-  },
-  avatar: {
-    marginRight: '190px', // Reduzido para aproximar o avatar
-  },
-  status: {
-    color: '#4CAF50', // Verde para o status "Concluída"
-    marginLeft: '270px', // Adiciona espaçamento à esquerda
-  },
-  date: {
-    color: '#757575', // Cinza para a data
-    marginLeft: '12px', // Adiciona espaçamento à esquerda
-  },
   infoContainer: {
     display: 'flex',
+    marginLeft: '1.5rem',
     alignItems: 'center',
-    marginRight: 'auto', // Para que o espaço fique reduzido
+    justifyContent: 'space-between',
+    width: '100%',
+    flexWrap: 'wrap',
   },
   taskText: {
-    marginLeft: '16px', // Espaço entre o texto da tarefa e o contêiner de informações
-    flexGrow: 1, // Permite que o texto ocupe o espaço disponível
+    flexGrow: 1,
+    color: '#0C2454',
+    fontWeight: 'bold',
+    wordBreak: 'break-word',
+    whiteSpace: 'normal',
+    overflowWrap: 'break-word',
+    display: 'inline-block',
   },
-  
+  avatarContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '20%',
+    position: 'relative',
+  },
+  avatar: {
+    marginRight: '8px',
+  },
+  dateContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '20%',
+  },
+  statusContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '20%',
+  },
+  status: {
+    color: '#4CAF50',
+  },
+  date: {
+    color: '#757575',
+  }
 });
+
+
+
 
 const ToDoList = () => {
   const classes = useStyles();
@@ -141,6 +180,9 @@ const ToDoList = () => {
   const [searchParam, setSearchParam] = useState('');
   const [checked, setChecked] = useState([]);
 
+
+
+
   useEffect(() => {
     const savedTasks = localStorage.getItem('tasks');
     if (savedTasks) {
@@ -148,18 +190,30 @@ const ToDoList = () => {
     }
   }, []);
 
+
+
+
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
+
+
+
 
   const handleTaskChange = (event) => {
     setTask(event.target.value);
   };
 
+
+
+
   const handleAddTask = () => {
     if (!task.trim()) {
       return;
     }
+
+
+
 
     const now = new Date();
     if (editIndex >= 0) {
@@ -179,15 +233,24 @@ const ToDoList = () => {
     }
   };
 
+
+
+
   const handleDeleteTask = (index) => {
     const newTasks = [...tasks];
     newTasks.splice(index, 1);
     setTasks(newTasks);
   };
 
+
+
+
   const handleSearch = (event) => {
     setSearchParam(event.target.value);
   };
+
+
+
 
   const handleToggle = (index) => {
     const newTasks = [...tasks];
@@ -205,37 +268,53 @@ const ToDoList = () => {
     setTasks(newTasks);
   };
 
+
+
+
+  const formatTaskText = (text) => {
+    if (text.length > 250) {
+      return `${text.slice(0, 250)}\n${text.slice(250)}`;
+    }
+    return text;
+  };
+
+
+
+
   return (
-    <Paper
-        className={classes.mainPaper}
-        variant="outlined"
-      >
+    <MainContainer>
     <div className={classes.root}>
-      <div className={classes.titleContainer}>
-        <Typography variant="h6" className={classes.title}>
-          Tarefas
-        </Typography>
-        <TextField
-          placeholder="Pesquisar..."
-          value={searchParam}
-          onChange={handleSearch}
-          variant="outlined"
-          className={classes.searchField}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton>
-                  <SearchIcon style={{ color: "#0C2454" }} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </div>
+      <Paper className={classes.paper}>
+        <div className={classes.titleContainer}>
+          <Typography variant="h6" className={classes.title}>
+            Tarefas
+          </Typography>
+          <TextField
+            placeholder="Pesquisar..."
+            value={searchParam}
+            onChange={handleSearch}
+            variant="outlined"
+            className={classes.searchField}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton>
+                    <SearchIcon style={{ color: "#0C2454" }} />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>
 
-      <div className={classes.blueLine} />
 
-      <div className={classes.contentContainer}>
+
+
+        <div className={classes.blueLine} />
+
+
+
+
         <div className={classes.inputContainer}>
           <input
             placeholder="Nova tarefa"
@@ -249,71 +328,96 @@ const ToDoList = () => {
           >
             <DeleteIcon style={{ marginRight: '5px', marginLeft: '5px' }} />
           </Button>
-          <Button 
-            variant="contained" 
-            color="primary" 
+          <Button
+            variant="contained"
+            color="primary"
             onClick={handleAddTask}
             className={classes.button}
           >
             {editIndex >= 0 ? 'Salvar' : 'Adicionar'}
           </Button>
         </div>
+
+
+
+
         <div className={classes.listContainer}>
           <List>
             {tasks.map((task, index) => (
-              <ListItem key={index} className={classes.listItem}>
-              <Checkbox
-  edge="start"
-  checked={checked.indexOf(index) !== -1}
-  tabIndex={-1}
-  disableRipple
-  onClick={() => handleToggle(index)}
-  style={{
-    color: "#0C2454",  // Cor do ícone quando marcado
-    
-    backgroundColor: "#FFFFFF",  // Fundo branco
-    width: '20px',  // Ajuste da largura
-    height: '20px',  // Ajuste da altura
-    padding: '0px',  // Remove o padding extra
-    borderRadius: '4px',  // Bordas arredondadas
-    marginLeft: '10px',  // Move um pouco para a direita
-  }}
-/>
-
+              <ListItem key={task.createdAt} className={classes.listItem}>
+                <Checkbox
+                  edge="start"
+                  checked={checked.indexOf(index) !== -1}
+                  tabIndex={-1}
+                  disableRipple
+                  onClick={() => handleToggle(index)}
+                  style={{
+                    color: "#0C2454",
+                    backgroundColor: "#FFFFFF",
+                    width: '20px',
+                    height: '20px',
+                    padding: '0px',
+                    borderRadius: '4px',
+                    marginLeft: '10px',
+                  }}
+                />
                 <div className={classes.infoContainer}>
-                <Typography variant="body2" className={classes.taskText} style={{ color: '#0C2454', fontWeight: 'bold' }}>
-  {task.text}
-</Typography>
-
-
                   <Typography
-  variant="body2"
-  style={{
-    marginLeft: "100px",
-    marginRight: '10px',
-    fontWeight: 'bold',  // Negrito
-    color: '#0C2454',    // Azul
-  }}
->
-  Criado por:
-</Typography>
+                    variant="body2"
+                    className={classes.taskText}
+                  >
+                    {formatTaskText(task.text)}
+                  </Typography>
 
 
-                  <Avatar className={classes.avatar}>
-                    U
-                  </Avatar>
 
-                  <Typography variant="body2" className={classes.date}>
-  <span style={{ fontWeight: 'bold', color: '#0C2454' }}>Criada em:</span>
-  <span style={{ color: '#0C2454' }}> {new Date(task.createdAt).toLocaleDateString()}</span>
-</Typography>
 
-<Typography variant="body2" className={classes.status}>
-  <span style={{ fontWeight: 'bold', color: '#0C2454' }}>Status:</span> 
-  <span style={{ color: '#0C2454', marginLeft: '4px' }}>{task.status}</span>
-</Typography>
+                  <div className={classes.avatarContainer}>
+                  <Typography
+                                  variant="body2"
+                                  style={{
+                                    fontWeight: 'bold',
+                                    color: '#0C2454',
+                                    marginRight: '8px',
+                                    marginLeft: '-200px',
+                                  }}
+                                >
+                                  Criado por:
+                                </Typography>
+                    <Avatar className={classes.avatar}>U</Avatar>
+                  </div>
 
-</div>
+
+
+
+                  <div className={classes.dateContainer}>
+                    <Typography variant="body2" className={classes.date}>
+                    <span style={{
+                                    fontWeight: 'bold',
+                                    color: '#0C2454',
+                                    marginRight: '4px',
+                                    marginLeft: '-146px',
+                                  }}>
+                                    Criada em:
+                                  </span>
+                      <span style={{ color: '#0C2454' }}> {new Date(task.createdAt).toLocaleDateString()}</span>
+                    </Typography>
+                  </div>
+
+
+
+
+                  <div className={classes.statusContainer}>
+                    <Typography variant="body2" className={classes.date}>
+                    <span style={{ fontWeight: 'bold', color: '#0C2454', marginLeft: '-60px' }}>Status:</span>
+                      <span style={{ color: '#0C2454' }}> {task.status}</span>
+                    </Typography>
+                  </div>
+                </div>
+
+
+
+
                 <ListItemSecondaryAction>
                   <IconButton onClick={() => setEditIndex(index)}>
                     <EditIcon style={{ color: "#0C2454" }} />
@@ -326,10 +430,28 @@ const ToDoList = () => {
             ))}
           </List>
         </div>
-      </div>
+      </Paper>
     </div>
-    </Paper>
+    </MainContainer>
   );
 };
 
+
+
+
 export default ToDoList;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
