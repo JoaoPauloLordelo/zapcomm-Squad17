@@ -239,24 +239,37 @@ const useStyles = makeStyles((theme) => ({
     color: "#eee",
   },
   card8: {
-    padding: theme.spacing(2),
-    display: "flex",
-    overflow: "auto",
-    flexDirection: "column",
-    height: "100%",
-    //backgroundColor: theme.palette.primary.main,
-    backgroundColor: theme.palette.type === 'dark' ? theme.palette.boxticket.main : theme.palette.primary.main,
-    color: "#eee",
+    display: 'flex',
+    overflow: 'hidden',
+    alignItems: 'center',
+    height: '100%',
+    backgroundColor: theme.palette.type === 'dark' ? theme.palette.boxticket.main : "rgba(52, 211, 163, 0.35)",
+    color: '#000',
+    borderRadius: '12px',
+    boxShadow: 'none',
+    minHeight: '85px',
+    width: '190px',
   },
   card9: {
-    padding: theme.spacing(2),
-    display: "flex",
-    overflow: "auto",
-    flexDirection: "column",
-    height: "100%",
-    //backgroundColor: theme.palette.primary.main,
-    backgroundColor: theme.palette.type === 'dark' ? theme.palette.boxticket.main : theme.palette.primary.main,
-    color: "#eee",
+    display: 'flex',
+    overflow: 'hidden',
+    alignItems: 'center',
+    height: '100%',
+    backgroundColor: theme.palette.type === 'dark' ? theme.palette.boxticket.main : "rgba(30, 75, 165, 0.6)",
+    color: '#000',
+    borderRadius: '12px',
+    boxShadow: 'none',
+    minHeight: '85px',
+    width: '190px',
+  },
+  cardTitle: {
+    fontSize: '12px',
+    marginBottom: '6px',
+    paddingLeft: '10px',
+  },
+  cardValue: {
+    fontSize: '18px',
+    paddingLeft: '10px',
   },
   fixedHeightPaper2: {
     padding: theme.spacing(2),
@@ -779,25 +792,19 @@ const Dashboard = () => {
                       component="h3"
                       variant="h6"
                       paragraph
+                      className={classes.cardTitle}
                     >
-                      T.M. de Conversa
+                      Tempo Médio de Atendimento
                     </Typography>
                     <Grid item>
                       <Typography
                         component="h1"
                         variant="h4"
+                        className={classes.cardValue}
                       >
                         {formatTime(counters.avgSupportTime)}
                       </Typography>
                     </Grid>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <AccessAlarmIcon
-                      style={{
-                        fontSize: 100,
-                        color: "#FFFFFF",
-                      }}
-                    />
                   </Grid>
                 </Grid>
               </Paper>
@@ -817,25 +824,19 @@ const Dashboard = () => {
                       component="h3"
                       variant="h6"
                       paragraph
+                      className={classes.cardTitle}
                     >
-                      T.M. de Espera
+                      Tempo Médio de Espera
                     </Typography>
                     <Grid item>
                       <Typography
                         component="h1"
                         variant="h4"
+                        className={classes.cardValue}
                       >
                         {formatTime(counters.avgWaitTime)}
                       </Typography>
                     </Grid>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <TimerIcon
-                      style={{
-                        fontSize: 100,
-                        color: "#FFFFFF",
-                      }}
-                    />
                   </Grid>
                 </Grid>
               </Paper>
