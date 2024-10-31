@@ -84,7 +84,9 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  ResponsiveContainer
+  ResponsiveContainer,
+  BarChart,
+  Bar
 } from "recharts";
 import MainContainer from "../../components/MainContainer";
 
@@ -301,6 +303,7 @@ const Dashboard = () => {
   const [dateTo, setDateTo] = useState(moment().format("YYYY-MM-DD"));
   const [loading, setLoading] = useState(false);
   const { find } = useDashboard();
+  
 
   const simulatedData = [
     { name: 'Jan', value: 30 },
@@ -316,6 +319,18 @@ const Dashboard = () => {
     { name: 'Nov', value: 70 },
     { name: 'Dec', value: 95 }
   ];
+
+  const TotalsimulatedData = [
+
+    { name: 'Seg', value: 50 },
+    { name: 'Ter', value: 100 },
+    { name: 'Qua', value: 85 },
+    { name: 'Qui', value: 35 },
+    { name: 'Sex', value: 15 },
+    { name: 'Sáb', value: 65 },
+    { name: 'Dom', value: 5 },
+  
+  ];
 
 
   let newDate = new Date();
@@ -879,30 +894,73 @@ const Dashboard = () => {
 
 
             {/* TOTAL DE ATENDIMENTOS */}
-            <Grid item xs={12}>
-              <Paper className={classes.fixedHeightPaper2}>
-                <ChartsDate />
-              </Paper>
-            </Grid>
+            <Grid item xs={12} sm={8} md={6}>
+            <Paper
+              className={classes.card2}
+              elevation={0}
+              style={{
+                overflow: "hidden",
+                backgroundColor: "#F7F9FB",
+                borderRadius: '10px',
+                border: '1px solid #A5BDB6',
+                width: 300,
+                height: 157,
+                padding: '3px 10px'
+              }}
+            >
+              <Grid container spacing={1}>
+                <Grid item xs={6} style={{ display: 'flex', alignItems: 'center' }}>
+                 
+                 
+                  <Typography component="h3" variant="h6" style={{ color: "#0C2454", fontSize: 12, margin: 0 }}>
+                    Atividades Diárias <br />
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+                </Grid>
+                <ResponsiveContainer width={"90%"} height={100} style={{ margin: '0' }}>
+                  <BarChart data={TotalsimulatedData}>
+                  <YAxis
+                    type="number"
+                    tick={{ fill: "#A5BDB6", fontSize: 12 }}
+                    domain={[0, 100]} // Define o intervalo de 0 a 30
+                    ticks={[0, 75, 90, 100]} 
+                    interval="preserveStartEnd"// Define os valores que aparecerão no eixo Y
+                  />
 
-
-            {/* USUARIOS ONLINE */}
-            <Grid item xs={12}>
+                  <XAxis dataKey="day" tick={{ fill: "#A5BDB6", fontSize: 12 }}
+                  domain={["seg", "dom"]} // Define o intervalo de 0 a 30
+                  ticks={["seg","dom"]} 
+                   interval="preserveStartEnd"
+                 />
+                  <Tooltip />
+        
+                    <defs>
+                      <linearGradient id="colorAguardando" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#07BEAA" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#fff" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <Tooltip />
+                    <Bar type="monotone" dataKey="value" stroke="#07BEAA" fillOpacity={1} fill="#07BEAA" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </Grid>
+            </Paper>
+          </Grid>
+          </Grid>
+          <Grid item xs={12}>
               {attendants.length ? (
                 <TableAttendantsStatus
                   attendants={attendants}
                   loading={loading}
                 />
               ) : null}
-            </Grid>
-
-
-
-          </Grid>
+            </Grid>
         </Container >
       </Paper>
     </MainContainer>
-  );
+  );
 };
 
 
