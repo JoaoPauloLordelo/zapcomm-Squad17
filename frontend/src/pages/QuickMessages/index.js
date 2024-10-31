@@ -93,14 +93,14 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     ...theme.scrollbarStyles,
   },
-  traco: {
-    height: '2px',
-    width: '104%',
-    backgroundColor: '#0C2454',
-    marginLeft: '-50px',
-    marginBottom: '20px',
-    
-    },
+  blueLine: {
+		border: 0,
+		height: "2px",
+    width: '1230px',
+		backgroundColor: theme.palette.primary.main, // Azul da cor primária do tema
+		margin: theme.spacing(2, 0), // Espaçamento vertical
+	  },
+
 }));
 
 const Quickemessages = () => {
@@ -236,11 +236,15 @@ const Quickemessages = () => {
         aria-labelledby="form-dialog-title"
         quickemessageId={selectedQuickemessage && selectedQuickemessage.id}
       />
+       
       <MainHeader>
+        
         <Grid style={{ width: "99.6%" }} container>
           <Grid xs={12} sm={8} item>
             <Title>{i18n.t("quickMessages.title")}</Title>
+            <hr className={classes.blueLine} />
           </Grid>
+          
           <Grid xs={12} sm={4} item>
             <Grid spacing={2} container>
               <Grid xs={6} sm={6} item>
@@ -253,26 +257,27 @@ const Quickemessages = () => {
                   InputProps={{
                     disableUnderline: true, // remove a linha
                     style: {
-                      color: '#0C2454',// cor do texto normal
-                      fontWeight: 'bold', // texto em negrito
-                      backgroundColor: "#D9D9D9",
+
+                      backgroundColor: '#D3d3d3',
                       borderRadius: '8px',
-                      height: "36.5px",
+                      color: '#0C2454', // cor do texto normal
+                      fontWeight: 'bold', // texto em negrito
                     },
                     inputProps: {
                       style: {
-                        paddingLeft: '8px',
+                        paddingLeft: '8px', // espaçamento à esquerda
                         '&::placeholder': {
                           color: '#0C2454',
+                          
                           fontWeight: 'bold',
-                          Opacity: 1, // cor do placeholder
-                          paddingLeft: "10px"
-
+                          opacity: 1, // cor do placeholder
+                          paddingLeft: '8px', // opcional: para adicionar espaço ao placeholder
                         },
                       },
                     },
-                  endAdornment: (
-                      <InputAdornment position="start">
+                    endAdornment: (
+                      <InputAdornment position="end">
+
                         <SearchIcon style={{ color: '#0C2454' }} />
                       </InputAdornment>
                     ),
@@ -296,20 +301,21 @@ const Quickemessages = () => {
       <div className={classes.traco}></div>
       <Paper
         className={classes.mainPaper}
+        style={{border:'none'}}
         variant="outlined"
         onScroll={handleScroll}
       >
-        <Table size="small">
+        <Table size="small"   style={{ borderCollapse: 'separate', borderSpacing: '0 10px'}}>
           <TableHead>
-            <TableRow>
-              <TableCell align="center">
+            <TableRow style={{ border: 'none' }}>
+              <TableCell align="center"  style={{ border: 'none' }}>
                 {i18n.t("quickMessages.table.shortcode")}
               </TableCell>
 
-              <TableCell align="center">
+              <TableCell align="center" style={{ border: 'none' }}>
                 {i18n.t("quickMessages.table.mediaName")}
               </TableCell>        
-              <TableCell align="center">
+              <TableCell align="center" style={{ border: 'none' }}>
                 {i18n.t("quickMessages.table.actions")}
               </TableCell>
             </TableRow>
@@ -317,15 +323,16 @@ const Quickemessages = () => {
           <TableBody>
             <>
               {quickemessages.map((quickemessage) => (
-                <TableRow key={quickemessage.id}>
-                  <TableCell align="center">{quickemessage.shortcode}</TableCell>
+                <TableRow key={quickemessage.id} style={{marginBottom: '5px'}}>
+                  <TableCell align="center"  style={{ borderRadius: '16px 0 0 16px', overflow: 'hidden' , backgroundColor: '#D3D3D3',  borderRight: '1px solid #ccc', }}>{quickemessage.shortcode}</TableCell>
 
-                  <TableCell align="center">
+                  <TableCell align="center"  style={{  overflow: 'hidden' , backgroundColor: '#D3D3D3' }}>
                     {quickemessage.mediaName ?? i18n.t("quickMessages.noAttachment")}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center"  style={{  borderRadius: '0 16px 16px 0', overflow: 'hidden' , backgroundColor: '#D3D3D3' }}>
                     <IconButton
                       size="small"
+                      color="primary"
                       onClick={() => handleEditQuickemessage(quickemessage)}
                     >
                       <EditIcon />
@@ -334,6 +341,8 @@ const Quickemessages = () => {
 
                     <IconButton
                       size="small"
+                      color="secondary"
+            
                       onClick={(e) => {
                         setConfirmModalOpen(true);
                         setDeletingQuickemessage(quickemessage);
