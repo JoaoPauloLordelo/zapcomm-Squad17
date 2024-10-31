@@ -65,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#0C2454',
     marginLeft: '0px',
   },
+  configcampanha: {
+    padding:'16px'
+  }
 }));
 
 const initialSettings = {
@@ -145,6 +148,7 @@ const CampaignsConfig = () => {
         {i18n.t("campaigns.confirmationModal.deleteMessage")}
       </ConfirmationModal>
       <Paper className={classes.mainPaper} variant="outlined" style={{borderRadius: "16px"}}>
+      <div className={classes.configcampanha}>
       <Grid style={{ width: "100%" }} container>
           <Grid xs={12} sm={8} item>
             <Title style={{ fontSize: '24px', fontWeight: 'bold' }}>Configurações de Campanha</Title>
@@ -344,6 +348,7 @@ const CampaignsConfig = () => {
             )}
           </Grid>
         </Box>
+        </div>
       </Paper>
     </MainContainer>
   );

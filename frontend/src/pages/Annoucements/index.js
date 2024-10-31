@@ -88,7 +88,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.padding,
     overflowY: "scroll",
     ...theme.scrollbarStyles,
+    marginLeft:'0',
+    fullWidth:'1600px'
   },
+
   traco: {
     height: '2px',
     width: '1175px',
@@ -98,6 +101,12 @@ const useStyles = makeStyles((theme) => ({
   icones: {
     paddingBottom: '3px',
     marginRight: '10px'
+  },
+  mainconteiner2: {
+    flex: 1,
+		padding: theme.spacing(2),
+		height: `calc(100% - 48px)`,
+		paddingTop: '80px',
   }
 }));
 
@@ -237,7 +246,7 @@ const Announcements = () => {
   };
 
   return (
-    <MainContainer>
+    <div className={classes.mainconteiner2}>
       <ConfirmationModal
         title={
           deletingAnnouncement &&
@@ -389,7 +398,7 @@ const Announcements = () => {
           </TableBody>
         </Table>
      
-    </MainContainer >
+    </div>
   )
 };
 

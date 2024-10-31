@@ -67,12 +67,12 @@ function ListItemLink(props) {
       )),
     [to]
   );
-
+//#0C2454
   return (
     <li>
       <ListItem button dense component={renderLink} className={className}>
-        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
-        <ListItemText primary={primary} />
+        {icon ? <ListItemIcon /*style={{color:'white'}}*/>{icon}</ListItemIcon> : null}
+        <ListItemText primary={primary} /*style={{color:'white'}}*/ />
       </ListItem>
     </li>
   );
@@ -296,7 +296,7 @@ const MainListItems = (props) => {
   };
 
   return (
-    <div onClick={drawerClose}>
+    <div onClick={drawerClose} /*style={{backgroundColor:'#34D3A3'}}*/>
       <ListItemLink
         to="/paginainicio"
         primary={i18n.t("Página de Inicio")}
@@ -312,7 +312,7 @@ const MainListItems = (props) => {
                 fontSize: "17px",
                 textAlign: "left",
                 paddingLeft: 20
-              }}
+                }}
               inset
               color="inherit">
               {i18n.t("mainDrawer.listItems.tickets")}

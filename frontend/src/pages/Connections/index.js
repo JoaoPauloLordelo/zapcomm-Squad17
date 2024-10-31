@@ -70,7 +70,10 @@ const useStyles = makeStyles(theme => ({
 		left:'5px',
 		color:'black',
 	},
-
+	conexoes: {
+		padding:'16px'
+		
+	},
 
 	contentWrapper: {
 		backgroundColor: "green",
@@ -83,7 +86,6 @@ const useStyles = makeStyles(theme => ({
 		...theme.scrollbarStyles,
 		backgroundColor: "#FFFFFF", 
 		borderRadius: "16px",
-		
 	},
 	customTableCell: {
 		display: "flex",
@@ -109,6 +111,7 @@ const useStyles = makeStyles(theme => ({
 	buttonProgress: {
 		color: green[500],
 	},
+	
 
 }));
 
@@ -377,7 +380,8 @@ const Connections = () => {
 			/>
 			
 			<Paper className={classes.mainPaper} variant="outlined">
-			<MainHeader>
+			<div className={classes.conexoes}>
+			<MainHeader >
 				<Title className={classes.titulo} style={{
 						color: "#000000",}}
 						>{i18n.t("connections.title")}
@@ -462,7 +466,7 @@ const Connections = () => {
 											<TableCell align="center"
 											style={{width: '5%',
 												position: "relative",
-												left: "100px",
+												left: "0px",
 
 											}}>
 												{renderStatusToolTips(whatsApp)}
@@ -519,6 +523,7 @@ const Connections = () => {
 						)}
 					</TableBody>
 				</Table>
+				</div>
 			</Paper>
 		</MainContainer>
 	);

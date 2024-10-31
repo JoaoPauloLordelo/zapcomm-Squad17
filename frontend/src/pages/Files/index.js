@@ -95,6 +95,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#0C2454',
         marginLeft: '0px',
       },
+      listadearq: {
+        padding: '16px'
+      }
 }));
 
 const FileLists = () => {
@@ -213,6 +216,8 @@ const FileLists = () => {
                 variant="outlined"
                 onScroll={handleScroll}
             >
+                <div className={classes.listadearq}>
+
                 <ConfirmationModal
                 title={deletingFileList && `${i18n.t("files.confirmationModal.deleteTitle")}`}
                 open={confirmModalOpen}
@@ -340,6 +345,7 @@ const FileLists = () => {
                         </>
                     </TableBody>
                 </Table>
+                </div> 
             </Paper>
         </MainContainer>
     );

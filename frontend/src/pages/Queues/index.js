@@ -45,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     margin: theme.spacing(2, 0),
   },
+  filaschatbot: {
+    padding:'16px'
+  }
 }));
 
 const reducer = (state, action) => {
@@ -203,6 +206,7 @@ const Queues = () => {
         greetingMessage={selectedQueue?.greetingMessage} // Passando o greetingMessage
       />
       <Paper className={classes.mainPaper} variant="outlined">
+      <div className={classes.filaschatbot}>
       <MainHeader>
         <Title style={{ fontWeight: 'bold', color: '#0C2454' }}>
           Filas & Chatbot
@@ -304,6 +308,7 @@ const Queues = () => {
             </>
           </TableBody>
         </Table>
+        </div>
       </Paper>
     </MainContainer>
   );

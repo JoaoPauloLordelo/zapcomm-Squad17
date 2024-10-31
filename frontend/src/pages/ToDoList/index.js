@@ -14,11 +14,19 @@ import SearchIcon from '@material-ui/icons/Search';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from "@material-ui/core/Paper";
+import Title from "../../components/Title";
 const useStyles = makeStyles({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '2rem',
+    padding:'16px'
+  },
+  mainPaper: {
+    marginTop:'80px',
+    width:'1500px',
+    height:'700px',
+    borderRadius:'16px',
+    marginLeft: '63px'
   },
   titleContainer: {
     display: 'flex',
@@ -31,12 +39,11 @@ const useStyles = makeStyles({
     color: '#0C2454',
   },
   searchField: {
-    backgroundColor: '#CCCCCC',
+    backgroundColor: '#D9D9D9',
     borderRadius: '4px',
     height: '40px',
     width: '250px',
     border: '2px solid #A0A0A0',
-    marginTop: '15px',
     marginLeft: '20px',
     '& .MuiOutlinedInput-root': {
       '& input': {
@@ -61,9 +68,9 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
   input: {
-    backgroundColor: '#CCCCCC',
-    borderRadius: '4px',
-    border: '2px solid #A0A0A0',
+    backgroundColor: '#D9D9D9',
+    borderRadius: '8px',
+    border: '0',
     flexGrow: 1,
     marginRight: '0.5rem',
     padding: '10px',
@@ -130,7 +137,7 @@ const useStyles = makeStyles({
     marginLeft: '16px', // Espaço entre o texto da tarefa e o contêiner de informações
     flexGrow: 1, // Permite que o texto ocupe o espaço disponível
   },
-  
+
 });
 
 const ToDoList = () => {
@@ -207,127 +214,143 @@ const ToDoList = () => {
 
   return (
     <Paper
-        className={classes.mainPaper}
-        variant="outlined"
-      >
-    <div className={classes.root}>
-      <div className={classes.titleContainer}>
-        <Typography variant="h6" className={classes.title}>
-          Tarefas
-        </Typography>
-        <TextField
-          placeholder="Pesquisar..."
-          value={searchParam}
-          onChange={handleSearch}
-          variant="outlined"
-          className={classes.searchField}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton>
-                  <SearchIcon style={{ color: "#0C2454" }} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
+      className={classes.mainPaper}
+      variant="outlined"
+    >
+      <div className={classes.root}>
+        <div className={classes.titleContainer}>
+          <Title>
+            Tarefas
+          </Title>{/*colocar o tiltle*/}
+          <TextField
+            placeholder="Pesquisar..."
+            type="search"
+            value={searchParam}
+            onChange={handleSearch}
+            InputProps={{
+              disableUnderline: true, // remove a linha
+              style: {
+                color: '#0C2454',// cor do texto normal
+                fontWeight: 'bold', // texto em negrito
+                backgroundColor: "#D9D9D9",
+                borderRadius: '8px',
+                height: "36.5px",
+              },
+              inputProps: {
+                style: {
+                  paddingLeft: '8px',
+                  '&::placeholder': {
+                    color: '#0C2454',
+                    fontWeight: 'bold',
+                    Opacity: 1, // cor do placeholder
+                    paddingLeft: "10px"
+                  
+                  },
+                },
+              },
+              endAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon style={{ color: '#0C2454' }} />
+                </InputAdornment>
+              ),
+            }}
         />
-      </div>
-
-      <div className={classes.blueLine} />
-
-      <div className={classes.contentContainer}>
-        <div className={classes.inputContainer}>
-          <input
-            placeholder="Nova tarefa"
-            className={classes.input}
-            value={task}
-            onChange={handleTaskChange}
-          />
-          <Button
-            onClick={handleDeleteTask}
-            className={classes.buttonRed}
-          >
-            <DeleteIcon style={{ marginRight: '5px', marginLeft: '5px' }} />
-          </Button>
-          <Button 
-            variant="contained" 
-            color="primary" 
-            onClick={handleAddTask}
-            className={classes.button}
-          >
-            {editIndex >= 0 ? 'Salvar' : 'Adicionar'}
-          </Button>
         </div>
-        <div className={classes.listContainer}>
-          <List>
-            {tasks.map((task, index) => (
-              <ListItem key={index} className={classes.listItem}>
-              <Checkbox
-  edge="start"
-  checked={checked.indexOf(index) !== -1}
-  tabIndex={-1}
-  disableRipple
-  onClick={() => handleToggle(index)}
-  style={{
-    color: "#0C2454",  // Cor do ícone quando marcado
-    
-    backgroundColor: "#FFFFFF",  // Fundo branco
-    width: '20px',  // Ajuste da largura
-    height: '20px',  // Ajuste da altura
-    padding: '0px',  // Remove o padding extra
-    borderRadius: '4px',  // Bordas arredondadas
-    marginLeft: '10px',  // Move um pouco para a direita
-  }}
-/>
 
-                <div className={classes.infoContainer}>
-                <Typography variant="body2" className={classes.taskText} style={{ color: '#0C2454', fontWeight: 'bold' }}>
-  {task.text}
-</Typography>
+        <div className={classes.blueLine} />
+
+        <div className={classes.contentContainer}>
+          <div className={classes.inputContainer}>
+            <input
+              placeholder="Nova tarefa"
+              className={classes.input}
+              value={task}
+              onChange={handleTaskChange}
+            />
+            <Button
+              onClick={handleDeleteTask}
+              className={classes.buttonRed}
+            >
+              <DeleteIcon style={{ marginRight: '5px', marginLeft: '5px' }} />
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAddTask}
+              className={classes.button}
+            >
+              {editIndex >= 0 ? 'Salvar' : 'Adicionar'}
+            </Button>
+          </div>
+          <div className={classes.listContainer}>
+            <List>
+              {tasks.map((task, index) => (
+                <ListItem key={index} className={classes.listItem}>
+                  <Checkbox
+                    edge="start"
+                    checked={checked.indexOf(index) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                    onClick={() => handleToggle(index)}
+                    style={{
+                      color: "#0C2454",  // Cor do ícone quando marcado
+                      backgroundColor: "#FFFFFF",  // Fundo branco
+                      width: '20px',  // Ajuste da largura
+                      height: '20px',  // Ajuste da altura
+                      padding: '0px',  // Remove o padding extra
+                      borderRadius: '4px',  // Bordas arredondadas
+                      marginLeft: '10px',  // Move um pouco para a direita
+                    }}
+                  />
+
+                  <div className={classes.infoContainer}>
+                    <Typography variant="body2" className={classes.taskText} style={{ color: '#0C2454', fontWeight: 'bold' }}>
+                      {task.text}
+                    </Typography>
 
 
-                  <Typography
-  variant="body2"
-  style={{
-    marginLeft: "100px",
-    marginRight: '10px',
-    fontWeight: 'bold',  // Negrito
-    color: '#0C2454',    // Azul
-  }}
->
-  Criado por:
-</Typography>
+                    <Typography
+                      variant="body2"
+                      style={{
+                        marginLeft: "100px",
+                        marginRight: '10px',
+                        fontWeight: 'bold',  // Negrito
+                        color: '#0C2454',    // Azul
+                      }}
+                    >
+                      Criado por:
+                    </Typography>
 
 
-                  <Avatar className={classes.avatar}>
-                    U
-                  </Avatar>
+                    <Avatar className={classes.avatar}>
+                      U
+                    </Avatar>
 
-                  <Typography variant="body2" className={classes.date}>
-  <span style={{ fontWeight: 'bold', color: '#0C2454' }}>Criada em:</span>
-  <span style={{ color: '#0C2454' }}> {new Date(task.createdAt).toLocaleDateString()}</span>
-</Typography>
+                    <Typography variant="body2" className={classes.date}>
+                      <span style={{ fontWeight: 'bold', color: '#0C2454' }}>Criada em:</span>
+                      <span style={{ color: '#0C2454' }}> {new Date(task.createdAt).toLocaleDateString()}</span>
+                    </Typography>
 
-<Typography variant="body2" className={classes.status}>
-  <span style={{ fontWeight: 'bold', color: '#0C2454' }}>Status:</span> 
-  <span style={{ color: '#0C2454', marginLeft: '4px' }}>{task.status}</span>
-</Typography>
+                    <Typography variant="body2" className={classes.status}>
+                      <span style={{ fontWeight: 'bold', color: '#0C2454' }}>Status:</span>
+                      <span style={{ color: '#0C2454', marginLeft: '4px' }}>{task.status}</span>
+                    </Typography>
 
-</div>
-                <ListItemSecondaryAction>
-                  <IconButton onClick={() => setEditIndex(index)}>
-                    <EditIcon style={{ color: "#0C2454" }} />
-                  </IconButton>
-                  <IconButton onClick={() => handleDeleteTask(index)}>
-                    <DeleteIcon style={{ color: "#0C2454" }} />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List>
+                  </div>
+                  <ListItemSecondaryAction>
+                    <IconButton onClick={() => setEditIndex(index)}>
+                      <EditIcon style={{ color: "#0C2454" }} />
+                    </IconButton>
+                    <IconButton onClick={() => handleDeleteTask(index)}>
+                      <DeleteIcon style={{ color: "#0C2454" }} />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
+            </List>
+          </div>
         </div>
       </div>
-    </div>
     </Paper>
   );
 };

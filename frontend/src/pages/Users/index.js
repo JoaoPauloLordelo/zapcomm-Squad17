@@ -38,13 +38,14 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
   blueLine: {
     border: 0,
     height: "2px", // Mantém a altura original
     backgroundColor: theme.palette.primary.main,
     margin: theme.spacing(1, 0), // Ajusta a margem para controlar a distância
+    marginTop:'5px'
   },
   searchField: {
     backgroundColor: '#DFDFDF',
@@ -68,7 +69,8 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     ...theme.scrollbarStyles,
     backgroundColor:'white',
-    borderRadius:'16px'
+    borderRadius:'16px',
+    padding:'24px'
   },
 }));
 
@@ -243,19 +245,9 @@ const Users = () => {
       
       <div className={classes.mainPaper}>
       <MainHeader>
-        <Typography
-          variant="h6"
-          className={classes.titleMargin} // Adiciona margem inferior
-          style={{
-            fontWeight: 'bold',
-            color: '#0C2454',
-            width: '113.02px',
-            height: '35.18px',
-            marginTop: '41px', // Aumente o valor conforme necessário
-                      }}
-        >
+        <Title>
           Usuários
-        </Typography>
+        </Title>
 
         <MainHeaderButtonsWrapper>
         <TextField   variant="standard"   style={{  borderRadius: '10px',backgroundColor: '#D9D9D9', padding:'3px'}}

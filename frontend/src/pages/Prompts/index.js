@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
     border: 0,
     height: "2px",
     backgroundColor: theme.palette.primary.main, // Azul da cor primária do tema
-    margin: theme.spacing(2, 0), // Espaçamento vertical
   },
   // Adicione um estilo para a box vermelha
   redBox: {
@@ -61,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2), // Adicionando um espaçamento interno
     marginBottom: theme.spacing(2), // Adicionando margem inferior para separar do conteúdo abaixo
   },
+  openai2: {
+    padding:'16px'
+  }
 }));
 
 const reducer = (state, action) => {
@@ -205,6 +207,7 @@ const Prompts = () => {
 
       
       <Paper className={classes.mainPaper} variant="outlined">
+      <div classname={classes.openai2} style={{padding:'16px'}}>
       <ConfirmationModal
         title={
           selectedPrompt &&
@@ -243,7 +246,7 @@ const Prompts = () => {
         </MainHeaderButtonsWrapper>
       </MainHeader>
       <hr className={classes.blueLine} />
-        <Table size="small">
+        <Table size="small" style={{ borderCollapse: 'separate', borderSpacing: '0 20px' }}>
           <TableHead>
   <TableRow>
     <TableCell align="left" className={classes.tableHeaderCell}>
@@ -260,17 +263,18 @@ const Prompts = () => {
     </TableCell>
   </TableRow>
 </TableHead>
-          <TableBody>
+          <TableBody style={{backgroundColor: "#D9D9D9"}}>
             <>
               {prompts.map((prompt) => (
                 <TableRow key={prompt.id}>
-                  <TableCell align="left">{prompt.name}</TableCell>
-                  <TableCell align="left">{prompt.queue.name}</TableCell>
-                  <TableCell align="left">{prompt.maxTokens}</TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left" style={{ borderRadius: '8px 0 0 8px', overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>{prompt.name}</TableCell>
+                  <TableCell align="left" style={{ overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>{prompt.queue.name}</TableCell>
+                  <TableCell align="left" style={{ overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>{prompt.maxTokens}</TableCell>
+                  <TableCell align="center" style={{ borderRadius: '0 8px 8px 0',overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>
                     <IconButton
                       size="small"
                       onClick={() => handleEditPrompt(prompt)}
+                      style={{color:'#0C2454'}}
                     >
                       <Edit />
                     </IconButton>
@@ -281,6 +285,7 @@ const Prompts = () => {
                         setSelectedPrompt(prompt);
                         setConfirmModalOpen(true);
                       }}
+                      style={{color:'red'}}
                     >
                       <DeleteOutline />
                     </IconButton>
@@ -291,6 +296,7 @@ const Prompts = () => {
             </>
           </TableBody>
         </Table>
+        </div>
       </Paper>
     </MainContainer>
   );

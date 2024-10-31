@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 'bold'
     },
     tableRowCell: {
-        backgroundColor: '#BCBCBC',
+        backgroundColor: '#D9D9D9',
         color: '#0C2454',
         fontWeight: 'bold'
     },
@@ -110,7 +110,7 @@ export function HelpManagerForm (props) {
                             InputProps={{
                                 disableUnderline: true, // remove a linha
                                 style: {
-                                backgroundColor: '#CCCCCC', // cor de fundo
+                                backgroundColor: '#D9D9D9', // cor de fundo
                                 color: '#0C2454', // cor do texto normal
                                 paddingLeft: '8px', // espaçamento à esquerda
                                 },
@@ -130,7 +130,7 @@ export function HelpManagerForm (props) {
                                 InputProps={{
                                     disableUnderline: true, // remove a linha
                                     style: {
-                                    backgroundColor: '#CCCCCC', // cor de fundo
+                                    backgroundColor: '#D9D9D9', // cor de fundo
                                     color: '#0C2454', // cor do texto normal
                                     paddingLeft: '8px', // espaçamento à esquerda
                                     },
@@ -148,7 +148,7 @@ export function HelpManagerForm (props) {
                                 InputProps={{
                                     disableUnderline: true, // remove a linha
                                     style: {
-                                    backgroundColor: '#CCCCCC', // cor de fundo
+                                    backgroundColor: '#D9D9D9', // cor de fundo
                                     color: '#0C2454', // cor do texto normal
                                     paddingLeft: '8px', // espaçamento à esquerda
                                     },
@@ -195,23 +195,23 @@ export function HelpsManagerGrid (props) {
     const classes = useStyles()
 
     return (
-        <Paper className={classes.tableContainer} style={{borderRadius: '12px'}}>
             <Table className={classes.fullWidth} size="small" aria-label="a dense table" style={{ borderCollapse: 'separate', borderSpacing: '0 20px' }}>
                 <TableHead>
                 <TableRow className={classes.TableCell} style={{color: '#0C2454'}}>                   
                     <TableCell align="center" className={classes.tableHeadCell}>Título</TableCell>
                     <TableCell align="center" className={classes.tableHeadCell}>Descrição</TableCell>
                     <TableCell align="center" className={classes.tableHeadCell}>Vídeo</TableCell>
+                    <TableCell align="center" className={classes.tableHeadCell}>Ações</TableCell>
                 </TableRow>
 
                 </TableHead>
                 <TableBody>
                 {records.map((row) => (
                     <TableRow key={row.id}g>
-                        <TableCell align="center" className={classes.tableRowCell}>{row.title || '-'}</TableCell>
+                        <TableCell align="center" className={classes.tableRowCell} style={{borderRadius:'8px 0 0 8px'}}>{row.title || '-'}</TableCell>
                         <TableCell align="center" className={classes.tableRowCell}>{row.description || '-'}</TableCell>
                         <TableCell align="center" className={classes.tableRowCell}>{row.video || '-'}</TableCell>
-                        <TableCell align="center" style={{width: '1%'}}>
+                        <TableCell align="center" className={classes.tableRowCell} style={{borderRadius:'0 8px 8px 0'}}>
                             <IconButton onClick={() => onSelect(row)} aria-label="delete">
                                 <EditIcon style={{color: '#0C2454'}}/>
                             </IconButton>
@@ -220,7 +220,6 @@ export function HelpsManagerGrid (props) {
                 ))}
                 </TableBody>
             </Table>
-        </Paper>
     )
 }
 

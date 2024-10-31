@@ -186,10 +186,13 @@ const useStyles = makeStyles((theme) => ({
   },
   traco: {
     height: '2px',
-    width: '1175px',
+    width: '100%',
     backgroundColor: '#0C2454',
     marginLeft: '0px',
   },
+  agend: {
+    padding:'16px'
+  }
 }));
 
 const Schedules = () => {
@@ -351,7 +354,8 @@ const Schedules = () => {
         cleanContact={cleanContact}
       />
       <Paper className={classes.mainPaper} variant="outlined" onScroll={handleScroll}>
-        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "10px"}}>
+        <div className={classes.agend}>
+        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "10px",}}>
           <Title>{i18n.t("schedules.title")} ({schedules.length})</Title>
           <div>
             <TextField
@@ -421,6 +425,7 @@ const Schedules = () => {
           endAccessor="end"
           style={{ height: 500 }}
         />
+        </div>
       </Paper>
     </MainContainer>
   );

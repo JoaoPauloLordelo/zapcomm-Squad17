@@ -92,7 +92,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
-    margin: "20px auto", 
   },
   titles: {
     color: '#0C2C4C',
@@ -154,6 +153,9 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '0px',
     marginTop: '10px'
   },
+  campanhas2: {
+    padding:'16px'
+  }
 }));
 
 const Campaigns = () => {
@@ -334,6 +336,7 @@ const Campaigns = () => {
           borderRadius: "16px",
         }}
       >
+        <div className={classes.campanhas2}>
         <Grid style={{ width: "100%" }} container>
           <Grid xs={12} sm={8} item>
             <Title style={{ fontSize: '24px', fontWeight: 'bold' }}>{i18n.t("campaigns.title")}</Title>
@@ -491,6 +494,7 @@ const Campaigns = () => {
             </>
           </TableBody>
         </Table>
+        </div>
       </Paper>
     </MainContainer>
   );
