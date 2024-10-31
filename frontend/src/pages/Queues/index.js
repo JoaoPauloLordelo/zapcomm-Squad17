@@ -24,7 +24,7 @@ import QueueChatModal from "../../components/QueueChatModal"; // Importando o mo
 import { toast } from "react-toastify";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import { SocketContext } from "../../context/Socket/SocketContext";
-
+import Title from "../../components/Title";
 const useStyles = makeStyles((theme) => ({
   mainPaper: {
     flex: 1,
@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     ...theme.scrollbarStyles,
     borderRadius:'16px',
+
   },
   customTableCell: {
     display: "flex",
@@ -203,9 +204,9 @@ const Queues = () => {
       />
       <Paper className={classes.mainPaper} variant="outlined">
       <MainHeader>
-        <Typography variant="h6" style={{ fontWeight: 'bold', color: '#0C2454' }}>
+        <Title style={{ fontWeight: 'bold', color: '#0C2454' }}>
           Filas & Chatbot
-        </Typography>
+        </Title>
         <MainHeaderButtonsWrapper>
           <Button
             variant="contained"

@@ -196,7 +196,7 @@ export function HelpsManagerGrid (props) {
 
     return (
         <Paper className={classes.tableContainer} style={{borderRadius: '12px'}}>
-            <Table className={classes.fullWidth} size="small" aria-label="a dense table">
+            <Table className={classes.fullWidth} size="small" aria-label="a dense table" style={{ borderCollapse: 'separate', borderSpacing: '0 20px' }}>
                 <TableHead>
                 <TableRow className={classes.TableCell} style={{color: '#0C2454'}}>                   
                     <TableCell align="center" className={classes.tableHeadCell}>Título</TableCell>
