@@ -391,7 +391,8 @@ const messages = {
           message: "Mensagem de",
         },
         tabs: {
-          open: { title: "Abertas" },
+          open: { title: "Atendendo" },
+          waiting: {title: "Aguardando"},
           closed: { title: "Resolvidos" },
           search: { title: "Busca" },
         },
