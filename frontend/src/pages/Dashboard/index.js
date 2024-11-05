@@ -98,6 +98,7 @@ const useStyles = makeStyles((theme) => ({
     overflowX: "hidden",
     borderRadius: '16px',
     ...theme.scrollbarStyles,
+    
   },
   container: {
     paddingTop: theme.spacing(1),
@@ -292,6 +293,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    width: 'fit-content', // Ou ajuste conforme o conteúdo
+    height: 'fit-content', // Reduza o impacto de margens não centralizadas
+    margin: 'auto', // Centraliza a `box` dentro do `Paper`
   },
   container1: {
     margin: theme.spacing(2)
@@ -847,58 +852,58 @@ const Dashboard = () => {
             {/* TOTAL DE ATENDIMENTOS */}
             <div class={classes.box}>
                 <Grid item xs={12} sm={8} md={6} class={classes.container1}>
-                <Paper
-                    className={classes.card2}
-                    elevation={0}
-                    style={{
-                        overflow: "hidden",
-                        backgroundColor: "#F7F9FB",
-                        borderRadius: '10px',
-                        border: '1px solid #A5BDB6',
-                        width: 300,
-                        height: 157,
-                        padding: '3px 10px'
-                }}
-                >
-                <Grid container spacing={1}>
-                    <Grid item xs={6} style={{ display: 'flex', alignItems: 'center' }}>
-                    
-                    
-                    <Typography component="h3" variant="h6" style={{ color: "#0C2454", fontSize: 12, margin: 0 }}>
-                        Atividades Diárias <br />
-                    </Typography>
-                    </Grid>
-                    <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
-                    </Grid>
-                    <ResponsiveContainer width={"90%"} height={100} style={{ margin: '0' }}>
-                    <BarChart data={TotalsimulatedData}>
-                    <YAxis
-                        type="number"
-                        tick={{ fill: "#A5BDB6", fontSize: 12 }}
-                        domain={[0, 100]} // Define o intervalo de 0 a 30
-                        ticks={[0, 75, 90, 100]} 
-                        interval="preserveStartEnd"// Define os valores que aparecerão no eixo Y
-                    />
+                  <Paper
+                      className={classes.card2}
+                      elevation={0}
+                      style={{
+                          overflow: "hidden",
+                          backgroundColor: "#F7F9FB",
+                          borderRadius: '10px',
+                          border: '1px solid #A5BDB6',
+                          width: 300,
+                          height: 157,
+                          padding: '3px 10px'
+                  }}
+                  >
+                    <Grid container spacing={1}>
+                        <Grid item xs={6} style={{ display: 'flex', alignItems: 'center' }}>
+                        
+                        
+                        <Typography component="h3" variant="h6" style={{ color: "#0C2454", fontSize: 12, margin: 0 }}>
+                            Atividades Diárias <br />
+                        </Typography>
+                        </Grid>
+                        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+                        </Grid>
+                        <ResponsiveContainer width={"90%"} height={100} style={{ margin: '0' }}>
+                        <BarChart data={TotalsimulatedData}>
+                        <YAxis
+                            type="number"
+                            tick={{ fill: "#A5BDB6", fontSize: 12 }}
+                            domain={[0, 100]} // Define o intervalo de 0 a 30
+                            ticks={[0, 75, 90, 100]} 
+                            interval="preserveStartEnd"// Define os valores que aparecerão no eixo Y
+                        />
 
-                    <XAxis dataKey="day" tick={{ fill: "#A5BDB6", fontSize: 12 }}
-                    domain={["seg", "dom"]} // Define o intervalo de 0 a 30
-                    ticks={["seg","dom"]} 
-                    interval="preserveStartEnd"
-                    />
-                    <Tooltip />
-            
-                        <defs>
-                        <linearGradient id="colorAguardando" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#07BEAA" stopOpacity={0.8} />
-                            <stop offset="95%" stopColor="#fff" stopOpacity={0} />
-                        </linearGradient>
-                        </defs>
+                        <XAxis dataKey="day" tick={{ fill: "#A5BDB6", fontSize: 12 }}
+                        domain={["seg", "dom"]} // Define o intervalo de 0 a 30
+                        ticks={["seg","dom"]} 
+                        interval="preserveStartEnd"
+                        />
                         <Tooltip />
-                        <Bar type="monotone" dataKey="value" stroke="#07BEAA" fillOpacity={1} fill="#07BEAA" />
-                    </BarChart>
-                    </ResponsiveContainer>
-                </Grid>
-                </Paper>
+                
+                            <defs>
+                            <linearGradient id="colorAguardando" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="#07BEAA" stopOpacity={0.8} />
+                                <stop offset="95%" stopColor="#fff" stopOpacity={0} />
+                            </linearGradient>
+                            </defs>
+                            <Tooltip />
+                            <Bar type="monotone" dataKey="value" stroke="#07BEAA" fillOpacity={1} fill="#07BEAA" />
+                        </BarChart>
+                        </ResponsiveContainer>
+                    </Grid>
+                  </Paper>
                 </Grid>
                     {/* T.M. DE ATENDIMENTO */}
                 <Grid item xs={12} sm={6} md={4} class={classes.container1}>
