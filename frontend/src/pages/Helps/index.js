@@ -157,6 +157,7 @@ const Helps = () => {
 
   return (
     <MainContainer>
+    <Paper>
       <MainHeader>
         <Title>{i18n.t("helps.title")} ({records.length})</Title>
         <MainHeaderButtonsWrapper></MainHeaderButtonsWrapper>
@@ -165,6 +166,7 @@ const Helps = () => {
         {renderHelps()}
       </div>
       {renderVideoModal()}
+    </Paper>
     </MainContainer>
   );
 };
