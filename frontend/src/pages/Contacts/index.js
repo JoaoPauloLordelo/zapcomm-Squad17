@@ -390,13 +390,13 @@ const Contacts = () => {
                         setNewTicketModalOpen(true);
                       }}
                     >
-                      <WhatsAppIcon />
+                      <WhatsAppIcon style={{color:"#34D3A3"}}/>
                     </IconButton>
                     <IconButton
                       size="small"
                       onClick={() => hadleEditContact(contact.id)}
                     >
-                      <EditIcon />
+                      <EditIcon style={{color:"#0C2454"}}/>
                     </IconButton>
                     <Can
                       role={user.profile}
@@ -409,7 +409,7 @@ const Contacts = () => {
                             setDeletingContact(contact);
                           }}
                         >
-                          <DeleteOutlineIcon />
+                          <DeleteOutlineIcon style={{color:"red"}}/>
                         </IconButton>
                       )}
                     />
