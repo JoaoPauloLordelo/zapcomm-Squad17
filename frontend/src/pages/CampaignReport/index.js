@@ -37,6 +37,16 @@ const useStyles = makeStyles((theme) => ({
   tabPanelsContainer: {
     padding: theme.spacing(2),
   },
+  traco: {
+    height: '2px',
+    width: '100%%',
+    backgroundColor: '#0C2454',
+    marginLeft: '0px',
+    marginTop: '10px'
+  },
+  icon: {
+    color: '#0C2454'
+  }
 }));
 
 const CampaignReport = () => {
@@ -146,15 +156,16 @@ const CampaignReport = () => {
 
   return (
     <MainContainer>
-      <MainHeader>
-        <Grid style={{ width: "99.6%" }} container>
-          <Grid xs={12} item>
-            <Title>Relatório da {campaign.name || "Campanha"}</Title>
-          </Grid>
-        </Grid>
-      </MainHeader>
       <Paper className={classes.mainPaper} variant="outlined">
-        <Typography variant="h6" component="h2">
+        <MainHeader>
+            <Grid style={{ width: "99.6%" }} container>
+                <Grid xs={12} item>
+                    <Title style={{ color:'#0C2454', fontWeight:800}}>Relatório da {campaign.name || "Campanha"}</Title>
+                </Grid>
+            </Grid>
+        </MainHeader>
+        <div className={classes.traco}></div>
+        <Typography variant="h6" component="h2" style={{ color:'#0C2454', fontWeight:800, marginTop: '15px'}}>
           Status: {formatStatus(campaign.status)} {delivered} de {validContacts}
         </Typography>
         <Grid spacing={2} container>
@@ -167,9 +178,9 @@ const CampaignReport = () => {
           </Grid>
           <Grid xs={12} md={4} item>
             <CardCounter
-              icon={<GroupIcon fontSize="inherit" />}
-              title="Contatos Válidos"
-              value={validContacts}
+              icon={<GroupIcon fontSize="inherit" className={classes.icon} />}
+              title={<span style={{ color: '#0C2454', fontWeight: 'bold' }}>Contatos Válidos</span>}
+              value={<span style={{ color: '#0C2454' }}>{validContacts}</span>}
               loading={loading}
             />
           </Grid>
@@ -177,17 +188,17 @@ const CampaignReport = () => {
             <>
               <Grid xs={12} md={4} item>
                 <CardCounter
-                  icon={<DoneIcon fontSize="inherit" />}
-                  title="Confirmações Solicitadas"
-                  value={confirmationRequested}
+                  icon={<DoneIcon fontSize="inherit" className={classes.icon} />}
+                  title={<span style={{ color: '#0C2454', fontWeight: 'bold' }}>Confirmações Solicitadas</span>}
+                  value={<span style={{ color: '#0C2454' }}>{confirmationRequested}</span>}
                   loading={loading}
                 />
               </Grid>
               <Grid xs={12} md={4} item>
                 <CardCounter
-                  icon={<DoneAllIcon fontSize="inherit" />}
-                  title="Confirmações"
-                  value={confirmed}
+                  icon={<DoneAllIcon fontSize="inherit" className={classes.icon} />}
+                  title={<span style={{ color: '#0C2454', fontWeight: 'bold' }}>Confirmações</span>}
+                  value={<span style={{ color: '#0C2454' }}>{confirmed}</span>}
                   loading={loading}
                 />
               </Grid>
@@ -195,18 +206,18 @@ const CampaignReport = () => {
           )}
           <Grid xs={12} md={4} item>
             <CardCounter
-              icon={<CheckCircleIcon fontSize="inherit" />}
-              title="Entregues"
-              value={delivered}
+              icon={<CheckCircleIcon fontSize="inherit" className={classes.icon} />}
+              title={<span style={{ color: '#0C2454', fontWeight: 'bold' }}>Entregues</span>}
+              value={<span style={{ color: '#0C2454' }}>{delivered}</span>}
               loading={loading}
             />
           </Grid>
           {campaign.whatsappId && (
             <Grid xs={12} md={4} item>
               <CardCounter
-                icon={<WhatsAppIcon fontSize="inherit" />}
-                title="Conexão"
-                value={campaign.whatsapp.name}
+                icon={<WhatsAppIcon fontSize="inherit" className={classes.icon} />}
+                title={<span style={{ color: '#0C2454', fontWeight: 'bold' }}>Conexão</span>}
+                value={<span style={{ color: '#0C2454' }}>{campaign.whatsapp.name}</span>}
                 loading={loading}
               />
             </Grid>
@@ -214,26 +225,26 @@ const CampaignReport = () => {
           {campaign.contactListId && (
             <Grid xs={12} md={4} item>
               <CardCounter
-                icon={<ListAltIcon fontSize="inherit" />}
-                title="Lista de Contatos"
-                value={campaign.contactList.name}
+                icon={<ListAltIcon fontSize="inherit" className={classes.icon} />}
+                title={<span style={{ color: '#0C2454', fontWeight: 'bold' }}>Lista de Contatos</span>}
+                value={<span style={{ color: '#0C2454' }}>{campaign.contactList.name}</span>}
                 loading={loading}
               />
             </Grid>
           )}
           <Grid xs={12} md={4} item>
             <CardCounter
-              icon={<ScheduleIcon fontSize="inherit" />}
-              title="Agendamento"
-              value={datetimeToClient(campaign.scheduledAt)}
+              icon={<ScheduleIcon fontSize="inherit" className={classes.icon} />}
+              title={<span style={{ color: '#0C2454', fontWeight: 'bold' }}>Agendamento</span>}
+              value={<span style={{ color: '#0C2454' }}>{datetimeToClient(campaign.scheduledAt)}</span>}
               loading={loading}
             />
           </Grid>
           <Grid xs={12} md={4} item>
             <CardCounter
-              icon={<EventAvailableIcon fontSize="inherit" />}
-              title="Conclusão"
-              value={datetimeToClient(campaign.completedAt)}
+              icon={<EventAvailableIcon fontSize="inherit" className={classes.icon} />}
+              title={<span style={{ color: '#0C2454', fontWeight: 'bold' }}>Conclusão</span>}
+              value={<span style={{ color: '#0C2454' }}>{datetimeToClient(campaign.completedAt)}</span>}
               loading={loading}
             />
           </Grid>
