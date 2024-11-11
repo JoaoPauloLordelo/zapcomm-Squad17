@@ -10,7 +10,8 @@ import useHelps from "../../hooks/useHelps";
 const useStyles = makeStyles(theme => ({
   mainPaperContainer: {
     overflowY: 'auto',
-    maxHeight: 'calc(100vh - 200px)',
+    maxHeight: 'calc(100vh - 200px)', 
+     padding:'16px'
   },
   mainPaper: {
     width: '100%',
@@ -19,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     gap: theme.spacing(3),
     padding: theme.spacing(2),
     marginBottom: theme.spacing(3),
+  
   },
   helpPaper: {
     position: 'relative',
@@ -69,6 +71,12 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'white',
     borderRadius: theme.spacing(1),
     overflow: 'hidden',
+  },
+  traco: {
+    height: '2px',
+    width: '100%',
+    backgroundColor: '#0C2454',
+    marginLeft: '0px',
   },
 }));
 
@@ -156,16 +164,18 @@ const Helps = () => {
   };
 
   return (
-    <MainContainer>
+
+    <div style={{padding:'16px', borderRadius:'16px', backgroundColor:'white', width:'1450px', height:'750px', marginTop:'80px', marginLeft:'67px'}}>
       <MainHeader>
         <Title>{i18n.t("helps.title")} ({records.length})</Title>
         <MainHeaderButtonsWrapper></MainHeaderButtonsWrapper>
       </MainHeader>
+      <div className={classes.traco}></div>
       <div className={classes.mainPaper}>
         {renderHelps()}
       </div>
       {renderVideoModal()}
-    </MainContainer>
+    </div>
   );
 };
 

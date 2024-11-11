@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
+    borderRadius:"12px",  
   },
 }));
 
@@ -228,7 +229,7 @@ export default function ChatPopover() {
         variant="contained"
         color={invisible ? "default" : "inherit"}
         onClick={handleClick}
-        style={{ color: "#34D3A3" }}
+        style={{ color: "white" }}
       >
         <Badge color="secondary" variant="dot" invisible={invisible}>
           <ForumIcon />

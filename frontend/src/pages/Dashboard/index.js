@@ -790,6 +790,7 @@ const Dashboard = () => {
                     Novos Contatos <br />
                     <span style={{ color: "#C3C3C3" }}>Chamados</span>
                   </Typography>
+
                   </Grid>
                   <Grid item xs={4} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
                     {/* Número de novos contatos e "pessoas" em uma única linha */}
@@ -818,6 +819,7 @@ const Dashboard = () => {
             </Grid>
 
             {/* BOTAO FILTRAR */}
+
             <Grid item xs={12} className={classes.alignRight}>
               <ButtonWithSpinner
                 loading={loading}
@@ -828,6 +830,9 @@ const Dashboard = () => {
                 Filtrar
               </ButtonWithSpinner>
             </Grid>
+        */}
+        
+        
 
             {/* TOTAL DE ATENDIMENTOS POR USUARIO */}
             <Grid item xs={12}>
@@ -840,6 +845,7 @@ const Dashboard = () => {
             {/* TOTAL DE ATENDIMENTOS */}
             <div class={classes.box}>
                 <Grid item xs={12} sm={8} md={6} class={classes.container1}>
+
                 <Paper
                     className={classes.card2}
                     elevation={0}
@@ -957,6 +963,7 @@ const Dashboard = () => {
                   </Grid>
                 </Paper>
               </Grid>
+
 
             </div>
           </Grid>
