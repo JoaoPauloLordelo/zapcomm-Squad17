@@ -25,9 +25,9 @@ const useStyles = makeStyles(theme => ({
 		flex: 1,
 		backgroundColor: "#34d3a3", // Cor de fundo secundária
 		padding: theme.spacing(1),
-		height: `calc(100% - 48px)`,
+		height: `100%`,
 
-		overflowY: "auto",
+		overflow: "auto",
 		margin: 'auto',
 		paddingTop: '70px',
 		width: '80%',
@@ -98,14 +98,7 @@ const useStyles = makeStyles(theme => ({
 		height: "100%",
 		textAlign: "center",
 	},
-	quickMessages: {
-        padding: theme.spacing(2),
-        backgroundColor: "#ffff", // Destaque leve no fundo
-        width: "100%",
-        height: "100%", // Preenche completamente o contêiner
-		textAlign: "left"
-		},
-	
+
 
 }));
 
@@ -121,20 +114,11 @@ const TicketsCustom = () => {
 			<div className={classes.headerContainer}>
 			  <h1 style={{ color: '#0C2454', marginRight: '16px' }}>Chamados</h1>
 			  
-			  <div className={classes.serachInputWrapper} style={{ marginLeft: '350px' }}>
+			  <div className={classes.serachInputWrapper} style={{ marginLeft: '50%' }}>
 				
-				<InputBase
-				  className={classes.searchInput}
-				  placeholder={i18n.t("tickets.search.placeholder")}
-				  type="search"
-				  startAdornment={
-					<InputAdornment position="start">
-					  <SearchIcon className={classes.searchIcon} />
-					</InputAdornment>
-				  }
-				/>
-				<TagsFilter style={{ marginLeft: '8px', marginTop: '8px' }}/>
-				<UsersFilter style={{ marginLeft: '8px', marginTop: '8px' }}/>
+				{/* Removi a barra de pesquisa e os filtroa de tag e ticket na
+				parte do header do paper */}
+			
 			  </div>
 			</div>
 			<hr className={classes.blueLine} />
@@ -146,9 +130,13 @@ const TicketsCustom = () => {
 			  <Grid item xs={8} className={classes.messagesWrapper}>
 				{/* Mensagens podem ser adicionadas aqui */}
 			  </Grid>
-			</Grid>
+		
+			<Grid style={{position:"relative", marginLeft:"-5%", height:"80%", width:"100%", marginTop:"-15px"}} >
 			<Quickemessages />
+			</Grid>
+			</Grid>
 		  </Paper>
+		  
 		</div>
 	  );
 

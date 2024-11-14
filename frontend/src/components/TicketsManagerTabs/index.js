@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 		overflow: "hidden",
 		borderTopRightRadius: 0,
 		borderBottomRightRadius: 0,
-		borderRadius:0,
+		borderRadius:"16px",
 	},
 
 	tabsHeader: {
@@ -54,6 +54,9 @@ const useStyles = makeStyles(theme => ({
 		marginLeft: "auto",
 		padding: 8,
 	},
+  Paper: {
+    borderRadius: "16px",
+  },
 
 	tab: {
 		minWidth: 120,
@@ -153,7 +156,13 @@ const useStyles = makeStyles(theme => ({
 		'& .MuiInputLabel-outlined': {
 			marginTop: "-6px"
 		}
-	}
+	},
+  tab: {
+    minWidth: 60, // Diminui a largura mínima das tabs
+    width: 60, // Define uma largura fixa menor
+    backgroundColor: theme.palette.options,
+    fontSize: '0.9rem', // Diminui o tamanho da fonte, se necessário
+  },
 }));
 
 const TicketsManagerTabs = () => {
@@ -257,11 +266,12 @@ const TicketsManagerTabs = () => {
           textColor="primary"
           aria-label="icon label tabs example"
         >
-          <Tab
+          <Tab 
             value={"open"}
             
             label={i18n.t("tickets.tabs.open.title")}
             classes={{ root: classes.tab }}
+            style={{ minWidth: "80px", width: "80px" }}
           />
           <Tab
             value={"waiting"}
@@ -307,11 +317,11 @@ const TicketsManagerTabs = () => {
               role={user.profile}
               perform="tickets-manager:showall"
               yes={() => (
-                <FormControlLabel
+                <FormControlLabel style={{marginRight:"40px"}} /* Altera o botão de todos/switch */
                   label={i18n.t("tickets.buttons.showAll")}
                   labelPlacement="start"
                   control={
-                    <Switch style={{marginRight:"-15px"}}
+                    <Switch 
                       size="small"
                       checked={showAllTickets}
                       onChange={() =>
