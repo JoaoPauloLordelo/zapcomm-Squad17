@@ -50,9 +50,9 @@ const useStyles = makeStyles(theme => ({
 	},
 	blueLine: {
 		border: 0,
-		height: "2px",
+		height: "1px",
 		backgroundColor: theme.palette.primary.main, // Azul da cor primária do tema
-		margin: theme.spacing(2, 0), // Espaçamento vertical
+
 	  },
 	contactsWrapper: {
 
@@ -98,6 +98,17 @@ const useStyles = makeStyles(theme => ({
 		height: "100%",
 		textAlign: "center",
 	},
+	fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'80%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
 
 
 }));
@@ -109,8 +120,7 @@ const TicketsCustom = () => {
 
 	return (
 
-		<div className={classes.chatContainer}>
-		  <Paper className={classes.chatPaper} elevation={3} style={{ padding: '8px' }}>
+		  <div className={classes.fundo}>
 			<div className={classes.headerContainer}>
 			  <h1 style={{ color: '#0C2454', marginRight: '16px' }}>Chamados</h1>
 			  
@@ -131,13 +141,11 @@ const TicketsCustom = () => {
 				{/* Mensagens podem ser adicionadas aqui */}
 			  </Grid>
 		
-			<Grid style={{position:"relative", marginLeft:"-5%", height:"80%", width:"100%", marginTop:"-15px"}} >
+			
 			<Quickemessages />
+	
 			</Grid>
-			</Grid>
-		  </Paper>
-		  
-		</div>
+		  </div>
 	  );
 
 };
