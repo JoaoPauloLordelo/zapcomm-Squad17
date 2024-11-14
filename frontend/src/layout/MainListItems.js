@@ -302,9 +302,13 @@ const MainListItems = (props) => {
         to="/paginainicio"
         style={{
             color: '#0C2454',
-            fontSize: '16px',
+            fontSize: '17px',
           }}
-        primary={i18n.t("Página de Inicio")}
+        primary={<Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+        {i18n.t("Página de Início")}
+      </Typography>
+        
+        }
           
         icon={<TableChartIcon style={{color: '#0C2454'}}/>}
       />
@@ -326,7 +330,9 @@ const MainListItems = (props) => {
             </ListSubheader>
             <ListItemLink
         to="/chats"
-        primary={i18n.t("mainDrawer.listItems.chats")}
+        primary={<Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+        {i18n.t("Chat Interno")}
+      </Typography>}
         icon={
           <Badge color="secondary" variant="dot" invisible={invisible}>
             <ForumIcon style={{color: '#0C2454'}}/>
@@ -336,12 +342,17 @@ const MainListItems = (props) => {
       />
             <ListItemLink
         to="/tickets"
-        primary={i18n.t("mainDrawer.listItems.tickets")}
+        primary={<Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+        {i18n.t("Chamados")}
+      </Typography>}
+      
         icon={<WhatsAppIcon style={{color: '#0C2454'}}/>}
       />
       <ListItemLink
               to="/connections"
-              primary={i18n.t("mainDrawer.listItems.connections")}
+              primary={<Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+              {i18n.t("Conexões")}
+            </Typography>}
               icon={
                 <Badge badgeContent={connectionWarning ? "!" : 0} color="error">
                   <SyncAltIcon style={{color: '#0C2454'}}/>
@@ -350,7 +361,9 @@ const MainListItems = (props) => {
             />
             <ListItemLink
               to="/files"
-              primary={i18n.t("mainDrawer.listItems.files")}
+              primary={<Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+              {i18n.t("Lista de Arquivos")}
+            </Typography>}
               icon={<AttachFile style={{color: '#0C2454'}}/>}
             />
             
@@ -365,6 +378,7 @@ const MainListItems = (props) => {
                   </ListItemIcon>
                   <ListItemText
                     primary={'Campanhas'}
+                    primaryTypographyProps={{ style: { fontSize: '0.9rem', color: '#0C2454' } }}
                   />
                   {openInternSubmenu ? (
                     <ExpandLessIcon style={{color: '#0C2454'}}/>
@@ -382,12 +396,18 @@ const MainListItems = (props) => {
                   <List component="div" disablePadding>
                   <ListItemLink
         to="/contact-lists"
-        primary={i18n.t("mainDrawer.listItems.contactList")}
+        primary={
+        <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+        {i18n.t("mainDrawer.listItems.contactList")}
+      </Typography> 
+      }
         icon={<EventAvailableIcon style={{color: '#0C2454'}}/>}
       />
          <ListItemLink
         to="/campaigns"
-        primary={'Campanhas'}
+        primary={<Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+        {i18n.t("Campanhas")}
+      </Typography>}
         icon={<EventAvailableIcon style={{color: '#0C2454'}}/>}
       />                
                     <ListItem
@@ -397,7 +417,10 @@ const MainListItems = (props) => {
                       <ListItemIcon>
                         <SettingsOutlinedIcon style={{color: '#0C2454'}}/>
                       </ListItemIcon>
-                      <ListItemText primary="Configurações" />
+                      <ListItemText primary="Configurações"
+                                   primaryTypographyProps={{ style: { fontSize: '0.9rem', color: '#0c2454'} }}
+
+                       />
                     </ListItem>
                   </List>
                 </Collapse>
@@ -431,6 +454,8 @@ const MainListItems = (props) => {
                   </ListItemIcon>
                   <ListItemText
                     primary={i18n.t("mainDrawer.listItems.management")}
+                    primaryTypographyProps={{ style: { fontSize: '0.9rem', color: '#0C2454' } }}
+
                   />
                   {openManagementSubmenu ? (
                     <ExpandLessIcon style={{color: '#0C2454'}}/>
@@ -452,7 +477,11 @@ const MainListItems = (props) => {
 	{showKanban && (  
 	  <ListItemLink
         to="/kanban"
-        primary={i18n.t("Kanban")}
+        primary={
+          <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+          {i18n.t("Kanban")}
+        </Typography> 
+        }
         icon={<TableChartIcon style={{color: '#0C2454'}}/>}
       />
       
@@ -460,33 +489,57 @@ const MainListItems = (props) => {
 	  
 	  <ListItemLink
         to="/todolist"
-        primary={i18n.t("Tarefas")}
+        primary={
+          <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+          {i18n.t("Tarefas")}
+        </Typography> 
+        }
         icon={<BorderColorIcon style={{color: '#0C2454'}}/>}
       />
        <ListItemLink
         to="/contacts"
-        primary={i18n.t("mainDrawer.listItems.contacts")}
+        primary={
+          <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+          {i18n.t("Contatos")}
+        </Typography> 
+        }
         icon={<ContactPhoneOutlinedIcon style={{color: '#0C2454'}}/>}
       />
 
        <ListItemLink
               to="/users"
-              primary={i18n.t("mainDrawer.listItems.users")}
+              primary={
+                <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+                {i18n.t("Usuários")}
+              </Typography> 
+              }
               icon={<PeopleAltOutlinedIcon style={{color: '#0C2454'}}/>}
             />
        <ListItemLink
             to="/"
-            primary="Dashboard"
+            primary={
+              <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+              {i18n.t("Dashboard")}
+            </Typography> 
+            }
             icon={<DashboardOutlinedIcon style={{color: '#0C2454'}}/>}
           />
       <ListItemLink
         to="/schedules"
-        primary={i18n.t("mainDrawer.listItems.schedules")}
+        primary={
+          <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+          {i18n.t("Agendamentos")}
+        </Typography> 
+        }
         icon={<EventIcon style={{color: '#0C2454'}}/>}
       />
        <ListItemLink
         to="/tags"
-        primary={i18n.t("mainDrawer.listItems.tags")}
+        primary={
+          <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+          {i18n.t("Tags")}
+        </Typography> 
+        }
         icon={<LocalOfferIcon style={{color: '#0C2454'}}/>}
       />
        
@@ -527,6 +580,9 @@ const MainListItems = (props) => {
                   </ListItemIcon>
                   <ListItemText
                     primary={i18n.t("mainDrawer.listItems.queueIntegration")}
+                    primaryTypographyProps={{ style: { fontSize: '0.9rem', color: '#0c2454' } }}
+
+                    
                   />
                   
                   {openCampaignSubmenu ? (
@@ -547,19 +603,31 @@ const MainListItems = (props) => {
               <>
                 <ListItemLink
                   to="/messages-api"
-                  primary={i18n.t("mainDrawer.listItems.messagesAPI")}
+                  primary={
+                    <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+                    {i18n.t("API")}
+                  </Typography> 
+                  }
                   icon={<CodeRoundedIcon style={{color: '#0C2454'}}/>}
                 />
               </>
             
                     <ListItemLink
               to="/queues"
-              primary={i18n.t("mainDrawer.listItems.queues")}
+              primary={
+                <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+                {i18n.t("Filas & Chatbot")}
+              </Typography> 
+              }
               icon={<AccountTreeOutlinedIcon style={{color: '#0C2454'}}/>}
             />
                     <ListItemLink
                 to="/prompts"
-                primary={i18n.t("mainDrawer.listItems.prompts")}
+                primary={
+                  <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+                  {i18n.t("Open.Ai")}
+                </Typography> 
+                }
                 icon={<AllInclusive style={{color: '#0C2454'}}/>}
               />
                     
@@ -567,7 +635,11 @@ const MainListItems = (props) => {
                       
               <ListItemLink
                 to="/queue-integration"
-                primary={i18n.t("mainDrawer.listItems.queueIntegration")}
+                primary={
+                  <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+                  {i18n.t("Integrações")}
+                </Typography> 
+                }
                 icon={<DeviceHubOutlined style={{color: '#0C2454'}}/>}
                 
               />
@@ -593,14 +665,30 @@ const MainListItems = (props) => {
             </ListSubheader>
       <ListItemLink
         to="/settings"
-        primary={i18n.t("mainDrawer.listItems.settings")}
+        primary={
+          <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+          {i18n.t("Configurações")}
+        </Typography> 
+        }
+        primaryTypographyProps={{ style: { color: '#0c2454' } }}
+
         icon={<SettingsOutlinedIcon  style={{color: '#0C2454'}}/>}
       />      
 
 	  <ListItemLink
         to="/helps"
-        primary={i18n.t("mainDrawer.listItems.helps")}
-        icon={<HelpOutlineIcon style={{color: '#0C2454'}}/>}
+        primary={
+          <Typography style={{ color: '#0C2454', fontSize: '0.9rem' }}>
+          {i18n.t("Ajuda")}
+        </Typography> 
+        }
+        
+        icon={<HelpOutlineIcon style={{color:'#0c2454'}}/>}
+      />
+    
+    <ListItemText
+                    primary={i18n.t("mainDrawer.listItems.helps")}
+                    primaryTypographyProps={{ style: { color: '#0c2454' } }}
       />
 	
      <Divider />
@@ -612,7 +700,7 @@ const MainListItems = (props) => {
                 <img style={{ width: "100%", padding: "10px" }} src={logo} alt="image" />            
               </Hidden> 
               */}
-              <Typography style={{ fontSize: "12px", padding: "10px", textAlign: "right", fontWeight: "bold" }}>
+              <Typography style={{ fontSize: "17px", padding: "10px", textAlign: "right", fontWeight: "bold" }}>
                 {`6.0.0`}
 
               </Typography>
