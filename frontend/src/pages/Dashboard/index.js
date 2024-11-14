@@ -301,6 +301,7 @@ const useStyles = makeStyles((theme) => ({
   container1: {
     margin: theme.spacing(2)
   },
+
   fundo: {
     marginTop:'80px',
     backgroundColor:'white',
@@ -312,6 +313,7 @@ const useStyles = makeStyles((theme) => ({
     overflowY:'scroll',
     ...theme.scrollbarStyles,
   },
+
 }));
 
 
@@ -346,13 +348,13 @@ const Dashboard = () => {
 
   const TotalsimulatedData = [
 
-    { name: 'Seg', value: 50 },
-    { name: 'Ter', value: 100 },
-    { name: 'Qua', value: 85 },
-    { name: 'Qui', value: 35 },
-    { name: 'Sex', value: 15 },
-    { name: 'Sáb', value: 65 },
-    { name: 'Dom', value: 5 },
+    { day: 'Seg', value: 50 },
+    { day: 'Ter', value: 100 },
+    { day: 'Qua', value: 85 },
+    { day: 'Qui', value: 35 },
+    { day: 'Sex', value: 15 },
+    { day: 'Sáb', value: 65 },
+    { day: 'Dom', value: 5 },
   
   ];
 
@@ -516,64 +518,80 @@ const Dashboard = () => {
     return count;
   };
   function renderFilters() {
-    if (filterType === 1) {
-      return (
-        <>
-          <Grid item xs={12} sm={6} md={4}>
-            <TextField
-              label="Data Inicial"
-              type="date"
-              value={dateFrom}
-              onChange={(e) => setDateFrom(e.target.value)}
-              className={classes.fullWidth}
-              InputLabelProps={{
-                backgroundColorolor: '#0C2454',
-                shrink: true,
-              }}
-              style={{ width: '50%' }} // Ajuste o tamanho aqui
-            />
+    return (
+      <Grid container spacing={3} style={{ paddingLeft: '25px' }}>
+        {filterType === 1 ? (
+          <>
+            {/* Campo de Data Inicial */}
+            <Grid item xs={12} sm={3} md={2}>
+              <TextField
+                label="Data Inicial"
+                type="date"
+                value={dateFrom}
+                onChange={(e) => setDateFrom(e.target.value)}
+                className={classes.fullWidth}
+                InputLabelProps={{ shrink: true }}
+                style={{ width: '100%', marginTop: '10px' }}
+              />
+            </Grid>
+ 
+            {/* Campo de Data Final */}
+            <Grid item xs={12} sm={3} md={2}>
+              <TextField
+                label="Data Final"
+                type="date"
+                value={dateTo}
+                onChange={(e) => setDateTo(e.target.value)}
+                className={classes.fullWidth}
+                InputLabelProps={{ shrink: true }}
+                style={{ width: '100%', marginLeft: '100px', marginTop: '10px' }}
+              />
+            </Grid>
+          </>
+        ) : (
+          /* Campo de Período */
+          <Grid item xs={12} sm={3} md={2}>
+            <FormControl className={classes.selectContainer} style={{ width: '100%', marginTop: '10px' }}>
+              <InputLabel id="period-selector-label">Período</InputLabel>
+              <Select
+                labelId="period-selector-label"
+                id="period-selector"
+                value={period}
+                onChange={(e) => handleChangePeriod(e.target.value)}
+                style={{ color: '#0C2454' }}
+              >
+                <MenuItem value={0}>Nenhum selecionado</MenuItem>
+                <MenuItem value={3}>Últimos 3 dias</MenuItem>
+                <MenuItem value={7}>Últimos 7 dias</MenuItem>
+                <MenuItem value={15}>Últimos 15 dias</MenuItem>
+                <MenuItem value={30}>Últimos 30 dias</MenuItem>
+                <MenuItem value={60}>Últimos 60 dias</MenuItem>
+                <MenuItem value={90}>Últimos 90 dias</MenuItem>
+              </Select>
+              <FormHelperText>Selecione o período desejado</FormHelperText>
+            </FormControl>
           </Grid>
-          <Grid item xs={12} sm={6} md={4} style={{ marginLeft: '-90px' }}> {/* Ajuste a margem aqui */}
-            <TextField
-              label="Data Final"
-              type="date"
-              value={dateTo}
-              onChange={(e) => setDateTo(e.target.value)}
-              className={classes.fullWidth}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              style={{ width: '50%' }} // Ajuste o tamanho aqui
-            />
-          </Grid>
-        </>
-      );
-    } else {
-      return (
-        <Grid item xs={12} sm={6} md={4}>
-          <FormControl className={classes.selectContainer} style={{ width: '80%' }}> {/* Ajuste o tamanho aqui */}
-            <InputLabel id="period-selector-label">Período</InputLabel>
+        )}
+ 
+        {/* Campo Tipo de Filtro (mantido em posição original) */}
+        <Grid item xs={12} sm={3} md={2}>
+          <FormControl className={classes.selectContainer} style={{ width: '100%', marginLeft: '190px', marginTop: '10px' }}>
+            <InputLabel id="filter-type-label">Tipo de Filtro</InputLabel>
             <Select
-              labelId="period-selector-label"
-              id="period-selector"
-              value={period}
-              onChange={(e) => handleChangePeriod(e.target.value)}
-              style={{ color: '#0C2454' }} // Define a cor do texto aqui
+              labelId="filter-type-label"
+              value={filterType}
+              onChange={(e) => handleChangeFilterType(e.target.value)}
             >
-              <MenuItem value={0}>Nenhum selecionado</MenuItem>
-              <MenuItem value={3}>Últimos 3 dias</MenuItem>
-              <MenuItem value={7}>Últimos 7 dias</MenuItem>
-              <MenuItem value={15}>Últimos 15 dias</MenuItem>
-              <MenuItem value={30}>Últimos 30 dias</MenuItem>
-              <MenuItem value={60}>Últimos 60 dias</MenuItem>
-              <MenuItem value={90}>Últimos 90 dias</MenuItem>
+              <MenuItem value={1}>Filtro por Data</MenuItem>
+              <MenuItem value={2}>Filtro por Período</MenuItem>
             </Select>
-            <FormHelperText>Selecione o período desejado</FormHelperText>
+            <FormHelperText>Selecione o tipo de filtro</FormHelperText>
           </FormControl>
         </Grid>
-      );
-    }
+      </Grid>
+    );
   }
+
   return (
     <div style={{height:'80%'}}>
       <div className={classes.fundo}>
@@ -700,7 +718,6 @@ const Dashboard = () => {
             </Paper>
           </Grid>
 
-
           {/* FINALIZADOS */}
           <Grid item xs={12} sm={6} md={3}>
             <Paper
@@ -757,9 +774,6 @@ const Dashboard = () => {
             </Paper>
           </Grid>
 
-
-
-
           {/* NOVOS CONTATOS */}
           <Grid item xs={12} sm={6} md={3}>
             <Paper
@@ -789,32 +803,6 @@ const Dashboard = () => {
                     Novos Contatos <br />
                     <span style={{ color: "#C3C3C3" }}>Chamados</span>
                   </Typography>
-                </Grid>
-                <Grid item xs={4} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
-                  {/* Número de novos contatos e "pessoas" em uma única linha */}
-                  <Typography component="h1" variant="h4" style={{ color: "#0C2454", fontSize: 12, marginRight: '5px', display: 'flex', alignItems: 'center' }}>
-                    {GetContacts(true)}
-                  </Typography>
-                  <Typography component="h1" variant="h4" style={{ color: "#0C2454", fontSize: 12 }}>
-                    pessoas
-                  </Typography>
-                  <GroupAddIcon style={{ fontSize: 40, color: "#FFFFFF", marginLeft: '5px' }} />
-                </Grid>
-                <ResponsiveContainer width="100%" height={70} style={{ margin: '0' }}>
-                  <AreaChart data={simulatedData}>
-                    <defs>
-                      <linearGradient id="colorNovosContatos" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#0C1E43" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#fff" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <Tooltip />
-                    <Area type="monotone" dataKey="value" stroke="#0C1E43" fillOpacity={1} fill="url(#colorNovosContatos)" />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </Grid>
-            </Paper>
-          </Grid>
 
 
 
@@ -838,6 +826,7 @@ const Dashboard = () => {
             </Grid>
 
             BOTAO FILTRAR 
+
             <Grid item xs={12} className={classes.alignRight}>
               <ButtonWithSpinner
                 loading={loading}
@@ -863,6 +852,7 @@ const Dashboard = () => {
             {/* TOTAL DE ATENDIMENTOS */}
             <div class={classes.box}>
                 <Grid item xs={12} sm={8} md={6} class={classes.container1}>
+
                   <Paper
                       className={classes.card2}
                       elevation={0}
@@ -978,6 +968,7 @@ const Dashboard = () => {
                     </Grid>
                 </Paper>
                 </Grid>
+
             </div>
           </Grid>
           <Grid item xs={12}>
@@ -998,6 +989,3 @@ const Dashboard = () => {
 
 
 export default Dashboard;
-
-
-
