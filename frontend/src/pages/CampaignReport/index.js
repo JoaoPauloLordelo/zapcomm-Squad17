@@ -46,7 +46,18 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     color: '#0C2454'
-  }
+  },
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'100%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
 }));
 
 const CampaignReport = () => {
@@ -155,8 +166,8 @@ const CampaignReport = () => {
   };
 
   return (
-    <MainContainer>
-      <Paper className={classes.mainPaper} variant="outlined">
+    <div style={{height:'80%'}}>
+      <div className={classes.fundo}>
         <MainHeader>
             <Grid style={{ width: "99.6%" }} container>
                 <Grid xs={12} item>
@@ -249,8 +260,8 @@ const CampaignReport = () => {
             />
           </Grid>
         </Grid>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 
