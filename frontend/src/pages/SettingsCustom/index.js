@@ -82,7 +82,18 @@ const useStyles = makeStyles((theme) => ({
     marginLeft:"20px",
     marginTop:"20px",
     color:"#0c2c54",
- }
+ },
+ fundo: {
+  marginTop:'80px',
+  backgroundColor:'white',
+  width:'90%',
+  height:'100%',
+  marginLeft:'67px',
+  borderRadius:'18px',
+  padding:'16px',
+  overflowY: "scroll",
+  ...theme.scrollbarStyles,
+  },
 }));
 
 const SettingsCustom = () => {
@@ -180,11 +191,11 @@ const SettingsCustom = () => {
   };
 
   return (
-    <MainContainer className={classes.root}>
+    <div style={{height:'80%'}}>
       <MainHeader>
         
       </MainHeader>
-      <Paper className={classes.mainPaper} elevation={1}>
+      <div className={classes.fundo}>
       <div className={classes.titulo}>Configurações</div>
       <div className={classes.traco}></div>
         <Tabs
@@ -262,8 +273,8 @@ const SettingsCustom = () => {
             />
           </TabPanel>
         </Paper>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 

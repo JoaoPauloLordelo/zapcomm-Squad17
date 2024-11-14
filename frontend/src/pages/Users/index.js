@@ -82,6 +82,15 @@ const useStyles = makeStyles((theme) => ({
     padding:'24px'
 
   },
+  fundo: {
+    marginTop:'80px',
+    backgroundColor:'white',
+    width:'90%',
+    height:'100%',
+    marginLeft:'67px',
+    borderRadius:'18px',
+    padding:'16px'
+  },
 }));
 
 
@@ -310,7 +319,7 @@ const Users = () => {
 
 
   return (
-    <MainContainer>
+    <div style={{height:'80%'}}>
       <ConfirmationModal
         title={
           deletingUser &&
@@ -331,7 +340,7 @@ const Users = () => {
         userId={selectedUser && selectedUser.id}
       />
 
-      <div className={classes.mainPaper}>
+    <div className={classes.fundo}>
       <MainHeader>
         <Title>
 
@@ -493,7 +502,7 @@ const Users = () => {
         </Table>
       </Paper>
       </div>
-    </MainContainer>
+    </div>
   );
 };
 

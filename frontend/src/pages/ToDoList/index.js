@@ -20,7 +20,6 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    padding:'16px'
   },
   mainPaper: {
     marginTop:'80px',
@@ -121,7 +120,6 @@ const useStyles = makeStyles({
     backgroundColor: '#E0E0E0',
     borderRadius: '8px',
     marginBottom: '8px',
-    padding: '0 16px',
     display: 'flex',
     alignItems: 'center',
   },
@@ -165,6 +163,15 @@ const useStyles = makeStyles({
   },
   status: {
     color: '#4CAF50',
+  },
+  fundo: {
+    marginTop:'80px',
+    backgroundColor:'white',
+    width:'90%',
+    height:'80%',
+    marginLeft:'67px',
+    borderRadius:'18px',
+    padding:'16px'
   },
 
 });
@@ -326,10 +333,7 @@ const ToDoList = () => {
 
 
   return (
-    <Paper
-      className={classes.mainPaper}
-      variant="outlined"
-    >
+    <div className={classes.fundo}>
       <div className={classes.root}>
         <div className={classes.titleContainer}>
           <Title>
@@ -464,7 +468,7 @@ const ToDoList = () => {
           </div>
         </div>
       </div>
-    </Paper>
+    </div>
 
   );
 };

@@ -94,9 +94,7 @@ const useStyles = makeStyles((theme) => ({
     ...theme.scrollbarStyles,
     borderRadius:'16px'
   },
-  contatos: {
-    padding: "16px"
-  },
+
   traco: {
     height: '2px',
     width: '1175px',
@@ -106,7 +104,18 @@ const useStyles = makeStyles((theme) => ({
   icones: {
     paddingBottom: '3px',
     marginRight: '10px'
-  }
+  },
+  fundo: {
+    marginTop:'80px',
+    backgroundColor:'white',
+    width:'90%',
+    height:'100%',
+    marginLeft:'67px',
+    borderRadius:'18px',
+    padding:'16px',
+    overflowY:'scroll',
+    ...theme.scrollbarStyles,
+  },
 }));
 
 const Contacts = () => {
@@ -249,7 +258,7 @@ const Contacts = () => {
   };
 
   return (
-    <MainContainer className={classes.mainContainer}>
+    <div style={{height:'80%'}}>
       <NewTicketModal
         modalOpen={newTicketModalOpen}
         initialContact={contactTicket}
@@ -283,11 +292,8 @@ const Contacts = () => {
           : `${i18n.t("contacts.confirmationModal.importMessage")}`}
       </ConfirmationModal>
       
-      <Paper
-        className={classes.mainPaper}
-        variant="outlined"
-        onScroll={handleScroll}
-      >
+      
+      <div className={classes.fundo}>
        <div className={classes.contatos}>  
         <MainHeader>
         <Title  style={{color:'#0C2454', fontWeight:"bold"}}>{i18n.t("contacts.title")}</Title>
@@ -422,8 +428,8 @@ const Contacts = () => {
         </Table>
         </div>
         <Announcements></Announcements>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 

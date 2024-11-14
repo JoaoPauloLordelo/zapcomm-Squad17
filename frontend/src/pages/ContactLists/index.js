@@ -94,9 +94,17 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#0C2454',
     marginLeft: '0px',
   },
-  listacont: {
-    padding: '16px'
-  }
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'100%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
 }));
 
 const ContactLists = () => {
@@ -207,7 +215,7 @@ const ContactLists = () => {
   };
 
   return (
-    <MainContainer>
+    <div style={{height:'80%'}}>
       <ConfirmationModal
         title={
           deletingContactList &&
@@ -228,11 +236,7 @@ const ContactLists = () => {
         contactListId={selectedContactList && selectedContactList.id}
       />
 
-      <Paper
-        className={classes.mainPaper}
-        variant="outlined"
-        onScroll={handleScroll}
-      >
+        <div className={classes.fundo}>
         <div className={classes.listacont}>
               <MainHeader>
         <Grid style={{ width: "99.6%" }} container>
@@ -294,13 +298,13 @@ const ContactLists = () => {
         <Table size="small" style={{ borderCollapse: 'separate', borderSpacing: '0 20px' }}> 
           <TableHead>
             <TableRow>
-              <TableCell align="center">
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold" }}>
                 {i18n.t("contactLists.table.name")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold" }}>
                 {i18n.t("contactLists.table.contacts")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold" }}>
                 {i18n.t("contactLists.table.actions")}
               </TableCell>
             </TableRow>
@@ -354,8 +358,8 @@ const ContactLists = () => {
           </TableBody>
         </Table>
         </div>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 

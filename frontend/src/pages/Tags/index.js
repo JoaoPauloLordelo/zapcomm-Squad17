@@ -97,6 +97,17 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#0C2454',
     marginLeft: '0px',
   },
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'100%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
 }));
 
 const Tags = () => {
@@ -208,7 +219,7 @@ const Tags = () => {
   };
 
 return (
-    <MainContainer>
+  <div style={{height:'80%'}}>
       <ConfirmationModal
         title={deletingTag && `${i18n.t("tags.confirmationModal.deleteTitle")}`}
         open={confirmModalOpen}
@@ -225,11 +236,7 @@ return (
         tagId={selectedTag && selectedTag.id}
       />
      
-      <Paper
-        className={classes.mainPaper}
-        variant="outlined"
-        onScroll={handleScroll}
-      > 
+     <div className={classes.fundo}>
       <MainHeader>
         <Title>{i18n.t("tags.title")}</Title>
         <MainHeaderButtonsWrapper>
@@ -326,8 +333,8 @@ return (
             </>
           </TableBody>
         </Table>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 

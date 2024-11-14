@@ -45,9 +45,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     margin: theme.spacing(2, 0),
   },
-  filaschatbot: {
-    padding:'16px'
-  }
+
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'100%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
 }));
 
 const reducer = (state, action) => {
@@ -181,7 +190,7 @@ const Queues = () => {
   };
 
   return (
-    <MainContainer>
+    <div style={{height:'80%'}}>
       <ConfirmationModal
         title={
           selectedQueue &&
@@ -205,7 +214,7 @@ const Queues = () => {
         onClose={handleCloseChatModal}
         greetingMessage={selectedQueue?.greetingMessage} // Passando o greetingMessage
       />
-      <Paper className={classes.mainPaper} variant="outlined">
+      <div className={classes.fundo}>
       <div className={classes.filaschatbot}>
 
       <MainHeader>
@@ -310,8 +319,8 @@ const Queues = () => {
           </TableBody>
         </Table>
         </div>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 
