@@ -24,12 +24,12 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     borderRadius: 0,
     height: "95%",
-    width: "30%",
+    width: "65%",
     borderLeft: "1px solid rgba(0, 0, 0, 0.12)",
     backgroundColor: "#F5F4F3",
     borderRadius: "15px",
-    top: "16%",
-    left: "65%",
+    top: "14%",
+    left: "37%",
     bottom: "0",
     zIndex: "1000",
     transform: "scale(0.75)",
@@ -37,16 +37,17 @@ const useStyles = makeStyles((theme) => ({
   chatTitleContainer: {
     // Aplique o estilo desejado aqui para o título do chat
     textAlign: "center",
+    color:"#0C2454",
+    fontSize: "32px",
     padding: theme.spacing(2),
-    fontWeight: "bold",
+    fontWeight: "bolder",
     height:"",
   },
   messageList: {
     position: "relative",
     overflowY: "auto",
-    height: "73.5%",
-    width: "100%",
-    maxWidth: "500px",
+    height: "75%",
+    width: "95%",
     ...theme.scrollbarStyles,
     backgroundColor: "#F5F4F3",
     top: "30px",
@@ -56,8 +57,8 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     height: "10%",
     top: "55px",
-    width: "80%",
-    left: "10%",
+    width: "90%",
+    left: "5%",
     borderRadius: "16px",
   },
   bord: {
@@ -81,25 +82,28 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   boxLeft: {
-    padding: "10px 10px 5px",
+    padding: "10px 25px 5px",
     margin: "10px 10px 10px auto",
     position: "relative",
-    backgroundColor: "#9AE2A9",
+    backgroundColor: "#0C2454",
+    color: "#FFFFFF",
     textAlign: "right",
     maxWidth: "60%",
     maxHeight: "15%",
+    
     borderRadius: 10,
     borderBottomRightRadius: 0,
     border: "1px solid rgba(0, 0, 0, 0.12)",
   },
   boxRight: {
-    padding: "10px 10px 5px",
-    margin: "10px 10px 10px auto",
-    position: "relative",
-    backgroundColor: "#ADC9CD",
+    padding: "10px 25px 10px",
+    margin: "10px 0px 0px 586px",
+    marginRight: 0,
+    backgroundColor: "#0C2454",
+    color: "#FFFFFF",
     textAlign: "right",
-    maxWidth: "60%",
-    maxHeight: "15%",
+    fontSize:'18px',
+    width: "50%",  // use width em vez de maxWidth
     borderRadius: 10,
     borderBottomRightRadius: 0,
     border: "1px solid rgba(0, 0, 0, 0.12)",
@@ -107,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
   line: {
     width: "90%",
     height: "2px",
-    top: "5%",
+    top: "0%",
     left: "5%",
     backgroundColor: "#0C2454",
     position: "relative",
@@ -182,7 +186,7 @@ export default function ChatMessages({
     <Paper className={classes.mainContainer}>
       {/* Contêiner do título do chat selecionado */}
       <div className={classes.chatTitleContainer}>
-        <Typography variant="h6">
+        <Typography variant="h6" style={{fontSize: "30px"}}>
           {chat ? chat.title : "Selecione um chat"}
         </Typography>
       </div>
@@ -195,7 +199,7 @@ export default function ChatMessages({
             if (item.senderId === user.id) {
               return (
                 <Box key={key} className={classes.boxRight}>
-                  <Typography variant="subtitle2">
+                  <Typography variant="subtitle2" style={{fontSize:'18px' }}>
                     {item.sender.name}
                   </Typography>
                   {item.message}
@@ -210,7 +214,7 @@ export default function ChatMessages({
             } else {
               return (
                 <Box key={key} className={classes.boxLeft}>
-                  <Typography variant="subtitle2">
+                  <Typography variant="subtitle2" style={{fontSize:'18px' }} >
                     {item.sender.name}
                   </Typography>
                   {item.message}
