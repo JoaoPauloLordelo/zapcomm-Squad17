@@ -95,9 +95,15 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#0C2454',
         marginLeft: '0px',
       },
-      listadearq: {
-        padding: '16px'
-      }
+      fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'80%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+	  },
 }));
 
 const FileLists = () => {
@@ -209,13 +215,8 @@ const FileLists = () => {
     };
 
     return (
-        <MainContainer>
            
-            <Paper
-                className={classes.mainPaper}
-                variant="outlined"
-                onScroll={handleScroll}
-            >
+           <div className={classes.fundo}>
                 <div className={classes.listadearq}>
 
                 <ConfirmationModal
@@ -346,8 +347,7 @@ const FileLists = () => {
                     </TableBody>
                 </Table>
                 </div> 
-            </Paper>
-        </MainContainer>
+                </div>
     );
 };
 

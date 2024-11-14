@@ -301,6 +301,19 @@ const useStyles = makeStyles((theme) => ({
   container1: {
     margin: theme.spacing(2)
   },
+
+  fundo: {
+    marginTop:'80px',
+    backgroundColor:'white',
+    width:'90%',
+    height:'100%',
+    marginLeft:'67px',
+    borderRadius:'18px',
+    padding:'16px',
+    overflowY:'scroll',
+    ...theme.scrollbarStyles,
+  },
+
 }));
 
 
@@ -580,8 +593,8 @@ const Dashboard = () => {
   }
 
   return (
-    <MainContainer>
-      <Paper className={classes.mainPaper} variant="outlined">
+    <div style={{height:'80%'}}>
+      <div className={classes.fundo}>
         <Typography variant="h6" style={{ fontWeight: 'bold', color: '#0C2454', paddingTop: '20px', paddingLeft: '20px' }}>
           Dashboard
         </Typography>
@@ -791,34 +804,28 @@ const Dashboard = () => {
                     <span style={{ color: "#C3C3C3" }}>Chamados</span>
                   </Typography>
 
-                  </Grid>
-                  <Grid item xs={4} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
-                    {/* Número de novos contatos e "pessoas" em uma única linha */}
-                    <Typography component="h1" variant="h4" style={{ color: "#0C2454", fontSize: 12, marginRight: '5px', display: 'flex', alignItems: 'center' }}>
-                      {GetContacts(true)}
-                    </Typography>
-                    <Typography component="h1" variant="h4" style={{ color: "#0C2454", fontSize: 12 }}>
-                      pessoas
-                    </Typography>
-                    <GroupAddIcon style={{ fontSize: 40, color: "#FFFFFF", marginLeft: '5px' }} />
-                  </Grid>
-                  <ResponsiveContainer width="100%" height={70} style={{ margin: '0' }}>
-                    <AreaChart data={simulatedData}>
-                      <defs>
-                        <linearGradient id="colorNovosContatos" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#0C1E43" stopOpacity={0.8} />
-                          <stop offset="95%" stopColor="#fff" stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <Tooltip />
-                      <Area type="monotone" dataKey="value" stroke="#0C1E43" fillOpacity={1} fill="url(#colorNovosContatos)" />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </Grid>
-              </Paper>
+
+
+
+
+        {/* 
+            FILTROS 
+            <Grid item xs={12} sm={6} md={4}>
+              <FormControl className={classes.selectContainer}>
+                <InputLabel id="period-selector-label">Tipo de Filtro</InputLabel>
+                <Select
+                  labelId="period-selector-label"
+                  value={filterType}
+                  onChange={(e) => handleChangeFilterType(e.target.value)}
+                >
+                  <MenuItem value={1}>Filtro por Data</MenuItem>
+                  <MenuItem value={2}>Filtro por Período</MenuItem>
+                </Select>
+                <FormHelperText>Selecione o período desejado</FormHelperText>
+              </FormControl>
             </Grid>
 
-            {/* BOTAO FILTRAR */}
+            BOTAO FILTRAR 
 
             <Grid item xs={12} className={classes.alignRight}>
               <ButtonWithSpinner
@@ -846,124 +853,121 @@ const Dashboard = () => {
             <div class={classes.box}>
                 <Grid item xs={12} sm={8} md={6} class={classes.container1}>
 
-                <Paper
-                    className={classes.card2}
-                    elevation={0}
-                    style={{
-                        overflow: "hidden",
-                        backgroundColor: "#F7F9FB",
-                        borderRadius: '10px',
-                        border: '1px solid #A5BDB6',
-                        width: 300,
-                        height: 157,
-                        padding: '3px 10px'
-                    }}
-                >
-                      <Grid container spacing={1}>
+                  <Paper
+                      className={classes.card2}
+                      elevation={0}
+                      style={{
+                          overflow: "hidden",
+                          backgroundColor: "#F7F9FB",
+                          borderRadius: '10px',
+                          border: '1px solid #A5BDB6',
+                          width: 300,
+                          height: 157,
+                          padding: '3px 10px'
+                  }}
+                  >
+                    <Grid container spacing={1}>
                         <Grid item xs={6} style={{ display: 'flex', alignItems: 'center' }}>
-                            <Typography component="h3" variant="h6" style={{ color: "black", fontSize: 12, marginLeft: 10, marginTop: 10 }}>
-                                Atividades Diárias <br />
-                            </Typography>
+                        
+                        
+                        <Typography component="h3" variant="h6" style={{ color: "#0C2454", fontSize: 12, margin: 0 }}>
+                            Atividades Diárias <br />
+                        </Typography>
                         </Grid>
-                        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 0 }}>
+                        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
                         </Grid>
-                        <div style={{ marginLeft: '-20px', width: '100%' }}>
-                          <ResponsiveContainer width={"100%"} height={100} style={{ top: '-10px' }}>
-                              <BarChart data={TotalsimulatedData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
-                                  <YAxis
-                                      type="number"
-                                      tick={{ fill: "#A5BDB6", fontSize: 12 }}
-                                      domain={[0, 100]}
-                                      ticks={[0, 25, 50, 75, 100]}
-                                      interval="preserveStartEnd"
-                                      axisLine={false}
-                                      tickLine={false}
-                                  />
-                                  <XAxis 
-                                      dataKey="day" 
-                                      tick={{ fill: "#A5BDB6", fontSize: 12 }}
-                                      interval={0}
-                                      axisLine={false}
-                                      tickLine={false}
-                                  />
-                                  <Tooltip />
-                                  <defs>
-                                      <linearGradient id="colorAguardando" x1="0" y1="0" x2="0" y2="1">
-                                          <stop offset="5%" stopColor="#07BEAA" stopOpacity={0.8} />
-                                          <stop offset="95%" stopColor="#fff" stopOpacity={0} />
-                                      </linearGradient>
-                                  </defs>
-                                  <Bar type="monotone" dataKey="value" stroke="#07BEAA" fillOpacity={1} fill="#07BEAA" radius={5} />
-                              </BarChart>
-                          </ResponsiveContainer>
-                      </div>
+                        <ResponsiveContainer width={"90%"} height={100} style={{ margin: '0' }}>
+                        <BarChart data={TotalsimulatedData}>
+                        <YAxis
+                            type="number"
+                            tick={{ fill: "#A5BDB6", fontSize: 12 }}
+                            domain={[0, 100]} // Define o intervalo de 0 a 30
+                            ticks={[0, 75, 90, 100]} 
+                            interval="preserveStartEnd"// Define os valores que aparecerão no eixo Y
+                        />
+
+                        <XAxis dataKey="day" tick={{ fill: "#A5BDB6", fontSize: 12 }}
+                        domain={["seg", "dom"]} // Define o intervalo de 0 a 30
+                        ticks={["seg","dom"]} 
+                        interval="preserveStartEnd"
+                        />
+                        <Tooltip />
+                
+                            <defs>
+                            <linearGradient id="colorAguardando" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="#07BEAA" stopOpacity={0.8} />
+                                <stop offset="95%" stopColor="#fff" stopOpacity={0} />
+                            </linearGradient>
+                            </defs>
+                            <Tooltip />
+                            <Bar type="monotone" dataKey="value" stroke="#07BEAA" fillOpacity={1} fill="#07BEAA" />
+                        </BarChart>
+                        </ResponsiveContainer>
+                    </Grid>
+                  </Paper>
+                </Grid>
+                    {/* T.M. DE ATENDIMENTO */}
+                <Grid item xs={12} sm={6} md={4} class={classes.container1}>
+                <Paper
+                    className={classes.card8}
+                    style={{ overflow: "hidden" }}
+                    elevation={6}
+                >
+                    <Grid container spacing={3}>
+                    <Grid item xs={8}>
+                        <Typography
+                        component="h3"
+                        variant="h6"
+                        paragraph
+                        className={classes.cardTitle}
+                        >
+                        Tempo Médio de Atendimento
+                        </Typography>
+                        <Grid item>
+                        <Typography
+                            component="h1"
+                            variant="h4"
+                            className={classes.cardValue}
+                        >
+                            {formatTime(counters.avgSupportTime)}
+                        </Typography>
+                        </Grid>
+                    </Grid>
                     </Grid>
                 </Paper>
                 </Grid>
-                    {/* T.M. DE ATENDIMENTO */}
-              <Grid item xs={12} sm={6} md={3}>
-                <Paper
-                  className={classes.card8}
-                  style={{ overflow: "hidden", width: 200, height: 80, marginTop: 20}}
-                  elevation={6}
-                >
-                  <Grid container spacing={3}>
-                    <Grid item xs={8}>
-                      <Typography
-                        component="h3"
-                        variant="h6"
-                        className={classes.cardTitle}
-                        style={{ whiteSpace: "nowrap" }}
-                      >
-                        Tempo Médio de Atendimento
-                      </Typography>
-                      <Grid item>
-                        <Typography
-                          component="h1"
-                          variant="h4"
-                          className={classes.cardValue}
-                          style={{ whiteSpace: "nowrap", fontWeight: "bold" }}
-                        >
-                          {formatTime(counters.avgSupportTime)}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Grid>
+
 
                 {/* T.M. DE ESPERA */}
-              <Grid item xs={12} sm={6} md={3}>
+                <Grid item xs={12} sm={6} md={4} class={classes.container1}>
                 <Paper
-                  className={classes.card9}
-                  style={{ overflow: "hidden", width: 200, height: 80, marginTop: 20, marginLeft: 20 }}
-                  elevation={6}
+                    className={classes.card9}
+                    style={{ overflow: "hidden" }}
+                    elevation={6}
                 >
-                  <Grid container spacing={3}>
+                    <Grid container spacing={3}>
                     <Grid item xs={8}>
-                      <Typography
+                        <Typography
                         component="h3"
                         variant="h6"
+                        paragraph
                         className={classes.cardTitle}
-                        style={{ whiteSpace: "nowrap" }}
-                      >
-                        Tempo Médio de Espera
-                      </Typography>
-                      <Grid item>
-                        <Typography
-                          component="h1"
-                          variant="h4"
-                          className={classes.cardValue}
-                          style={{ whiteSpace: "nowrap", fontWeight: "bold" }}
                         >
-                          {formatTime(counters.avgWaitTime)}
+                        Tempo Médio de Espera
                         </Typography>
-                      </Grid>
+                        <Grid item>
+                        <Typography
+                            component="h1"
+                            variant="h4"
+                            className={classes.cardValue}
+                        >
+                            {formatTime(counters.avgWaitTime)}
+                        </Typography>
+                        </Grid>
                     </Grid>
-                  </Grid>
+                    </Grid>
                 </Paper>
-              </Grid>
-
+                </Grid>
 
             </div>
           </Grid>
@@ -976,8 +980,8 @@ const Dashboard = () => {
               ) : null}
             </Grid>
         </Container >
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 

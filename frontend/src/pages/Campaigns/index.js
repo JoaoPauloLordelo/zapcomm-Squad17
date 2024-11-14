@@ -153,9 +153,18 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '0px',
     marginTop: '10px'
   },
-  campanhas2: {
-    padding:'16px'
-  }
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'100%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
+
 }));
 
 const Campaigns = () => {
@@ -304,7 +313,7 @@ const Campaigns = () => {
   };
 
   return (
-    <MainContainer>
+    <div style={{height:'80%'}}>
       <ConfirmationModal
         title={
           deletingCampaign &&
@@ -328,14 +337,7 @@ const Campaigns = () => {
         aria-labelledby="form-dialog-title"
         campaignId={selectedCampaign && selectedCampaign.id}
       />
-      <Paper
-        className={classes.mainPaper}
-        variant="outlined"
-        onScroll={handleScroll}
-        style={{
-          borderRadius: "16px",
-        }}
-      >
+      <div className={classes.fundo}>
         <div className={classes.campanhas2}>
         <Grid style={{ width: "100%" }} container>
           <Grid xs={12} sm={8} item>
@@ -495,8 +497,8 @@ const Campaigns = () => {
           </TableBody>
         </Table>
         </div>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 

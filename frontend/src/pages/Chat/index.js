@@ -42,7 +42,9 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "hidden",
     border: "1px solid rgba(0, 0, 0, 0.12)",
     paddingTop: '70px',
-    
+
+    backgroundColor:'#34D3A3'
+
 
   },
 

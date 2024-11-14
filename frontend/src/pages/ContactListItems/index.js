@@ -103,9 +103,17 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#0C2454',
     marginLeft: '0px',
   },
-  itemcampanha: {
-    padding:'16px'
-  }
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'100%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
 }));
 
 const ContactListItems = () => {
@@ -258,7 +266,7 @@ const ContactListItems = () => {
   };
 
   return (
-    <MainContainer className={classes.mainContainer}>
+    <div style={{height:'80%'}}>
       <ContactListItemModal
         open={contactListItemModalOpen}
         onClose={handleCloseContactListItemModal}
@@ -293,11 +301,7 @@ const ContactListItems = () => {
         )}
       </ConfirmationModal>
 
-      <Paper
-        className={classes.mainPaper}
-        variant="outlined"
-        onScroll={handleScroll}
-      >
+      <div className={classes.fundo}>
         <div className={classes.itemcampanha}>
               <MainHeader>
         <Grid style={{ width: "99.6%" }} container>
@@ -462,8 +466,8 @@ const ContactListItems = () => {
           </TableBody>
         </Table>
         </div>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 

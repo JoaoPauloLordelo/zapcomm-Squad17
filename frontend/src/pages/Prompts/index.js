@@ -57,9 +57,17 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
-  openai2: {
-    padding:'16px'
-  }
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'100%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
 }));
 
 const reducer = (state, action) => {
@@ -208,8 +216,8 @@ const Prompts = () => {
   }, [confirmModalOpen]);
 
   return (
-    <MainContainer>
-      <Paper className={classes.mainPaper} variant="outlined">
+    <div style={{height:'80%'}}>
+      <div className={classes.fundo}>
       <div classname={classes.openai2} style={{padding:'16px'}}>
       <ConfirmationModal
         title={
@@ -300,8 +308,8 @@ const Prompts = () => {
           </TableBody>
         </Table>
         </div>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 

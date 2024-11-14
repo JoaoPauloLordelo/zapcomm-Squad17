@@ -78,6 +78,17 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#0C2454',
     marginLeft: '0px',
   },
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'80%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
 }));
 
 const Helps = () => {
@@ -165,7 +176,7 @@ const Helps = () => {
 
   return (
 
-    <div style={{padding:'16px', borderRadius:'16px', backgroundColor:'white', width:'1450px', height:'750px', marginTop:'80px', marginLeft:'67px'}}>
+    <div className={classes.fundo}>
       <MainHeader>
         <Title>{i18n.t("helps.title")} ({records.length})</Title>
         <MainHeaderButtonsWrapper></MainHeaderButtonsWrapper>

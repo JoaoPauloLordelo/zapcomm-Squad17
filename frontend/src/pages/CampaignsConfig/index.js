@@ -65,9 +65,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#0C2454',
     marginLeft: '0px',
   },
-  configcampanha: {
-    padding:'16px'
-  }
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'100%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+	  },
 }));
 
 const initialSettings = {
@@ -138,7 +144,7 @@ const CampaignsConfig = () => {
   };
 
   return (
-    <MainContainer>
+    <div style={{height:'80%'}}>
       <ConfirmationModal
         title={i18n.t("campaigns.confirmationModal.deleteTitle")}
         open={confirmationOpen}
@@ -147,7 +153,7 @@ const CampaignsConfig = () => {
       >
         {i18n.t("campaigns.confirmationModal.deleteMessage")}
       </ConfirmationModal>
-      <Paper className={classes.mainPaper} variant="outlined" style={{borderRadius: "16px"}}>
+      <div className={classes.fundo}>
       <div className={classes.configcampanha}>
       <Grid style={{ width: "100%" }} container>
           <Grid xs={12} sm={8} item>
@@ -349,8 +355,8 @@ const CampaignsConfig = () => {
           </Grid>
         </Box>
         </div>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 

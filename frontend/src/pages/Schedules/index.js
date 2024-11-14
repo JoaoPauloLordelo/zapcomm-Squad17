@@ -190,9 +190,17 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#0C2454',
     marginLeft: '0px',
   },
-  agend: {
-    padding:'16px'
-  }
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'100%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
 }));
 
 const Schedules = () => {
@@ -332,7 +340,7 @@ const Schedules = () => {
   };
 
   return (
-    <MainContainer>
+    <div style={{height:'80%'}}>
       <ConfirmationModal
         title={
           deletingSchedule &&
@@ -353,7 +361,7 @@ const Schedules = () => {
         contactId={contactId}
         cleanContact={cleanContact}
       />
-      <Paper className={classes.mainPaper} variant="outlined" onScroll={handleScroll}>
+       <div className={classes.fundo}>
         <div className={classes.agend}>
         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "10px",}}>
           <Title>{i18n.t("schedules.title")} ({schedules.length})</Title>
@@ -426,8 +434,8 @@ const Schedules = () => {
           style={{ height: 500 }}
         />
         </div>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 

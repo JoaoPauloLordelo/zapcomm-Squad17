@@ -28,10 +28,10 @@ const useStyles = makeStyles(theme => ({
     marginTop:'80px',
     backgroundColor:'white',
     width:'90%',
-    height:'85%',
+    height:'80%',
     marginLeft:'67px',
     borderRadius:'18px',
-    padding:'16px'
+    padding:'16px',
   },
   traco: {
     height: '2px',
@@ -161,7 +161,7 @@ const Kanban = () => {
         })),
       },
       {
-        id: "lane1",
+        id: "lane2",
         title: i18n.t("Aguardando Fornecedor"),
         label: "0",
         style:{backgroundColor:'white', padding:'10px , 0px !important', height:'20%'},
@@ -189,7 +189,7 @@ const Kanban = () => {
         })),
       },
       {
-        id: "lane1",
+        id: "lane3",
         title: i18n.t("Impedidos"),
         label: "0",
         style:{backgroundColor:'white', padding:'10px , 0px !important', height:'20%'},
@@ -217,7 +217,7 @@ const Kanban = () => {
         })),
       },
       {
-        id: "lane1",
+        id: "lane4",
         title: i18n.t("Finalizados"),
         label: "0",
         style:{backgroundColor:'white', padding:'10px , 0px !important', height:'20%'},
