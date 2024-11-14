@@ -285,7 +285,7 @@ const useStyles = makeStyles((theme) => ({
   },
   blueLine: {
     border: 0,
-    height: "2px",
+    height: "1px",
     backgroundColor: theme.palette.primary.main,
     margin: theme.spacing(2, 0),
   },

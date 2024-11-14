@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
   },
   ln: {
-    height: "4px",
+    height: "1px",
     width: "350%",
     backgroundColor: "#0C2454",
     position: "relative",

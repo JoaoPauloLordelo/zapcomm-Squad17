@@ -135,10 +135,7 @@ const useStyles = makeStyles({
     flexGrow: 1,
     color: '#0C2454',
     fontWeight: 'bold',
-    wordBreak: 'break-word',
-    whiteSpace: 'normal',
-    overflowWrap: 'break-word',
-    display: 'inline-block',
+    width:'20%'
   },
   avatarContainer: {
     display: 'flex',
@@ -421,7 +418,7 @@ const ToDoList = () => {
                   />
 
                   <div className={classes.infoContainer}>
-                    <Typography variant="body2" className={classes.taskText} style={{ color: '#0C2454', fontWeight: 'bold' }}>
+                    <Typography className={classes.taskText}>
                       {task.text}
                     </Typography>
 
@@ -429,7 +426,7 @@ const ToDoList = () => {
                     <Typography
                       variant="body2"
                       style={{
-                        marginLeft: "100px",
+                    
                         marginRight: '10px',
                         fontWeight: 'bold',  // Negrito
                         color: '#0C2454',    // Azul

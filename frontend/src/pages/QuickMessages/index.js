@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
   },
   blueLine: {
 		border: 0,
-		height: "2px",
+		height: "1px",
     width: '133%',
 		backgroundColor: theme.palette.primary.main, // Azul da cor primária do tema
 		margin: theme.spacing(2, 0), // Espaçamento vertical
@@ -217,7 +217,7 @@ const Quickemessages = () => {
   };
 
   return (
-    <MainContainer>
+    <div style={{width:'100%'}}>
     <ConfirmationModal
       title={deletingQuickemessage && `${i18n.t("quickMessages.confirmationModal.deleteTitle")} ${deletingQuickemessage.shortcode}?`}
       open={confirmModalOpen}
@@ -245,7 +245,7 @@ const Quickemessages = () => {
           <hr className={classes.blueLine} />
         </Grid>
   
-        <Grid item xs={12} sm={4} md={3}>
+        <Grid item xs={12} sm={4} md={3} style={{marginTop:'40px'}}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -298,7 +298,7 @@ const Quickemessages = () => {
      
     </MainHeader>
   
-    <Paper className={classes.mainPaper} variant="outlined" onScroll={handleScroll}>
+
       <Grid container>
         <Grid item xs={12} style={{ padding: '0 16px' }}>
           <Table
@@ -378,9 +378,8 @@ const Quickemessages = () => {
           </Table>
         </Grid>
       </Grid>
-    </Paper>
-  </MainContainer>
-  
+
+    </div>
   );
 };
 

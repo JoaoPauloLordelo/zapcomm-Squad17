@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
   },
   traco: {
     height: '2px',
-    width: '1175px',
+    width: '100%',
     backgroundColor: '#0C2454',
     marginLeft: '0px',
     marginBottom: '20px',
