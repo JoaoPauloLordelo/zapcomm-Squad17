@@ -133,10 +133,10 @@ const useStyles = makeStyles((theme) => ({
     "& .rbc-header": {
       padding: "10px 5px",
       fontWeight: "bold",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      textAlign: "center",
+      //display: "flex",
+      //alignItems: "center",
+      //justifyContent: "center",
+      //textAlign: "center",
     },
     
     // Ajuste da altura da linha do texto no cabeçalho
@@ -186,7 +186,7 @@ const useStyles = makeStyles((theme) => ({
   },
   traco: {
     height: '2px',
-    width: '100%',
+    width: 'calc(100%)',
     backgroundColor: '#0C2454',
     marginLeft: '0px',
   },
