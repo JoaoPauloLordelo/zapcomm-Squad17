@@ -9,7 +9,8 @@ import {
     TableBody,
     TableCell,
     TableRow,
-    IconButton
+    IconButton,
+    useMediaQuery
 } from "@material-ui/core";
 import { Formik, Form, Field } from 'formik';
 import ButtonWithSpinner from "../ButtonWithSpinner";
@@ -22,67 +23,92 @@ import useHelps from "../../hooks/useHelps";
 
 
 const useStyles = makeStyles(theme => ({
-	root: {
-		width: '100%'
-	},
+    root: {
+        width: '100%'
+    },
     mainPaper: {
-		width: '100%',
-		flex: 1,
-		padding: theme.spacing(2),
+        width: '100%',
+        flex: 1,
+        padding: theme.spacing(2),
+        [theme.breakpoints.down("xs")]: {
+            padding: theme.spacing(1),
+        },
     },
-	fullWidth: {
-		width: '100%'
-	},
+    fullWidth: {
+        width: '100%',
+    },
     tableContainer: {
-		width: '100%',
-		overflowX: "scroll",
-		...theme.scrollbarStyles
+        width: '100%',
+        overflowX: "auto", // Garantir rolagem em telas pequenas
+        ...theme.scrollbarStyles,
     },
-	textfield: {
-		width: '100%'
-	},
+    textfield: {
+        width: '100%',
+        [theme.breakpoints.down("xs")]: {
+            marginBottom: theme.spacing(1), // Espaço adicional para telas menores
+        },
+    },
     textRight: {
-        textAlign: 'right'
+        textAlign: 'right',
+        [theme.breakpoints.down("xs")]: {
+            textAlign: 'center', // Centraliza textos para telas pequenas
+        },
     },
     row: {
-		paddingTop: theme.spacing(2),
-		paddingBottom: theme.spacing(2)
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2)
     },
     control: {
-		paddingRight: theme.spacing(1),
-		paddingLeft: theme.spacing(1)
-	},
+        paddingRight: theme.spacing(1),
+        paddingLeft: theme.spacing(1),
+        [theme.breakpoints.down("xs")]: {
+            padding: theme.spacing(0.5),
+        },
+    },
     buttonContainer: {
         textAlign: 'right',
-		padding: theme.spacing(1)
-	},
+        padding: theme.spacing(1),
+        [theme.breakpoints.down("xs")]: {
+            textAlign: 'center', // Centraliza botões em telas menores
+        },
+    },
     tableHeadCell: {
         color: '#0C2454',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontSize: '1rem',
+        [theme.breakpoints.down("xs")]: {
+            fontSize: '0.8rem', // Reduz tamanho da fonte em telas pequenas
+        },
     },
     tableRowCell: {
         backgroundColor: '#D9D9D9',
         color: '#0C2454',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontSize: '0.9rem',
+        [theme.breakpoints.down("xs")]: {
+            fontSize: '0.7rem',
+            padding: theme.spacing(0.5), // Reduz padding em telas pequenas
+        },
     },
     tableRow: {
-        marginBottom: '100px'
+        marginBottom: '100px',
     }
 }));
 
-export function HelpManagerForm (props) {
+export function HelpManagerForm(props) {
     const { onSubmit, onDelete, onCancel, initialValue, loading } = props;
-    const classes = useStyles()
+    const classes = useStyles();
+    const isMobile = useMediaQuery("(max-width:600px)"); // Verifica se a tela é pequena
 
     const [record, setRecord] = useState(initialValue);
 
     useEffect(() => {
-        setRecord(initialValue)
-    }, [initialValue])
+        setRecord(initialValue);
+    }, [initialValue]);
 
-    const handleSubmit = async(data) => {
-        onSubmit(data)
-    }
+    const handleSubmit = async (data) => {
+        onSubmit(data);
+    };
 
     return (
         <Formik
@@ -91,33 +117,31 @@ export function HelpManagerForm (props) {
             initialValues={record}
             onSubmit={(values, { resetForm }) =>
                 setTimeout(() => {
-                    handleSubmit(values)
-                    resetForm()
+                    handleSubmit(values);
+                    resetForm();
                 }, 500)
             }
         >
-            {(values) => (
+            {() => (
                 <Form className={classes.fullWidth}>
-                    <Grid spacing={2} justifyContent="flex-end" container>
+                    <Grid spacing={isMobile ? 1 : 2} justifyContent="flex-end" container>
                         <Grid xs={12} sm={6} md={3} item>
-                        <Field
-                            as={TextField}
-                            label="Título"
-                            name="title"
-                            variant="outlined"
-                            className={classes.fullWidth}
-                            margin="dense"
-                            InputProps={{
-                                disableUnderline: true, // remove a linha
-                                style: {
-                                backgroundColor: '#D9D9D9', // cor de fundo
-                                color: '#0C2454', // cor do texto normal
-                                paddingLeft: '8px', // espaçamento à esquerda
-                                },
-                            }}
+                            <Field
+                                as={TextField}
+                                label="Título"
+                                name="title"
+                                variant="outlined"
+                                className={classes.textfield}
+                                margin="dense"
+                                InputProps={{
+                                    disableUnderline: true,
+                                    style: {
+                                        backgroundColor: '#D9D9D9',
+                                        color: '#0C2454',
+                                        paddingLeft: '8px',
+                                    },
+                                }}
                             />
-
-
                         </Grid>
                         <Grid xs={12} sm={6} md={3} item>
                             <Field
@@ -125,61 +149,71 @@ export function HelpManagerForm (props) {
                                 label="Código do Vídeo"
                                 name="video"
                                 variant="outlined"
-                                className={classes.fullWidth}
+                                className={classes.textfield}
                                 margin="dense"
                                 InputProps={{
-                                    disableUnderline: true, // remove a linha
+                                    disableUnderline: true,
                                     style: {
-                                    backgroundColor: '#D9D9D9', // cor de fundo
-                                    color: '#0C2454', // cor do texto normal
-                                    paddingLeft: '8px', // espaçamento à esquerda
+                                        backgroundColor: '#D9D9D9',
+                                        color: '#0C2454',
+                                        paddingLeft: '8px',
                                     },
                                 }}
                             />
                         </Grid>
-                        <Grid xs={12} sm={12} md={6} item>
+                        <Grid xs={12} md={6} item>
                             <Field
                                 as={TextField}
                                 label="Descrição"
                                 name="description"
                                 variant="outlined"
-                                className={classes.fullWidth}
+                                className={classes.textfield}
                                 margin="dense"
                                 InputProps={{
-                                    disableUnderline: true, // remove a linha
+                                    disableUnderline: true,
                                     style: {
-                                    backgroundColor: '#D9D9D9', // cor de fundo
-                                    color: '#0C2454', // cor do texto normal
-                                    paddingLeft: '8px', // espaçamento à esquerda
+                                        backgroundColor: '#D9D9D9',
+                                        color: '#0C2454',
+                                        paddingLeft: '8px',
                                     },
                                 }}
                             />
                         </Grid>
-                        <Grid sm={3} md={1} item>
+                        <Grid xs={12} sm={4} md={2} item>
                             <ButtonWithSpinner
                                 className={classes.fullWidth}
                                 loading={loading}
                                 onClick={() => onCancel()}
                                 variant="contained"
                                 style={{
-                                color: '#0C2454', // Cor do texto
-                                backgroundColor: '#CCCCCC', // Cor de fundo
+                                    color: '#0C2454',
+                                    backgroundColor: '#CCCCCC',
                                 }}
                             >
                                 Limpar
                             </ButtonWithSpinner>
                         </Grid>
-
-
-                        { record.id !== undefined ? (
-                            <Grid sm={3} md={1} item>
-                                <ButtonWithSpinner className={classes.fullWidth} loading={loading} onClick={() => onDelete(record)} variant="contained" color="secondary">
+                        {record.id !== undefined ? (
+                            <Grid xs={12} sm={4} md={2} item>
+                                <ButtonWithSpinner
+                                    className={classes.fullWidth}
+                                    loading={loading}
+                                    onClick={() => onDelete(record)}
+                                    variant="contained"
+                                    color="secondary"
+                                >
                                     Excluir
                                 </ButtonWithSpinner>
                             </Grid>
                         ) : null}
-                        <Grid sm={3} md={1} item>
-                            <ButtonWithSpinner className={classes.fullWidth} loading={loading} type="submit" variant="contained" color="primary">
+                        <Grid xs={12} sm={4} md={2} item>
+                            <ButtonWithSpinner
+                                className={classes.fullWidth}
+                                loading={loading}
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                            >
                                 Salvar
                             </ButtonWithSpinner>
                         </Grid>
@@ -187,152 +221,135 @@ export function HelpManagerForm (props) {
                 </Form>
             )}
         </Formik>
-    )
+    );
 }
 
-export function HelpsManagerGrid (props) {
-    const { records, onSelect } = props
-    const classes = useStyles()
+export function HelpsManagerGrid(props) {
+    const { records, onSelect } = props;
+    const classes = useStyles();
 
     return (
-            <Table className={classes.fullWidth} size="small" aria-label="a dense table" style={{ borderCollapse: 'separate', borderSpacing: '0 20px' }}>
+        <div className={classes.tableContainer}>
+            <Table className={classes.fullWidth} size="small" style={{ borderCollapse: 'separate', borderSpacing: '0 20px' }}>
                 <TableHead>
-                <TableRow className={classes.TableCell} style={{color: '#0C2454'}}>                   
-                    <TableCell align="center" className={classes.tableHeadCell}>Título</TableCell>
-                    <TableCell align="center" className={classes.tableHeadCell}>Descrição</TableCell>
-                    <TableCell align="center" className={classes.tableHeadCell}>Vídeo</TableCell>
-                    <TableCell align="center" className={classes.tableHeadCell}>Ações</TableCell>
-                </TableRow>
-
+                    <TableRow>
+                        <TableCell align="center" className={classes.tableHeadCell}>Título</TableCell>
+                        <TableCell align="center" className={classes.tableHeadCell}>Descrição</TableCell>
+                        <TableCell align="center" className={classes.tableHeadCell}>Vídeo</TableCell>
+                        <TableCell align="center" className={classes.tableHeadCell}>Ações</TableCell>
+                    </TableRow>
                 </TableHead>
                 <TableBody>
-                {records.map((row) => (
-                    <TableRow key={row.id}g>
-                        <TableCell align="center" className={classes.tableRowCell} style={{borderRadius:'8px 0 0 8px'}}>{row.title || '-'}</TableCell>
-                        <TableCell align="center" className={classes.tableRowCell}>{row.description || '-'}</TableCell>
-                        <TableCell align="center" className={classes.tableRowCell}>{row.video || '-'}</TableCell>
-                        <TableCell align="center" className={classes.tableRowCell} style={{borderRadius:'0 8px 8px 0'}}>
-                            <IconButton onClick={() => onSelect(row)} aria-label="delete">
-                                <EditIcon style={{color: '#0C2454'}}/>
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
-                ))}
+                    {records.map((row) => (
+                        <TableRow key={row.id}>
+                            <TableCell align="center" className={classes.tableRowCell}>{row.title || '-'}</TableCell>
+                            <TableCell align="center" className={classes.tableRowCell}>{row.description || '-'}</TableCell>
+                            <TableCell align="center" className={classes.tableRowCell}>{row.video || '-'}</TableCell>
+                            <TableCell align="center" className={classes.tableRowCell}>
+                                <IconButton onClick={() => onSelect(row)} aria-label="edit">
+                                    <EditIcon style={{ color: '#0C2454' }} />
+                                </IconButton>
+                            </TableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
             </Table>
-    )
+        </div>
+    );
 }
 
-export default function HelpsManager () {
-    const classes = useStyles()
-    const { list, save, update, remove } = useHelps()
-    
-    const [showConfirmDialog, setShowConfirmDialog] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [records, setRecords] = useState([])
+export default function HelpsManager() {
+    const classes = useStyles();
+    const { list, save, update, remove } = useHelps();
+
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [records, setRecords] = useState([]);
     const [record, setRecord] = useState({
         title: '',
         description: '',
         video: ''
-    })
+    });
 
     useEffect(() => {
-        async function fetchData () {
-            await loadHelps()
+        async function fetchData() {
+            await loadHelps();
         }
-        fetchData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+        fetchData();
+    }, []);
 
     const loadHelps = async () => {
-        setLoading(true)
+        setLoading(true);
         try {
-            const helpList = await list()
-            setRecords(helpList)
+            const helpList = await list();
+            setRecords(helpList);
         } catch (e) {
-            toast.error('Não foi possível carregar a lista de registros')
+            toast.error('Não foi possível carregar a lista de registros');
         }
-        setLoading(false)
-    }
+        setLoading(false);
+    };
 
     const handleSubmit = async (data) => {
-        setLoading(true)
+        setLoading(true);
         try {
             if (data.id !== undefined) {
-                await update(data)
+                await update(data);
             } else {
-                await save(data)
+                await save(data);
             }
-            await loadHelps()
-            handleCancel()
-            toast.success('Operação realizada com sucesso!')
-        } catch (e) {
-            toast.error('Não foi possível realizar a operação. Verifique se já existe uma helpo com o mesmo nome ou se os campos foram preenchidos corretamente')
+            await loadHelps();
+            handleCancel();
+            toast.success('Operação realizada com sucesso.');
+        } catch (err) {
+            toast.error('Operação falhou.');
         }
-        setLoading(false)
-    }
+        setLoading(false);
+    };
 
-    const handleDelete = async () => {
-        setLoading(true)
+    const handleDelete = async (data) => {
         try {
-            await remove(record.id)
-            await loadHelps()
-            handleCancel()
-            toast.success('Operação realizada com sucesso!')
-        } catch (e) {
-            toast.error('Não foi possível realizar a operação')
+            await remove(data);
+            toast.success('Operação realizada com sucesso.');
+            await loadHelps();
+        } catch (err) {
+            toast.error('Operação falhou.');
         }
-        setLoading(false)
-    }
+        setShowConfirmDialog(false);
+    };
 
-    const handleOpenDeleteDialog = () => {
-        setShowConfirmDialog(true)
-    }
+    const handleSelect = (record) => {
+        setRecord(record);
+    };
 
     const handleCancel = () => {
         setRecord({
             title: '',
             description: '',
             video: ''
-        })
-    }
-
-    const handleSelect = (data) => {
-        setRecord({
-            id: data.id,
-            title: data.title || '',
-            description: data.description || '',
-            video: data.video || ''
-        })
-    }
+        });
+    };
 
     return (
-        <Paper className={classes.mainPaper} elevation={0}>
-            <Grid spacing={2} container>
-                <Grid xs={12} item>
-                    <HelpManagerForm 
-                        initialValue={record} 
-                        onDelete={handleOpenDeleteDialog} 
-                        onSubmit={handleSubmit} 
-                        onCancel={handleCancel} 
-                        loading={loading}
-                    />
-                </Grid>
-                <Grid xs={12} item>
-                    <HelpsManagerGrid 
-                        records={records}
-                        onSelect={handleSelect}
-                    />
-                </Grid>
-            </Grid>
+        <Paper className={classes.mainPaper} variant="outlined">
+            <HelpManagerForm
+                initialValue={record}
+                onSubmit={handleSubmit}
+                onDelete={(record) => setShowConfirmDialog(record)}
+                onCancel={handleCancel}
+                loading={loading}
+            />
+            <HelpsManagerGrid
+                records={records}
+                onSelect={handleSelect}
+            />
             <ConfirmationModal
-                title="Exclusão de Registro"
+                title="Exclusão"
                 open={showConfirmDialog}
                 onClose={() => setShowConfirmDialog(false)}
-                onConfirm={() => handleDelete()}
+                onConfirm={() => handleDelete(record)}
             >
                 Deseja realmente excluir esse registro?
             </ConfirmationModal>
         </Paper>
-    )
+    );
 }
