@@ -184,6 +184,15 @@ const useStyles = makeStyles((theme) => ({
       height: "100%",
     },
   },
+  pageHeader: {
+    display: "flex", 
+    flexDirection: "row", 
+    justifyContent: "space-between", 
+    marginBottom: "10px",
+    [theme.breakpoints.down("sm")]: {
+        flexDirection: "column"
+    }
+  },
   traco: {
     height: '2px',
     width: 'calc(100%)',
@@ -191,16 +200,23 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '0px',
   },
   fundo: {
-		marginTop:'80px',
-		backgroundColor:'white',
-		width:'90%',
-		height:'100%',
-		marginLeft:'67px',
-		borderRadius:'18px',
-		padding:'16px',
-		overflowY: "scroll",
-		...theme.scrollbarStyles,
-	  },
+    marginTop:'80px',
+    backgroundColor:'white',
+    width:'90%',
+    height:'100%',
+    marginLeft:'67px',
+    borderRadius:'18px',
+    padding:'16px',
+    overflowY: "scroll",
+    ...theme.scrollbarStyles,
+  },
+  container: {
+    display: "flex",
+    [theme.breakpoints.down("sm")]: {
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+  },
 }));
 
 const Schedules = () => {
@@ -362,15 +378,15 @@ const Schedules = () => {
         cleanContact={cleanContact}
       />
        <div className={classes.fundo}>
-        <div className={classes.agend}>
-        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "10px",}}>
+        <div className={classes.pageHeader}>
           <Title>{i18n.t("schedules.title")} ({schedules.length})</Title>
-          <div>
+          <div className={classes.container}>
             <TextField
               placeholder="Pesquisar"
               type="search"
               value={searchParam}
               onChange={handleSearch}
+              className={classes.searchField}
               InputProps={{
                 style: {
                   backgroundColor: "#D9D9D9",
@@ -389,6 +405,7 @@ const Schedules = () => {
             <Button
               variant="contained"
               color="primary"
+              size="small"
               onClick={handleOpenScheduleModal}
               >
               {i18n.t("schedules.buttons.add")}
@@ -435,7 +452,6 @@ const Schedules = () => {
         />
         </div>
       </div>
-    </div>
   );
 };
 
