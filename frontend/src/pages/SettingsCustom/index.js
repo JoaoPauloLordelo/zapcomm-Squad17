@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]:{
       marginLeft:'20px',
     }
+
   },
   mainPaper: {
     ...theme.scrollbarStyles,

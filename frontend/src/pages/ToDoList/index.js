@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -16,58 +15,50 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import Title from "../../components/Title";
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
   },
   mainPaper: {
-    marginTop:'80px',
-    width:'1500px',
-    height:'700px',
-    borderRadius:'16px',
-    marginLeft: '63px'
+    marginTop: '80px',
+    width: '90%',
+    maxWidth: '1500px',
+    height: '700px',
+    borderRadius: '16px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
 
   },
   titleContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    '@media (max-width: 600px)': {
+      flexDirection: 'column',
+      alignItems: 'stretch',
+    },
   },
   title: {
     marginTop: '20px',
     fontWeight: 'bold',
     color: '#0C2454',
   },
-  paper: {
-    width: '1190px',
-    flexGrow: 1, // Altere esta linha
-    borderRadius: '21px',
-    padding: '20px',
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    maxHeight: '80vh',
-    overflow: 'hidden',
-    overflowY: 'auto',
-  },
   searchField: {
     backgroundColor: '#D9D9D9',
     borderRadius: '4px',
     height: '40px',
-    width: '250px',
+    width: '100%',
+    maxWidth: '250px',
     border: '2px solid #A0A0A0',
-    marginLeft: '20px',
-    '& .MuiOutlinedInput-root': {
-      '& input': {
-        padding: '10px 14px',
-      },
-      '& fieldset': {
-        border: 'none',
-      },
-    },
-    '& .MuiInputAdornment-root': {
-      marginTop: '-5px',
+    marginLeft: 'auto',
+    '@media (max-width: 600px)': {
+      marginLeft: '0',
+      width: '100%',
+      alignSelf: 'flex-end',
+
     },
   },
   blueLine: {
@@ -79,6 +70,12 @@ const useStyles = makeStyles({
     display: 'flex',
     marginBottom: '1rem',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: '10px',
+    '@media (max-width: 600px)': {
+      flexDirection: 'column',
+      alignItems: 'stretch',
+    },
   },
   input: {
     backgroundColor: '#D9D9D9',
@@ -89,6 +86,7 @@ const useStyles = makeStyles({
     padding: '10px',
     height: '50px',
     fontSize: '16px',
+    minWidth: '200px',
   },
   buttonRed: {
     backgroundColor: '#f44336',
@@ -100,8 +98,13 @@ const useStyles = makeStyles({
     '&:hover': {
       backgroundColor: '#c62828',
     },
-    marginLeft: '1.8rem',
-    marginRight: '1.5rem',
+    marginLeft: '1rem',
+    marginRight: '1rem',
+    '@media (max-width: 600px)': {
+      width: '100%',
+      marginLeft: '0',
+      marginRight: '0',
+    },
   },
   button: {
     textTransform: 'none',
@@ -109,6 +112,9 @@ const useStyles = makeStyles({
     fontSize: '14px',
     width: '100px',
     height: '51px',
+    '@media (max-width: 600px)': {
+      width: '100%',
+    },
   },
   listContainer: {
     marginTop: '1rem',
@@ -121,63 +127,92 @@ const useStyles = makeStyles({
     borderRadius: '8px',
     marginBottom: '8px',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'center', // Centraliza checkbox e título verticalmente
+    padding: '10px',
+    '@media (max-width: 600px)': {
+      flexDirection: 'column', // Alinha os itens verticalmente apenas em telas pequenas
+      alignItems: 'stretch',
+      height: 'auto', // Ajusta a altura para acomodar todos os itens
+      padding: '16px', // Adiciona mais padding
+    },
   },
   infoContainer: {
     display: 'flex',
-    marginLeft: '1.5rem',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    justifyContent: 'space-between',
     width: '100%',
-    flexWrap: 'wrap',
+    '@media (max-width: 600px)': {
+      flexDirection: 'column', // Empilha os itens verticalmente em telas pequenas
+      alignItems: 'flex-start', // Alinha os itens à esquerda
+      gap: '8px', // Adiciona espaço entre os itens
+    },
   },
   taskText: {
-    flexGrow: 1,
     color: '#0C2454',
     fontWeight: 'bold',
-    width:'20%'
+
+    marginLeft: '10px', // Espaço entre o checkbox e o título
+    whiteSpace: 'nowrap',
+    flex: '1 0 auto',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    '@media (max-width: 600px)': {
+      whiteSpace: 'normal', // Permite quebra de linha em telas pequenas
+      overflow: 'visible',
+      fontSize: '14px',
+      marginLeft: '0', // Remove a margem lateral
+    },
+
   },
   avatarContainer: {
+    marginRight: '20px',
     display: 'flex',
     alignItems: 'center',
-    width: '20%',
-    position: 'relative',
+    '@media (max-width: 600px)': {
+      justifyContent: 'flex-start',
+      gap: '10px', // Espaço entre avatar e texto
+    },
   },
   avatar: {
-    marginRight: '8px',
+    marginRight: '4px',
+    '@media (max-width: 600px)': {
+      width: '30px',
+      height: '30px', // Ajusta tamanho do avatar em telas pequenas
+    },
   },
   dateContainer: {
+    marginRight: '20px',
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    width: '20%',
+    justifyContent: 'flex-start',
+    '@media (max-width: 600px)': {
+      fontSize: '12px', // Ajusta fonte para telas pequenas
+    },
   },
   statusContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    width: '20%',
-  },
-  status: {
+    marginLeft: '20px',
+    fontWeight: 'bold',
     color: '#4CAF50',
+    '@media (max-width: 600px)': {
+      fontSize: '12px', // Ajusta fonte em telas pequenas
+    },
   },
   fundo: {
-    marginTop:'80px',
-    backgroundColor:'white',
-    width:'90%',
-    height:'80%',
-    marginLeft:'67px',
-    borderRadius:'18px',
-    padding:'16px'
+    marginTop: '80px',
+    backgroundColor: 'white',
+    width: '90%',
+    height: 'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderRadius: '18px',
+    padding: '16px',
+    '@media (max-width: 600px)': {
+      padding: '10px', // Padding reduzido em telas pequenas
+    },
   },
-
-});
-
+}));
 
 
-
-
-
+export { useStyles };
 
 
 const ToDoList = () => {
@@ -189,12 +224,6 @@ const ToDoList = () => {
   const [checked, setChecked] = useState([]);
 
 
-
-
-
-
-
-
   useEffect(() => {
     const savedTasks = localStorage.getItem('tasks');
     if (savedTasks) {
@@ -203,21 +232,9 @@ const ToDoList = () => {
   }, []);
 
 
-
-
-
-
-
-
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
-
-
-
-
-
-
 
 
   const handleTaskChange = (event) => {
@@ -225,24 +242,10 @@ const ToDoList = () => {
   };
 
 
-
-
-
-
-
-
   const handleAddTask = () => {
     if (!task.trim()) {
       return;
     }
-
-
-
-
-
-
-
-
     const now = new Date();
     if (editIndex >= 0) {
       const newTasks = [...tasks];
@@ -262,34 +265,11 @@ const ToDoList = () => {
   };
 
 
-
-
-
-
-
-
   const handleDeleteTask = (index) => {
     const newTasks = [...tasks];
     newTasks.splice(index, 1);
     setTasks(newTasks);
   };
-
-
-
-
-
-
-
-
-  const handleSearch = (event) => {
-    setSearchParam(event.target.value);
-  };
-
-
-
-
-
-
 
 
   const handleToggle = (index) => {
@@ -309,58 +289,28 @@ const ToDoList = () => {
   };
 
 
-
-
-
-
-
-
-  const formatTaskText = (text) => {
-    if (text.length > 250) {
-      return `${text.slice(0, 250)}\n${text.slice(250)}`;
-    }
-    return text;
-  };
-
-
-
-
-
-
-
-
   return (
     <div className={classes.fundo}>
       <div className={classes.root}>
         <div className={classes.titleContainer}>
-          <Title>
-            Tarefas
-          </Title>{/*colocar o tiltle*/}
+
+          <Title>Tarefas</Title>
+
           <TextField
             placeholder="Pesquisar..."
             type="search"
             value={searchParam}
-            onChange={handleSearch}
+
+            onChange={(e) => setSearchParam(e.target.value)}
             InputProps={{
-              disableUnderline: true, // remove a linha
+              disableUnderline: true,
               style: {
-                color: '#0C2454',// cor do texto normal
-                fontWeight: 'bold', // texto em negrito
-                backgroundColor: "#D9D9D9",
+                color: '#0C2454',
+                fontWeight: 'bold',
+                backgroundColor: '#D9D9D9',
                 borderRadius: '8px',
-                height: "36.5px",
-              },
-              inputProps: {
-                style: {
-                  paddingLeft: '8px',
-                  '&::placeholder': {
-                    color: '#0C2454',
-                    fontWeight: 'bold',
-                    Opacity: 1, // cor do placeholder
-                    paddingLeft: "10px"
-                  
-                  },
-                },
+                height: '36.5px',
+
               },
               endAdornment: (
                 <InputAdornment position="start">
@@ -381,10 +331,9 @@ const ToDoList = () => {
               value={task}
               onChange={handleTaskChange}
             />
-            <Button
-              onClick={handleDeleteTask}
-              className={classes.buttonRed}
-            >
+
+            <Button className={classes.buttonRed}>
+
               <DeleteIcon style={{ marginRight: '5px', marginLeft: '5px' }} />
             </Button>
             <Button
@@ -407,47 +356,51 @@ const ToDoList = () => {
                     disableRipple
                     onClick={() => handleToggle(index)}
                     style={{
-                      color: "#0C2454",  // Cor do ícone quando marcado
-                      backgroundColor: "#FFFFFF",  // Fundo branco
-                      width: '20px',  // Ajuste da largura
-                      height: '20px',  // Ajuste da altura
-                      padding: '0px',  // Remove o padding extra
-                      borderRadius: '4px',  // Bordas arredondadas
-                      marginLeft: '10px',  // Move um pouco para a direita
+
+                      color: "#0C2454",
+                      backgroundColor: "#FFFFFF",
+                      width: '20px',
+                      height: '20px',
+                      padding: '0px',
+                      borderRadius: '4px',
+                      marginLeft: '10px',
                     }}
                   />
-
+                  <Typography className={classes.taskText}>{task.text}</Typography>
                   <div className={classes.infoContainer}>
-                    <Typography className={classes.taskText}>
-                      {task.text}
-                    </Typography>
-
-
+                    <div className={classes.avatarContainer}>
+                      <Typography
+                        variant="body2"
+                        style={{
+                          marginRight: '6px',
+                          fontWeight: 'bold',
+                          color: '#0C2454',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        Criado por:
+                      </Typography>
+                      <Avatar className={classes.avatar}>U</Avatar>
+                    </div>
                     <Typography
                       variant="body2"
+                      className={classes.dateContainer}
                       style={{
-                    
-                        marginRight: '10px',
-                        fontWeight: 'bold',  // Negrito
-                        color: '#0C2454',    // Azul
+                        fontWeight: 'bold',
+                        color: '#0C2454',
                       }}
                     >
-                      Criado por:
+                      Criada em: {new Date(task.createdAt).toLocaleDateString()}
                     </Typography>
-
-
-                    <Avatar className={classes.avatar}>
-                      U
-                    </Avatar>
-
-                    <Typography variant="body2" className={classes.date}>
-                      <span style={{ fontWeight: 'bold', color: '#0C2454' }}>Criada em:</span>
-                      <span style={{ color: '#0C2454' }}> {new Date(task.createdAt).toLocaleDateString()}</span>
-                    </Typography>
-
-                    <Typography variant="body2" className={classes.status}>
-                      <span style={{ fontWeight: 'bold', color: '#0C2454' }}>Status:</span>
-                      <span style={{ color: '#0C2454', marginLeft: '4px' }}>{task.status}</span>
+                    <Typography
+                      variant="body2"
+                      className={classes.statusContainer}
+                      style={{
+                        fontWeight: 'bold',
+                        color: '#0C2454',
+                      }}
+                    >
+                      Status: {task.status}
                     </Typography>
 
                   </div>
@@ -469,12 +422,6 @@ const ToDoList = () => {
 
   );
 };
-
-
-
-
-
-
 
 
 export default ToDoList;

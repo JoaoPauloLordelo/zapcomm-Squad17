@@ -38,7 +38,7 @@ import Title from "../../components/Title";
 import TableRowSkeleton from "../../components/TableRowSkeleton";
 import IntegrationModal from "../../components/QueueIntegrationModal";
 import ConfirmationModal from "../../components/ConfirmationModal";
-
+import useMediaQuery from "@material-ui/core";
 import api from "../../services/api";
 import { i18n } from "../../translate/i18n";
 import toastError from "../../errors/toastError";
@@ -97,12 +97,20 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
+    [theme.breakpoints.down("xs")]: { // For mobile screens (small devices)
+      padding: theme.spacing(1), // Reduce padding on smaller screens
+      margin: theme.spacing(0.5), // Reduce margin for mobile devices
+    },
   },
   avatar: {
     width: "140px",
     height: "40px",
-    align:'center',
-    borderRadius: 4
+    align: "center",
+    borderRadius: 4,
+    [theme.breakpoints.down("xs")]: { // For mobile devices
+      width: "80px", // Smaller avatar for mobile screens
+      height: "30px", // Smaller height for mobile
+    },
   },
   traco: {
     height: '2px',
@@ -110,21 +118,45 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#0C2454',
     marginLeft: '0px',
     marginBottom: '20px',
+    [theme.breakpoints.down("xs")]: { // For mobile devices
+    
+    },
   },
   fundo: {
-		marginTop:'80px',
-		backgroundColor:'white',
-		width:'90%',
-		height:'100%',
-		marginLeft:'67px',
-		borderRadius:'18px',
-		padding:'16px',
-		overflowY: "scroll",
-		...theme.scrollbarStyles,
-	  },
-  
+    marginTop: '80px',
+    backgroundColor: 'white',
+    width: '90%',
+    height: '100%',
+    marginLeft: '67px',
+    borderRadius: '18px',
+    padding: '16px',
+    overflowY: "scroll",
+    ...theme.scrollbarStyles,
+    [theme.breakpoints.down("xs")]: { // For small screens
+      marginLeft: '10px', // Adjust the left margin for smaller screens
+      width: '100%', // Make the width 100% on mobile devices
+      
+      padding: theme.spacing(2), // Add extra padding for mobile screens
+    },
+    addButton: {
+      backgroundColor: theme.palette.primary.main, // Cor de fundo padrão
+      color: '#fff', // Cor do texto
+      padding: theme.spacing(1, 2), // Padding (ajustável com breakpoints)
+      borderRadius: '8px', // Bordas arredondadas
+      display: 'flex', // Para alinhar o ícone e texto
+      alignItems: 'center',
+      gap: '8px', // Espaço entre ícone e texto
+      '&:hover': {
+        backgroundColor: theme.palette.primary.dark, // Cor no hover
+      },
+      [theme.breakpoints.down('sm')]: {
+        padding: theme.spacing(0.5, 1), // Botão menor em telas pequenas
+        fontSize: '12px', // Texto menor em telas pequenas
+        gap: '4px', // Menos espaço entre ícone e texto
+      },
+    },
+  },
 }));
-
 const QueueIntegration = () => {
   const classes = useStyles();
 
@@ -283,6 +315,7 @@ const QueueIntegration = () => {
               style: {
                 color: '#0C2454', // cor do texto normal
                 fontWeight: 'bold', // texto em negrito
+                
               },
               inputProps: {
                 style: {
@@ -292,6 +325,11 @@ const QueueIntegration = () => {
                     fontWeight: 'bold',
                     opacity: 1, // cor do placeholder
                     paddingLeft: '8px', // opcional: para adicionar espaço ao placeholder
+                   '@media (max-width:600px)': { // For mobile screens (xs)
+                   
+          fontSize: '12px', // Reduce placeholder font size on mobile
+          paddingLeft: '4px', // Reduce padding for placeholder on mobile
+        },
                   },
                 },
               },
