@@ -2,10 +2,26 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Dialog, DialogTitle, DialogContent, TextField } from "@material-ui/core";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
+  },
+  dialogPaper: {
+    borderRadius: 20,
+    maxWidth: "370px",
+    minWidth: "200px",
+    width: "20%",
+    height: "50%",
+    position: 'absolute',
+    top: '224px',
+    left: '65%',
+    overflowY: 'hidden',
+    [theme.breakpoints.down("sm")]: {
+      left: '15%',
+      width: "250px",
+    },
   },
   blueLine: {
     border: 0,
@@ -43,39 +59,35 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    height: "100%", // Garante que o conteúdo ocupe toda a altura do modal
+    height: "100%",
   },
 }));
 
+
 const QueueChatModal = ({ open, onClose, greetingMessage, outOfHoursMessage }) => {
   const classes = useStyles();
+
 
   const handleClose = () => {
     onClose();
   };
 
+
   return (
     <div className={classes.root}>
       <Dialog
-        maxWidth="424px"
-        fullWidth={true}
-        open={open}
-        onClose={handleClose}
-        scroll="paper"
-        BackdropProps={{
-          style: { backgroundColor: 'transparent' },
-        }}
-        PaperProps={{
-          style: {
-            borderRadius: 20,
-            maxWidth: "370px",
-            height: "450px",
-            position: 'absolute',
-            top: '30%',
-            left: '68%',
-          },
-        }}
-      >
+          maxWidth="424px"
+          fullWidth={true}
+          open={open}
+          onClose={handleClose}
+          scroll="paper"
+          BackdropProps={{
+            style: { backgroundColor: 'transparent' },
+          }}
+          PaperProps={{
+            className: classes.dialogPaper,
+          }}
+        >
         <DialogTitle style={{ color: '#0C2454', textAlign: 'center' }}>
           Mensagens
           <hr className={classes.blueLine} />
@@ -104,6 +116,7 @@ const QueueChatModal = ({ open, onClose, greetingMessage, outOfHoursMessage }) =
             )}
           </div>
 
+
           {/* O <hr> sempre ficará na base */}
           <hr className={classes.blueLine} />
         </DialogContent>
@@ -112,4 +125,7 @@ const QueueChatModal = ({ open, onClose, greetingMessage, outOfHoursMessage }) =
   );
 };
 
+
 export default QueueChatModal;
+
+
