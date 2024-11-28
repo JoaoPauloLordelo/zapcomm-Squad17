@@ -29,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "20%",
     color: "#0C2454",
     fontWeight: "bold",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "10%",
+      fontSize: "1.5rem",
+    },
   },
   ln: {
     height: "1px",
@@ -37,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     left: "20%",
     bottom: "50px",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      left: "0",
+    },
   },
   mainContainer: {
     display: "flex",
@@ -48,20 +56,32 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     borderRadius: "12px",
     backgroundColor: "#FFFFFF",
+    [theme.breakpoints.down("md")]: {
+      width: "90%",
+      margin: "0 auto",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      borderRadius: "0",
+    },
   },
   chatList: {
     display: "flex",
     flexDirection: "column",
-    position: "relative",
     flex: 1,
-    overflowY: "scroll",
+    overflowY: "auto",
     ...theme.scrollbarStyles,
     width: "660px",
     height: "auto",
     backgroundColor: "#FFFFFF",
     left: "61px",
-    overflow: "hidden",
     marginTop: "-30px",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      left: "0",
+      marginTop: "0",
+      padding: theme.spacing(2),
+    },
   },
   listItem: {
     cursor: "pointer",
@@ -71,6 +91,9 @@ const useStyles = makeStyles((theme) => ({
     height: "75px",
     width: "40%",
     position: "relative",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   ln2: {
     height: "2px",
@@ -79,10 +102,15 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     marginTop: "5px",
     marginBottom: "5px",
-    right:"15%",
+    right: "15%",
     borderRadius: "5px",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      right: "0",
+    },
   },
 }));
+
 
 export default function ChatList({
   chats,

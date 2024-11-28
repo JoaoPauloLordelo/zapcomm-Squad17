@@ -30,18 +30,30 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "15px",
     top: "14%",
     left: "37%",
-    bottom: "0",
     zIndex: "1000",
-    transform: "scale(0.75)",
+    [theme.breakpoints.down("md")]: {
+      width: "90%",
+      left: "5%",
+      top: "10%",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      height: "100%",
+      left: "0",
+      top: "0",
+      borderRadius: "0",
+    },
   },
   chatTitleContainer: {
-    // Aplique o estilo desejado aqui para o título do chat
     textAlign: "center",
-    color:"#0C2454",
+    color: "#0C2454",
     fontSize: "32px",
     padding: theme.spacing(2),
     fontWeight: "bolder",
-    height:"",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "24px",
+      padding: theme.spacing(1),
+    },
   },
   messageList: {
     position: "relative",
@@ -51,15 +63,22 @@ const useStyles = makeStyles((theme) => ({
     ...theme.scrollbarStyles,
     backgroundColor: "#F5F4F3",
     top: "30px",
-    overflow:"hidden",
+    [theme.breakpoints.down("sm")]: {
+      height: "70%",
+      width: "100%",
+      top: "10px",
+    },
   },
   inputArea: {
     position: "relative",
     height: "10%",
-    top: "55px",
     width: "90%",
     left: "5%",
     borderRadius: "16px",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      left: "0",
+    },
   },
   bord: {
     position: "relative",
@@ -69,14 +88,19 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #0C2454",
     borderRadius: "16px",
     zIndex: "1",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   input: {
     padding: "20px",
     backgroundColor: "#E2E2E2",
     borderRadius: "16px",
     position: "relative",
-    bottom: "5%",
     border: "2px solid #0C2454",
+    [theme.breakpoints.down("sm")]: {
+      padding: "10px",
+    },
   },
   buttonSend: {
     margin: theme.spacing(1),
@@ -89,33 +113,37 @@ const useStyles = makeStyles((theme) => ({
     color: "#FFFFFF",
     textAlign: "right",
     maxWidth: "60%",
-    maxHeight: "15%",
-    
     borderRadius: 10,
     borderBottomRightRadius: 0,
     border: "1px solid rgba(0, 0, 0, 0.12)",
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "80%",
+    },
   },
   boxRight: {
     padding: "10px 25px 10px",
-    margin: "10px 0px 0px 586px",
-    marginRight: 0,
+    margin: "10px 0px 0px auto",
     backgroundColor: "#0C2454",
     color: "#FFFFFF",
     textAlign: "right",
-    fontSize:'18px',
-    width: "50%",  // use width em vez de maxWidth
+    fontSize: "18px",
+    width: "50%",
     borderRadius: 10,
     borderBottomRightRadius: 0,
     border: "1px solid rgba(0, 0, 0, 0.12)",
+    [theme.breakpoints.down("sm")]: {
+      width: "80%",
+    },
   },
   line: {
     width: "90%",
     height: "2px",
-    top: "0%",
-    left: "5%",
     backgroundColor: "#0C2454",
     position: "relative",
     zIndex: "5",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   line2: {
     width: "90%",
@@ -123,18 +151,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#0C2454",
     position: "relative",
     zIndex: "5",
-    top: "80%",
-    left: "5%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   data: {
     position: "relative",
-    right: "5%",
-    bottom: "200%",
     maxWidth: "40%",
     zIndex: "10",
-    transform: "scale(0.75)",
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "80%",
+    },
   },
 }));
+
+
 
 export default function ChatMessages({
   chat,
