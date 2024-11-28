@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flex: 1,
     backgroundColor: 'transparent',
+    marginLeft:'67px',
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:'20px',
+    }
   },
   mainPaper: {
     ...theme.scrollbarStyles,
@@ -72,10 +76,9 @@ const useStyles = makeStyles((theme) => ({
   },
   traco: {
     height: '2px',
-    width: '97%',
+    width: '100%',
     backgroundColor: '#0C2454',
     marginBottom: '20px',
-    marginLeft:'20px'
   },
   titulo:{
     fontSize:"25px",
@@ -93,6 +96,9 @@ const useStyles = makeStyles((theme) => ({
   padding:'16px',
   overflowY: "scroll",
   ...theme.scrollbarStyles,
+  [theme.breakpoints.down("sm")]:{
+    marginLeft:'25px',
+  }
   },
 }));
 
@@ -206,7 +212,7 @@ const SettingsCustom = () => {
           variant="fullWidth"
           onChange={handleTabChange}
           classes={{ root: classes.root }}
-          style={{ display: 'flex', width: '90%',marginLeft:'66px', marginBottom:'15px'}} // Mantém o display flex
+          style={{ display: 'flex', width: '90%', marginBottom:'15px'}} // Mantém o display flex
         >
 
           <Tab label="Opções" value={"options"} classes={{ root: classes.tab }} />
