@@ -133,10 +133,10 @@ const useStyles = makeStyles((theme) => ({
     "& .rbc-header": {
       padding: "10px 5px",
       fontWeight: "bold",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      textAlign: "center",
+      //display: "flex",
+      //alignItems: "center",
+      //justifyContent: "center",
+      //textAlign: "center",
     },
     
     // Ajuste da altura da linha do texto no cabeçalho
@@ -184,15 +184,39 @@ const useStyles = makeStyles((theme) => ({
       height: "100%",
     },
   },
+  pageHeader: {
+    display: "flex", 
+    flexDirection: "row", 
+    justifyContent: "space-between", 
+    marginBottom: "10px",
+    [theme.breakpoints.down("sm")]: {
+        flexDirection: "column"
+    }
+  },
   traco: {
     height: '2px',
-    width: '100%',
+    width: 'calc(100%)',
     backgroundColor: '#0C2454',
     marginLeft: '0px',
   },
-  agend: {
-    padding:'16px'
-  }
+  fundo: {
+    marginTop:'80px',
+    backgroundColor:'white',
+    width:'90%',
+    height:'100%',
+    marginLeft:'67px',
+    borderRadius:'18px',
+    padding:'16px',
+    overflowY: "scroll",
+    ...theme.scrollbarStyles,
+  },
+  container: {
+    display: "flex",
+    [theme.breakpoints.down("sm")]: {
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+  },
 }));
 
 const Schedules = () => {
@@ -332,7 +356,7 @@ const Schedules = () => {
   };
 
   return (
-    <MainContainer>
+    <div style={{height:'80%'}}>
       <ConfirmationModal
         title={
           deletingSchedule &&
@@ -353,16 +377,16 @@ const Schedules = () => {
         contactId={contactId}
         cleanContact={cleanContact}
       />
-      <Paper className={classes.mainPaper} variant="outlined" onScroll={handleScroll}>
-        <div className={classes.agend}>
-        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "10px",}}>
+       <div className={classes.fundo}>
+        <div className={classes.pageHeader}>
           <Title>{i18n.t("schedules.title")} ({schedules.length})</Title>
-          <div>
+          <div className={classes.container}>
             <TextField
               placeholder="Pesquisar"
               type="search"
               value={searchParam}
               onChange={handleSearch}
+              className={classes.searchField}
               InputProps={{
                 style: {
                   backgroundColor: "#D9D9D9",
@@ -381,6 +405,7 @@ const Schedules = () => {
             <Button
               variant="contained"
               color="primary"
+              size="small"
               onClick={handleOpenScheduleModal}
               >
               {i18n.t("schedules.buttons.add")}
@@ -426,8 +451,7 @@ const Schedules = () => {
           style={{ height: 500 }}
         />
         </div>
-      </Paper>
-    </MainContainer>
+      </div>
   );
 };
 

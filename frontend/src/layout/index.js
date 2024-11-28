@@ -72,7 +72,10 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 24, // keep right padding when drawer closed
     color: theme.palette.dark.main,
     background: 'white',
-    height: '100px'
+    height: '100px',
+    [theme.breakpoints.down("sm")]:{
+      overflow: 'hidden',
+    }
   },
   toolbarIcon: {
     display: "flex",
@@ -101,10 +104,14 @@ const useStyles = makeStyles((theme) => ({
     }),
     [theme.breakpoints.down("sm")]: {
       display: "none"
-    }
+    },
+    
   },
   menuButton: {
     marginLeft: 50,
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:0,
+    }
   },
   menuButtonHidden: {
     display: "none",
@@ -181,6 +188,16 @@ const useStyles = makeStyles((theme) => ({
     },
     logo: theme.logo
   },
+  imagemnavbar:{
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:0,
+      marginRight: 0
+    },
+    [theme.breakpoints.up("sm")]:{
+      marginLeft: '100px',
+      marginRight: 0
+    }
+  } 
 }));
 
 const LoggedInLayout = ({ children, themeToggle }) => {
@@ -388,9 +405,12 @@ const LoggedInLayout = ({ children, themeToggle }) => {
           >
             <MenuIcon />
           </IconButton>
-            <div><img src={Elipse3} style={{marginBottom: '28px', marginLeft:'90px'}}/></div>
-            <div><img src={Elipse4} style={{ marginLeft:'90px', marginRight: '100px'}}/></div>
-            <div><img src={Elipse5} style={{marginTop: '26px', position:'relative', marginLeft:'200px'}}/></div>
+          {/*<div><img src={Elipse3} style={{marginBottom: '28px', marginLeft:'10%'}}/></div>
+            <div><img src={Elipse4} style={{ marginLeft:'10%px', marginRight: '15%'}}/></div>
+            <div><img src={Elipse5} style={{marginTop: '26px', position:'relative', marginLeft:'30%'}}/></div>*/}
+            <div><img src={Elipse3} className={classes.imagemnavbar} style={{marginBottom: '28px'}}/></div>
+            <div><img src={Elipse4} className={classes.imagemnavbar} /*style={{marginRight: '100px'}}*//></div>
+            <div><img src={Elipse5} className={classes.imagemnavbar} style={{marginTop: '26px', position:'relative'}}/></div>
           <Typography
             component="h2"
             variant="h6"
@@ -409,7 +429,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
           </Typography>
           
           <IconButton edge="start" onClick={toggleColorMode}> 
-            {theme.mode === 'dark' ? <Brightness7Icon style={{ color: "34D3A3" }} /> : <Brightness4Icon style={{ color: "34D3A3" }} />}
+            {theme.mode === 'dark' ? <Brightness7Icon style={{ color: "white", display:'none' }} /> : <Brightness4Icon style={{ color: "white",display:'none' }} />}
           </IconButton>
 
           <NotificationsVolume

@@ -20,7 +20,6 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    padding:'16px'
   },
   mainPaper: {
     marginTop:'80px',
@@ -121,7 +120,6 @@ const useStyles = makeStyles({
     backgroundColor: '#E0E0E0',
     borderRadius: '8px',
     marginBottom: '8px',
-    padding: '0 16px',
     display: 'flex',
     alignItems: 'center',
   },
@@ -137,10 +135,7 @@ const useStyles = makeStyles({
     flexGrow: 1,
     color: '#0C2454',
     fontWeight: 'bold',
-    wordBreak: 'break-word',
-    whiteSpace: 'normal',
-    overflowWrap: 'break-word',
-    display: 'inline-block',
+    width:'20%'
   },
   avatarContainer: {
     display: 'flex',
@@ -165,6 +160,15 @@ const useStyles = makeStyles({
   },
   status: {
     color: '#4CAF50',
+  },
+  fundo: {
+    marginTop:'80px',
+    backgroundColor:'white',
+    width:'90%',
+    height:'80%',
+    marginLeft:'67px',
+    borderRadius:'18px',
+    padding:'16px'
   },
 
 });
@@ -326,10 +330,7 @@ const ToDoList = () => {
 
 
   return (
-    <Paper
-      className={classes.mainPaper}
-      variant="outlined"
-    >
+    <div className={classes.fundo}>
       <div className={classes.root}>
         <div className={classes.titleContainer}>
           <Title>
@@ -417,7 +418,7 @@ const ToDoList = () => {
                   />
 
                   <div className={classes.infoContainer}>
-                    <Typography variant="body2" className={classes.taskText} style={{ color: '#0C2454', fontWeight: 'bold' }}>
+                    <Typography className={classes.taskText}>
                       {task.text}
                     </Typography>
 
@@ -425,7 +426,7 @@ const ToDoList = () => {
                     <Typography
                       variant="body2"
                       style={{
-                        marginLeft: "100px",
+                    
                         marginRight: '10px',
                         fontWeight: 'bold',  // Negrito
                         color: '#0C2454',    // Azul
@@ -464,7 +465,7 @@ const ToDoList = () => {
           </div>
         </div>
       </div>
-    </Paper>
+    </div>
 
   );
 };

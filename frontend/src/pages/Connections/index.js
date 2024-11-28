@@ -70,10 +70,7 @@ const useStyles = makeStyles(theme => ({
 		left:'5px',
 		color:'black',
 	},
-	conexoes: {
-		padding:'16px'
-		
-	},
+
 
 	contentWrapper: {
 		backgroundColor: "green",
@@ -111,6 +108,17 @@ const useStyles = makeStyles(theme => ({
 	buttonProgress: {
 		color: green[500],
 	},
+	fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'100%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
 	
 
 }));
@@ -354,7 +362,7 @@ const Connections = () => {
 	};
 
 	return (
-		<MainContainer>
+			<div style={{height:'80%'}}>
 			<ConfirmationModal
 				title={confirmModalInfo.title}
 				open={confirmModalOpen}
@@ -379,7 +387,7 @@ const Connections = () => {
 				whatsAppId={!qrModalOpen && selectedWhatsApp?.id}
 			/>
 			
-			<Paper className={classes.mainPaper} variant="outlined">
+			<div className={classes.fundo}>
 			<div className={classes.conexoes}>
 			<MainHeader >
 				<Title className={classes.titulo} style={{
@@ -524,8 +532,8 @@ const Connections = () => {
 					</TableBody>
 				</Table>
 				</div>
-			</Paper>
-		</MainContainer>
+				</div>
+				</div>
 	);
 };
 

@@ -128,6 +128,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "0",
     },
   },
+
 }));
 
 const SettingsCustom = () => {
@@ -199,6 +200,7 @@ const SettingsCustom = () => {
       <Paper className={classes.mainPaper} elevation={1}>
         <div className={classes.titulo}>Configurações</div>
         <div className={classes.traco}></div>
+
         <Tabs
           value={tab}
           indicatorColor="primary"
@@ -257,6 +259,7 @@ const SettingsCustom = () => {
             />
           </TabPanel>
         </Paper>
+
       </Paper>
   );
 };

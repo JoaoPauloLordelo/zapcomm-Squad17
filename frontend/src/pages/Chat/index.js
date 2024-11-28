@@ -42,7 +42,9 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "hidden",
     border: "1px solid rgba(0, 0, 0, 0.12)",
     paddingTop: '70px',
-    
+
+    backgroundColor:'#34D3A3'
+
 
   },
 
@@ -74,6 +76,17 @@ const useStyles = makeStyles((theme) => ({
     left:"275%",
     top:"20px",
   },
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'80%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
   
   
 }));
@@ -426,7 +439,7 @@ function Chat(props) {
 
   const renderGrid = () => {
     return (
-      <Grid className={classes.gridContainer} container>
+      <Grid>
         <Grid className={classes.gridItem} md={3} item>
           
             <div className={classes.btnContainer}>
@@ -540,9 +553,9 @@ function Chat(props) {
         }}
         handleClose={() => setShowDialog(false)}
       />
-      <Paper className={classes.mainContainer}>
+      <div className={classes.fundo}>
         {isWidthUp("md", props.width) ? renderGrid() : renderTab()}
-      </Paper>
+      </div>
     </>
   );
 }

@@ -28,7 +28,7 @@ import TableRowSkeleton from "../../components/TableRowSkeleton";
 import QuickMessageDialog from "../../components/QuickMessageDialog";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import toastError from "../../errors/toastError";
-import { Grid } from "@material-ui/core";
+import { Grid, withWidth } from "@material-ui/core";
 import { isArray } from "lodash";
 import { SocketContext } from "../../context/Socket/SocketContext";
 import { AuthContext } from "../../context/Auth/AuthContext";
@@ -88,17 +88,17 @@ const reducer = (state, action) => {
 
 const useStyles = makeStyles((theme) => ({
   mainPaper: {
-    flex: 1,
+    display: "relative",
     padding: theme.spacing(1),
-    overflowY: "scroll",
     ...theme.scrollbarStyles,
   },
   blueLine: {
 		border: 0,
-		height: "2px",
-    width: '1230px',
+		height: "1px",
+    width: '133%',
 		backgroundColor: theme.palette.primary.main, // Azul da cor primária do tema
 		margin: theme.spacing(2, 0), // Espaçamento vertical
+   
 	  },
 
 }));
@@ -217,119 +217,141 @@ const Quickemessages = () => {
   };
 
   return (
-    <MainContainer>
-      <ConfirmationModal
-        title={deletingQuickemessage && `${i18n.t("quickMessages.confirmationModal.deleteTitle")} ${deletingQuickemessage.shortcode}?`}
-        open={confirmModalOpen}
-        onClose={setConfirmModalOpen}
-        onConfirm={() => handleDeleteQuickemessage(deletingQuickemessage.id)}
-      >
-        {i18n.t("quickMessages.confirmationModal.deleteMessage")}
-      </ConfirmationModal>
-      <QuickMessageDialog
-        resetPagination={() => {
-          setPageNumber(1);
-          fetchQuickemessages();
-        }}
-        open={quickemessageModalOpen}
-        onClose={handleCloseQuickMessageDialog}
-        aria-labelledby="form-dialog-title"
-        quickemessageId={selectedQuickemessage && selectedQuickemessage.id}
-      />
-       
-      <MainHeader>
-        
-        <Grid style={{ width: "99.6%" }} container>
-          <Grid xs={12} sm={8} item>
-            <Title>{i18n.t("quickMessages.title")}</Title>
-            <hr className={classes.blueLine} />
-          </Grid>
-          
-          <Grid xs={12} sm={4} item>
-            <Grid spacing={2} container>
-              <Grid xs={6} sm={6} item>
-                <TextField
-                  fullWidth
-                  placeholder={i18n.t("quickMessages.searchPlaceholder")}
-                  type="search"
-                  value={searchParam}
-                  onChange={handleSearch}
-                  InputProps={{
-                    disableUnderline: true, // remove a linha
+    <div style={{width:'100%'}}>
+    <ConfirmationModal
+      title={deletingQuickemessage && `${i18n.t("quickMessages.confirmationModal.deleteTitle")} ${deletingQuickemessage.shortcode}?`}
+      open={confirmModalOpen}
+      onClose={setConfirmModalOpen}
+      onConfirm={() => handleDeleteQuickemessage(deletingQuickemessage.id)}
+    >
+      {i18n.t("quickMessages.confirmationModal.deleteMessage")}
+    </ConfirmationModal>
+  
+    <QuickMessageDialog
+      resetPagination={() => {
+        setPageNumber(1);
+        fetchQuickemessages();
+      }}
+      open={quickemessageModalOpen}
+      onClose={handleCloseQuickMessageDialog}
+      aria-labelledby="form-dialog-title"
+      quickemessageId={selectedQuickemessage && selectedQuickemessage.id}
+    />
+  
+    <MainHeader container>
+    
+        <Grid item xs={12} sm={8} md={9}>
+          <Title>{i18n.t("quickMessages.title")}</Title>
+          <hr className={classes.blueLine} />
+        </Grid>
+  
+        <Grid item xs={12} sm={4} md={3} style={{marginTop:'40px'}}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                placeholder={i18n.t("quickMessages.searchPlaceholder")}
+                type="search"
+                value={searchParam}
+                onChange={handleSearch}
+                InputProps={{
+                  disableUnderline: true,
+                  style: {
+                    backgroundColor: '#D3d3d3',
+                    borderRadius: '8px',
+                    color: '#0C2454',
+                    fontWeight: 'bold',
+                    width: '110%'
+                  },
+                  inputProps: {
                     style: {
-
-                      backgroundColor: '#D3d3d3',
-                      borderRadius: '8px',
-                      color: '#0C2454', // cor do texto normal
-                      fontWeight: 'bold', // texto em negrito
-                    },
-                    inputProps: {
-                      style: {
-                        paddingLeft: '8px', // espaçamento à esquerda
-                        '&::placeholder': {
-                          color: '#0C2454',
-                          
-                          fontWeight: 'bold',
-                          opacity: 1, // cor do placeholder
-                          paddingLeft: '8px', // opcional: para adicionar espaço ao placeholder
-                        },
+                      paddingLeft: '8px',
+                      '&::placeholder': {
+                        color: '#0C2454',
+                        fontWeight: 'bold',
+                        opacity: 1,
                       },
                     },
-                    endAdornment: (
-                      <InputAdornment position="end">
-
-                        <SearchIcon style={{ color: '#0C2454' }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-              <Grid xs={6} sm={6} item>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  onClick={handleOpenQuickMessageDialog}
-                  color="primary"
-                >
-                  {i18n.t("quickMessages.buttons.add")}
-                </Button>
-              </Grid>
+                  },
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <SearchIcon style={{ color: '#0C2454' }} />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+  
+            <Grid style={{ marginBottom: "20%", height:"90%", paddingLeft:"5%" }}  item xs={12} sm={6}>
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={handleOpenQuickMessageDialog}
+                color="primary"
+                
+              >
+                {i18n.t("quickMessages.buttons.add")}
+              </Button>
             </Grid>
           </Grid>
         </Grid>
-      </MainHeader>
-      <div className={classes.traco}></div>
-      <Paper
-        className={classes.mainPaper}
-        style={{border:'none'}}
-        variant="outlined"
-        onScroll={handleScroll}
-      >
-        <Table size="small"   style={{ borderCollapse: 'separate', borderSpacing: '0 10px'}}>
-          <TableHead>
-            <TableRow style={{ border: 'none' }}>
-              <TableCell align="center"  style={{ border: 'none' }}>
-                {i18n.t("quickMessages.table.shortcode")}
-              </TableCell>
+     
+    </MainHeader>
+  
 
-              <TableCell align="center" style={{ border: 'none' }}>
-                {i18n.t("quickMessages.table.mediaName")}
-              </TableCell>        
-              <TableCell align="center" style={{ border: 'none' }}>
-                {i18n.t("quickMessages.table.actions")}
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <>
+      <Grid container>
+        <Grid item xs={12} style={{ padding: '0 16px' }}>
+          <Table
+            size="medium"
+            style={{
+              width: '100%', // A tabela vai preencher toda a largura do container
+              borderCollapse: 'separate',
+              borderSpacing: '0 10px',
+            }}
+          >
+            <TableHead>
+              <TableRow style={{ border: 'none' }}>
+                <TableCell align="center" style={{ border: 'none' }}>
+                  {i18n.t("quickMessages.table.shortcode")}
+                </TableCell>
+                <TableCell align="center" style={{ border: 'none' }}>
+                  {i18n.t("quickMessages.table.mediaName")}
+                </TableCell>
+                <TableCell align="center" style={{ border: 'none' }}>
+                  {i18n.t("quickMessages.table.actions")}
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
               {quickemessages.map((quickemessage) => (
-                <TableRow key={quickemessage.id} style={{marginBottom: '5px'}}>
-                  <TableCell align="center"  style={{ borderRadius: '16px 0 0 16px', overflow: 'hidden' , backgroundColor: '#D3D3D3',  borderRight: '1px solid #ccc', }}>{quickemessage.shortcode}</TableCell>
-
-                  <TableCell align="center"  style={{  overflow: 'hidden' , backgroundColor: '#D3D3D3' }}>
+                <TableRow key={quickemessage.id} style={{ marginBottom: '5px' }}>
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderRadius: '16px 0 0 16px',
+                      backgroundColor: '#D3D3D3',
+                      borderRight: '1px solid #ccc',
+                    }}
+                  >
+                    {quickemessage.shortcode}
+                  </TableCell>
+  
+                  <TableCell
+                    align="center"
+                    style={{
+                      backgroundColor: '#D3D3D3',
+                    }}
+                  >
                     {quickemessage.mediaName ?? i18n.t("quickMessages.noAttachment")}
                   </TableCell>
-                  <TableCell align="center"  style={{  borderRadius: '0 16px 16px 0', overflow: 'hidden' , backgroundColor: '#D3D3D3' }}>
+  
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderRadius: '0 16px 16px 0',
+                      backgroundColor: '#D3D3D3',
+                    }}
+                  >
                     <IconButton
                       size="small"
                       color="primary"
@@ -337,12 +359,10 @@ const Quickemessages = () => {
                     >
                       <EditIcon />
                     </IconButton>
-
-
+  
                     <IconButton
                       size="small"
                       color="secondary"
-            
                       onClick={(e) => {
                         setConfirmModalOpen(true);
                         setDeletingQuickemessage(quickemessage);
@@ -354,11 +374,12 @@ const Quickemessages = () => {
                 </TableRow>
               ))}
               {loading && <TableRowSkeleton columns={5} />}
-            </>
-          </TableBody>
-        </Table>
-      </Paper>
-    </MainContainer>
+            </TableBody>
+          </Table>
+        </Grid>
+      </Grid>
+
+    </div>
   );
 };
 

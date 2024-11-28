@@ -7,15 +7,14 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   makeStyles,
-  Box,
   Typography,
 } from "@material-ui/core";
 import { useHistory, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import { useDate } from "../../hooks/useDate";
 
-import thrash from "../../assets/thrashcan.png";
 import DeleteIcon from "@material-ui/icons/Delete";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import EditIcon from "@material-ui/icons/Edit";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import api from "../../services/api";
@@ -24,21 +23,28 @@ const useStyles = makeStyles((theme) => ({
   lixo: {
     transform: "scale(0.5)",
   },
-  // titulo
   tt: {
     position: "relative",
     bottom: "50px",
     marginLeft: "20%",
     color: "#0C2454",
+    fontWeight: "bold",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "10%",
+      fontSize: "1.5rem",
+    },
   },
-  // linha abaixo do titulo
   ln: {
-    height: "2px",
+    height: "1px",
     width: "350%",
     backgroundColor: "#0C2454",
     position: "relative",
     left: "20%",
     bottom: "50px",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      left: "0",
+    },
   },
   mainContainer: {
     display: "flex",
@@ -49,20 +55,33 @@ const useStyles = makeStyles((theme) => ({
     width: "700px",
     overflow: "hidden",
     borderRadius: "12px",
-    backgroundColor: "#FFFFFF", // DARK MODE PLW DESIGN
+    backgroundColor: "#FFFFFF",
+    [theme.breakpoints.down("md")]: {
+      width: "90%",
+      margin: "0 auto",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      borderRadius: "0",
+    },
   },
   chatList: {
     display: "flex",
     flexDirection: "column",
-    position: "relative",
     flex: 1,
-    overflowY: "scroll",
+    overflowY: "auto",
     ...theme.scrollbarStyles,
     width: "660px",
     height: "auto",
     backgroundColor: "#FFFFFF",
-    left: "50px",
-    overflow:"hidden",
+    left: "61px",
+    marginTop: "-30px",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      left: "0",
+      marginTop: "0",
+      padding: theme.spacing(2),
+    },
   },
   listItem: {
     cursor: "pointer",
@@ -70,11 +89,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "6px",
     marginBottom: theme.spacing(2),
     height: "75px",
-    width: "651.3px", // Garante que o item ocupe toda a largura disponível
-    marginLeft: "0px", // Remove a margem esquerda
+    width: "40%",
     position: "relative",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
-  // linha preta entre o título e a prévia
   ln2: {
     height: "2px",
     width: "80%",
@@ -82,7 +102,12 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     marginTop: "5px",
     marginBottom: "5px",
-    borderRadius:"5px",
+    right: "15%",
+    borderRadius: "5px",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      right: "0",
+    },
   },
 }));
 
@@ -112,7 +137,7 @@ export default function ChatList({
 
     if (id !== chat.uuid) {
       history.push(`/chats/${chat.uuid}`);
-      handleSelectChat(chat); // Atualiza o chat selecionado no componente pai
+      handleSelectChat(chat);
     }
   };
 
@@ -130,7 +155,8 @@ export default function ChatList({
     const unreads = unreadMessages(chat);
     return (
       <>
-        <span style={{ fontWeight: "bold", display: "block" }}>{mainText}</span>
+        <span style={{ fontWeight: "bold", display: "block", position:"relative", right:"15%",
+         }}>{mainText}</span>
         <div className={classes.ln2}></div>
         {unreads > 0 && (
           <Chip
@@ -144,28 +170,18 @@ export default function ChatList({
     );
   };
 
-  const getSecondaryText = (chat) => {
-    return chat.lastMessage !== ""
-      ? (
-        <span style={{ marginTop: "8px", display: "block" }}>
-          {`${datetimeToClient(chat.updatedAt)}: ${chat.lastMessage}`}
-        </span>
-      ) : "";
-  };
-
   const getItemStyle = (chat) => {
     return {
       borderLeft: chat.uuid === id ? "6px solid #002d6e" : null,
-      backgroundColor: chat.uuid === id ? "theme.palette.chatlist" : null,
+      backgroundColor: chat.uuid === id ? "#f0f0f0" : null,
     };
   };
 
   return (
     <>
-      <div>
-        <h1 className={classes.tt}>Chat Interno</h1>
-        <div className={classes.ln}></div>
-      </div>
+      <h1 className={classes.tt}>Chat Interno</h1>
+      <div className={classes.ln}></div>
+
       <ConfirmationModal
         title={"Excluir Conversa"}
         open={confirmationModal}
@@ -186,9 +202,19 @@ export default function ChatList({
                 style={getItemStyle(chat)}
                 button
               >
+                <AccountCircle
+                  style={{
+                    position: "absolute",
+                    top: "14px",
+                    left: "20px",
+                    width: "45px",
+                    height: "45px",
+                    color: "#0C2454",
+                  }}
+                />
                 <ListItemText
                   primary={getPrimaryText(chat)}
-                  secondary={getSecondaryText(chat)}
+                  style={{ marginLeft: "75px", top: "50%" }} // Ajusta o texto para o lado do ícone
                 />
                 {chat.ownerId === user.id && (
                   <ListItemSecondaryAction>
@@ -201,7 +227,10 @@ export default function ChatList({
                       edge="end"
                       aria-label="edit"
                       size="small"
-                      style={{ marginRight: 5 }}
+                      style={{ marginRight: 5 ,
+                        position:"relative",
+                        right:"625%",
+                      }}
                     >
                       <EditIcon />
                     </IconButton>
@@ -213,8 +242,12 @@ export default function ChatList({
                       edge="end"
                       aria-label="delete"
                       size="small"
+                      style={{ color: "#D3343E",
+                        position:"relative",
+                        right:"620%",
+                       }}
                     >
-                      <DeleteIcon style={{color:"#D3343E",}}/>
+                      <DeleteIcon />
                     </IconButton>
                   </ListItemSecondaryAction>
                 )}

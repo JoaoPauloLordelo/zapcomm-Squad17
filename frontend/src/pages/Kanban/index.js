@@ -9,6 +9,7 @@ import { useHistory } from 'react-router-dom';
 import MainContainer from "../../components/MainContainer";
 import Title from "../../components/Title";
 import MainHeader from "../../components/MainHeader";
+import {useMediaQuery} from "@material-ui/core"
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -28,10 +29,13 @@ const useStyles = makeStyles(theme => ({
     marginTop:'80px',
     backgroundColor:'white',
     width:'90%',
-    height:'85%',
+    height:'80%',
     marginLeft:'67px',
     borderRadius:'18px',
-    padding:'16px'
+    padding:'16px',
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:'25px',
+    }
   },
   traco: {
     height: '2px',
@@ -108,7 +112,7 @@ const Kanban = () => {
         id: "lane0",
         title: i18n.t("Em aberto"),
         label: "0",
-        style:{backgroundColor:'white', padding:'10px , 0px !important', height:'20%'},
+        style:{backgroundColor:'white', padding:'10px , 0px !important', height:'600px'},
         cards: filteredTickets.map(ticket => ({
           id: ticket.id.toString(),
           label: "Ticket nº " + ticket.id.toString(),
@@ -161,7 +165,7 @@ const Kanban = () => {
         })),
       },
       {
-        id: "lane1",
+        id: "lane2",
         title: i18n.t("Aguardando Fornecedor"),
         label: "0",
         style:{backgroundColor:'white', padding:'10px , 0px !important', height:'20%'},
@@ -189,7 +193,7 @@ const Kanban = () => {
         })),
       },
       {
-        id: "lane1",
+        id: "lane3",
         title: i18n.t("Impedidos"),
         label: "0",
         style:{backgroundColor:'white', padding:'10px , 0px !important', height:'20%'},
@@ -217,7 +221,7 @@ const Kanban = () => {
         })),
       },
       {
-        id: "lane1",
+        id: "lane4",
         title: i18n.t("Finalizados"),
         label: "0",
         style:{backgroundColor:'white', padding:'10px , 0px !important', height:'20%'},
@@ -387,7 +391,6 @@ const CustomLaneHeader = ({label, cards, title, current, target,tag
             padding: "10px",
             borderRadius: "10px",
             height:'92%',
-            overflowY: "scroll",
           }}
           components={{
             LaneHeader: CustomLaneHeader,

@@ -106,11 +106,23 @@ const useStyles = makeStyles((theme) => ({
   },
   traco: {
     height: '2px',
-    width: '1175px',
+    width: '100%',
     backgroundColor: '#0C2454',
     marginLeft: '0px',
     marginBottom: '20px',
   },
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'100%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
+  
 }));
 
 const QueueIntegration = () => {
@@ -234,7 +246,7 @@ const QueueIntegration = () => {
   };
 
   return (
-    <MainContainer>
+    <div style={{height:'80%'}}>
       <ConfirmationModal
         title={
           deletingUser &&
@@ -256,11 +268,7 @@ const QueueIntegration = () => {
       />
       
       
-      <Paper style={{ margin: '20px', borderRadius: '16px', overflow: 'hidden', border: '1px solid #D9D9D9'}}
-        className={classes.mainPaper}
-        variant="outlined"
-        onScroll={handleScroll}
-      >
+      <div className={classes.fundo}>
         <MainHeader>
         <Title>{i18n.t("queueIntegration.title")} ({queueIntegration.length})</Title>
         <MainHeaderButtonsWrapper>
@@ -357,8 +365,8 @@ const QueueIntegration = () => {
             </>
           </TableBody>
         </Table>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 

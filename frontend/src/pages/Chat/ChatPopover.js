@@ -36,7 +36,28 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
-    borderRadius:"12px",  
+    borderRadius: "12px",
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "100%", // Ajusta para ocupar toda a largura em telas pequenas
+      maxHeight: "60vh", // Altura responsiva para dispositivos móveis
+    },
+  },
+  listItem: {
+    background: "#ffffff",
+    border: "1px solid #eee",
+    cursor: "pointer",
+    "&:nth-child(even)": {
+      background: "#ededed",
+    },
+    [theme.breakpoints.down("sm")]: {
+      padding: theme.spacing(1),
+    },
+  },
+  listText: {
+    fontSize: 14,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 12, // Reduz o tamanho da fonte em dispositivos móveis
+    },
   },
 }));
 
@@ -236,60 +257,39 @@ export default function ChatPopover() {
         </Badge>
       </IconButton>
       <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
+  id={id}
+  open={open}
+  anchorEl={anchorEl}
+  onClose={handleClose}
+  anchorOrigin={{
+    vertical: "bottom",
+    horizontal: "center",
+  }}
+  transformOrigin={{
+    vertical: "top",
+    horizontal: "center",
+  }}
+>
+  <Paper
+    variant="outlined"
+    onScroll={handleScroll}
+    className={classes.mainPaper}
+  >
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <Typography variant="h6" style={{ margin: "0 10px" }}>
+        Chats
+      </Typography>
+      <IconButton
+        onClick={handleClose}
+        style={{ margin: 5 }}
+        aria-label="close"
       >
-        <Paper
-          variant="outlined"
-          onScroll={handleScroll}
-          className={classes.mainPaper}
-        >
-          <List
-            component="nav"
-            aria-label="main mailbox folders"
-            style={{ minWidth: 300 }}
-          >
-            {isArray(chats) &&
-              chats.map((item, key) => (
-                <ListItem
-                  key={key}
-                  style={{
-                    background: key % 2 === 0 ? "#ededed" : "white",
-                    border: "1px solid #eee",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => goToMessages(item)}
-                  button
-                >
-                  <ListItemText
-                    primary={item.lastMessage}
-                    secondary={
-                      <>
-                        <Typography component="span" style={{ fontSize: 12 }}>
-                          {datetimeToClient(item.updatedAt)}
-                        </Typography>
-                        <span style={{ marginTop: 5, display: "block" }}></span>
-                      </>
-                    }
-                  />
-                </ListItem>
-              ))}
-            {isArray(chats) && chats.length === 0 && (
-              <ListItemText primary={i18n.t("mainDrawer.appBar.notRegister")} />
-            )}
-          </List>
-        </Paper>
-      </Popover>
+        <span style={{ fontSize: "16px" }}>✖</span>
+      </IconButton>
+    </div>
+ 
+  </Paper>
+</Popover>
     </div>
   );
 }

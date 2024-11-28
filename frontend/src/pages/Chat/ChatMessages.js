@@ -24,41 +24,61 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     borderRadius: 0,
     height: "95%",
-    width: "30%",
+    width: "65%",
     borderLeft: "1px solid rgba(0, 0, 0, 0.12)",
     backgroundColor: "#F5F4F3",
     borderRadius: "15px",
-    top: "16%",
-    left: "65%",
-    bottom: "0",
+    top: "14%",
+    left: "37%",
     zIndex: "1000",
-    transform: "scale(0.75)",
+    [theme.breakpoints.down("md")]: {
+      width: "90%",
+      left: "5%",
+      top: "10%",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      height: "100%",
+      left: "0",
+      top: "0",
+      borderRadius: "0",
+    },
   },
   chatTitleContainer: {
-    // Aplique o estilo desejado aqui para o título do chat
     textAlign: "center",
+    color: "#0C2454",
+    fontSize: "32px",
     padding: theme.spacing(2),
-    fontWeight: "bold",
-    height:"",
+    fontWeight: "bolder",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "24px",
+      padding: theme.spacing(1),
+    },
   },
   messageList: {
     position: "relative",
     overflowY: "auto",
-    height: "73.5%",
-    width: "100%",
-    maxWidth: "500px",
+    height: "75%",
+    width: "95%",
     ...theme.scrollbarStyles,
     backgroundColor: "#F5F4F3",
     top: "30px",
-    overflow:"hidden",
+    [theme.breakpoints.down("sm")]: {
+      height: "70%",
+      width: "100%",
+      top: "10px",
+    },
   },
   inputArea: {
     position: "relative",
     height: "10%",
-    top: "55px",
-    width: "80%",
-    left: "10%",
+    width: "90%",
+    left: "5%",
     borderRadius: "16px",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      left: "0",
+    },
   },
   bord: {
     position: "relative",
@@ -68,50 +88,62 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #0C2454",
     borderRadius: "16px",
     zIndex: "1",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   input: {
     padding: "20px",
     backgroundColor: "#E2E2E2",
     borderRadius: "16px",
     position: "relative",
-    bottom: "5%",
     border: "2px solid #0C2454",
+    [theme.breakpoints.down("sm")]: {
+      padding: "10px",
+    },
   },
   buttonSend: {
     margin: theme.spacing(1),
   },
   boxLeft: {
-    padding: "10px 10px 5px",
+    padding: "10px 25px 5px",
     margin: "10px 10px 10px auto",
     position: "relative",
-    backgroundColor: "#9AE2A9",
+    backgroundColor: "#0C2454",
+    color: "#FFFFFF",
     textAlign: "right",
     maxWidth: "60%",
-    maxHeight: "15%",
     borderRadius: 10,
     borderBottomRightRadius: 0,
     border: "1px solid rgba(0, 0, 0, 0.12)",
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "80%",
+    },
   },
   boxRight: {
-    padding: "10px 10px 5px",
-    margin: "10px 10px 10px auto",
-    position: "relative",
-    backgroundColor: "#ADC9CD",
+    padding: "10px 25px 10px",
+    margin: "10px 0px 0px auto",
+    backgroundColor: "#0C2454",
+    color: "#FFFFFF",
     textAlign: "right",
-    maxWidth: "60%",
-    maxHeight: "15%",
+    fontSize: "18px",
+    width: "50%",
     borderRadius: 10,
     borderBottomRightRadius: 0,
     border: "1px solid rgba(0, 0, 0, 0.12)",
+    [theme.breakpoints.down("sm")]: {
+      width: "80%",
+    },
   },
   line: {
     width: "90%",
     height: "2px",
-    top: "5%",
-    left: "5%",
     backgroundColor: "#0C2454",
     position: "relative",
     zIndex: "5",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   line2: {
     width: "90%",
@@ -119,18 +151,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#0C2454",
     position: "relative",
     zIndex: "5",
-    top: "80%",
-    left: "5%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   data: {
     position: "relative",
-    right: "5%",
-    bottom: "200%",
     maxWidth: "40%",
     zIndex: "10",
-    transform: "scale(0.75)",
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "80%",
+    },
   },
 }));
+
+
 
 export default function ChatMessages({
   chat,
@@ -182,7 +217,7 @@ export default function ChatMessages({
     <Paper className={classes.mainContainer}>
       {/* Contêiner do título do chat selecionado */}
       <div className={classes.chatTitleContainer}>
-        <Typography variant="h6">
+        <Typography variant="h6" style={{fontSize: "30px"}}>
           {chat ? chat.title : "Selecione um chat"}
         </Typography>
       </div>
@@ -195,7 +230,7 @@ export default function ChatMessages({
             if (item.senderId === user.id) {
               return (
                 <Box key={key} className={classes.boxRight}>
-                  <Typography variant="subtitle2">
+                  <Typography variant="subtitle2" style={{fontSize:'18px' }}>
                     {item.sender.name}
                   </Typography>
                   {item.message}
@@ -210,7 +245,7 @@ export default function ChatMessages({
             } else {
               return (
                 <Box key={key} className={classes.boxLeft}>
-                  <Typography variant="subtitle2">
+                  <Typography variant="subtitle2" style={{fontSize:'18px' }} >
                     {item.sender.name}
                   </Typography>
                   {item.message}
