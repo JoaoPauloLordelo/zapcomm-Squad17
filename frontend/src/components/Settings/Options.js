@@ -37,30 +37,17 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     "& .MuiTab-wrapper": {
       color: theme.palette.fontecor,
-    },  
-    [theme.breakpoints.down("sm")]: {
-      //width: '70%'
-      
-    }, //DARK MODE PLW DESIGN//
+    },   //DARK MODE PLW DESIGN//
     "& .MuiTabs-flexContainer": {
-      justifyContent: "space-around",
-      
+      justifyContent: "space-around"
     }
   },
-  
   paper: {
-    flex: 1,
-    padding: theme.spacing(1),
-    overflowY: "scroll",
-    ...theme.scrollbarStyles,
-    backgroundColor: 'white',
-    borderRadius: '16px',
-    padding: '24px',
-    width: '90%',
-    height: '100%',
-    marginTop: '80px',
-    marginLeft: '5%',
-    overflowX: 'hidden',
+    padding: theme.spacing(2),
+    display: "flex",
+    alignItems: "center",
+    marginBottom: 12,
+    width: "100%",
   },
   cardAvatar: {
     fontSize: "55px",
@@ -83,18 +70,12 @@ const useStyles = makeStyles((theme) => ({
   fullWidth: {
     width: "100%",
   },
-  [theme.breakpoints.down("sm")]: {
-    //width: '70%',
-    //paddingLeft:'90px'
-  },
   selectContainer: {
-    
     width: "100%",
     textAlign: "left",
     backgroundColor: "#0c2c54",
     borderRadius: "8px",
     paddingLeft: "8px",
-    
   },
   labelText: {
     color: "#ffffff",
@@ -123,7 +104,18 @@ export default function Options(props) {
   const [loadingCheckMsgIsGroup, setCheckMsgIsGroup] = useState(false);
 
 
-  
+  //const [ipixcType, setIpIxcType] = useState("");
+  //const [loadingIpIxcType, setLoadingIpIxcType] = useState(false);
+  //const [tokenixcType, setTokenIxcType] = useState("");
+  //const [loadingTokenIxcType, setLoadingTokenIxcType] = useState(false);
+
+  //const [ipmkauthType, setIpMkauthType] = useState("");
+  //const [loadingIpMkauthType, setLoadingIpMkauthType] = useState(false);
+  //const [clientidmkauthType, setClientIdMkauthType] = useState("");
+  //const [loadingClientIdMkauthType, setLoadingClientIdMkauthType] = useState(false);
+  //const [clientsecretmkauthType, setClientSecrectMkauthType] = useState("");
+  //const [loadingClientSecrectMkauthType, setLoadingClientSecrectMkauthType] = useState(false);
+
   const [asaasType, setAsaasType] = useState("");
   const [loadingAsaasType, setLoadingAsaasType] = useState(false);
   
@@ -183,7 +175,30 @@ export default function Options(props) {
         setChatbotType(chatbotType.value);
       }
 
-	   
+	    {/*const ipixcType = settings.find((s) => s.key === "ipixc");
+      if (ipixcType) {
+        setIpIxcType(ipixcType.value);
+      }*/}
+
+      {/*const tokenixcType = settings.find((s) => s.key === "tokenixc");
+      if (tokenixcType) {
+        setTokenIxcType(tokenixcType.value);
+      }*/}
+
+      {/*const ipmkauthType = settings.find((s) => s.key === "ipmkauth");
+      if (ipmkauthType) {
+        setIpMkauthType(ipmkauthType.value);
+      }*/}
+
+     {/* const clientidmkauthType = settings.find((s) => s.key === "clientidmkauth");
+      if (clientidmkauthType) {
+        setClientIdMkauthType(clientidmkauthType.value);
+      }*/}
+
+      {/*const clientsecretmkauthType = settings.find((s) => s.key === "clientsecretmkauth");
+      if (clientsecretmkauthType) {
+        setClientSecrectMkauthType(clientsecretmkauthType.value);
+      }*/}
 
       const asaasType = settings.find((s) => s.key === "asaas");
       if (asaasType) {
@@ -301,7 +316,61 @@ export default function Options(props) {
     setLoadingSettingsTransfTicket(false);
   } 
  
- 
+ {/*async function handleChangeIPIxc(value) {
+    setIpIxcType(value);
+    setLoadingIpIxcType(true);
+    await update({
+      key: "ipixc",
+      value,
+    });
+    toast.success("Operação atualizada com sucesso.");
+    setLoadingIpIxcType(false);
+  }
+
+   {/*async function handleChangeTokenIxc(value) {
+    setTokenIxcType(value);
+    setLoadingTokenIxcType(true);
+    await update({
+      key: "tokenixc",
+      value,
+    });
+    toast.success("Operação atualizada com sucesso.");
+    setLoadingTokenIxcType(false);
+  }
+
+  async function handleChangeIpMkauth(value) {
+    setIpMkauthType(value);
+    setLoadingIpMkauthType(true);
+    await update({
+      key: "ipmkauth",
+      value,
+    });
+    toast.success("Operação atualizada com sucesso.");
+    setLoadingIpMkauthType(false);
+  }
+
+  async function handleChangeClientIdMkauth(value) {
+    setClientIdMkauthType(value);
+    setLoadingClientIdMkauthType(true);
+    await update({
+      key: "clientidmkauth",
+      value,
+    });
+    toast.success("Operação atualizada com sucesso.");
+    setLoadingClientIdMkauthType(false);
+  }
+
+  async function handleChangeClientSecrectMkauth(value) {
+    setClientSecrectMkauthType(value);
+    setLoadingClientSecrectMkauthType(true);
+    await update({
+      key: "clientsecretmkauth",
+      value,
+    });
+    toast.success("Operação atualizada com sucesso.");
+    setLoadingClientSecrectMkauthType(false);
+  }*/}
+
   async function handleChangeAsaas(value) {
     setAsaasType(value);
     setLoadingAsaasType(true);
@@ -319,7 +388,6 @@ export default function Options(props) {
                     <Title>Configurações Gerais</Title>
                 </Grid> */}
         <Grid xs={12} sm={6} md={4} item>
-          
           <FormControl className={classes.selectContainer}>
             <InputLabel id="ratings-label" className={classes.labelText}>Avaliações</InputLabel>
             <Select 
@@ -329,7 +397,6 @@ export default function Options(props) {
               onChange={async (e) => {
                 handleChangeUserRating(e.target.value);
               }}
-              
             > 
               <MenuItem value={"disabled"}>Desabilitadas</MenuItem>
               <MenuItem value={"enabled"}>Habilitadas</MenuItem>
@@ -509,7 +576,132 @@ export default function Options(props) {
         </Tabs>
 
       </Grid>
-      
+      {/*-----------------IXC DESATIVADO 4.6.5-----------------*/}
+      {/*<Grid spacing={3} container
+        style={{ marginBottom: 10 }}>
+        <Tabs
+          indicatorColor="primary"
+          textColor="primary"
+          scrollButtons="on"
+          variant="scrollable"
+          className={classes.tab}
+        >
+          <Tab
+
+            label="IXC" />
+
+        </Tabs>
+        <Grid xs={12} sm={6} md={6} item>
+          <FormControl className={classes.selectContainer}>
+            <TextField
+              id="ipixc"
+              name="ipixc"
+              margin="dense"
+              label="IP do IXC"
+              variant="outlined"
+              value={ipixcType}
+              onChange={async (e) => {
+                handleChangeIPIxc(e.target.value);
+              }}
+            >
+            </TextField>
+            <FormHelperText>
+              {loadingIpIxcType && "Atualizando..."}
+            </FormHelperText>
+          </FormControl>
+        </Grid>
+        <Grid xs={12} sm={6} md={6} item>
+          <FormControl className={classes.selectContainer}>
+            <TextField
+              id="tokenixc"
+              name="tokenixc"
+              margin="dense"
+              label="Token do IXC"
+              variant="outlined"
+              value={tokenixcType}
+              onChange={async (e) => {
+                handleChangeTokenIxc(e.target.value);
+              }}
+            >
+            </TextField>
+            <FormHelperText>
+              {loadingTokenIxcType && "Atualizando..."}
+            </FormHelperText>
+          </FormControl>
+        </Grid>
+      </Grid>*/}
+      {/*-----------------MK-AUTH DESATIVADO 4.6.5-----------------*/}
+      {/*<Grid spacing={3} container
+        style={{ marginBottom: 10 }}>
+        <Tabs
+          indicatorColor="primary"
+          textColor="primary"
+          scrollButtons="on"
+          variant="scrollable"
+          className={classes.tab}
+        >
+          <Tab label="MK-AUTH" />
+
+        </Tabs>
+        <Grid xs={12} sm={12} md={4} item>
+          <FormControl className={classes.selectContainer}>
+            <TextField
+              id="ipmkauth"
+              name="ipmkauth"
+              margin="dense"
+              label="Ip Mk-Auth"
+              variant="outlined"
+              value={ipmkauthType}
+              onChange={async (e) => {
+                handleChangeIpMkauth(e.target.value);
+              }}
+            >
+            </TextField>
+            <FormHelperText>
+              {loadingIpMkauthType && "Atualizando..."}
+            </FormHelperText>
+          </FormControl>
+        </Grid>
+        <Grid xs={12} sm={12} md={4} item>
+          <FormControl className={classes.selectContainer}>
+            <TextField
+              id="clientidmkauth"
+              name="clientidmkauth"
+              margin="dense"
+              label="Client Id"
+              variant="outlined"
+              value={clientidmkauthType}
+              onChange={async (e) => {
+                handleChangeClientIdMkauth(e.target.value);
+              }}
+            >
+            </TextField>
+            <FormHelperText>
+              {loadingClientIdMkauthType && "Atualizando..."}
+            </FormHelperText>
+          </FormControl>
+        </Grid>
+        <Grid xs={12} sm={12} md={4} item>
+          <FormControl className={classes.selectContainer}>
+            <TextField
+              id="clientsecretmkauth"
+              name="clientsecretmkauth"
+              margin="dense"
+              label="Client Secret"
+              variant="outlined"
+              value={clientsecretmkauthType}
+              onChange={async (e) => {
+                handleChangeClientSecrectMkauth(e.target.value);
+              }}
+            >
+            </TextField>
+            <FormHelperText>
+              {loadingClientSecrectMkauthType && "Atualizando..."}
+            </FormHelperText>
+          </FormControl>
+        </Grid>
+      </Grid>*/}
+      {/*-----------------ASAAS-----------------*/}
       <Grid spacing={3} container
         style={{ marginBottom: 10 }}
         >
