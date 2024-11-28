@@ -78,7 +78,8 @@ const useStyles = makeStyles(theme => ({
 		justifyContent: "center",
 		textAlign: "center",
 		[theme.breakpoints.down("sm")]:{
-			width: '470px',
+			width: '370px',
+			overflow:'hidden'
 		  }
 	},
 	avatar: {
@@ -118,7 +119,8 @@ const useStyles = makeStyles(theme => ({
 		left: '0px',
 		[theme.breakpoints.down("sm")]:{
 			top: '-200px',
-			left:'-220px'
+			left:'-220px',
+
 		  }
 	},
 	efeito3: {
@@ -177,8 +179,10 @@ const useStyles = makeStyles(theme => ({
 		marginTop: '40px',
 		paddingLeft: '0',
 		[theme.breakpoints.down("sm")]:{
-			left: '0px',
-			overflowX:'hidden'
+			position:'relative',
+			left:'-25px',
+			overflowX:'hidden',
+
 		  },
 
 	},
@@ -189,12 +193,12 @@ const useStyles = makeStyles(theme => ({
 		marginLeft: '170px', 
 		marginTop: '16px',
 		[theme.breakpoints.down("sm")]:{
-			marginLeft: '120px',
+			marginLeft: '70px',
 		  },
 	},
 	registrese:{
 		[theme.breakpoints.down("sm")]:{
-			marginLeft: '-100px',
+			marginLeft: '-160px',
 		  },
 	}
 }));
