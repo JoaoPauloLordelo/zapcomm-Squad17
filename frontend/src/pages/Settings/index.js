@@ -16,21 +16,50 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
     padding: theme.spacing(4),
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+      padding: theme.spacing(2),
+    },
   },
-
+  container: {
+    width: "100%",
+    [theme.breakpoints.down("sm")]: {
+      padding: 0,
+    },
+  },
   paper: {
     padding: theme.spacing(2),
     display: "flex",
     alignItems: "center",
-    borderRadius:'16px',
+    borderRadius: "16px",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+      alignItems: "flex-start",
+      padding: theme.spacing(1.5),
+    },
   },
-
   settingOption: {
     marginLeft: "auto",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: 50,
+      marginTop: theme.spacing(1),
+      width: "100%",
+    },
   },
   margin: {
     margin: theme.spacing(1),
+    [theme.breakpoints.down("sm")]: {
+      margin: theme.spacing(0.5),
+    },
+  },
+  title: {
+    paddingLeft: "1500px",
+    [theme.breakpoints.down("sm")]: {
+      paddingLeft: "0",
+      textAlign: "center",
+    },
   },
 }));
 
@@ -95,10 +124,10 @@ const Settings = () => {
   return (
     <div className={classes.root}>
       <Container className={classes.container} maxWidth="sm">
-        <Typography variant="body2" gutterBottom style={{paddingLeft:"1500px"}}>
+        <Typography variant="body2" gutterBottom className={classes.title}>
           {i18n.t("settings.title")}
         </Typography>
-        <Paper  className={classes.paper}>
+        <Paper className={classes.paper}>
           <Typography variant="body1">
             {i18n.t("settings.settings.userCreation.name")}
           </Typography>
