@@ -38,8 +38,13 @@ const useStyles = makeStyles((theme) => ({
     ...theme.scrollbarStyles,
     borderRadius: "16px"
   },
-  textRight: {
+  buttons: {
     textAlign: "right",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      justifyContent: "space-between",
+      flexDirection: "row"
+    }
   },
   tabPanelsContainer: {
     padding: theme.spacing(2),
@@ -73,7 +78,23 @@ const useStyles = makeStyles((theme) => ({
 		marginLeft:'67px',
 		borderRadius:'18px',
 		padding:'16px',
+        overflowY: 'auto'
+        
 	  },
+  inputField: {
+    backgroundColor: "rgb(217, 217, 217)",
+    width: "80%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    }
+  },
+  inputTitle: {
+    color: "#0C2C4C",
+    marginBottom: "8px",
+    fontWeight: "bold"
+
+  }
+
 }));
 
 const initialSettings = {
@@ -252,7 +273,7 @@ const CampaignsConfig = () => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid xs={12} className={classes.textRight} item>
+            <Grid xs={12} className={classes.buttons} item>
               <Button
                 onClick={() => setShowVariablesForm(!showVariablesForm)}
                 style={{
@@ -260,6 +281,7 @@ const CampaignsConfig = () => {
                   backgroundColor: 'white',
                   color: '#0C2C4C',
                   border: '1px solid #0C2C4C',
+                  
                 }}
               >
                 Adicionar Variável
@@ -278,7 +300,7 @@ const CampaignsConfig = () => {
             {showVariablesForm && (
               <>
                 <Grid xs={12} md={6} item>
-                  <Typography variant="subtitle1" style={{color: "#0C2C4C", marginBottom: "8px", fontWeight: "bold"}}>
+                  <Typography variant="subtitle1" className={classes.inputTitle}>
                     Atalho
                   </Typography>
                   <TextField
@@ -286,11 +308,11 @@ const CampaignsConfig = () => {
                     value={variable.key}
                     name="key"
                     onChange={handleOnChangeVariable}
-                    style={{backgroundColor: "rgb(217, 217, 217)", width: "80%"}}
+                    className={classes.inputField}
                   />
                 </Grid>
                 <Grid xs={12} md={6} item>
-                  <Typography variant="subtitle1" style={{color: "#0C2C4C", marginBottom: "8px", fontWeight: "bold"}}>
+                  <Typography variant="subtitle1"  className={classes.inputTitle}>
                     Conteúdo
                   </Typography>
                   <TextField
@@ -298,7 +320,7 @@ const CampaignsConfig = () => {
                     value={variable.value}
                     name="value"
                     onChange={handleOnChangeVariable}
-                    style={{backgroundColor: "rgb(217, 217, 217)", width: "80%"}}
+                    className={classes.inputField}
                   />
                 </Grid>
                 <Grid xs={12} className={classes.textRight} item>
@@ -340,6 +362,7 @@ const CampaignsConfig = () => {
                                 setSelectedKey(v.key);
                                 setConfirmationOpen(true);
                               }}
+                              style={{color: '#D3343E'}}
                             >
                               <DeleteOutlineIcon />
                             </IconButton>
