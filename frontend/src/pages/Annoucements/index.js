@@ -82,19 +82,10 @@ const reducer = (state, action) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  mainPaper: {
-    flex: 1,
-    // padding: theme.spacing(1),
-    padding: theme.padding,
-    overflowY: "scroll",
-    ...theme.scrollbarStyles,
-    marginLeft:'0',
-    fullWidth:'1600px'
-  },
 
   traco: {
     height: '2px',
-    width: '1175px',
+    width: '100%',
     backgroundColor: '#0C2454',
     marginLeft: '0px',
   },
@@ -103,10 +94,12 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '10px'
   },
   mainconteiner2: {
-    flex: 1,
-		padding: theme.spacing(2),
-		height: `calc(100% - 48px)`,
-		paddingTop: '80px',
+    marginTop:'80px',
+    backgroundColor:'white',
+    width:'100%',
+    height:'100%',
+    borderRadius:'18px',
+    ...theme.scrollbarStyles,
   }
 }));
 

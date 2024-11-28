@@ -8,8 +8,30 @@ import api from '../../services/api';
 import { format } from 'date-fns';
 import { toast } from 'react-toastify';
 import './button.css';
-
+import { makeStyles } from "@material-ui/core/styles"
+const useStyles = makeStyles((theme) => ({
+    areaGraficos:{
+        [theme.breakpoints.down("sm")]:{
+            display:'flex',
+            flexDirection:'column'
+          }
+        
+    },
+    legenda:{
+        border:"1px solid #ddd", 
+        borderRadius:"8px", 
+        backgroundColor:'#F7F9FB', 
+        width:'300px', 
+        height:'150px',
+        marginLeft:'20px',
+        padding:'10px',
+        [theme.breakpoints.down("sm")]:{
+            margin:'10px'
+          }
+    },
+}))
 export const ChatsUser = () => {
+    const classes = useStyles();
     const [initialDate, setInitialDate] = useState(new Date());
     const [finalDate, setFinalDate] = useState(new Date());
     const [ticketsData, setTicketsData] = useState([]);
@@ -64,12 +86,12 @@ export const ChatsUser = () => {
                     />
                 </LocalizationProvider>
 
-                <Button className="buttonHover" onClick={handleGetTicketsInformation} variant='contained'>Filtrar</Button>
+                <Button className="buttonHover" onClick={handleGetTicketsInformation} variant='contained' style={{backgroundColor:'#0C294F'}}>Filtrar</Button>
             </Stack>
 
-            <Box display="flex" alignItems="center" borderRadius={12}>
-            <ResponsiveContainer width="60%" height={300}>
-                <AreaChart data={data}>
+            <Box display="flex" alignItems="center" borderRadius={12} className={classes.areaGraficos}>
+            <ResponsiveContainer width="80%" height={300} >
+                <AreaChart data={data} className={classes.grafico}>
                     <defs>
                         <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="5%" stopColor="#f6f7f8" stopOpacity={1} />
@@ -92,8 +114,8 @@ export const ChatsUser = () => {
             </ResponsiveContainer>
 
 
-                <Box ml={8} mb={17} p={2} border="1px solid #ddd" borderRadius="8px" boxShadow={1} bgcolor={'#F7F9FB'} width={300} height={150}>
-                    <Typography variant="subtitle1" gutterBottom>Tópicos</Typography>
+                <div ml={8} mb={17} p={2} className={classes.legenda}>
+                    <Typography variant="subtitle1" gutterBottom style={{fontWeight:'bold', color:'#0C2454'}}>Tópicos</Typography>
                     <Box display="flex" alignItems="center" mb={1}>
                         <Box width={16} height={16} borderRadius="50%" bgcolor="grey.500" mr={1} />
                         <Typography variant="body2">Finalizados</Typography>
@@ -106,7 +128,7 @@ export const ChatsUser = () => {
                         <Box width={16} height={16} borderRadius="50%" bgcolor="#5bd8b3" mr={1} />
                         <Typography variant="body2">Não Finalizados</Typography>
                     </Box>
-                </Box>
+                </div>
             </Box>
         </>
     );

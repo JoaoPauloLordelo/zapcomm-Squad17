@@ -6,7 +6,7 @@ import React, {
   useContext,
 } from "react";
 import { toast } from "react-toastify";
-
+import {useMediaQuery} from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
@@ -107,6 +107,9 @@ const useStyles = makeStyles((theme) => ({
 		padding:'16px',
 		overflowY: "scroll",
 		...theme.scrollbarStyles,
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:'25px',
+    }
 	  },
 }));
 

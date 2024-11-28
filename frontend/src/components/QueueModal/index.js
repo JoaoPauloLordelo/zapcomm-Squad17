@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
+
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { toast } from "react-toastify";
@@ -14,7 +15,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+
 import { i18n } from "../../translate/i18n";
+
 
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
@@ -35,6 +38,7 @@ import { Colorize } from "@material-ui/icons";
 import { QueueOptions } from "../QueueOptions";
 import SchedulesForm from "../SchedulesForm";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -45,9 +49,11 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
 
+
   btnWrapper: {
     position: "relative",
   },
+
 
   buttonProgress: {
     color: green[500],
@@ -73,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const QueueSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, "Too Short!")
@@ -82,8 +89,10 @@ const QueueSchema = Yup.object().shape({
   greetingMessage: Yup.string(),
 });
 
+
 const QueueModal = ({ open, onClose, queueId }) => {
   const classes = useStyles();
+
 
   const initialState = {
     name: "",
@@ -95,12 +104,14 @@ const QueueModal = ({ open, onClose, queueId }) => {
     promptId: ""
   };
 
+
   const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
   const [queue, setQueue] = useState(initialState);
   const [tab, setTab] = useState(0);
   const [schedulesEnabled, setSchedulesEnabled] = useState(false);
   const greetingRef = useRef();
   const [integrations, setIntegrations] = useState([]);
+
 
   const [schedules, setSchedules] = useState([
     { weekday: "Segunda-feira", weekdayEn: "monday", startTime: "08:00", endTime: "18:00", },
@@ -114,6 +125,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
   const [selectedPrompt, setSelectedPrompt] = useState(null);
   const [prompts, setPrompts] = useState([]);
 
+
   useEffect(() => {
     (async () => {
       try {
@@ -124,6 +136,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
       }
     })();
   }, []);
+
 
   useEffect(() => {
     api.get(`/settings`).then(({ data }) => {
@@ -136,10 +149,12 @@ const QueueModal = ({ open, onClose, queueId }) => {
     });
   }, []);
 
+
   useEffect(() => {
     (async () => {
       try {
         const { data } = await api.get("/queueIntegration");
+
 
         setIntegrations(data.queueIntegrations);
       } catch (err) {
@@ -147,6 +162,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
       }
     })();
   }, []);
+
 
   useEffect(() => {
     (async () => {
@@ -158,11 +174,13 @@ const QueueModal = ({ open, onClose, queueId }) => {
         });
         data.promptId ? setSelectedPrompt(data.promptId) : setSelectedPrompt(null);
 
+
         setSchedules(data.schedules);
       } catch (err) {
         toastError(err);
       }
     })();
+
 
     return () => {
       setQueue({
@@ -176,11 +194,14 @@ const QueueModal = ({ open, onClose, queueId }) => {
     };
   }, [queueId, open]);
 
+
   const handleClose = () => {
     onClose();
     setQueue(initialState);
 
+
   };
+
 
   const handleSaveQueue = async (values) => {
     try {
@@ -200,15 +221,18 @@ const QueueModal = ({ open, onClose, queueId }) => {
     }
   };
 
+
   const handleSaveSchedules = async (values) => {
     toast.success("Clique em salvar para registar as alterações");
     setSchedules(values);
     setTab(0);
   };
 
+
   const handleChangePrompt = (e) => {
     setSelectedPrompt(e.target.value);
   };
+
 
   return (
     <div className={classes.root}>
@@ -237,7 +261,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
           onChange={(_, v) => setTab(v)}
           aria-label="disabled tabs example"
         >
-          <Tab label="Dados da Fila" style={{ marginLeft: '252px' }} /> {/* Adicione margem esquerda aqui */}
+          <Tab label="Dados da Fila" style={{ marginLeft: '25%' }} /> {/* Adicione margem esquerda aqui */}
           {schedulesEnabled && <Tab label="Horários de Atendimento" style={{ marginLeft: '50px' }} />} {/* Adicione margem esquerda aqui */}
         </Tabs>
         {tab === 0 && (
@@ -348,6 +372,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
                             </MenuItem>
                           ))}
                         </Field>
+
 
                       </FormControl>
                       <FormControl
@@ -480,4 +505,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
   );
 };
 
+
 export default QueueModal;
+
+

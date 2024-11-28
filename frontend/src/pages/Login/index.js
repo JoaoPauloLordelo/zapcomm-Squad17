@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
-
+import {useMediaQuery} from "@material-ui/core"
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -105,8 +105,7 @@ const useStyles = makeStyles(theme => ({
 		borderRadius: '50%',
 	},
 	efeito1: {
-		width: '555px',
-		height: '435px',
+		width: '1px',
 		opacity: '1',
 		position: 'absolute',
 		top: '0px',

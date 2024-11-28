@@ -134,6 +134,10 @@ const useStyles = makeStyles((theme) => ({
   },
   fullWidth: {
     width: "100%",
+    marginLeft:'320px',
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:'80px',
+    }
   },
   selectContainer: {
     width: "100%",
@@ -179,6 +183,9 @@ const useStyles = makeStyles((theme) => ({
     //backgroundColor: theme.palette.primary.main,
     backgroundColor: theme.palette.type === 'dark' ? theme.palette.boxticket.main : theme.palette.primary.main,
     color: "#eee",
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:'75px',
+    }
   },
   card2: {
     padding: theme.spacing(2),
@@ -190,6 +197,9 @@ const useStyles = makeStyles((theme) => ({
     //backgroundColor: theme.palette.primary.main,
     backgroundColor: theme.palette.type === 'dark' ? theme.palette.boxticket.main : theme.palette.primary.main,
     color: "#eee",
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:'75px',
+    }
   },
   card3: {
     padding: theme.spacing(2),
@@ -200,6 +210,9 @@ const useStyles = makeStyles((theme) => ({
   //backgroundColor: theme.palette.primary.main,
     backgroundColor: theme.palette.type === 'dark' ? theme.palette.boxticket.main : theme.palette.primary.main,
     color: "#eee",
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:'75px',
+    }
   },
   card4: {
     padding: theme.spacing(2),
@@ -210,6 +223,9 @@ const useStyles = makeStyles((theme) => ({
     //backgroundColor: theme.palette.primary.main,
     backgroundColor: theme.palette.type === 'dark' ? theme.palette.boxticket.main : theme.palette.primary.main,
     color: "#eee",
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:'75px',
+    }
   },
   card5: {
     padding: theme.spacing(2),
@@ -297,9 +313,14 @@ const useStyles = makeStyles((theme) => ({
     width: 'fit-content', // Ou ajuste conforme o conteúdo
     height: 'fit-content', // Reduza o impacto de margens não centralizadas
     margin: 'auto', // Centraliza a `box` dentro do `Paper`
+    [theme.breakpoints.down("sm")]:{
+      flexDirection:'column',
+    }
   },
   container1: {
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
+    [theme.breakpoints.down("sm")]:{
+    }
   },
   fundo: {
     marginTop:'80px',
@@ -311,6 +332,9 @@ const useStyles = makeStyles((theme) => ({
     padding:'16px',
     overflowY:'scroll',
     ...theme.scrollbarStyles,
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:'25px',
+    }
   },
 }));
 
@@ -518,6 +542,7 @@ const Dashboard = () => {
   function renderFilters() {
     if (filterType === 1) {
       return (
+        
         <>
           <Grid item xs={12} sm={6} md={4}>
             <TextField
@@ -533,7 +558,7 @@ const Dashboard = () => {
               style={{ width: '50%' }} // Ajuste o tamanho aqui
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={4} style={{ marginLeft: '-90px' }}> {/* Ajuste a margem aqui */}
+          <Grid item xs={12} sm={6} md={4}> {/* Ajuste a margem aqui */}
             <TextField
               label="Data Final"
               type="date"
@@ -712,7 +737,7 @@ const Dashboard = () => {
                 borderRadius: '10px',
                 width: 225,
                 height: 100,
-                padding: '3px 10px'
+                padding: '3px 10px',
               }}
             >
               <Grid container spacing={1}>
@@ -862,9 +887,9 @@ const Dashboard = () => {
 
             {/* TOTAL DE ATENDIMENTOS */}
             <div class={classes.box}>
-                <Grid item xs={12} sm={8} md={6} class={classes.container1}>
+                <Grid  class={classes.container1}>
                   <Paper
-                      className={classes.card2}
+                     
                       elevation={0}
                       style={{
                           overflow: "hidden",
@@ -876,8 +901,8 @@ const Dashboard = () => {
                           padding: '3px 10px'
                   }}
                   >
-                    <Grid container spacing={1}>
-                        <Grid item xs={6} style={{ display: 'flex', alignItems: 'center' }}>
+                    <Grid >
+                        <Grid item style={{ display: 'flex', margin:0}}>
                         
                         
                         <Typography component="h3" variant="h6" style={{ color: "#0C2454", fontSize: 12, margin: 0 }}>

@@ -9,7 +9,6 @@ import useHelps from "../../hooks/useHelps";
 
 const useStyles = makeStyles(theme => ({
   mainPaperContainer: {
-    overflowY: 'auto',
     maxHeight: 'calc(100vh - 200px)', 
      padding:'16px'
   },
@@ -18,14 +17,11 @@ const useStyles = makeStyles(theme => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
     gap: theme.spacing(3),
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(3),
   
   },
   helpPaper: {
     position: 'relative',
     width: '100%',
-    minHeight: '340px',
     padding: theme.spacing(2),
     boxShadow: theme.shadows[3],
     borderRadius: theme.spacing(1),
@@ -88,6 +84,9 @@ const useStyles = makeStyles(theme => ({
 		padding:'16px',
 		overflowY: "scroll",
 		...theme.scrollbarStyles,
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:'25px',
+    }
 	  },
 }));
 
