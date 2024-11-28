@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -14,56 +13,50 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
-import MainContainer from '../../components/MainContainer';
+import Title from "../../components/Title";
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '4rem 2rem 2rem 2rem', // Increased top margin
-    height: '100%', // Adicione esta linha
-    overflow: 'hidden',
+  },
+  mainPaper: {
+    marginTop: '80px',
+    width: '90%',
+    maxWidth: '1500px',
+    height: '700px',
+    borderRadius: '16px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   titleContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    '@media (max-width: 600px)': {
+      flexDirection: 'column',
+      alignItems: 'stretch',
+    },
   },
   title: {
     marginTop: '20px',
     fontWeight: 'bold',
     color: '#0C2454',
   },
-  paper: {
-    width: '1190px',
-    flexGrow: 1, // Altere esta linha
-    borderRadius: '21px',
-    padding: '20px',
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    maxHeight: '80vh',
-    overflow: 'hidden',
-    overflowY: 'auto',
-  },
   searchField: {
-    backgroundColor: '#CCCCCC',
+    backgroundColor: '#D9D9D9',
     borderRadius: '4px',
     height: '40px',
-    width: '250px',
+    width: '100%',
+    maxWidth: '250px',
     border: '2px solid #A0A0A0',
-    marginTop: '15px',
-    marginLeft: '20px',
-    '& .MuiOutlinedInput-root': {
-      '& input': {
-        padding: '10px 14px',
-      },
-      '& fieldset': {
-        border: 'none',
-      },
-    },
-    '& .MuiInputAdornment-root': {
-      marginTop: '-5px',
+    marginLeft: 'auto',
+    '@media (max-width: 600px)': {
+      marginLeft: '0',
+      width: '100%',
+      alignSelf: 'flex-end',
     },
   },
   blueLine: {
@@ -75,16 +68,23 @@ const useStyles = makeStyles({
     display: 'flex',
     marginBottom: '1rem',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: '10px',
+    '@media (max-width: 600px)': {
+      flexDirection: 'column',
+      alignItems: 'stretch',
+    },
   },
   input: {
-    backgroundColor: '#CCCCCC',
-    borderRadius: '4px',
-    border: '2px solid #A0A0A0',
+    backgroundColor: '#D9D9D9',
+    borderRadius: '8px',
+    border: '0',
     flexGrow: 1,
     marginRight: '0.5rem',
     padding: '10px',
     height: '50px',
     fontSize: '16px',
+    minWidth: '200px',
   },
   buttonRed: {
     backgroundColor: '#f44336',
@@ -96,8 +96,13 @@ const useStyles = makeStyles({
     '&:hover': {
       backgroundColor: '#c62828',
     },
-    marginLeft: '1.8rem',
-    marginRight: '1.5rem',
+    marginLeft: '1rem',
+    marginRight: '1rem',
+    '@media (max-width: 600px)': {
+      width: '100%',
+      marginLeft: '0',
+      marginRight: '0',
+    },
   },
   button: {
     textTransform: 'none',
@@ -105,6 +110,9 @@ const useStyles = makeStyles({
     fontSize: '14px',
     width: '100px',
     height: '51px',
+    '@media (max-width: 600px)': {
+      width: '100%',
+    },
   },
   listContainer: {
     marginTop: '1rem',
@@ -116,61 +124,90 @@ const useStyles = makeStyles({
     backgroundColor: '#E0E0E0',
     borderRadius: '8px',
     marginBottom: '8px',
-    padding: '0 16px',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'center', // Centraliza checkbox e título verticalmente
+    padding: '10px',
+    '@media (max-width: 600px)': {
+      flexDirection: 'column', // Alinha os itens verticalmente apenas em telas pequenas
+      alignItems: 'stretch',
+      height: 'auto', // Ajusta a altura para acomodar todos os itens
+      padding: '16px', // Adiciona mais padding
+    },
   },
   infoContainer: {
     display: 'flex',
-    marginLeft: '1.5rem',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    justifyContent: 'space-between',
     width: '100%',
-    flexWrap: 'wrap',
+    '@media (max-width: 600px)': {
+      flexDirection: 'column', // Empilha os itens verticalmente em telas pequenas
+      alignItems: 'flex-start', // Alinha os itens à esquerda
+      gap: '8px', // Adiciona espaço entre os itens
+    },
   },
   taskText: {
-    flexGrow: 1,
     color: '#0C2454',
     fontWeight: 'bold',
-    wordBreak: 'break-word',
-    whiteSpace: 'normal',
-    overflowWrap: 'break-word',
-    display: 'inline-block',
+    marginLeft: '10px', // Espaço entre o checkbox e o título
+    whiteSpace: 'nowrap',
+    flex: '1 0 auto',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    '@media (max-width: 600px)': {
+      whiteSpace: 'normal', // Permite quebra de linha em telas pequenas
+      overflow: 'visible',
+      fontSize: '14px',
+      marginLeft: '0', // Remove a margem lateral
+    },
   },
   avatarContainer: {
+    marginRight: '20px',
     display: 'flex',
     alignItems: 'center',
-    width: '20%',
-    position: 'relative',
+    '@media (max-width: 600px)': {
+      justifyContent: 'flex-start',
+      gap: '10px', // Espaço entre avatar e texto
+    },
   },
   avatar: {
-    marginRight: '8px',
+    marginRight: '4px',
+    '@media (max-width: 600px)': {
+      width: '30px',
+      height: '30px', // Ajusta tamanho do avatar em telas pequenas
+    },
   },
   dateContainer: {
+    marginRight: '20px',
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    width: '20%',
+    justifyContent: 'flex-start',
+    '@media (max-width: 600px)': {
+      fontSize: '12px', // Ajusta fonte para telas pequenas
+    },
   },
   statusContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    width: '20%',
-  },
-  status: {
+    marginLeft: '20px',
+    fontWeight: 'bold',
     color: '#4CAF50',
+    '@media (max-width: 600px)': {
+      fontSize: '12px', // Ajusta fonte em telas pequenas
+    },
   },
-  date: {
-    color: '#757575',
-  }
-});
+  fundo: {
+    marginTop: '80px',
+    backgroundColor: 'white',
+    width: '90%',
+    height: 'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderRadius: '18px',
+    padding: '16px',
+    '@media (max-width: 600px)': {
+      padding: '10px', // Padding reduzido em telas pequenas
+    },
+  },
+}));
 
-
-
-
-
-
+export { useStyles };
 
 
 const ToDoList = () => {
@@ -182,12 +219,6 @@ const ToDoList = () => {
   const [checked, setChecked] = useState([]);
 
 
-
-
-
-
-
-
   useEffect(() => {
     const savedTasks = localStorage.getItem('tasks');
     if (savedTasks) {
@@ -196,21 +227,9 @@ const ToDoList = () => {
   }, []);
 
 
-
-
-
-
-
-
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
-
-
-
-
-
-
 
 
   const handleTaskChange = (event) => {
@@ -218,24 +237,10 @@ const ToDoList = () => {
   };
 
 
-
-
-
-
-
-
   const handleAddTask = () => {
     if (!task.trim()) {
       return;
     }
-
-
-
-
-
-
-
-
     const now = new Date();
     if (editIndex >= 0) {
       const newTasks = [...tasks];
@@ -255,34 +260,11 @@ const ToDoList = () => {
   };
 
 
-
-
-
-
-
-
   const handleDeleteTask = (index) => {
     const newTasks = [...tasks];
     newTasks.splice(index, 1);
     setTasks(newTasks);
   };
-
-
-
-
-
-
-
-
-  const handleSearch = (event) => {
-    setSearchParam(event.target.value);
-  };
-
-
-
-
-
-
 
 
   const handleToggle = (index) => {
@@ -302,217 +284,128 @@ const ToDoList = () => {
   };
 
 
-
-
-
-
-
-
-  const formatTaskText = (text) => {
-    if (text.length > 250) {
-      return `${text.slice(0, 250)}\n${text.slice(250)}`;
-    }
-    return text;
-  };
-
-
-
-
-
-
-
-
   return (
-    <MainContainer>
-
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
+    <div className={classes.fundo}>
+      <div className={classes.root}>
         <div className={classes.titleContainer}>
-          <Typography variant="h6" className={classes.title}>
-            Tarefas
-          </Typography>
+          <Title>Tarefas</Title>
           <TextField
             placeholder="Pesquisar..."
+            type="search"
             value={searchParam}
-            onChange={handleSearch}
-            variant="outlined"
-            className={classes.searchField}
+            onChange={(e) => setSearchParam(e.target.value)}
             InputProps={{
+              disableUnderline: true,
+              style: {
+                color: '#0C2454',
+                fontWeight: 'bold',
+                backgroundColor: '#D9D9D9',
+                borderRadius: '8px',
+                height: '36.5px',
+              },
               endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton>
-                    <SearchIcon style={{ color: "#0C2454" }} />
-                  </IconButton>
+                <InputAdornment position="start">
+                  <SearchIcon style={{ color: '#0C2454' }} />
                 </InputAdornment>
               ),
             }}
           />
         </div>
-
-
-
-
-
-
-
-
         <div className={classes.blueLine} />
-
-
-
-
-
-
-
-
-        <div className={classes.inputContainer}>
-          <input
-            placeholder="Nova tarefa"
-            className={classes.input}
-            value={task}
-            onChange={handleTaskChange}
-          />
-          <Button
-            onClick={handleDeleteTask}
-            className={classes.buttonRed}
-          >
-            <DeleteIcon style={{ marginRight: '5px', marginLeft: '5px' }} />
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleAddTask}
-            className={classes.button}
-          >
-            {editIndex >= 0 ? 'Salvar' : 'Adicionar'}
-          </Button>
-        </div>
-
-
-
-
-
-
-
-
-        <div className={classes.listContainer}>
-          <List>
-            {tasks.map((task, index) => (
-              <ListItem key={task.createdAt} className={classes.listItem}>
-                <Checkbox
-                  edge="start"
-                  checked={checked.indexOf(index) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                  onClick={() => handleToggle(index)}
-                  style={{
-                    color: "#0C2454",
-                    backgroundColor: "#FFFFFF",
-                    width: '20px',
-                    height: '20px',
-                    padding: '0px',
-                    borderRadius: '4px',
-                    marginLeft: '10px',
-                  }}
-                />
-                <div className={classes.infoContainer}>
-                  <Typography
-                    variant="body2"
-                    className={classes.taskText}
-                  >
-                    {formatTaskText(task.text)}
-                  </Typography>
-
-
-
-
-
-
-
-
-                  <div className={classes.avatarContainer}>
-                  <Typography
-                                  variant="body2"
-                                  style={{
-                                    fontWeight: 'bold',
-                                    color: '#0C2454',
-                                    marginRight: '8px',
-                                    marginLeft: '-200px',
-                                  }}
-                                >
-                                  Criado por:
-                                </Typography>
-                    <Avatar className={classes.avatar}>U</Avatar>
-                  </div>
-
-
-
-
-
-
-
-
-                  <div className={classes.dateContainer}>
-                    <Typography variant="body2" className={classes.date}>
-                    <span style={{
-                                    fontWeight: 'bold',
-                                    color: '#0C2454',
-                                    marginRight: '4px',
-                                    marginLeft: '-146px',
-                                  }}>
-                                    Criada em:
-                                  </span>
-                      <span style={{ color: '#0C2454' }}> {new Date(task.createdAt).toLocaleDateString()}</span>
+        <div className={classes.contentContainer}>
+          <div className={classes.inputContainer}>
+            <input
+              placeholder="Nova tarefa"
+              className={classes.input}
+              value={task}
+              onChange={handleTaskChange}
+            />
+            <Button className={classes.buttonRed}>
+              <DeleteIcon style={{ marginRight: '5px', marginLeft: '5px' }} />
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAddTask}
+              className={classes.button}
+            >
+              {editIndex >= 0 ? 'Salvar' : 'Adicionar'}
+            </Button>
+          </div>
+          <div className={classes.listContainer}>
+            <List>
+              {tasks.map((task, index) => (
+                <ListItem key={index} className={classes.listItem}>
+                  <Checkbox
+                    edge="start"
+                    checked={checked.indexOf(index) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                    onClick={() => handleToggle(index)}
+                    style={{
+                      color: "#0C2454",
+                      backgroundColor: "#FFFFFF",
+                      width: '20px',
+                      height: '20px',
+                      padding: '0px',
+                      borderRadius: '4px',
+                      marginLeft: '10px',
+                    }}
+                  />
+                  <Typography className={classes.taskText}>{task.text}</Typography>
+                  <div className={classes.infoContainer}>
+                    <div className={classes.avatarContainer}>
+                      <Typography
+                        variant="body2"
+                        style={{
+                          marginRight: '6px',
+                          fontWeight: 'bold',
+                          color: '#0C2454',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        Criado por:
+                      </Typography>
+                      <Avatar className={classes.avatar}>U</Avatar>
+                    </div>
+                    <Typography
+                      variant="body2"
+                      className={classes.dateContainer}
+                      style={{
+                        fontWeight: 'bold',
+                        color: '#0C2454',
+                      }}
+                    >
+                      Criada em: {new Date(task.createdAt).toLocaleDateString()}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      className={classes.statusContainer}
+                      style={{
+                        fontWeight: 'bold',
+                        color: '#0C2454',
+                      }}
+                    >
+                      Status: {task.status}
                     </Typography>
                   </div>
-
-
-
-
-
-
-
-
-                  <div className={classes.statusContainer}>
-                    <Typography variant="body2" className={classes.date}>
-                    <span style={{ fontWeight: 'bold', color: '#0C2454', marginLeft: '-60px' }}>Status:</span>
-                      <span style={{ color: '#0C2454' }}> {task.status}</span>
-                    </Typography>
-                  </div>
-                </div>
-
-
-
-
-
-
-
-
-                <ListItemSecondaryAction>
-                  <IconButton onClick={() => setEditIndex(index)}>
-                    <EditIcon style={{ color: "#0C2454" }} />
-                  </IconButton>
-                  <IconButton onClick={() => handleDeleteTask(index)}>
-                    <DeleteIcon style={{ color: "#0C2454" }} />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List>
+                  <ListItemSecondaryAction>
+                    <IconButton onClick={() => setEditIndex(index)}>
+                      <EditIcon style={{ color: "#0C2454" }} />
+                    </IconButton>
+                    <IconButton onClick={() => handleDeleteTask(index)}>
+                      <DeleteIcon style={{ color: "#0C2454" }} />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
+            </List>
+          </div>
         </div>
-      </Paper>
+      </div>
     </div>
-    </MainContainer>
-
   );
 };
 
 
-
-
-
-
-
-
 export default ToDoList;
-
