@@ -34,6 +34,7 @@ import toastError from "../../errors/toastError";
 import { SocketContext } from "../../context/Socket/SocketContext";
 
 const useStyles = makeStyles((theme) => ({
+
   mainPaper: {
     flex: 1,
     padding: theme.spacing(1),
@@ -41,12 +42,14 @@ const useStyles = makeStyles((theme) => ({
     ...theme.scrollbarStyles,
     backgroundColor: 'red',
   },
+
   blueLine: {
     border: 0,
     height: "2px",
     backgroundColor: theme.palette.primary.main,
     margin: theme.spacing(1, 0),
     marginTop: '5px'
+
   },
   searchField: {
     backgroundColor: '#DFDFDF',
@@ -138,6 +141,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "12px", // Reduz o tamanho da fonte
     },
   },
+
 
 }));
 
@@ -277,6 +281,7 @@ const Users = () => {
 
   return (
     <div style={{ height: '80%' }}>
+
       <ConfirmationModal
         title={
           deletingUser &&

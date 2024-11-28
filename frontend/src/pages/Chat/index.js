@@ -1,7 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { useParams, useHistory } from "react-router-dom";
+import { Typography } from "@material-ui/core";
 
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import {
   Button,
   Dialog,
@@ -27,6 +30,8 @@ import { AuthContext } from "../../context/Auth/AuthContext";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 
 const useStyles = makeStyles((theme) => ({
+  
+
   mainContainer: {
     display: "flex",
     flexDirection: "column",
@@ -36,14 +41,26 @@ const useStyles = makeStyles((theme) => ({
     height: `calc(100% - 48px)`,
     overflowY: "hidden",
     border: "1px solid rgba(0, 0, 0, 0.12)",
-    paddingTop: '70px'
+    paddingTop: '70px',
+
+    backgroundColor:'#34D3A3'
+
+
   },
+
+  // parte branca 
   gridContainer: {
     flex: 1,
-    height: "100%",
-    border: "1px solid rgba(0, 0, 0, 0.12)",
-    backgroundColor: theme.palette.dark,
+    minHeight: '100px', // Altura mínima para começar a crescer
+    maxHeight: '90vh', // Altura máxima com rolagem quando necessário
+    border: '1px solid rgba(0, 0, 0, 0.12)',
+    backgroundColor: '#FFFFFF',
+    overflowY: 'auto', // Permite scroll quando o conteúdo ultrapassa o maxHeight
+    boxSizing: 'border-box',
+    borderTopLeftRadius:"21px",
+    borderTopRightRadius:"21px",
   },
+
   gridItem: {
     height: "100%",
   },
@@ -54,7 +71,24 @@ const useStyles = makeStyles((theme) => ({
   btnContainer: {
     textAlign: "right",
     padding: 10,
+    color:"red",
+    position:"relative",
+    left:"275%",
+    top:"20px",
   },
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'80%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+	  },
+  
+  
 }));
 
 export function ChatModal({
@@ -114,35 +148,107 @@ export function ChatModal({
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-    >
-      <DialogTitle id="alert-dialog-title">Conversa</DialogTitle>
+      PaperProps={{
+          style: {
+            borderRadius:"16px",
+            width:"25%",
+            height:"50%",
+            overflownY:"hidden",
+          
+      },
+  }}
+
+>
+      <DialogTitle id="alert-dialog-title" style={{left:"50%",}}>
+      <Typography
+            variant="h6" // Altere o tamanho conforme necessário
+            style={{
+                color: "#0C2454", // Altere a cor conforme o design desejado
+                textAlign: "center", // Centraliza o texto
+                fontWeight: "bold", // Deixa o texto em negrito
+            }}
+        >Adicionar Chat
+        </Typography>
+        <div style={{
+          height:"2px",
+          width:"92.5%",
+          backgroundColor:"#0C2454",
+          marginTop:"8px",
+          marginLeft:"17.5px",
+        }}
+        ></div>
+        <div style={{marginLeft:"20px",
+          fontSize:"15px",
+          position:"relative",
+          bottom:"15px",
+          maxHeight:"50px",
+          color:"#0C2454",
+        }}>
+          <p style={{margin:"0",
+            position:"relative",
+            top:"12.5px",
+          }}>
+            Dados
+          </p>
+        </div>
+        </DialogTitle>
+        
+          <p style={{margin:"0",
+            position:"relative",
+            top:"0px",
+            color:"#0C2454",
+            position:"relative",
+            marginLeft:"0px",
+            bottom:"0px",
+            left:"40px",
+            maxWidth:"50%",
+            top:"10px",
+          
+          }}>Título</p>
+        
       <DialogContent>
         <Grid spacing={2} container>
           <Grid xs={12} style={{ padding: 18 }} item>
             <TextField
-              label="Título"
-              placeholder="Título"
+              placeholder="Insira um título"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               variant="outlined"
               size="small"
               fullWidth
+              style={{position:"relative",
+                bottom:"0px",
+                zIndex:"100",
+              }}
             />
           </Grid>
+          <div style={{position:"relative",
+            left:"20px",
+            top:"0px",
+            bottom:"5px",
+          }}>
+            <p style={{margin:"0",}}>
+              Participantes
+            </p>
+          </div>
           <Grid xs={12} item>
             <UsersFilter
               onFiltered={(users) => setUsers(users)}
               initialUsers={users}
             />
           </Grid>
+          <div style={{height:"2px",
+          width:"92.5%",
+          backgroundColor:"#0C2454",
+          marginLeft:"20px",}}></div>
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Fechar
+        <Button onClick={handleClose} color="primary" style={{backgroundColor:"#D3343E"}}>
+          <DeleteIcon style={{color:"white",}}></DeleteIcon>
         </Button>
         <Button onClick={handleSave} color="primary" variant="contained">
-          Salvar
+          Adicionar
         </Button>
       </DialogActions>
     </Dialog>
@@ -333,7 +439,7 @@ function Chat(props) {
 
   const renderGrid = () => {
     return (
-      <Grid className={classes.gridContainer} container>
+      <Grid>
         <Grid className={classes.gridItem} md={3} item>
           
             <div className={classes.btnContainer}>
@@ -434,6 +540,7 @@ function Chat(props) {
   return (
     <>
       <ChatModal
+        className={classes.chat}
         type={dialogType}
         open={showDialog}
         chat={currentChat}
@@ -446,9 +553,9 @@ function Chat(props) {
         }}
         handleClose={() => setShowDialog(false)}
       />
-      <Paper className={classes.mainContainer}>
+      <div className={classes.fundo}>
         {isWidthUp("md", props.width) ? renderGrid() : renderTab()}
-      </Paper>
+      </div>
     </>
   );
 }

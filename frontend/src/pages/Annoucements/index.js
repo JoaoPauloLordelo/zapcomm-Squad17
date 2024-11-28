@@ -82,22 +82,24 @@ const reducer = (state, action) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  mainPaper: {
-    flex: 1,
-    // padding: theme.spacing(1),
-    padding: theme.padding,
-    overflowY: "scroll",
-    ...theme.scrollbarStyles,
-  },
+
   traco: {
     height: '2px',
-    width: '1175px',
+    width: '100%',
     backgroundColor: '#0C2454',
     marginLeft: '0px',
   },
   icones: {
     paddingBottom: '3px',
     marginRight: '10px'
+  },
+  mainconteiner2: {
+    marginTop:'80px',
+    backgroundColor:'white',
+    width:'100%',
+    height:'100%',
+    borderRadius:'18px',
+    ...theme.scrollbarStyles,
   }
 }));
 
@@ -237,7 +239,7 @@ const Announcements = () => {
   };
 
   return (
-    <MainContainer>
+    <div className={classes.mainconteiner2}>
       <ConfirmationModal
         title={
           deletingAnnouncement &&
@@ -389,7 +391,7 @@ const Announcements = () => {
           </TableBody>
         </Table>
      
-    </MainContainer >
+    </div>
   )
 };
 

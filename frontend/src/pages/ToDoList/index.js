@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '16px',
     marginLeft: 'auto',
     marginRight: 'auto',
+
   },
   titleContainer: {
     display: 'flex',
@@ -57,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: '0',
       width: '100%',
       alignSelf: 'flex-end',
+
     },
   },
   blueLine: {
@@ -148,6 +150,7 @@ const useStyles = makeStyles((theme) => ({
   taskText: {
     color: '#0C2454',
     fontWeight: 'bold',
+
     marginLeft: '10px', // Espaço entre o checkbox e o título
     whiteSpace: 'nowrap',
     flex: '1 0 auto',
@@ -159,6 +162,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '14px',
       marginLeft: '0', // Remove a margem lateral
     },
+
   },
   avatarContainer: {
     marginRight: '20px',
@@ -206,6 +210,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 
 export { useStyles };
 
@@ -288,11 +293,14 @@ const ToDoList = () => {
     <div className={classes.fundo}>
       <div className={classes.root}>
         <div className={classes.titleContainer}>
+
           <Title>Tarefas</Title>
+
           <TextField
             placeholder="Pesquisar..."
             type="search"
             value={searchParam}
+
             onChange={(e) => setSearchParam(e.target.value)}
             InputProps={{
               disableUnderline: true,
@@ -302,16 +310,19 @@ const ToDoList = () => {
                 backgroundColor: '#D9D9D9',
                 borderRadius: '8px',
                 height: '36.5px',
+
               },
               endAdornment: (
                 <InputAdornment position="start">
                   <SearchIcon style={{ color: '#0C2454' }} />
                 </InputAdornment>
               ),
-            }}
-          />
+            }}
+        />
         </div>
+
         <div className={classes.blueLine} />
+
         <div className={classes.contentContainer}>
           <div className={classes.inputContainer}>
             <input
@@ -320,7 +331,9 @@ const ToDoList = () => {
               value={task}
               onChange={handleTaskChange}
             />
+
             <Button className={classes.buttonRed}>
+
               <DeleteIcon style={{ marginRight: '5px', marginLeft: '5px' }} />
             </Button>
             <Button
@@ -343,6 +356,7 @@ const ToDoList = () => {
                     disableRipple
                     onClick={() => handleToggle(index)}
                     style={{
+
                       color: "#0C2454",
                       backgroundColor: "#FFFFFF",
                       width: '20px',
@@ -388,6 +402,7 @@ const ToDoList = () => {
                     >
                       Status: {task.status}
                     </Typography>
+
                   </div>
                   <ListItemSecondaryAction>
                     <IconButton onClick={() => setEditIndex(index)}>
@@ -404,6 +419,7 @@ const ToDoList = () => {
         </div>
       </div>
     </div>
+
   );
 };
 

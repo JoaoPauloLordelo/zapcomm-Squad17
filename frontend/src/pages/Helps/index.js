@@ -9,21 +9,19 @@ import useHelps from "../../hooks/useHelps";
 
 const useStyles = makeStyles(theme => ({
   mainPaperContainer: {
-    overflowY: 'auto',
-    maxHeight: 'calc(100vh - 200px)',
+    maxHeight: 'calc(100vh - 200px)', 
+     padding:'16px'
   },
   mainPaper: {
     width: '100%',
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
     gap: theme.spacing(3),
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(3),
+  
   },
   helpPaper: {
     position: 'relative',
     width: '100%',
-    minHeight: '340px',
     padding: theme.spacing(2),
     boxShadow: theme.shadows[3],
     borderRadius: theme.spacing(1),
@@ -70,6 +68,26 @@ const useStyles = makeStyles(theme => ({
     borderRadius: theme.spacing(1),
     overflow: 'hidden',
   },
+  traco: {
+    height: '2px',
+    width: '100%',
+    backgroundColor: '#0C2454',
+    marginLeft: '0px',
+  },
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'80%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:'25px',
+    }
+	  },
 }));
 
 const Helps = () => {
@@ -156,16 +174,18 @@ const Helps = () => {
   };
 
   return (
-    <MainContainer>
+
+    <div className={classes.fundo}>
       <MainHeader>
         <Title>{i18n.t("helps.title")} ({records.length})</Title>
         <MainHeaderButtonsWrapper></MainHeaderButtonsWrapper>
       </MainHeader>
+      <div className={classes.traco}></div>
       <div className={classes.mainPaper}>
         {renderHelps()}
       </div>
       {renderVideoModal()}
-    </MainContainer>
+    </div>
   );
 };
 

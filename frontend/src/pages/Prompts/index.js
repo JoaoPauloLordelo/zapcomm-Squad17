@@ -29,13 +29,50 @@ import usePlans from "../../hooks/usePlans";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { SocketContext } from "../../context/Socket/SocketContext";
 
+
 const useStyles = makeStyles((theme) => ({
   mainPaper: {
     flex: 1,
     padding: theme.spacing(1),
     overflowY: "scroll",
-    borderRadius: '16px',
     ...theme.scrollbarStyles,
+    backgroundColor: 'white',
+    borderRadius: '16px',
+    padding: '24px',
+    width: '90%',
+    height: '100%',
+    marginTop: '80px',
+    marginLeft: '5%',
+    overflowX: 'hidden',
+  },
+  logo: {
+    width: "130px",
+    marginRight: "100px",
+    [theme.breakpoints.down("sm")]: {
+      width: "100px",
+      marginRight: "50px",
+    },
+  },
+  addButton: {
+    marginRight: '61px',
+    width: '80%',
+    [theme.breakpoints.down("sm")]: {
+      width: '70%',
+      fontSize: '10px',
+      left: '5%',
+    },
+  },
+  customTableContainer: {
+    overflowX: "auto", // Habilita o scroll horizontal
+    maxWidth: "100%", // Garante que o container respeite o tamanho disponível
+    borderRadius: "8px",
+    padding: theme.spacing(1),
+  },
+  customTable: {
+    borderCollapse: "separate",
+    borderSpacing: "0 20px",
+    overflowY: "hidden",
+    overflowX: "auto",
   },
   customTableCell: {
     display: "flex",
@@ -50,19 +87,26 @@ const useStyles = makeStyles((theme) => ({
     border: 0,
     height: "2px",
     backgroundColor: theme.palette.primary.main,
-    margin: theme.spacing(2, 0),
+    margin: theme.spacing(1, 0),
+    marginTop: '5px',
+    width: '100%',
   },
   redBox: {
     backgroundColor: "#ffcccc",
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  openai2: {
+    padding:'16px'
+  }
 }));
+
 
 const reducer = (state, action) => {
   if (action.type === "LOAD_PROMPTS") {
     const prompts = action.payload;
     const newPrompts = [];
+
 
     prompts.forEach((prompt) => {
       const promptIndex = state.findIndex((p) => p.id === prompt.id);
@@ -73,12 +117,15 @@ const reducer = (state, action) => {
       }
     });
 
+
     return [...state, ...newPrompts];
   }
+
 
   if (action.type === "UPDATE_PROMPTS") {
     const prompt = action.payload;
     const promptIndex = state.findIndex((p) => p.id === prompt.id);
+
 
     if (promptIndex !== -1) {
       state[promptIndex] = prompt;
@@ -88,15 +135,18 @@ const reducer = (state, action) => {
     }
   }
 
+
   if (action.type === "DELETE_PROMPT") {
     const promptId = action.payload;
     return state.filter((p) => p.id !== promptId); // Filtra a lista e retorna nova sem o prompt deletado
   }
 
+
   if (action.type === "RESET") {
     return [];
   }
 };
+
 
 const Prompts = () => {
   const classes = useStyles();
@@ -110,6 +160,7 @@ const Prompts = () => {
   const history = useHistory();
   const companyId = user.companyId;
   const socketManager = useContext(SocketContext);
+
 
   useEffect(() => {
     async function fetchData() {
@@ -125,6 +176,7 @@ const Prompts = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -139,46 +191,55 @@ const Prompts = () => {
     })();
   }, []);
 
+
   useEffect(() => {
     const socket = socketManager.getSocket(companyId);
+
 
     socket.on(`company-${companyId}-prompt`, (data) => {
       if (data.action === "update" || data.action === "create") {
         dispatch({ type: "UPDATE_PROMPTS", payload: data.prompt });
       }
 
+
       if (data.action === "delete") {
         dispatch({ type: "DELETE_PROMPT", payload: data.promptId });
       }
     });
+
 
     return () => {
       socket.disconnect();
     };
   }, [companyId, socketManager]);
 
+
   const handleOpenPromptModal = () => {
     setPromptModalOpen(true);
     setSelectedPrompt(null);
   };
+
 
   const handleClosePromptModal = () => {
     setPromptModalOpen(false);
     setSelectedPrompt(null);
   };
 
+
   const handleEditPrompt = (prompt) => {
     setSelectedPrompt(prompt);
     setPromptModalOpen(true);
   };
+
 
   const handleCloseConfirmationModal = () => {
     setConfirmModalOpen(false);
     setSelectedPrompt(null);
   };
 
+
   const handleDeletePrompt = async (promptId) => {
-    console.log("Iniciando exclusão de prompt:", promptId); 
+    console.log("Iniciando exclusão de prompt:", promptId);
     try {
       const { data } = await api.delete(`/prompt/${promptId}`);
       console.log("Resposta da API:", data); // Para verificar a resposta
@@ -190,6 +251,7 @@ const Prompts = () => {
     }
     setSelectedPrompt(null);
   };
+
 
   useEffect(() => {
     if (!confirmModalOpen) {
@@ -204,47 +266,51 @@ const Prompts = () => {
     }
   }, [confirmModalOpen]);
 
+
   return (
-    <MainContainer>
       <Paper className={classes.mainPaper} variant="outlined">
-        <ConfirmationModal
-          title={
-            selectedPrompt &&
-            `${i18n.t("prompts.confirmationModal.deleteTitle")} ${selectedPrompt.name}?`
-          }
-          open={confirmModalOpen}
-          onClose={handleCloseConfirmationModal}
-          onConfirm={() => handleDeletePrompt(selectedPrompt.id)}
-        >
-          {i18n.t("prompts.confirmationModal.deleteMessage")}
-        </ConfirmationModal>
-        <PromptModal
-          open={promptModalOpen}
-          onClose={handleClosePromptModal}
-          promptId={selectedPrompt?.id}
-        />
-        <MainHeader>
-          <Title>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <img
-                src={logoOpenAI}
-                alt="Logo OpenAI"
-                style={{ width: "130px", marginRight: "100px" }}
-              />
-            </div>
-          </Title>
-          <MainHeaderButtonsWrapper>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleOpenPromptModal}
-            >
-              {i18n.t("prompts.buttons.add")}
-            </Button>
-          </MainHeaderButtonsWrapper>
-        </MainHeader>
-        <hr className={classes.blueLine} />
-        <Table size="small">
+      <div classname={classes.openai2} style={{padding:'16px'}}>
+      <ConfirmationModal
+        title={
+          selectedPrompt &&
+          `${i18n.t("prompts.confirmationModal.deleteTitle")} ${selectedPrompt.name
+          }?`
+        }
+        open={confirmModalOpen}
+        onClose={handleCloseConfirmationModal}
+        onConfirm={() => handleDeletePrompt(selectedPrompt.id)}
+      >
+        {i18n.t("prompts.confirmationModal.deleteMessage")}
+      </ConfirmationModal>
+      <PromptModal
+        open={promptModalOpen}
+        onClose={handleClosePromptModal}
+        promptId={selectedPrompt?.id}
+      />
+      <MainHeader>
+        <Title>
+          <div style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={logoOpenAI}
+            alt="Logo OpenAI"
+            className={classes.logo}
+          />
+          </div>
+        </Title>
+        <MainHeaderButtonsWrapper>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpenPromptModal}
+            className={classes.addButton}
+          >
+            {i18n.t("prompts.buttons.add")}
+          </Button>
+        </MainHeaderButtonsWrapper>
+      </MainHeader>
+      <hr className={classes.blueLine} />
+      <div className={classes.customTableContainer}>
+        <Table size="small" className={classes.customTable}>
           <TableHead>
             <TableRow>
               <TableCell align="left" className={classes.tableHeaderCell}>
@@ -261,17 +327,20 @@ const Prompts = () => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody style={{backgroundColor: "#D9D9D9"}}>
+
+
             <>
               {prompts.map((prompt) => (
                 <TableRow key={prompt.id}>
-                  <TableCell align="left">{prompt.name}</TableCell>
-                  <TableCell align="left">{prompt.queue.name}</TableCell>
-                  <TableCell align="left">{prompt.maxTokens}</TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left" style={{ borderRadius: '8px 0 0 8px', overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>{prompt.name}</TableCell>
+                  <TableCell align="left" style={{ overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>{prompt.queue.name}</TableCell>
+                  <TableCell align="left" style={{ overflow: 'hidden',color:'#0C2454', fontWeight:"bold", paddingLeft: '7%' }}>{prompt.maxTokens}</TableCell>
+                  <TableCell align="center" style={{ borderRadius: '0 8px 8px 0',overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>
                     <IconButton
                       size="small"
                       onClick={() => handleEditPrompt(prompt)}
+                      style={{color:'#0C2454'}}
                     >
                       <Edit />
                     </IconButton>
@@ -281,6 +350,7 @@ const Prompts = () => {
                         setSelectedPrompt(prompt);
                         setConfirmModalOpen(true);
                       }}
+                      style={{color:'red'}}
                     >
                       <DeleteOutline />
                     </IconButton>
@@ -291,9 +361,14 @@ const Prompts = () => {
             </>
           </TableBody>
         </Table>
+        </div>
+        </div>
       </Paper>
-    </MainContainer>
+   
   );
 };
 
+
 export default Prompts;
+
+

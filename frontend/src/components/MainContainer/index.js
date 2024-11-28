@@ -9,6 +9,7 @@ const useStyles = makeStyles(theme => ({
 		padding: theme.spacing(2),
 		height: `calc(100% - 48px)`,
 		paddingTop: '80px',
+		marginLeft:'63px'
 	},
 
 	contentWrapper: {

@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     ...theme.scrollbarStyles,
     overflowY: "scroll",
     flex: 1,
+    borderRadius:'16px',
   },
   tab: {
     backgroundColor: theme.palette.options,
@@ -56,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     width: "100%",
+    borderRadius:'16px',
   },
   container: {
     width: "100%",
@@ -70,17 +72,28 @@ const useStyles = makeStyles((theme) => ({
   },
   traco: {
     height: '2px',
-    width: '100%',
+    width: '97%',
     backgroundColor: '#0C2454',
-    marginLeft: '10px',
     marginBottom: '20px',
+    marginLeft:'20px'
   },
   titulo:{
     fontSize:"25px",
     marginLeft:"20px",
-    marginTop:"15px",
+    marginTop:"20px",
     color:"#0c2c54",
-    fontWeight: "600"  }
+ },
+ fundo: {
+  marginTop:'80px',
+  backgroundColor:'white',
+  width:'90%',
+  height:'100%',
+  marginLeft:'67px',
+  borderRadius:'18px',
+  padding:'16px',
+  overflowY: "scroll",
+  ...theme.scrollbarStyles,
+  },
 }));
 
 const SettingsCustom = () => {
@@ -178,11 +191,11 @@ const SettingsCustom = () => {
   };
 
   return (
-    <MainContainer className={classes.root}>
+    <div style={{height:'80%'}}>
       <MainHeader>
         
       </MainHeader>
-      <Paper className={classes.mainPaper} elevation={1}>
+      <div className={classes.fundo}>
       <div className={classes.titulo}>Configurações</div>
       <div className={classes.traco}></div>
         <Tabs
@@ -193,7 +206,7 @@ const SettingsCustom = () => {
           variant="fullWidth"
           onChange={handleTabChange}
           classes={{ root: classes.root }}
-          style={{ display: 'flex', width: '100%' }} // Mantém o display flex
+          style={{ display: 'flex', width: '90%',marginLeft:'66px', marginBottom:'15px'}} // Mantém o display flex
         >
 
           <Tab label="Opções" value={"options"} classes={{ root: classes.tab }} />
@@ -260,8 +273,8 @@ const SettingsCustom = () => {
             />
           </TabPanel>
         </Paper>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 

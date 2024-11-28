@@ -6,7 +6,7 @@ import React, {
   useContext,
 } from "react";
 import { toast } from "react-toastify";
-
+import {useMediaQuery} from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
@@ -88,7 +88,29 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
+    borderRadius:'16px',
+    padding:'16px'
   },
+  traco: {
+    height: '2px',
+    width: '100%',
+    backgroundColor: '#0C2454',
+    marginLeft: '0px',
+  },
+  fundo: {
+		marginTop:'80px',
+		backgroundColor:'white',
+		width:'90%',
+		height:'100%',
+		marginLeft:'67px',
+		borderRadius:'18px',
+		padding:'16px',
+		overflowY: "scroll",
+		...theme.scrollbarStyles,
+    [theme.breakpoints.down("sm")]:{
+      marginLeft:'25px',
+    }
+	  },
 }));
 
 const Tags = () => {
@@ -200,7 +222,7 @@ const Tags = () => {
   };
 
 return (
-    <MainContainer>
+  <div style={{height:'80%'}}>
       <ConfirmationModal
         title={deletingTag && `${i18n.t("tags.confirmationModal.deleteTitle")}`}
         open={confirmModalOpen}
@@ -216,21 +238,43 @@ return (
         aria-labelledby="form-dialog-title"
         tagId={selectedTag && selectedTag.id}
       />
+     
+     <div className={classes.fundo}>
       <MainHeader>
         <Title>{i18n.t("tags.title")}</Title>
         <MainHeaderButtonsWrapper>
           <TextField
-            placeholder={i18n.t("contacts.searchPlaceholder")}
-            type="search"
-            value={searchParam}
-            onChange={handleSearch}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon style={{ color: "gray" }} />
-                </InputAdornment>
-              ),
-            }}
+             placeholder={i18n.t("contacts.searchPlaceholder")}
+             type="search"
+             value={searchParam}
+             onChange={handleSearch}
+             InputProps={{
+               disableUnderline: true, // remove a linha
+               style: {
+                 color: '#0C2454',// cor do texto normal
+                 fontWeight: 'bold', // texto em negrito
+                 backgroundColor: "#D9D9D9",
+                 borderRadius: '8px',
+                 height: "36.5px",
+               },
+               inputProps: {
+                 style: {
+                   paddingLeft: '8px',
+                   '&::placeholder': {
+                     color: '#0C2454',
+                     fontWeight: 'bold',
+                     Opacity: 1, // cor do placeholder
+                     paddingLeft: "10px"
+                   
+                   },
+                 },
+               },
+               endAdornment: (
+                 <InputAdornment position="start">
+                   <SearchIcon style={{ color: '#0C2454' }} />
+                 </InputAdornment>
+               ),
+             }}
           />
           <Button
             variant="contained"
@@ -241,28 +285,24 @@ return (
           </Button>		  
         </MainHeaderButtonsWrapper>
       </MainHeader>
-      <Paper
-        className={classes.mainPaper}
-        variant="outlined"
-        onScroll={handleScroll}
-      >
-        <Table size="small">
+      <div className={classes.traco}></div>
+        <Table size="small" style={{ borderCollapse: 'separate', borderSpacing: '0 20px' }}>
           <TableHead>
             <TableRow>
-              <TableCell align="center">{i18n.t("tags.table.name")}</TableCell>
-              <TableCell align="center">
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold"}}>{i18n.t("tags.table.name")}</TableCell>
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold"}}>
                 {i18n.t("tags.table.tickets")}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" style={{color:'#0C2454', fontWeight:"bold"}}>
                 {i18n.t("tags.table.actions")}
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody style={{backgroundColor: "#D9D9D9"}}>
             <>
               {tags.map((tag) => (
                 <TableRow key={tag.id}>
-                  <TableCell align="center">
+                  <TableCell align="center" style={{ borderRadius: '8px 0 0 8px', overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>
                     <Chip
                       variant="outlined"
                       style={{
@@ -274,10 +314,10 @@ return (
                       size="small"
                     />
                   </TableCell>
-                  <TableCell align="center">{tag.ticketsCount}</TableCell>
-                  <TableCell align="center">
+                  <TableCell align="center" style={{ overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>{tag.ticketsCount}</TableCell >
+                  <TableCell align="center" style={{ borderRadius: '0 8px 8px 0',overflow: 'hidden',color:'#0C2454', fontWeight:"bold" }}>
                     <IconButton size="small" onClick={() => handleEditTag(tag)}>
-                      <EditIcon />
+                      <EditIcon style={{color:"#0C2454"}} />
                     </IconButton>
 
                     <IconButton
@@ -287,7 +327,7 @@ return (
                         setDeletingTag(tag);
                       }}
                     >
-                      <DeleteOutlineIcon />
+                      <DeleteOutlineIcon style={{color:"red"}}/>
                     </IconButton>
                   </TableCell>
                 </TableRow>
@@ -296,8 +336,8 @@ return (
             </>
           </TableBody>
         </Table>
-      </Paper>
-    </MainContainer>
+      </div>
+    </div>
   );
 };
 

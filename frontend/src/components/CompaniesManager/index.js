@@ -380,7 +380,7 @@ export function CompanyForm(props) {
                       style: { color: '#FFFFFF' }, // Cor do label
                       fontWeight: 'bold', // Deixa a label em negrito
                       fontSize: '16px', // Aumenta o tamanho da fonte da label
-                      marginBottom: '5px',
+                      marginBottom: '10px',
                     }}
                     InputProps={{
                       style: {

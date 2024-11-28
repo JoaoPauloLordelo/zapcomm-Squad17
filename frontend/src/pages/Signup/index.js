@@ -356,7 +356,7 @@ const SignUp = () => {
 										}}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								{/*<Grid item xs={12}>
 									<InputLabel htmlFor="plan-selection" className={classes.ilname}>Plano</InputLabel>
 									<Field
 										as={Select}
@@ -375,7 +375,7 @@ const SignUp = () => {
 											</MenuItem>
 										))}
 									</Field>
-								</Grid>
+								</Grid>*/}
 							</Grid>
 							<Button
 								type="submit"
