@@ -40,6 +40,7 @@ const Copyright = () => {
 const useStyles = makeStyles(theme => ({
 	body: {
 		margin: '0',
+		overflow:'hidden'
 	},
 	root: {
 		width: "100vw",
@@ -52,6 +53,7 @@ const useStyles = makeStyles(theme => ({
 		//flexDirection: "column",
 		margin: '0',
 		backgroundSize: '50% 50%',
+		overflowX:'hidden'
 
 		
 
@@ -75,6 +77,9 @@ const useStyles = makeStyles(theme => ({
 		transform: 'translate(-50%, -50%)',
 		justifyContent: "center",
 		textAlign: "center",
+		[theme.breakpoints.down("sm")]:{
+			width: '470px',
+		  }
 	},
 	avatar: {
 		margin: theme.spacing(1),  
@@ -103,6 +108,7 @@ const useStyles = makeStyles(theme => ({
 		top: '540px',
 		left: '184px',
 		borderRadius: '50%',
+		overflow:'hidden'
 	},
 	efeito1: {
 		width: '1px',
@@ -110,6 +116,10 @@ const useStyles = makeStyles(theme => ({
 		position: 'absolute',
 		top: '0px',
 		left: '0px',
+		[theme.breakpoints.down("sm")]:{
+			top: '-200px',
+			left:'-220px'
+		  }
 	},
 	efeito3: {
 		width: '378px',
@@ -121,7 +131,12 @@ const useStyles = makeStyles(theme => ({
 		margin: '0',
 		display: 'flex',
 		justifyContent: 'end',
-		
+		overflow:'hidden',
+		[theme.breakpoints.down("sm")]:{
+			bottom: '-300px',
+			right: '0px',
+			overflow:'hidden'
+		  }
 		
 	},
 	inp1: {
@@ -130,8 +145,10 @@ const useStyles = makeStyles(theme => ({
 		border: '0',
 		borderRadius: '8px',
 		height: '45px',
-		marginTop: '0px'
-	
+		marginTop: '0px',
+		[theme.breakpoints.down("sm")]:{
+			width: '230px',
+		  },
 	},
 
 	inp2: {
@@ -140,7 +157,10 @@ const useStyles = makeStyles(theme => ({
 		border: '0',
 		borderRadius: '8px',
 		height: '45px',
-		marginTop: '0px'
+		marginTop: '0px',
+		[theme.breakpoints.down("sm")]:{
+			width: '230px',
+		  },
 	},
 
 	texto01: {
@@ -153,8 +173,13 @@ const useStyles = makeStyles(theme => ({
 		fontSize: '0px',
 	},
 	logozp: {
+		position:'static',
 		marginTop: '40px',
 		paddingLeft: '0',
+		[theme.breakpoints.down("sm")]:{
+			left: '0px',
+			overflowX:'hidden'
+		  },
 
 	},
 	ilname: {
@@ -162,8 +187,16 @@ const useStyles = makeStyles(theme => ({
 		fontWeight: '600',
 		width: '50px',
 		marginLeft: '170px', 
-		marginTop: '16px'
+		marginTop: '16px',
+		[theme.breakpoints.down("sm")]:{
+			marginLeft: '120px',
+		  },
 	},
+	registrese:{
+		[theme.breakpoints.down("sm")]:{
+			marginLeft: '-100px',
+		  },
+	}
 }));
 
 const Login = () => {
@@ -184,8 +217,8 @@ const Login = () => {
 
 	
 	return (
-		<div className={classes.root}>
-		<Container style={{padding:'0'}}component="main" maxWidth="xs">
+		<div className={classes.root} style={{overflowX:'hidden'}}>
+		<Container style={{padding:'0',overflowX:'hidden'}}component="main" maxWidth="xs">
 			<CssBaseline/>
 			<div className={classes.efeito1}>
 				<img src={efeito1} alt=""/>
@@ -195,7 +228,7 @@ const Login = () => {
 			</div>
 			<div className={classes.elipse}></div>
 			<div className={classes.logozpcm}>
-				<img className={classes.logozp} style={{marginLeft: '238px', left:'50%', transform:'translate(-50%)'}}src={logo} alt="Whats"/>
+				<img className={classes.logozp} style={{overflowX:'hidden'}}src={logo} alt="Whats"/>
 			</div>
 			<div className={classes.paper}>				
 				<div classname={classes.texto01}><p style={{color:'#0c2c54', margin: '0px', fontSize:'64px',}}>Entrar</p></div>
@@ -280,6 +313,7 @@ const Login = () => {
 								variant="body2"
 								component={RouterLink}
 								to="/signup"
+								className={classes.registrese}
 							>
 								{i18n.t("login.buttons.register")}
 							</Link>
